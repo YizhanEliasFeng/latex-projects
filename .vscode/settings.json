@@ -8,14 +8,6 @@
 
   "latex-workshop.latex.tools": [
     {
-      "name": "latexmk (xelatex, pdf to root)",
-      "command": "bash",
-      "args": [
-        "-lc",
-        "latexmk -xelatex -synctex=1 -interaction=nonstopmode -file-line-error -outdir=build \"%DOCFILE%\" && cp -f \"build/%DOC%.pdf\" \"%DOC%.pdf\""
-      ]
-    },
-    {
       "name": "latexmk (xelatex)",
       "command": "latexmk",
       "args": [
@@ -60,10 +52,6 @@
 
   "latex-workshop.latex.recipes": [
     {
-      "name": "latexmk (xelatex, pdf to root)",
-      "tools": ["latexmk (xelatex, pdf to root)"]
-    },
-    {
       "name": "latexmk (xelatex)",
       "tools": ["latexmk (xelatex)"]
     },
@@ -89,7 +77,7 @@
     }
   ],
 
-  "latex-workshop.latex.recipe.default": "latexmk (xelatex, pdf to root)",
+  "latex-workshop.latex.recipe.default": "latexmk (xelatex)",
 
   "latex-workshop.latex.clean.fileTypes": [
     "*.aux",
