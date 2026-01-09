@@ -31,7 +31,13 @@
 latexmk.out
 
 # common build dirs (anywhere)
-**/build/
+# Ignore everything in build...
+**/build/**
+
+# ...but keep build directories and PDFs trackable
+!**/build/
+!**/build/**/
+!**/build/**/*.pdf
 **/out/
 
 # editors / OS
