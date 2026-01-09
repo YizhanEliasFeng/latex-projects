@@ -5,20 +5,12 @@
 
 \input{\reporoot/shared/preamble-base.tex}
 \input{\reporoot/shared/macros.tex}
-
-\usepackage{etoolbox}
-\ifdefstring{\doclang}{zh}{
-  \input{\reporoot/shared/preamble-zh.tex}
-}{
-  \input{\reporoot/shared/preamble-en.tex}
-}
+\input{\reporoot/shared/preamble-zh.tex}
 
 \usepackage[
   backend=biber,
   style=authoryear,
-  sorting=nyt,
-  maxcitenames=2,
-  maxbibnames=99
+  sorting=nyt
 ]{biblatex}
 \addbibresource{bib/references.bib}
 
@@ -26,12 +18,15 @@
 
 \maketitle
 \tableofcontents
-\newpage
-
 \input{sections/00-abstract.tex}
+
 \input{sections/01-intro.tex}
-\input{sections/02-body.tex}
-\input{sections/99-appendix.tex}
+\input{sections/02-principles.tex}
+\input{sections/03-materials.tex}
+\input{sections/04-methods.tex}
+\input{sections/05-results.tex}
+\input{sections/06-discussion.tex}
+\input{sections/07-acknowledgment.tex}
 
 \printbibliography
 
