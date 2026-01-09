@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2025)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: apalike.bst
+Database file #1: ref.bib
+Warning--empty journal in liMitochondrialAldehydeDehydrogenase22006
+Warning--empty journal in xiaoMutationMitochondrialAldehyde1996
+You've used 11 entries,
+            1935 wiz_defined-function locations,
+            558 strings with 8040 characters,
+and the built_in function-call counts, 6416 in all, are:
+= -- 559
+> -- 502
+< -- 1
++ -- 192
+- -- 188
+* -- 666
+:= -- 1162
+add.period$ -- 31
+call.type$ -- 11
+change.case$ -- 149
+chr.to.int$ -- 11
+cite$ -- 13
+duplicate$ -- 152
+empty$ -- 312
+format.name$ -- 199
+if$ -- 1161
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 11
+newline$ -- 56
+num.names$ -- 33
+pop$ -- 134
+preamble$ -- 1
+purify$ -- 149
+quote$ -- 0
+skip$ -- 112
+stack$ -- 0
+substring$ -- 356
+swap$ -- 9
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 66
+warning$ -- 2
+while$ -- 38
+width$ -- 0
+write$ -- 139
+(There were 2 warnings)

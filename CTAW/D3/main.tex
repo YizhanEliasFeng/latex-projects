@@ -1,0 +1,141 @@
+% xelatex -> biber -> xelatex*2
+% chktex-file 1
+% chktex-file 12
+% chktex-file 18
+% chktex-file 36
+
+% 放图
+\documentclass[12pt,twoside]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+
+% single spaced, blank line between paragraphs
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+\setstretch{1}
+
+% ---- APA 7 references with biblatex ----
+\usepackage[
+  backend=biber,
+  style=apa,
+  sorting=nyt
+]{biblatex}
+\DeclareLanguageMapping{english}{english-apa}
+\addbibresource{references.bib}
+
+\defbibheading{normalrefs}[\bibname]{%
+  \setlength{\parskip}{0pt}% no extra blank line after heading
+  \textbf{#1}\par
+}
+
+\usepackage[draft]{changes} % use 'draft' instead of 'final' to see changes
+\definechangesauthor[name={YizhanFeng}, color=red]{G}
+\definechangesauthor[name={YizhanFeng}, color=purple]{W}
+\setauthormarkup{}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % clear all header/footer fields
+
+% Optional: no header rule line
+\renewcommand{\headrulewidth}{0pt}
+
+% Make sure header has enough height for two lines
+\setlength{\headheight}{26pt}
+
+% Odd-page header, top left, gray text
+\fancyhead[LO]{\small\textcolor{gray}{CTAW (Zhang)\\2025 Fall}}
+
+% Footers: [page number] | [Title]. Odd pages: bottom left; Even pages: bottom right
+\fancyfoot[LO]{\footnotesize\textcolor{gray}{\thepage\ \textbar\ “Us” vs “Them” in 1080p: Partisan Meme Wars During the 2024 U.S. Election}}
+\fancyfoot[RE]{\footnotesize\textcolor{gray}{\thepage\ \textbar\ “Us” vs “Them” in 1080p: Partisan Meme Wars During the 2024 U.S. Election}}
+
+
+\begin{document}
+
+{\fontsize{16}{35}\selectfont
+Critical Thinking \& Academic Writing\\
+Project paper\par
+}
+
+\vspace{-0.5\baselineskip}
+
+Class: C5 \\
+Name: Yizhan Feng \\
+Draft: D3 (2025.12.12) \\
+
+\vspace{-0.75\baselineskip}
+
+\begin{center}
+{\fontsize{14}{17}\selectfont
+``Us'' vs ``Them'' in 1080p: Partisan Meme Wars During the 2024 U.S. Election\par
+}
+\end{center}
+
+\vspace{-\baselineskip}
+
+% 1. Introduction
+
+For many young Americans, the 2024 U.S. presidential election was experienced less through televised debates or newspaper columns and more through short videos and images on TikTok and X. Surveys by the Pew Research Center show that by 2024, about one-third of adults aged 18 to 29 regularly got their news from TikTok, with significant shares also using X and Instagram for political information \parencite{shearer2024newsTikTokXFacebookInstagram}. Within these platforms, memes---humorous images, short videos, and text formats that are rapidly remixed and shared---became a central medium for expressing political views. Media outlets compiled lists of ``the memes that defined the 2024 election season'',\deleted[id=W]{ highlighting viral jokes about debate performances, aging candidates, migrant panics, and vice-presidential soundbites that turned into TikTok audio trends.}\added[id=W]{ underscoring how meme streams shaped many young voters’ sense of the campaign.}
+
+However, many of these memes were not neutral jokes; they were partisan weapons, crafted and spread by supporters of each camp to hype their own side and mock the other. How do partisan memes on \added[id=G]{the }Internet construct ``us'' and ``them'' in the 2024 U.S. election, and how is engagement with partisan meme warfare related to young users' sense of partisan identity and their willingness to\deleted[id=G]{ engage}\added[id=G]{ interact} with people from the opposing party? In light of these questions, this paper argues that partisan memes frame electoral politics as an antagonistic relationship between a virtuous, relatable ``us'' and a corrupt or ridiculous “them”. Among young users, heavy engagement with partisan meme content is associated with stronger partisan identity and lower openness to cross-party interaction, thereby contributing to affective polarization. \added{To ground these arguments, the following section will review key scholarship on memes, trace their role in recent U.S. elections, examine how they are weaponized and connect their circulation to broader patterns of affective polarization.}
+
+% 2. Literature Review
+
+Although Internet users have only widely encountered ``meme'' in recent decades, the term itself was conceived long before the digital era.\deleted[id=W]{ Derived from the Greek \textit{mimema}, the now famous term was first coined by \textcite{dawkins1976selfishgene} in his book \citetitle{dawkins1976selfishgene}, referring to small cultural units of transmission that, in analogy to genes, pass from person to person through various means of imitation.}\added[id=W]{ The term \textit{meme}, coined by \textcite{dawkins1976selfishgene}, originally described small cultural units that spread by imitation.}\deleted[id=W]{ This definition was never static, however. The revival of meme in the Web 2.0 era further complicated it by attributing Internet memes two fundamental characteristics: creative production and intertextuality \parencite{shifman2013memesdigitalculture}. The former refers to the adaptation and transformation of a meme through imitation or parody, either by mimicry or remix \parencite{shifman2013memesdigitalculture}, while the latter emphasizes how memes blend different cultural references or contexts.}\added[id=W]{ In the Web 2.0 era, \textcite{shifman2013memesdigitalculture} redefined internet memes as characterized by creative production and intertextuality: users constantly adapt and remix templates while weaving together multiple cultural references and contexts.} \textcite{shifman2013memesdigitalworld} further explored a three-dimensional typological framework for memetic analysis that breaks memes down into ``content, form, and stance''. In partisan meme wars, the creative production and intertextuality of memes largely operate on the levels of content and form, while stance functions as the crucial ``switch'' that tells in-group audiences how to feel and where the line between ``us'' and ``them'' should be drawn.
+
+Compared with other online symbols such as straightforward text posts or static campaign logos, Internet memes are thus distinctive in how efficiently they carry stance. Their humor, remixability, and dense intertextuality make them attractive to platform algorithms that reward engagement, while their playful ambiguity offers plausible deniability (``it's just a joke'') even when they carry\deleted[id=G]{ strong}\added[id=G]{ strongly} biased messages \parencite{yoon2016notjustajoke}. Sharing a meme becomes a low-cost identity performance: by reposting a familiar template or clip, users publicly signal which side they belong to and which side they ridicule.
+ 
+% 3. Memetic Weaponization
+
+Against this backdrop, Internet memes have played an increasingly visible role in recent U.S. presidential elections.\deleted[id=W]{ Studies of the 2016 campaign show that supporters used image macros and other elements of remix culture}\added[id=W]{ Since 2016, supporters have used memes} on platforms such as Facebook and Reddit to circulate grassroots political messages, normalize pro-candidate narratives, and attack opponents through irony and ridicule \parencite{hunting2020popularmediamemes, moodyramirez2019facebookmemegroups}. \deleted{The alt-right appropriation of Pepe the Frog, for instance, turned a benign cartoon character into a coded symbol of a virtuous, transgressive in-group supposedly fighting corrupt liberal elites \parencite{glitsos2020pepememeDarwinianAbsurd}. }By\deleted{ 2020 and especially} 2024, meme logics were no longer confined to fringe communities: major campaigns actively leaned into viral formats, as the Biden-Harris team did when it embraced the ``Dark Brandon'' meme and laser-eyed images of the president across TikTok and X\deleted{ to signal}\added{, recasting him as an almost superheroic guardian of “our” side and signaling} ironic strength and insider humor to young supporters \parencite{robertson2024bidenmemelord,mielczarek2024darkbrandonenthymeme}. On the Republican side, Donald Trump's catchphrase ``fake news'' itself had been repeatedly used not only as a meme template but also as a form of ``weaponized iconoclastic multimodal propaganda'' \parencite{smith2019weaponizediconoclasm} to portray Trump himself as the only truthful voice and construct a moral divide between a betrayed ``people'' and a corrupt ``establishment'' \parencite{ross2018discursivedeflection,woodward2020fakenewsguide}. Rather than replacing traditional campaign communication, these partisan meme streams now run alongside official messaging, offering highly shareable visual narratives that help each side define its heroes, villains, and version of what is at stake in the election.
+
+However, these memes were not neutral artifacts that simply popped up from nowhere and went viral randomly. Rather, they were deliberately selected and circulated as ``discursive weapons'' to ``justify judgement, condemnation, and exclusion of others'' \parencite[495]{nissenbaum2017contestedculturalcapital}. \textcite{peters2021weaponizingmemes} proposed this concept of memetic weaponization as ``purposeful deployment of memetic imagery to disrupt, undermine, attack, resist, or reappropriate discursive positions about public affairs in and around the news''. By serving as ``identificatory markers of affiliation'', these memes successfully hijacked netizens' attention for political propaganda \parencite{olsen2018weaponizedmemes} and advanced a politics of othering, signaling who counts as in-group and who does not.
+Taken together, these examples show how, by the 2024 election, both parties had weaponized memes as low-cost, high-affect tools for drawing the line between a morally superior, relatable ``us'' and an incompetent or dangerous ``them''. 
+
+% 4. ``Coconut tree'' Case Analysis
+
+One emblematic dynamic in this memetic warfare is the ``coconut tree'' meme around Kamala Harris. The meme originated from a May 10, 2023 White House speech, where Harris quoted her mother: ``You think you just fell out of a coconut tree?\deleted[id=W]{ \dots You exist in the context of all in which you live and what came before you}''\deleted[id=W]{---using the anecdote to argue}\added[id=W]{, meaning} that young people are shaped by families, communities, and history rather than existing ``in a silo'' \parencite{harris2023swearinginremarks}. This memefied fragment of Harris's speech was initially circulated by conservative Republican-aligned accounts as\deleted[id=W]{ evidence of her supposed awkwardness and ``word salad'' communication style. Republicans deployed this meme as} a vehicle of mockery, presenting Harris as incoherent, incomprehensible and fundamentally incapable. This strategy was effective, as the dominant reading on X was that Harris was ``weird'' or ``blissfully insane'', with users pairing the audio with reaction images to ridicule her \parencite{carry2024coconuttreeguide}. However, as Biden's position weakened, young Democrats online rallied to Harris\deleted[id=W]{ as a possible replacement, and the meme flipped}\added[id=W]{ flipped the meme}:\deleted[id=W]{ \textit{The Week} described how c}\added[id=W]{ C}oconut and palm-tree emojis\added[id=W]{ in bios and display names} became a shorthand for backing Harris\deleted[id=W]{, especially on X bios and display names} \parencite{coleman2024coconutmeme}\deleted[id=W]{. S}\added[id=W]{ and s}upporters\deleted[id=W]{ of Harris even started calling}\added[id=W]{ jokingly called} themselves ``coconut-pilled'', adapting right-wing ``red-pilled'' language to signal that they had enthusiastically converted to Harris fandom \parencite{roberts2024coconuttreeorganic}.
+
+This example\deleted[id=G]{ is a robust validation}\added[id=G]{ offers a vivid illustration} of \textcite{shifman2013memesdigitalculture}'s memetic framework.  While the meme's content and form remained largely unchanged,
+a simple shift in stance---from ``she's cringe, unserious, not presidential'' to ``she's a little weird, but in a fun, relatable, mom-wisdom way—and she's \textit{our} candidate''---allowed the same coconut tree clip to perform radically different discursive functions. Republicans weaponized the meme as an out-group attack focused on mockery and delegitimization, labeling ``them'' (Harris and the Democrats) as\deleted[id=W]{ unserious,} bizarre and unfit. Democrats, on the other hand, embraced this hostile meme and reframed the quote as an empowering in-group hype, drawing a clear boundary between the playful, self-aware, community-rooted ``us'' and the unrelatable ``them'' who fail to understand the context. In this way, shifts in stance do not just change the surface meaning of a meme; they restructure the social relationships that the meme organizes, intensifying the ``us''/``them'' dynamic\deleted[id=G]{ among}\added[id=G]{ within} online\deleted[id=G]{ community}\added[id=G]{ communities}.
+
+% 5. Affective Polarization
+
+Taken together, these examples suggest that intensified partisan meme warfare is increasingly blurring the line between entertainment and political participation. While scholars have documented the positive effect of political memes in opening up new participatory gateways for political engagement from below \parencite{sreekumar2013onlinepoliticalmemes, ahmed2024breakingbarriersmemes, mushtaq2025betweenhumorharm}, others warn that such participatory gain\added[id=G]{s} come\deleted[id=G]{s} with important affective\deleted[id=G]{ side-effects}\added[id=G]{ costs}, namely affective polarization. Following \textcite{iyengar2012affectnotideology,iyengar2015fearloathing,iyengar2019originsaffectivepolarization}, affective polarization is defined as the growing tendency for partisans to evaluate their own side warmly while feeling dislike, distrust, and even disgust toward supporters of the opposing party. Rather than being driven purely by ideological distance, this form of polarization flows from social identity dynamics: seeing oneself as a loyal Democrat or Republican becomes a powerful basis for in-group favoritism and out-group animus.  
+
+The 2024 election meme wars are likely to intensify this tendency. Quantitative analyses of mainstream political memes across recent U.S. election cycles show that the most heavily shared memes are strongly partisan in both content and stance, portraying the out-party as stupid, hypocritical, or dangerous while casting the in-party as sensible and morally righteous \parencite{collier2024compositionmainstreammemes}. As \textcite{alafnan2025roleMemesPoliticalDiscourse} notes, political memes ``serve as instruments for reinforcing ideological divides''. Rather than showing political opponents as ordinary citizens with different priorities, memes most often depict them as laughable or threatening caricatures, making the “other side” feel less legitimate and less human. By providing short runtimes and small canvases that encourage binary moral narratives, meme formats cloak hostility in humor and bake ``us vs them'' logics into their very form, further reinforcing the echo chamber effect. \textcite{kim2023partisanmemes}'s network studies confirm that engaging with partisan memes tends to catalyze homophilous online networks, as users who like or share such memes increasingly interact with like-minded others and see less cross-cutting content, reinforcing an “us versus them” structure in their feeds. Experimental work suggests that exposure to out-group-targeting memes does not so much persuade people to change sides as it entrenches existing identities, increasing polarization especially among strong partisans \parencite{galipeau2023impactpoliticalmemes}. Combined with platform algorithms that reward emotionally intense, in-group-affirming content \parencite{ye2025auditingexposurebias}, these dynamics mean that the same meme practices which draw young voters into politics also socialize them into experiencing politics as a zero-sum struggle against a contemptible “them”---precisely the emotional pattern captured by the concept of affective polarization.
+
+% 6.Counterargument
+
+Still, it is important not to overstate the negative impact of partisan meme wars. Memes do not operate in a vacuum: they appear embedded in captions, comment sections, and recommendation feeds that shape how audiences interpret them. The same coconut tree clip, for instance, might be posted in an explicitly political thread with a caption attacking Harris, but it might also circulate in more casual ``cringe compilation'' or fan-edit contexts where the focus is on entertainment rather than electoral choice. Young users can encounter the same image macro as a serious political statement in one context and as a silly in-joke in another.
+
+Moreover, the young people most active in producing and sharing partisan memes may already be highly engaged and strongly identified with a party. For them, meme warfare probably does not flip their loyalties; instead, it solidifies pre-existing identities, giving them emotionally satisfying ways to celebrate ``us'' and condemn ``them'' \parencite{galipeau2023impactpoliticalmemes}. A teenager who occasionally encounters a Trump mug shot meme in a non-political group chat might chuckle and scroll on, while a committed partisan in a politicized TikTok bubble may interpret the same image as a rallying symbol or an unforgivable insult. From this perspective, partisan memes might function less as tools of mass persuasion and more as\deleted[id=G]{ maintenance} mechanisms for\added[id=G]{ maintaining} already polarized communities.\added{ They solidify pre-existing identities, rather than flipping loyalties.}\deleted{ They help loyal supporters feel seen and connected, but their ability to change minds or mobilize large numbers of previously disengaged young citizens is less clear. Paying attention to the contexts in which memes appear---their captions, comment threads, and the composition of the audiences that share them---thus helps to nuance claims about their impact. The negative effects that this paper has emphasized are most likely to be pronounced in dense, partisan online subcultures rather than evenly distributed across all young social media users.}
+
+% 7.Conclusion
+
+Overall, partisan meme wars are double-edged: they energize and mobilize young voters, provide an outlet for anxiety and creativity, and help people feel that they are part of something larger. At the same time, they flatten complex issues into jokes and enemies, rewarding those who shout the loudest and mock the hardest. For democratic discourse, this raises a difficult question: how can societies harness the participatory power of memes without letting politics devolve into endless digital trench warfare? Answering this question requires not only platform governance and campaign ethics but also everyday critical literacy. Recognizing memes as simultaneously invitations to belong and cues to distrust may encourage young citizens, when they scroll past yet another Trump mugshot meme or coconut-tree clip, to pause before liking and reposting it and to ask instead what kind of ``us'' and ``them'' the meme is inviting them to imagine.
+
+
+\vspace{-2\baselineskip}
+
+\begin{flushright}\textbf{(\textcolor{red}{1944} words)}\end{flushright}
+
+\vspace{-\baselineskip}
+
+\textbf{Declaration of generative AI and AI-assisted technologies in the writing process.}\\
+During the preparation of this work, I used ChatGPT in order to brainstorm topics, summarize literature and generate title and revision suggestions.
+After using this tool/service, I reviewed and edited the content as needed and take(s) full responsibility for the content of the submitted project paper.
+[Your reflection]
+
+\vspace{\baselineskip}
+
+\printbibliography[heading=normalrefs,title={References}]
+
+\end{document}

@@ -1,0 +1,12 @@
+\beamer@sectionintoc {1}{Literature Information}{2}{0}{1}
+\beamer@sectionintoc {2}{Research Background}{4}{0}{2}
+\beamer@sectionintoc {3}{Research Methods}{14}{0}{3}
+\beamer@sectionintoc {4}{Research Results}{28}{0}{4}
+\beamer@subsectionintoc {4}{1}{Part 1: Malignant ductal subpopulations and neural invasion}{29}{0}{4}
+\beamer@subsectionintoc {4}{2}{Part 2: Tumor microenvironment and neural invasion}{42}{0}{4}
+\beamer@subsectionintoc {4}{3}{Part 3: Juxta-neural microenvironment and nerve-resident cells}{51}{0}{4}
+\beamer@subsectionintoc {4}{4}{Part 4: Schwann cell heterogeneity and TGFBI$^{+}$ Schwann cells}{62}{0}{4}
+\beamer@sectionintoc {5}{Discussion, Evaluation \& Implication}{73}{0}{5}
+\beamer@subsectionintoc {5}{1}{Discussion}{74}{0}{5}
+\beamer@subsectionintoc {5}{2}{Evaluation}{77}{0}{5}
+\beamer@subsectionintoc {5}{3}{Implication}{81}{0}{5}

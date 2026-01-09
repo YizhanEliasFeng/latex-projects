@@ -1,0 +1,138 @@
+\documentclass[a4paper]{article}
+\usepackage{ctex}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{ulem}
+\usepackage{graphicx}
+\usepackage{siunitx}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\zihao{-4}
+
+\begin{document}
+
+\noindent\textbf{班级：24级整合科学班} \hspace{1cm} \textbf{学号：2400017802} \hspace{1cm} \textbf{姓名：冯翊展} \hspace{1cm} \textbf{评分：}\\
+\textbf{同组学生：无} \\
+\textbf{实验名称：测量手机镜头焦距}   \hfill \textbf{实验日期：2025年4月21日} 
+
+\hrule
+\vspace{3mm}
+
+\begin{enumerate}[label=\chinese*.,left=0pt]
+    \item 实验目的
+    \\
+    测量手机镜头的物理焦距长度。
+
+    \item 基本原理
+        \begin{enumerate}[label=\arabic*.,left=0pt]
+            \item 手机镜头的成像原理
+            \\
+            手机摄像头由凸透镜镜头与传感器两部分组成，拍摄时物体通过镜头在另一侧的传感器上成倒立实像，传感器将光学信号转化为电信号，最终形成数字图像。在凸透镜的成像过程时，物距 $s_o$、像距 $s_i$与焦距 $f$ 满足：
+            $$\frac{1}{s_o}+\frac{1}{s_i}= \frac{1}{f}.$$
+
+            \item 物距和相距的测量
+            \\
+            实际操作时时，我们无法直接测量像距，但可以通过物高 $H$ 和像高 $h$ 的比例关系间接求得：
+            $$\frac{s_i}{s_o} = \frac{h}{H}.$$
+            像高则可以通过传感器尺寸 $d$、照片的像素尺寸 $d'$ 与照片中的像高 $h'$ 计算得到：
+            $$\frac{d}{d'} = \frac{h}{h'}.$$
+            综合得到：
+            $$f = \frac{s_odh'}{dh'+d'H}$$
+
+            \item 等效焦距
+            \\
+            由于手机传感器尺寸较小，一般其对应镜头的焦距也较小，因此通常采用等效焦距，即使用全画幅相机拍摄同张照片所使用的焦距来作为描述手机镜头的参数。镜头的物理焦距与等效焦距可通过下式换算，其中全画幅相机的对角线尺寸 $d_\text{full-frame}=\qty{43.27}{\mm}$：
+            $$\frac{f_{\text{phys}}}{f_{\text{eq}}} = \frac{d_{\text{sensor}}}{d_{\text{full-frame}}}$$
+        \end{enumerate}
+    \item 仪器与试剂
+    \\
+    手机（iPhone 15 Pro Max），卷尺，直尺
+
+    \item 实验步骤
+    \begin{enumerate}[label=\arabic*.,left=0pt]
+        \item 固定手机使镜头平行于桌面，在镜头正下方放置一把直尺，测量物距，拍摄照片。
+        \item 改变物距，重复拍摄。
+        \item 改变拍摄模式，分别对主摄像头、广角摄像头、长焦摄像头进行测量。
+        \item 将所得图片导入ImageJ软件，测量物像在图片中的高度。
+        \item 计算像高、像距，得到镜头焦距，并与官方数据比较。
+    \end{enumerate}
+
+    \item 实验结果与分析
+    \begin{enumerate}[label=\arabic*.,left=0pt]
+        \item 基本信息
+        \\
+        三颗镜头的官方数据如下：
+        \begin{table}[H]
+            \caption{摄像头基本数据}
+            \label{tab:data}
+            \centering
+            \scalebox{1}{ 
+            \setlength{\tabcolsep}{3pt}
+            \renewcommand{\arraystretch}{1.2} 
+            \begin{tabular}{cccccc}
+            镜头     & 型号         & 传感器尺寸 $d$    & 等效焦距 $f_\text{eq}$ & 照片尺寸 $d'$     & 像素大小  \\ 
+            主镜头   & Sony IMX803 & \qty{12.22}{\mm} & \qty{24}{\mm} & \qty{7140}{px} & \qty{2.44}{\um} \\ 
+            广角镜头 & Sony IMX633 & \qty{7.060}{\mm} & \qty{13}{\mm} & \qty{5040}{px} & \qty{1.40}{\um} \\ 
+            长焦镜头 & Sony IMX913 & \qty{5.867}{\mm} & \qty{120}{\mm} & \qty{5040}{px} & \qty{1.12}\um{}  \\ 
+            \end{tabular}
+            }
+        \end{table}
+
+        \item 实验数据处理
+        \\
+        对于每个镜头，分别拍摄多种物距的照片，并选取照片中直尺最靠近中心的 \qty{1}{\cm} 和最完整的长度为物高。三个镜头的实验结果如下：
+        \begin{table}[H]
+            \caption{镜头测量数据与计算结果}
+            \label{tab:data-2}
+            \centering
+            \scalebox{1}{ 
+            \setlength{\tabcolsep}{6pt}
+            \renewcommand{\arraystretch}{1.2} 
+            \begin{tabular}{cccccc}
+            镜头 & $s_o/\qty{}{\mm}$ & $H/\qty{}{\mm}$ & $h'/\qty{}{px}$ & $f_\text{phys}/\qty{}{\mm}$ & $f_\text{eq}/\qty{}{\mm}$  \\ 
+            主镜头 & 165.0 & 10.00 & 250.0 & 6.770 & 23.97 \\
+            主镜头 & 165.0 & 150.0 & 3792  & 6.843 & 24.23 \\
+            主镜头 & 250.0 & 10.00 & 163.0 & 6.785 & 24.02 \\
+            主镜头 & 250.0 & 150.0 & 2472  & 6.858 & 24.28 \\
+            主镜头 & 335.0 & 10.00 & 120.8 & 6.786 & 24.03 \\
+            主镜头 & 335.0 & 150.0 & 1825  & 6.833 & 24.20 \\
+            广角镜头 & 80.00 & 10.00 & 191.3 & 2.088 & 12.80 \\
+            广角镜头 & 80.00 & 150.0 & 2859  & 2.080 & 12.75 \\
+            广角镜头 & 165.0 & 10.00 & 95.67 & 2.182 & 13.37 \\
+            广角镜头 & 165.0 & 150.0 & 1433  & 2.179 & 13.35 \\
+            广角镜头 & 250.0 & 10.00 & 62.44 & 2.168 & 13.29 \\
+            广角镜头 & 250.0 & 150.0 & 940.7 & 2.177 & 13.34 \\
+            广角镜头 & 335.0 & 10.00 & 46.83 & 2.183 & 13.38 \\
+            广角镜头 & 335.0 & 150.0 & 712.8 & 2.215 & 13.58 \\
+            长焦镜头 & 165.0 & 10.00 & 893.0 & 15.54 & 114.6 \\
+            长焦镜头 & 165.0 & 33.00 & 2960  & 15.60 & 115.0 \\
+            长焦镜头 & 250.0 & 10.00 & 577.0 & 15.74 & 116.0 \\
+            长焦镜头 & 250.0 & 51.00 & 2943  & 15.74 & 116.1 \\
+            长焦镜头 & 335.0 & 10.00 & 432.0 & 16.04 & 118.3 \\
+            长焦镜头 & 335.0 & 69.00 & 2985  & 16.06 & 118.5 \\
+            \end{tabular}
+            }
+        \end{table}
+
+        \item 误差与分析
+        \begin{enumerate}
+            \item 从表中可以看到，在同一物距下选取不同物高，测得的焦距有所不同。这是因为实际拍摄时不符合远心系统的假设，光线并非全部平行入射镜头，故照片存在畸变，且越远离照片中心，图像的畸变越明显。
+            \item 在同一物高下选取不同物距，测得的焦距也有所不同。这是因为手机镜头是多片复合镜头，具有自动调焦功能，当物距改变时，会调整焦距使成像清晰，使得测量的焦距变化。总体而言，主镜头的测量焦距较为符合官方数据，而广角镜头、长焦镜头误差较大，这是因为实验物距较为符合前者的拍摄距离，而与后两者的一般使用场景区别较大。
+            \item 本实验的主要误差来源是物距的测量。实际上手机镜头的光心并不与手机后盖平齐，这一段凸起的长度较难准确测量，导致物距大小有一定误差。
+        \end{enumerate}
+       
+    \end{enumerate}
+    
+
+
+
+\end{enumerate}
+\end{document}
