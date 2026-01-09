@@ -1,4 +1,4 @@
-# LaTeX build files
+# LaTeX build artifacts (anywhere)
 *.aux
 *.bbl
 *.bcf
@@ -17,11 +17,24 @@
 *.vrb
 *.xdv
 *.dvi
+*.idx
+*.ilg
+*.ind
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
 
-# editor / OS
-.vscode/
+# latexmk
+latexmk.out
+
+# common build dirs (anywhere)
+**/build/
+**/out/
+
+# editors / OS
+**/.vscode/
 .DS_Store
 Thumbs.db
-
-# optional: ignore PDFs (recommended)
-*.pdf
