@@ -35,6 +35,5 @@ latexmk.out
 **/out/
 
 # editors / OS
-**/.vscode/
 .DS_Store
 Thumbs.db
