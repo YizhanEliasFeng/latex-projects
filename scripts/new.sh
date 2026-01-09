@@ -10,7 +10,7 @@ if [ -z "$target" ]; then
   exit 1
 fi
 
-tmpl="templates/project-${kind}"
+tmpl="templates/${kind}"
 if [ ! -d "$tmpl" ]; then
   echo "Template not found: $tmpl"
   exit 1
