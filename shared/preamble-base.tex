@@ -9,6 +9,9 @@
 \usepackage{amsmath,amssymb}
 
 \usepackage{booktabs}
+\usepackage{float}
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
 
 \usepackage[unicode, hidelinks]{hyperref}
 \usepackage[all]{hypcap}
@@ -18,3 +21,5 @@
 \setlist[enumerate]{nosep}
 
 \usepackage{siunitx}
+\sisetup{detect-weight=true,detect-family=true}
+\sisetup{range-phrase = {\,--\,}}
