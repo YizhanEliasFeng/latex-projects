@@ -1,38 +1,225 @@
 \section{实验方法}
-
 \subsection{sgRNA 设计与病毒载体构建}
 \subsubsection{LentiV2-puro 载体限制性酶切反应}
 \begin{enumerate}
-    \item 在 \qty{0.2}{\micro\liter} 离心管中配制反应体系：
+    \item 在 \qty{0.2}{\ml} 离心管中配制反应体系：
     
     \begin{table}[H]
         \centering
-        \begin{tabular}{C{4cm} C{4cm}}
+        \begin{tabular}{C{5cm} C{5cm}}
             \toprule
             \textbf{试剂} & \textbf{体系} \\
             \midrule
-            LentiV2-puro        & \qty{5}{\micro\gram} \\
-            Bsmb1               & \qty{5}{\micro\liter} \\
-            CutSmart\textregistered\ buffer & \qty{5}{\micro\liter} \\
-            DTT                 & \qty{1}{\micro\liter} \\
-            ddH$_2$O            & X\,\si{\micro\liter} \\
+            LentiV2-puro                         & \qty{5}{\ug} \\
+            Bsmb1                                & \qty{2}{\ul} \\
+            10\(\times\) FastDigest Green Buffer & \qty{5}{\ul} \\
+            DTT                                  & \qty{1}{\ul} \\
+            ddH$_2$O                             & X\,\si{\ul} \\
             \midrule
-            \textbf{Total}      & \textbf{\qty{50}{\micro\liter}} \\
+            \textbf{Total}              & \textbf{\qty{50}{\ul}} \\
             \bottomrule
         \end{tabular}
     \end{table}
-    
+    实验过程中测得 LentiV2-puro 浓度为 \qty{1270.7}{\ng\per\ul}，共加入 \qty{3.93}{\ul}，相应加入 ddH$_2$O \qty{38.07}{\ul}。
     \item 混匀 PCR 管，然后短暂离心；将 PCR 管置于 \qty{37}{\celsius} 水浴或者金属浴中 \qty{4}{\hour}。
     \item 1\% 琼脂糖凝胶电泳鉴定。
 \end{enumerate}
 
-\subsubsection{DNA 凝胶电泳}
-
+\subsubsection{DNA 凝胶电泳与回收}
 \begin{enumerate}
     \item 取洁净有机玻璃制胶槽，水平放置并安装挡板，确保装置密封防止渗漏。将样品梳插入制胶槽相应卡槽中备用。
-    \item 称取 \qty{1.0}{\g} 琼脂糖粉末置于 \qty{250}{\ml} 锥形瓶中，加入 \qty{100}{\ml} 1\(\times\)TAE 电泳缓冲液，轻轻摇匀后使用微波炉或水浴加热至琼脂糖完全溶解，溶液应清澈透明无颗粒。待溶液不冒泡后加入 \qty{10}{\ul} GoldView 核酸染料。将溶解的琼脂糖溶液冷却至约 \qtyrange{60}{65}{\celsius}（手感温热但不烫手），沿玻璃棒缓缓倒入制胶槽，避免产生气泡。室温静置约 30 分钟使凝胶完全凝固，待凝固后小心拔出样品梳，可见清晰加样孔形成。
+    \item 称取 \qty{1.0}{\g} 琼脂糖粉末置于 \qty{250}{\ml} 锥形瓶中，加入 \qty{100}{\ml} 1\(\times\)TAE 电泳缓冲液，轻轻摇匀后使用微波炉或水浴加热至琼脂糖完全溶解，溶液应清澈透明无颗粒。待溶液不冒泡后加入 \qty{10}{\ul} GoldView 核酸染料。将溶解的琼脂糖溶液冷却至约 \qtyrange{60}{65}{\celsius}（手感温热但不烫手），沿玻璃棒缓缓倒入制胶槽，避免产生气泡。室温静置约 \qty{30}{\min} 使凝胶完全凝固，待凝固后小心拔出样品梳，可见清晰加样孔形成。
     \item 将凝固的凝胶连同制胶槽一并放入电泳槽中，加入 1\(\times\)TAE 电泳缓冲液至液面完全覆盖凝胶表面约 \qtyrange{1}{2}{\mm}。使用移液器将混合液缓慢加入加样孔中，注意勿刺破凝胶孔壁或溢出孔外。
-    \item 盖上电泳槽盖，正确连接电极。接通电源，设定恒定电压 \qty{180}{\V} 进行电泳。当溴酚蓝指示剂迁移至凝胶全长 2/3\,--\,3/4 处时停止电泳（约 20\,--\,30 分钟）。
+    \item 盖上电泳槽盖，正确连接电极。接通电源，设定恒定电压 \qty{180}{\V} 进行电泳。当溴酚蓝指示剂迁移至凝胶全长 2/3\,--\,3/4 处时停止电泳（约 \qtyrange{20}{30}{\min}）。
     \item 跑胶结束后关闭电源，取出凝胶，置于紫外凝胶成像仪或紫外透射仪中观察。在紫外光激发下，DNA 条带呈现明亮荧光，根据需要拍摄记录电泳结果。将目的片段小心切下，置于干净的 \qty{1.5}{\ml} EP 管中，进行凝胶回收。
+    \item 加入 1\,--\,3 倍体积 Buffer GDP。\qtyrange{50}{55}{\celsius} 水浴 \qtyrange{7}{10}{\min}，根据凝胶大小适当调整时间，确保凝胶块完全溶解。水浴期间颠倒混匀 2 次加速溶胶。
+    \item 短暂离心收集管壁上的液滴。将 FastPure DNA Mini Columns-G 吸附柱置于 Collection Tubes \qty{2}{\ml} 收集管中，把 \(\leq\) \qty{700}{\ul} 溶胶液转移至吸附柱中，\qty{13000}{\g} 离心 \qtyrange{30}{60}{\s}。若溶胶体积 > \qty{700}{\ul}，把吸附柱置回收集管中，剩余的溶胶液转移至吸附柱中，\qty{13000}{\g} 离心 \qtyrange{30}{60}{\s}。
+    \item 弃滤液，把吸附柱置于收集管中。加入 \qty{300}{\ul} Buffer GDP 至吸附柱中。静置 \qty{1}{\min}。\qty{13000}{\g} 离心 \qtyrange{30}{60}{\s}。
+    \item 弃滤液，把吸附柱置于收集管中。加入 \qty{700}{\ul} Buffer GW（已加入无水乙醇）至吸附柱中。\qty{13000}{\g} 离心 \qtyrange{30}{60}{\s}。
+    \item 重复步骤 9。
+    \item 弃滤液，把吸附柱置回收集管中。\qty{13000}{\g} 离心 \qty{2}{\min}。
+    \item 将吸附柱置于在 \qty{1.5}{\ml} 灭菌的离心管中，加入 \qtyrange{20} {30}{\ul} ddH\(_2\)O 至吸附柱中央，放置 \qty{2}{\min}。\qty{13000}{\g} 离心 \qty{1}{\min}。弃去吸附柱，测量 DNA 浓度后保存于 \qty{-20}{\celsius}。
 \end{enumerate}
 
+\subsubsection{sg RNA oligo 退火连接}
+\begin{enumerate}
+    \item 在 \qty{0.2}{\ml} 离心管中配制反应体系：
+    
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{C{5cm} C{5cm}}
+            \toprule
+            \textbf{试剂} & \textbf{体系} \\
+            \midrule
+            Oligo 1 (\qty{100}{\micro\M})        & \qty{1}{\ul} \\
+            Oligo 1 (\qty{100}{\micro\M})        & \qty{1}{\ul} \\
+            10\(\times\) T4 Ligation Buffer      & \qty{1}{\ul} \\
+            T4 PNK (NEB M0201S)                  & \qty{0.5}{\ul} \\
+            ddH$_2$O                             & \qty{6.5}{\ul}\\
+            \midrule
+            \textbf{Total}      & \textbf{\qty{10}{\ul}} \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item 混匀 PCR 管，然后短暂离心；将 PCR 管置于 PCR 仪中进行以下程序反应：\qty{37}{\celsius} \qty{30}{\min}，\qty{95}{\celsius} \qty{5}{\min}，随后以 \qty{5}{\celsius \per \min} 的速率降至 \qty{25}{\celsius}。
+\end{enumerate}
+
+\subsubsection{sgRNA 与载体连接转化}
+\begin{enumerate}
+    \item 将退火连接后的 sgRNA oligo 稀释用 ddH\(_2\)O 稀释 200 倍。
+    \item 在 \qty{0.2}{\ml} 离心管中配制反应体系：
+    
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{C{5cm} C{5cm}}
+            \toprule
+            \textbf{试剂} & \textbf{体系} \\
+            \midrule
+            纯化后的线性化载体                   & \qty{50}{\ng} \\
+            稀释后的 oligo                     & \qty{1}{\ul} \\
+            10\(\times\) T4 Ligation Buffer   & \qty{1}{\ul} \\
+            10\(\times\) T4 Ligase            & \qty{0.5}{\ul} \\
+            ddH$_2$O                          & \qty{6.5}{\ul}\\
+            \midrule
+            \textbf{Total}      & \textbf{\qty{10}{\ul}} \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    实验过程中测得线性化载体浓度为 \qty{53.5}{\ng \per \ul}，\(\mathrm{R}=1.78\)，共加入 \qty{1}{\ul}。
+
+    \item 室温放置 \qtyrange{10}{30}{\min} 后转入 Stbl3 感受态。从 \qty{-80}{\celsius} 超低温冰箱中取出感受态细胞，立即置于冰上融化约 \qty{10}{\min}。将 \qty{10}{\ul} 连接产物加入 \qtyrange{50}{100}{\ul} 感受态细胞，轻轻混匀。冰上静置 \qty{30}{\min}。
+    \item 热激。将离心管置于 \qty{42}{\celsius} 水浴中热激 \qty{90}{\s}（时间需准确），立即迅速放回冰上冷却 \qty{2}{\min}。
+    \item 复壮。向管中加入 \qty{900}{\ul} 预温的不含抗生素 LB 培养基。置于 \qty{37}{\celsius} 摇床（\qtyrange{180}{200}{\rpm}）振荡培养 \qty{1}{\hour}。
+    \item 涂板。取适量复苏菌液（\qty{100}{\uL}）均匀涂布于含相应抗生素的 LB 平板上，待液体吸收后倒置平板，\qty{37}{\celsius} 培养 \qtyrange{12}{16}{\hour}。
+    \item 次日观察平板上菌落生长情况，挑取单克隆，小量扩增后送测序鉴定阳性菌落。
+\end{enumerate}
+
+\subsection{质粒提取与病毒包装}
+\subsubsection{质粒提取}
+\begin{enumerate}
+    \item 取 \qtyrange{1}{5}{\ml} 大肠杆菌菌液，使用台式微量离心机，\qty{11000}{\g} 离心 \qty{30}{\s} 收集菌体。弃去上清，并尽量彻底去除残留液体。
+    \item 加入 \qty{250}{\ul} Buffer A1，通过涡旋振荡或反复吸打充分重悬菌体。确保在加入 Buffer A2 前无明显细胞团块残留。
+    \item 加入 \qty{250}{\ul} Buffer A2，轻柔颠倒混匀 \qtyrange{6}{8}{} 次。切勿涡旋或使用移液器吹打，以免基因组 DNA 发生剪切。
+    \item 加入 \qty{300}{\ul} Buffer A3，持续颠倒混匀直至蓝色完全消失并形成灰白色沉淀。切勿涡旋，防止基因组 DNA 断裂。
+    \item 室温下以最高转速离心 \qty{10}{\min}。若上清不澄清，可重复离心一次。
+    \item 将 NucleoSpin\textregistered\ Plasmid TG 纯化柱置于 \qty{2}{\ml} 收集管中，将步骤 5 中的上清小心移入纯化柱（避免吸到沉淀，否则可能导致洗脱液中内毒素含量升高）。
+    \item \qty{11000}{\g} 离心 \qty{1}{\min}，弃去流出液，将纯化柱重新放回收集管中。加入 \qty{700}{\ul} Buffer ERB，\qty{11000}{\g} 离心 \qty{1}{\min}，弃废液，纯化柱放回收集管。
+    \item 加入 \qty{650}{\ul} Buffer AQ，\qty{11000}{\g} 离心 \qty{1}{\min}，弃废液，将纯化柱重新放回空的收集管中。
+    \item 再次以 \qty{11000}{\g} 离心 \qty{1}{\min}，弃去收集管。
+    \item 将纯化柱置于一个新的 \qty{1.5}{\ml} 离心管中，加入 \qty{50}{\ul} Buffer AE，室温静置 \qty{1}{\min}，然后以 \qty{11000}{\g} 离心 \qty{1}{\min}，收集含有质粒 DNA 的洗脱液，测得浓度为 \qty{692.1}{\ng \per \ul}，\(\mathrm{R} = 1.86\)。
+\end{enumerate}
+
+\subsubsection{病毒包装}
+\begin{enumerate}
+    \item 提前一晚将 293T 细胞铺于 \qty{6}{\cm} 盘子中，待其密度达到 \qty{90}{\percent} 左右时进行转染。
+    \item 分别取 \qty{200}{\ul} 无血清 opti-MEM 到两个 \qty{1.5}{\ml} EP 管中。第一个管中加入 \qty{30}{\ul} PEI，混匀。第二个管中加入所有质粒，混匀。室温静置 \qty{5}{\min}。
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{C{5cm} C{5cm}}
+            \toprule
+            \textbf{试剂} & \textbf{体系} \\
+            \midrule
+            Opti-MEM        & \qty{200}{\ul} + \qty{200}{\ul} \\
+            目的质粒         & \qty{5}{\ug} \\
+            pMD2.G          & \qty{1.5}{\ug} \\
+            psPAXz          & \qty{3.5}{\ug} \\
+            PEI             & \qty{30}{\ul} \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \item 将``PEI opti-MEM''加入到``质粒 opti-MEM''中充分混匀，室温静置 \qty{30}{\min}。
+    \item 将混合后的体系均匀的滴加到细胞培养孔中，轻柔晃动板子，混匀；切勿用力过大、吹起细胞。
+    \item 放回 \qty{37}{\celsius} 培养箱培养。
+    \item 转染后 \qtyrange{18}{24}{\hour}，换入新鲜完全培养基。
+    \item 换液后 \qty{24}{\hour} 收取病毒。用 \qty{0.45}{\mm} 滤膜进行过滤，每 \qty{1}{\ml} 分装后，\qty{-80}{\celsius} 冻存。
+\end{enumerate}
+
+\subsection{细胞培养、病毒感染及流式细胞分选技术}
+\subsubsection{细胞传代培养与流式细胞染色}
+\begin{enumerate}
+    \item 细胞感染
+
+    提前 1 周用病毒感染 MC38 细胞。将 MC38 细胞提前铺在 \qty{6}{\cm} 板子中，待其贴壁后使用 \qty{1}{\ml} 病毒 + \qty{1}{\ml} 培养基 + polybrene 进行感染。感染 7 天后进行分选。
+
+    \item 细胞传代
+
+    病毒感染 \qty{48}{\hour} 后收取 sg\textit{Ctrl} 和 sg\textit{B2m} 的 MC38 细胞。
+    \begin{enumerate}[label=2.\arabic*, leftmargin=*]
+        \item 小心弃掉细胞上清。
+        \item 沿培养板侧壁加入 PBS 轻轻清洗细胞 2 次。
+        \item 沿侧壁加入 \qty{500}{\ul} 胰酶，室温静置 \qtyrange{2}{3}{\min}，期间轻拍培养板，待观察到细胞开始脱落时加入 \qty{2}{\ml} 完全培养基终止消化，将细胞轻轻吹下，收集到新的 \qty{15}{\ml} 离心管中，\qty{300}{\g} 离心 \qty{5}{\min}。
+        \item 离心后小心去除上清，细胞沉淀用于流式细胞染色。
+    \end{enumerate}
+
+    \item 流式细胞染色
+
+    按照 1:200 的比例，吸取 \qty{1}{\ul} APC-H2K\textsuperscript{b} 的抗体加入 \qty{200}{\ul} FACS 中，配置好染色抗体。使用配置好流式抗体重悬收集的细胞沉淀，充分重悬后，室温避光染色 \qty{15}{\min}。染色完毕后，向离心管中加入 10 倍体积 PBS 进行终止染色，然后 \qty{300}{\g} 离心 \qty{5}{\min}。再次加入 PBS 清洗细胞，彻底去除未结合的抗体后，使用 \qty{500}{\ul} PBS 重悬，将细胞过滤到流式管中，准备分选。染色期间准备好分选所用的收集管。
+\end{enumerate}
+
+\subsubsection{细胞分选}
+\begin{enumerate}
+    \item 仪器设置与校准
+    \begin{enumerate}[label=1.\arabic*, leftmargin=*]
+        \item 开启流式细胞分选仪，进行电压校准和液滴延迟确认。
+        \item 使用补偿微球或单染样本设置荧光补偿，消除光谱重叠。
+        \item 根据 FSC-A/SSC-A 设门排除碎片，FSC-H/FSC-A 排除粘连细胞，并设置荧光通道分选门（APC\(^-\) /FSC-A）。
+    \end{enumerate}
+
+    \item 分选设置
+
+    选择分选模式为 Purity 模式，设置收集装置为 \qty{1.5}{\ml} 离心管（预加 \qty{300}{\ul} 培养基）。上样并调整流速（通常 <\qty{13000}{\text{events}\per \s}）后启动分选，实时监测信号稳定性与分选效率。
+
+    \item 分选后验证
+
+    取 \qty{10}{\percent} 分选细胞重悬于流式缓冲液，上机检测分选纯度。使用台盼蓝染色检测细胞活力。分选纯度应 >\qty{95}{\percent}，细胞活率 >\qty{90}{\percent}。每完成一个样本需执行系统清洗，防止交叉污染。当天分选结束后，用 \qty{70}{\percent} 乙醇冲洗液路系统，执行关机程序。
+\end{enumerate}
+
+\subsubsection{细胞冻存}
+\begin{enumerate}
+    \item 冻存前一天更换新鲜培养基，确保细胞处于最佳状态。用胰酶消化细胞（时间根据细胞类型优化），中和后收集至离心管。\qty{300}{g} 离心 \qty{5}{\min}，弃上清，重悬细胞沉淀并计数。
+    \item 用冻存培养基重悬细胞，调整浓度至 \qtyrange{5e6}{1e7}{\text{cells}\per \ml}。分装至冻存管（每管 \qtyrange{1}{1.5}{\ml}），密封并清晰标记（细胞名称、代次、日期、操作者）。
+    \item 将冻存管放入冻存盒，直接转移至 \qty{-80}{\celsius} 冰箱过夜，如果是使用实验室配制的冻存液需要进行梯度降温。
+\end{enumerate}
+
+\subsection{基于体外共培养模型评估靶基因敲除对 T 细胞抗肿瘤活性的影响}
+\subsubsection{肿瘤细胞和 T 细胞共培养}
+\begin{enumerate}
+    \item 肿瘤细胞标记
+    
+    将 sg\textit{Ctrl} 和 sg\textit{B2m} 的肿瘤细胞消化并计数，分别记得 \qty{1.46e7}{\per\ml} 和 \qty{5.08e7}{\per\ml}。将 sg\textit{Ctrl} 肿瘤细胞重悬于 PBS中，加入 CTV 染料，\qty{37}{\celsius} 避光孵育 \qtyrange{10}{15}{\min}。加入 5 倍体积的完全培养基终止染色，离心洗涤 3 次，彻底去除未结合的染料。将 CTV 标记的 sg\textit{Ctrl} 细胞与未标记的 sg\textit{B2m} 细胞按预定比例（1:1）混合，调整细胞浓度备用。将混合后的肿瘤细胞接种于 12 孔板中（通常每孔 \qty{1e6}{} 个细胞），置 \qty{37}{\celsius} 培养箱中培养 \qtyrange{6}{10}{\hour} 使细胞贴壁。
+    
+    \item 抗原肽脉冲处理
+    
+    待细胞贴壁后，加入 OVA 肽（SIINFEKL），继续孵育 \qtyrange{2}{4}{\hour}。
+
+    \item T 细胞准备与共培养
+    
+    收集并计数激活后的 OT-1 T 细胞。吸去肿瘤细胞孔中的培养基，并用 PBS 清洗 2次，加入不同比例的 T 细胞（按 E:T 比率如 1:3, 1:6添加），每孔设置 3 个复孔，并设置仅肿瘤细胞对照孔（不加 T 细胞）。共培养 \qtyrange{24}{48}{\hour}。
+
+    \item 样本收集与检测
+
+    收集共培养后的细胞，用 PBS 洗涤 \qtyrange{1}{2}{} 次。采用流式细胞术分析 sg\textit{Ctrl} 与 sg\textit{B2m} 肿瘤细胞的比例变化。
+\end{enumerate}
+
+\subsubsection{流式细胞术检测 \textit{B2m} 的敲除}
+\begin{enumerate}
+    \item 细胞染色
+
+    收取培养好的细胞，sg\textit{Ctrl} 和 sg\textit{B2m} 各取 \qty{5e5}{} 进行染色。按照 1:200 的比例，吸取 \qty{1}{\ul} APC-H2K\textsuperscript{b} 的抗体加入 \qty{200}{\ul} FACS 中，配置好染色抗体。使用配置好流式抗体重悬收集的细胞沉淀，充分重悬后，室温避光染色 \qty{15}{\min}。染色完毕后，向离心管中加入 10 倍体积 PBS 进行终止染色，然后 \qty{300}{g} 离心 \qty{5}{\min}。再次加入 PBS 清洗细胞，彻底去除未结合的抗体后，使用 \qty{200}{\ul} DAPI 重悬，准备上机检测。
+    \item 流式细胞术（Cytoflex S）
+    \begin{enumerate}[label=2.\arabic*, leftmargin=*]
+        \item 开机前检查：检查鞘液桶，确认其内装有足量鞘液，检查废液桶，确认其为空状态。
+        \item 打开电源：打开位于仪器背面的主电源开关。
+        \item 启动软件与初始化：打开电脑，双击桌面上的 CytExpert 软件图标。在软件菜单中选择``细胞仪''\(\rightarrow\)``开机流程''，运行初始化程序。按照屏幕提示完成系统初始化。
+        \item 排除气泡：初始化完成后，在``细胞仪''菜单中选择``排气泡''程序，以排除流动室中可能存在的空气气泡，确保液流稳定。
+        \item 创建新实验：
+
+        在 CytExpert 软件中创建新实验，根据实验设计配置荧光通道和散射光参数。放置样本管，将过滤好的待测样本管轻柔涡旋混匀，放置于样本架上。在软件中点击``Acquire''按钮开始采集数据。初始时可使用低速（如 \qty{10}{\ul\per\min}）观察信号，稳定后可调整至中速（\qty{30}{\ul\per\min} ）或高速（\qty{60}{\ul\per\min}）以提高效率。实时观察散点图和数据点，根据需要调整电压或补偿设置。采集足够数量的细胞事件（通常每个样本建议采集 \qtyrange{10000}{100000}{} 个有效细胞事件，具体视实验目的而定）。
+        \item 保存数据，执行机器每日清洗步骤进行清洗并关机。
+        \item Flowjo 软件进行数据处理和分析。
+    \end{enumerate}
+\end{enumerate}
