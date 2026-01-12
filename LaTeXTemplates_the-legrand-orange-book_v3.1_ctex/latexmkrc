@@ -1,0 +1,7 @@
+$out_dir = 'build';
+$pdf_mode = 1;
+
+$pdflatex = 'xelatex -synctex=1 -interaction=nonstopmode -file-line-error %O %S';
+$bibtex   = 'biber %O %B';
+
+$clean_ext .= ' acn acr alg glg glo gls run.xml bcf';

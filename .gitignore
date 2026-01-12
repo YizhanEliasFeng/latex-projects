@@ -26,6 +26,7 @@
 *.glg
 *.glo
 *.gls
+*.ptc
 
 # latexmk
 latexmk.out
