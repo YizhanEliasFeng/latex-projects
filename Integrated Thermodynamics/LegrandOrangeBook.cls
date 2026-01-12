@@ -15,7 +15,7 @@
 %----------------------------------------------------------------------------------------
 
 \usepackage{graphicx} % Required for including pictures
-\graphicspath{{Images/}} % Specifies the directory where pictures are stored
+\graphicspath{{figures/}} % Specifies the directory where pictures are stored
 
 \usepackage{float} % Allows more precisely positioning floats e.g. \begin{figure}[H]
 
@@ -56,10 +56,20 @@
 % This class is expected to be compiled with XeLaTeX for proper Unicode + CJK support.
 \usepackage{fontspec}
 
+% Localization (Chinese)
 \usepackage[UTF8,scheme=plain]{ctex} % Minimal-intrusion Chinese support
 
+\renewcommand{\contentsname}{{目录}}
+\renewcommand{\listfigurename}{{插图目录}}
+\renewcommand{\listtablename}{{表格目录}}
+\renewcommand{\bibname}{{参考文献}}
+\renewcommand{\indexname}{{索引}}
+\renewcommand{\appendixname}{附录}
+\renewcommand{\appendixtocname}{附录}
+\renewcommand{\appendixpagename}{附录}
+
 %\usepackage{avant} % Use the Avantgarde font for headings
-% Latin fonts (modern, unified with math; portable in TeX Live/MiKTeX)
+% Latin fonts (modern, unified with math portable in TeX Live/MiKTeX)
 \setmainfont{TeX Gyre Termes}
 \setsansfont{TeX Gyre Adventor}
 \setmonofont{Courier New}
@@ -439,14 +449,35 @@
 	backend=biber, % Use the biber engine for compiling the bibliography
 	bibstyle=numeric, % Main bibliography style
 	citestyle=numeric, % In-text citation style
-	sorting=nyt, % Sort references in the bibliography by name, then year, then title
+	%sorting=nyt, % Sort references in the bibliography by name, then year, then title
+	sorting=none, % Sort references by citation order
 	sortcites=true, % If multiple citekeys are passed to a citation command, sort them in the citation
 	abbreviate=false, % Suppress abbreviations such as "Ed." for Editor
-	backref=true, % List the page where references were cited in the bibliography
+	% backref=true, % List the page where references were cited in the bibliography
 	defernumbers=true,
 ]{biblatex}
 
 \defbibheading{bibempty}{} % Suppress default bibliography headings
+
+%------------------------------------------------
+% Translator localisation (conditional on entry langid)
+% - If langid=chinese: print translator as "A、B译"
+% - Otherwise: keep the original style behaviour unchanged
+\letbibmacro{LOB:bytranslator+others:orig}{bytranslator+others}
+
+\renewbibmacro*{bytranslator+others}{%
+  \iffieldequalstr{langid}{chinese}
+    {\ifnameundef{translator}
+       {}
+       {\begingroup
+          % Local (grouped) delimiter override for name lists
+          \DeclareDelimFormat{multinamedelim}{、}
+          \DeclareDelimAlias{finalnamedelim}{multinamedelim}
+          \printnames{translator}\addspace 译%
+        \endgroup
+        \newunit}}%
+    {\usebibmacro{LOB:bytranslator+others:orig}}%
+}
 
 % %----------------------------------------------------------------------------------------
 % %	INDEX
@@ -546,7 +577,7 @@
 %	THEOREM STYLES
 %----------------------------------------------------------------------------------------
 
-\usepackage{amsmath, amsfonts, amssymb, amsthm} % For math equations, theorems, symbols, etc
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools, extarrows} % For math equations, theorems, symbols, etc
 
 
 
@@ -614,24 +645,33 @@
 
 % Orange theorem number and optional black title with padding above and below
 \theoremstyle{ocrenum}
-\newtheorem{proposition}{Proposition}[chapter] % Propositions, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+% \newtheorem{proposition}{Proposition}[chapter] % Propositions, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+\newtheorem{proposition}{命题}[chapter] % Propositions, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
 
 % Orange theorem number and optional black title with no padding above and below
 \theoremstyle{ocrenumbox}
-\newtheorem{theoremeT}{Theorem}[chapter] % Theorems, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
-\newtheorem{problem}{Problem}[chapter] % Problems, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
-\newtheorem{exerciseT}{Exercise}[chapter] % Exercises, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+% \newtheorem{theoremeT}{Theorem}[chapter] % Theorems, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+% \newtheorem{problem}{Problem}[chapter] % Problems, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+% \newtheorem{exerciseT}{Exercise}[chapter] % Exercises, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+\newtheorem{theoremeT}{定理}[chapter] % Theorems, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+\newtheorem{problem}{问题}[chapter] % Problems, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+\newtheorem{exerciseT}{练习}[chapter] % Exercises, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
 
 % Black theorem number and optional black title no padding above and below
 \theoremstyle{blacknumex}
-\newtheorem{exampleT}{Example}[chapter] % Examples, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
-\newtheorem{notation}{Notation}[chapter] % Notations, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
-\newtheorem{vocabulary}{Vocabulary}[chapter] % Vocabularies, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+% \newtheorem{exampleT}{Example}[chapter] % Examples, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+% \newtheorem{notation}{Notation}[chapter] % Notations, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+% \newtheorem{vocabulary}{Vocabulary}[chapter] % Vocabularies, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+\newtheorem{exampleT}{例}[chapter] % Examples, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+\newtheorem{notation}{记号}[chapter] % Notations, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+\newtheorem{vocabulary}{术语}[chapter] % Vocabularies, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
 
 % Black theorem number and optional black title with padding above and below
 \theoremstyle{blacknumbox}
-\newtheorem{definitionT}{Definition}[chapter] % Definitions, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
-\newtheorem{corollaryT}{Corollary}[chapter] % Corollaries, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+% \newtheorem{definitionT}{Definition}[chapter] % Definitions, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+% \newtheorem{corollaryT}{Corollary}[chapter] % Corollaries, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+\newtheorem{definitionT}{定义}[chapter] % Definitions, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
+\newtheorem{corollaryT}{推论}[chapter] % Corollaries, the first argument is the theorem name, the second the theorem title used before the number and the third optional argument is whether to number under chapters (e.g. 2.1) or sections (e.g. 2.1.1)
 
 %----------------------------------------------------------------------------------------
 %	COLORED THEOREM BOXES
@@ -683,7 +723,7 @@
 	linecolor=ocre, % Border color
 	linewidth=4pt, % Border width
 	innerleftmargin=5pt, % Inside left margin width
-	innerrightmargin=5pt, % Inside right margin width
+	innerrightmargin=0pt, % Inside right margin width
 	innertopmargin=0pt, % Inside top margin height
 	innerbottommargin=0pt, % Inside bottom margin height
 	leftmargin=0cm, % Outside left margin width
@@ -738,3 +778,6 @@
 %----------------------------------------------------------------------------------------
 
 \usepackage{tikz} % Required for drawing custom shapes and positioning elements absolutely on the page
+\usetikzlibrary{arrows.meta}
+
+\usepackage{pdfpages} % Insert external PDF pages

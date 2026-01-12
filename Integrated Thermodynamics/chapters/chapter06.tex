@@ -1,0 +1,407 @@
+\chapter{Boltzmann 统计}
+
+\section{Boltzmann 因子}
+在第2、3章中，我们处理的都是孤立系统，其中所有允许的态概率都相同，拥有这种简单概率分布的假想系统的集合称为\textbf{微正则系综}。现在我们考虑一个\textit{非孤立系统}，这个系统在某个温度 $T$ 下和热库处于热平衡，我们想求得系统处在某个特定微观态 $s$ 的概率。
+
+假设系统只有一个原子，微观态对应各个能级（含简并态）。如果原子是孤立的，则其能量固定，此时具有该能量的所有微观态等可能；但现在其与热库自由交换能量，故态的概率取决于能量。
+
+考虑两个态 $s_1,s_2$，能量分别为 $E(s_1),E(s_2)$，概率分别为 $\mathcal{P}(s_1),\mathcal{P}(s_2)$，对应热库的微观态重数（或熵）分别为 $\Omega_R(s_1),\Omega_R(s_2)$（或 $S_R(s_1),S_R(s_2)$），则:
+\begin{equation}
+    \frac{\mathcal{P}(s_1)}{\mathcal{P}(s_2)}
+    =\frac{\Omega_R(s_1)}{\Omega_R(s_2)}
+    =\frac{e^{S_R(s_1)/k}}{e^{S_R(s_2)/k}}
+    =\exp\!\left(\frac{S_R(s_1)-S_R(s_2)}{k}\right).
+\end{equation}
+
+原子相较于热库很小，故：
+\begin{equation}
+    S_R(s_2)-S_R(s_1)=\mathrm{d}S_R
+    =\frac{1}{T}\left(\mathrm{d}U_R+P\,\mathrm{d}V_R-\mu\,\mathrm{d}N_R\right).
+\end{equation}
+取 $\mathrm{d}N_R=0$ 且 $P\,\mathrm{d}V_R\ll \mathrm{d}U_R$，得：
+\begin{equation}
+    S_R(s_2)-S_R(s_1)
+    \approx \frac{1}{T}\,\mathrm{d}U_R
+    =\frac{1}{T}\bigl[U_R(s_2)-U_R(s_1)\bigr]
+    =\frac{-\bigl[E(s_2)-E(s_1)\bigr]}{T}.
+\end{equation}
+因此：
+\begin{equation}
+    \frac{\mathcal{P}(s_2)}{\mathcal{P}(s_1)}
+    =\exp\!\left(-\frac{E(s_2)-E(s_1)}{kT}\right)
+    =\frac{e^{-E(s_2)/kT}}{e^{-E(s_1)/kT}}
+    \implies \mathcal{P}(s)\propto e^{-E(s)/kT}.
+\end{equation}
+
+\begin{definition}[Boltzmann 因子]
+    \begin{equation}
+        \text{Boltzmann 因子} \equiv e^{-E(s)/kT} = e^{-E(s)\beta},\quad \text{其中} \beta = (kT)^{-1}.
+    \end{equation}
+\end{definition}
+
+进一步作归一化，得到配分函数：
+\begin{equation}
+    \mathcal{P}(s)=\frac{1}{Z}e^{-\beta E(s)} \implies Z=\sum_s e^{-\beta E(s)}. 
+\end{equation}
+
+\begin{definition}[配分函数]
+    \begin{equation}
+        Z \equiv \sum_s e^{-E(s)/kT}.
+    \end{equation}
+\end{definition}
+
+
+\section{平均值}
+我们现在知道了当系统与一个温度为 $T$ 的热库平衡时，对于任意的微观态 $s$，其概率由 \textbf{Boltzmann 分布} 给出：
+\begin{definition}[Boltzmann 分布]
+    \begin{equation}
+        \mathcal{P}(s) = \frac{1}{Z} e^{\beta E(s)}.
+    \end{equation}
+\end{definition}
+所有这种概率服从 Boltzmann 分布的假想系统的集合称为\textbf{正则系综}。
+
+如果我们不关心系统在每个微观态上的概率的取值，而是对系统某个性质的\textit{平均值}感兴趣，该如何计算？ 为此，设系统有 $N$ 个粒子，位于 $s$ 态具有 $N(s)$ 个，则：
+\begin{equation}
+    \overline E
+    =\frac{1}{N}\sum_s E(s)N(s)
+    =\sum_s E(s)\mathcal{P}(s)
+    =\frac{1}{Z}\sum_ E(s)e^{-\beta E(s)}.
+\end{equation}
+注意到：
+\begin{equation}
+    \frac{\partial Z}{\partial \beta}=-\sum_s E(s)e^{-\beta E(s)}
+    \implies \overline E=-\frac{1}{Z}\frac{\partial Z}{\partial \beta}
+    =-\frac{\partial}{\partial \beta}\ln Z.
+\end{equation}
+
+若系统有一系列相同粒子，则可以用 $U=N\overline E$ 代表系统平均能量。但系统的能量存在涨落，考虑标准差 $\sigma_E$：
+\begin{equation}
+    \overline{E^2}=\frac{1}{Z}\sum_s E(s)^2e^{-\beta E(s)}=\frac{1}{Z}\frac{\partial^2 Z}{\partial \beta^2},
+\end{equation}
+故：
+\begin{equation}  
+    \begin{split}
+        \sigma_E^2 &=\overline{E^2}-\overline E^2\\
+        &=\frac{1}{Z}\frac{\partial^2 Z}{\partial \beta^2}-\frac{1}{Z^2}\left(\frac{\partial Z}{\partial \beta}\right)^2\\
+        &=\frac{\partial}{\partial \beta}\left[\frac{1}{Z}\frac{\partial Z}{\partial \beta}\right]
+        =-\frac{\partial \overline E}{\partial \beta}
+        = -\frac{\partial \overline E}{\partial T}\frac{\partial T}{\partial \beta}\\
+        &= kT^2 C.        
+    \end{split}
+\end{equation}
+因此：
+\begin{corollary}[正则系综的能量涨落]
+    \begin{equation}
+        \sigma_E=kT\sqrt{C}.
+    \end{equation}
+\end{corollary}
+
+容易想象 $E\propto N,\ C\propto N$，于是
+\begin{equation}
+    \frac{\sigma_E}{\overline E}\propto \frac{1}{\sqrt{N}}
+    \implies
+    N\text{ 足够大时相对涨落}\to 0,
+\end{equation}
+所以对于宏观的热力学系统，能量涨落并不显著，平均能量可以很好地反映系统的总能量。
+
+\subsection*{双状态顺磁体}
+回忆理想双状态顺磁体中每一个偶极子只有两个可能的态：$-\mu B$ 和 $\mu B$，所以每个偶极子的配分函数是：
+\begin{equation}
+    Z=e^{\beta\mu B}+e^{-\beta\mu B}=2\cosh(\beta\mu B).
+\end{equation}
+所以：
+\begin{align}
+    &\overline E=-\frac{1}{Z}\frac{\partial Z}{\partial \beta}
+    =-\mu B\tanh(\beta\mu B) \implies\\
+    &U= N \overline E = -N\mu B\tanh(\beta\mu B),\\
+    &\overline\mu_z=\sum_s \mu(s)\mathcal{P}(s)=\mu\tanh(\beta\mu B), \\
+    &M=N\overline\mu_z=N\mu\tanh(\beta\mu B),
+\end{align}
+与第 3.3 节中的推导结果一致。
+
+\subsection*{Einstein 固体}
+考虑在温度 $T$ 下 $N$ 个相同谐振子，每个谐振子允许的能量为 $0,hf,2hf,\dots$，则：
+\begin{align}
+&Z=\sum_{n=0}^{\infty}e^{-\beta nhf}=\frac{1}{1-e^{-\beta hf}},\\
+&\overline E=-\frac{1}{Z}\frac{\partial Z}{\partial \beta} =\frac{hf\,e^{-\beta hf}}{1-e^{-\beta hf}} =\frac{hf}{e^{\beta hf}-1},\\
+&U=\frac{Nhf}{e^{\beta hf}-1},
+\end{align}
+与习题 3.25 的结果一致。
+
+\subsection*{双原子分子转动}
+假设分子是孤立的，其转动能量为
+\begin{equation}
+    E(j)=j(j+1)\,\varepsilon,
+\end{equation}
+其中能级 $j$ 对应 $2j+1$ 个简并态。对 $j$ 求和写出配分函数：
+\begin{equation}
+Z_{\mathrm{rot}}=\sum_{j=0}^{\infty}(2j+1)e^{-\beta j(j+1)\varepsilon}.
+\end{equation}
+在高温极限 $kT\gg\varepsilon$ 下，可以用积分近似求和：
+\begin{align}
+&Z_{\mathrm{rot}}
+\approx \int_0^{\infty}(2j+1)e^{-\beta j(j+1)\varepsilon}\,\mathrm{d}j
+=\frac{1}{\beta\varepsilon}=\frac{kT}{\varepsilon},\\
+&\overline E_{\mathrm{rot}}
+=-\frac{1}{Z_{\mathrm{rot}}}\frac{\partial Z_{\mathrm{rot}}}{\partial \beta}
+=\frac{1}{\beta}=kT.
+\end{align}
+这与能量均分定理给出的结果一致（2 个自由度）。若分子的两个原子相同，相当于态数目减半，则
+\begin{equation}
+Z_{\mathrm{rot}}\approx \frac{kT}{2\varepsilon},
+\end{equation}
+但 $\overline E_{\mathrm{rot}}$ 不变。
+
+\section{能量均分定理}
+在 1.3 节中我们讨论过能量均分定理，现在我们可以给出证明。
+\begin{theorem}[能量均分定理]
+    对于能量与``自由度''呈二次方关系（即有 $E(q) = cq^2$ 形式）的系统，其能量满足：
+    \begin{equation}
+        \overline{E} = \frac{1}{2}kT.
+    \end{equation}
+\end{theorem}
+
+我们先假设这个系统离散，每个 $q$ 对应一个独立状态，状态之间间隔为 $\Delta q$，再令 $\Delta q \to 0$，则：
+\begin{equation}
+    Z
+    =\sum_q e^{-\beta E(q)}
+    =\sum_q e^{-\beta cq^2}
+    \xlongequal{\Delta q\to 0} \frac{1}{\Delta q}\int_{-\infty}^{\infty}e^{-\beta cq^2}\,\mathrm{d}q.
+\end{equation}
+令 $x=\sqrt{\beta c}\,q$，则：
+\begin{equation}
+Z
+=\frac{1}{\Delta q}\frac{1}{\sqrt{\beta c}}\int_{-\infty}^{\infty}e^{-x^2}\,\mathrm{d}x
+=\frac{1}{\Delta q}\sqrt{\frac{\pi}{\beta c}}.
+\end{equation}
+于是
+\begin{equation}
+\overline E=-\frac{1}{Z}\frac{\partial Z}{\partial \beta}
+=\frac{1}{2}\frac{1}{\beta}=\frac{1}{2}kT.
+\end{equation}
+
+\begin{remark}
+    能量均分定理只适用于经典系统且能级间距 $\ll kT$，此时 Gauss 曲线才比较好地近似求和；对于量子力学系统，能量均分定理是不成立的。
+\end{remark}
+
+\section{Maxwell 速率分布}
+Boltzmann 因子的另一个应用是计算理想气体分子运动速率的概率。严格来说，分子速率\textit{是}某个定值 $v$ 的概率是\textit{零}，因为速率可以连续变化。因此，这里需要用分布函数重新定义概率：
+\begin{definition}[分布函数与概率]
+    定义速率分布函数 $\mathcal{D}(v)$，它在任意一个区间上的积分表示分子速率落在这个区间内的概率：
+    \begin{align}
+        & \mathcal{P}(v_1<v<v_2) = \int_{v_1}^{v_2}\mathcal{D}(v)\,\mathrm{d}v,\\
+        & \mathcal{P}(v_1<v<v_1+\,\mathrm{d}v) = \mathcal{D}(v)\,\mathrm{d}v.
+    \end{align}
+\end{definition}
+
+可以想象，$D(v)$ 正比于（一个分子拥有 $v$ 的概率）$\times$（对应 $v$ 的态数目）。前者正比于 Boltzmann 因子，后者则正比于速度矢量空间中一个半径为 $v$ 的球的表面积：
+\begin{equation}
+    \mathcal{D}(v)\propto e^{-\frac{1}{2}\beta mv^2}\cdot4\pi v^2.
+\end{equation}
+设比例系数为 $C$，将概率归一化：
+\begin{equation}
+    1=\int_0^{\infty}\mathcal{D}(v)\,\mathrm{d}v
+    =4\pi C\int_0^{\infty}v^2e^{-\frac{1}{2}\beta mv^2}\,\mathrm{d}v
+    = C\left(\frac{2\pi}{\beta m}\right)^{3/2},
+\end{equation}
+故：
+\begin{equation}
+    C=\left(\frac{\beta m}{2\pi}\right)^{3/2}=\left(\frac{m}{2\pi kT}\right)^{3/2}.
+\end{equation}
+最终我们得到理想气体分子速率的 Maxwell 分布：
+\begin{theorem}[Maxwell 分布]
+    理想气体分子的速率分布近似由分布函数 $\mathcal{D}(v)$ 确定：
+    \begin{equation}
+        \mathcal{D}(v) = \left(\frac{m}{2\pi kT}\right)^{3/2}4\pi v^2e^{-\frac{mv^2}{2kT}}
+    \end{equation}
+\end{theorem}
+
+进一步我们可以比较三种描述理想气体分子速率的量：
+\begin{equation}
+v_{\max}=\sqrt{\frac{2kT}{m}},\qquad
+\overline v=\int_0^{\infty}v\mathcal{D}(v)\,\mathrm{d}v=\sqrt{\frac{8kT}{\pi m}},\qquad
+v_{\mathrm{rms}}=\sqrt{\frac{3kT}{m}}.
+\end{equation}
+
+\begin{figure}[htbp]
+  \centering
+  \resizebox{0.9\linewidth}{!}{%
+    \begin{tikzpicture}[
+        x=1cm,y=1cm,
+        >=Stealth,
+        %every node/.style={font=\footnotesize}
+        ]
+        % ---------- parameters (tune if you want) ----------
+        \def\xmax{10.2}      % x-axis length
+        \def\ymax{3.6}       % y-axis length
+        \def\vmaxpos{3.5}    % v_max tick position
+        \def\vbarpos{4.0}    % v_bar tick position
+        \def\vrmspos{4.7}    % v_rms tick position
+
+        % Maxwell-like curve: y = A * x^2 * exp(-x^2/a)
+        % Choose a = vmax^2 so peak is near v_max tick.
+        \def\a{12.25}        % = (3.5)^2
+        \def\A{0.7}         % vertical scale
+
+        % ---------- axes ----------
+        \draw[-{Stealth[length=4mm,width=3.2mm]}, line width=0.9pt] (0,0) -- (\xmax,0);
+        \draw[-{Stealth[length=4mm,width=3.2mm]}, line width=0.9pt] (0,0) -- (0,\ymax);
+
+        \node[anchor=east] at (-0.25,\ymax-0.1) {$\mathcal{D}(v)$};
+        \node[anchor=west] at (\xmax+0.1,0.02) {$v$};
+
+        % ---------- curve ----------
+        \draw[line width=2.2pt]
+        plot[smooth,domain=0:\xmax-0.2,samples=250]
+        (\x,{ \A*(\x*\x)*exp(-(\x*\x)/\a) });
+
+        % ---------- annotations ----------
+        \node[anchor=east] (par) at (-0.1,1.25) {抛物线};
+        \draw[line width=0.9pt] (par.south) -- (0.65,0.40);
+
+        \node[anchor=west] (die) at (7.2,1.35) {指数衰减};
+        \draw[line width=0.9pt] (die.south) -- (7.65,0.55);
+
+        % ---------- ticks + labels (with the little “brackets”) ----------
+
+        \draw[line width=0.8pt] (\vmaxpos,0.22) -- (\vmaxpos,-0.14);
+        \draw[line width=0.8pt] (\vbarpos,0.22) -- (\vbarpos,-0.38);
+        \draw[line width=0.8pt] (\vrmspos,0.22) -- (\vrmspos,-0.14);
+
+        % small “bracket” connectors like the original (left and right)
+        \draw[line width=0.8pt] (\vmaxpos,-0.14) -- (\vmaxpos-0.35,-0.30);
+        \draw[line width=0.8pt] (\vrmspos,-0.14) -- (\vrmspos+0.35,-0.30);
+
+        % labels
+        \node[below] at (\vmaxpos-0.55,-0.38) {$v_{\max}$};
+        \node[below] at (\vbarpos,-0.38) {$\overline v$};
+        \node[below] at (\vrmspos+0.55,-0.38) {$v_{\mathrm{rms}}$};
+
+    \end{tikzpicture}%
+  }
+  \caption{Maxwell 速率分布示意图}
+\end{figure}
+
+\section{配分函数与自由能}
+回忆 $F\equiv U-Ts$ 与偏导关系，有：
+\begin{equation}
+    \left(\frac{\partial F}{\partial T}\right)_{V,N}=-S
+    \implies
+    \left(\frac{\partial F}{\partial T}\right)_{V,N}=\frac{F-U}{T}.
+\end{equation}
+另一方面，设 $\widetilde{F}=-kT\ln Z$，则：
+\begin{equation}
+    \left(\frac{\partial \widetilde{F}}{\partial T}\right)_{V,N}
+    =\frac{\partial}{\partial T}\bigl(-kT\ln Z\bigr)
+    =-k\ln Z-kT\frac{\partial}{\partial T}\ln Z.
+\end{equation}
+又：
+\begin{equation}
+    \frac{\partial}{\partial T}\ln Z
+    =\frac{\partial \beta}{\partial T}\frac{\partial}{\partial \beta}\ln Z
+    =\left(-\frac{1}{kT^2}\right)(-U)
+    =\frac{U}{kT^2},
+\end{equation}
+代回得：
+\begin{equation}
+    \left(\frac{\partial \widetilde{F}}{\partial T}\right)_{V,N}
+    =-k\ln Z-\frac{U}{T}=\frac{\widetilde{F}-U}{T},
+\end{equation}
+我们发现 $\widetilde{F}$ 和 $F$ 满足同一个微分方程。同时在 $T=0$ 处，$F = U = U_0$，而配分函数为 $Z = e^{U_0/kT}$，因此 $F(0) = \widetilde{F}(0)$。所以对所有的 $T$，$F=\widetilde{F}$。我们得到了配分函数和自由能的重要联系：
+\begin{theorem}[配分函数和自由能]
+    \begin{equation}
+        F = -kT \ln Z.
+    \end{equation}
+\end{theorem}
+从 $F$ 出发，我们可以计算系统的其他热力学性质：
+\begin{equation}
+    S=-\left(\frac{\partial F}{\partial T}\right)_{V,N},\qquad
+    P=-\left(\frac{\partial F}{\partial V}\right)_{T,N},\qquad
+    \mu=\left(\frac{\partial F}{\partial N}\right)_{T,V}.    
+\end{equation}
+
+\section{组合系统的配分函数}
+考虑 $N$ 个粒子的系统，总能量为 $\sum_i E_i$，且粒子间无作用、可区分，则：
+\begin{equation}
+    \begin{split}
+        Z_{\mathrm{tot}}
+        &=\sum_s e^{-\beta\sum_i E_i(s)}
+        =\sum_{s_1}\sum_{s_2}\cdots\sum_{s_N}\prod_i e^{-\beta E_i(s_i)}\\
+        &=\prod_i\left[\sum_{s_i}e^{-\beta E_i(s_i)}\right]
+        =\prod_i Z_i
+        =Z_1Z_2\cdots Z_N,
+    \end{split}
+\end{equation}
+其中 $s_i$ 为第 $i$ 个粒子的微观态。若粒子间不可区分，则：
+\begin{equation}
+    Z_{\mathrm{tot}}=\frac{1}{N!}Z_1Z_2\cdots Z_N.
+\end{equation}
+
+\section{再看理想气体}
+考虑包含 $N$ 个相同分子的理想气体：
+\begin{equation}
+    Z=\frac{1}{N!}Z_1^N.
+\end{equation}
+单个分子的能量由平动能 $E_{\mathrm{tr}}$ 和内部能 $E_{\mathrm{int}}$ 组成：
+\begin{equation}
+    e^{-\beta E(s)}=e^{-\beta E_{\mathrm{tr}}(s)}\,e^{-\beta E_{\mathrm{int}}(s)}
+    \implies
+    Z_1=Z_{\mathrm{tr}}Z_{\mathrm{int}}.
+\end{equation}
+
+为计算 $Z_{\mathrm{tr}}$，想象分子是被限制在盒子内的波函数：先考虑 1D 情况，由于波函数在两端为 0，允许的驻波波长为：
+\begin{equation}
+    \lambda_n=\frac{2L}{n},\quad n=1,2,\dots
+\end{equation}
+于是：
+\begin{equation}
+    p_n=\frac{h}{\lambda_n}=\frac{hn}{2L} \implies E_n=\frac{p_n^2}{2m}=\frac{h^2n^2}{8mL^2}.
+\end{equation}
+写出配分函数，对于充分大的盒子，将求和近似为积分：
+\begin{equation}
+    Z_{1\mathrm{D}}=\sum_n e^{-\beta E_n}
+    \approx\int_0^{\infty}\exp\!\left(-\frac{h^2n^2}{8mL^2kT}\right)\,\mathrm{d}n
+    =\frac{\sqrt{2\pi mkT}}{h}L
+    \equiv\frac{L}{l_Q},
+\end{equation}
+其中 $l_Q=\frac{h}{\sqrt{2\pi mkT}}$ 是量子长度。推广到 3D：
+\begin{equation}
+    E_{\mathrm{tr}}=\frac{p_x^2}{2m}+\frac{p_y^2}{2m}+\frac{p_z^2}{2m} \implies Z_{\mathrm{tr}}=\sum_s e^{E_{\mathrm{tr}}/kT} = \prod_\mathrm{cyc} \sum_{n_x} e^{E_x/kT} =\left(\frac{L}{l_Q}\right)^3 \equiv \frac{V}{v_Q},
+\end{equation}
+其中 $V$ 是盒子体积，$v_Q=l_Q^3=\left(\frac{h}{\sqrt{2\pi mkT}}\right)^3$ 是量子体积。
+
+另一种方式是从经典的假设出发，对每个有可能分配位置和动量，并引入 $1/h^3$ 消除量纲：
+\begin{equation}
+    \begin{split}
+        Z_{\mathrm{tr}}
+        &=\frac{1}{h^3}\int \mathrm{d}^3r\,\mathrm{d}^3p\,e^{-E_{\mathrm{tr}}/kT}\\
+        &=\frac{1}{h^3}\int \mathrm{d}^3r\int \mathrm{d}^3p\exp\!\left(-\frac{p^2}{2mkT}\right)\\
+        &=\frac{V}{h^3}\left(\sqrt{2\pi mkT}\right)^3
+        \equiv \frac{V}{v_Q}.  
+    \end{split}
+\end{equation}
+
+总之：
+\begin{equation}
+    Z_1=Z_{\mathrm{tr}}Z_{\mathrm{int}}=\frac{V}{v_Q}Z_{\mathrm{int}}
+    \implies
+    Z=\frac{1}{N!}\left(\frac{VZ_{\mathrm{int}}}{v_Q}\right)^N,
+\end{equation}
+利用 Stirling 近似展开：
+\begin{equation}
+    \ln Z
+    =N\ln\left(\frac{VZ_{\mathrm{int}}}{v_Q}\right)-\ln N!
+    = N\left(\ln V+\ln Z_{\mathrm{int}}-\ln N-\ln v_Q+1\right),
+\end{equation}
+我们可以计算出理想气体的一系列热力学性质：
+\begin{corollary}[理想气体的热力学性质]
+    \begin{align}
+        &U=-\frac{\partial}{\partial \beta}\ln Z =-N\frac{\partial}{\partial \beta}\ln Z_{\mathrm{int}}+N\frac{1}{v_Q}\frac{\partial v_Q}{\partial \beta}= N\overline E_{\mathrm{int}}+\frac{3}{2}NkT=U_{\mathrm{int}}+\frac{3}{2}NkT,\\
+        &C_V=\frac{\partial U}{\partial T}=\frac{\partial U_{\mathrm{int}}}{\partial T}+\frac{3}{2}Nk,\\
+        &F=-kT\ln Z=-NkT\left(\ln V -\ln N-\ln v_Q+1\right)+  F_{\mathrm{int}},\\
+        &P=-\left(\frac{\partial F}{\partial V}\right)_{T,N}=\frac{NkT}{V},\\
+        &S=-\left(\frac{\partial F}{\partial T}\right)_{V,N}=Nk\left(\ln\frac{V}{Nv_Q}+\frac{5}{2}\right)-\frac{\partial F_{\mathrm{int}}}{\partial T},\\
+        &\mu=\left(\frac{\partial F}{\partial N}\right)_{T,V}= -kT\ln\frac{V}{Nv_Q}-kT\ln Z_{\mathrm{int}} =-kT\ln\left(\frac{VZ_{\mathrm{int}}}{Nv_Q}\right),\\
+        &G=F+\mathcal{P}V=-NkT\left[\ln\left(\frac{VZ_{\mathrm{int}}}{Nv_Q}\right)+1\right]+NkT=-NkT\ln\left(\frac{VZ_{\mathrm{int}}}{Nv_Q}\right)=N\mu.
+    \end{align}
+\end{corollary}
