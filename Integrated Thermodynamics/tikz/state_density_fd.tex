@@ -1,0 +1,66 @@
+\begin{figure}[htbp]
+  \centering
+  \resizebox{0.9\linewidth}{!}{%
+    \begin{tikzpicture}[
+      x=1cm,y=1cm,
+      >=Stealth,
+      every node/.style={font=\small}
+    ]
+
+      % ---------- parameters ----------
+      \def\xmax{10}
+      \def\ymax{4.2}
+      \def\eF{6.2}     % \varepsilon_F 位置
+      \def\A{1.25}     % g(\varepsilon)=A*sqrt(\varepsilon)
+
+      % ---------- 仅新增：FD 参数（用于形成右侧衰减） ----------
+      \def\mupos{6.15}     % 略小于 \varepsilon_F
+      \def\kT{0.65}    % 平滑宽度（越小下降越陡）
+
+      % ---------- axes ----------
+      \draw[-{Stealth[length=4mm,width=3.2mm]}, line width=0.9pt] (0,0) -- (\xmax,0);
+      \draw[-{Stealth[length=4mm,width=3.2mm]}, line width=0.9pt] (0,0) -- (0,\ymax);
+
+      \node[anchor=south] at (0,\ymax) {$g(\varepsilon)$};
+      \node[anchor=west]  at (\xmax+0.1,0.02) {$\varepsilon$};
+
+      % ---------- shaded area：0 到 \varepsilon_F（保持 0.015 的底边偏移） ----------
+      \path[fill=black!15]
+        (0,0.015)
+        -- plot[smooth,domain=0:\eF,samples=260]
+           (\x,{ (\A*sqrt(\x))*(1/(exp((\x-\mupos)/\kT)+1)) })
+        -- (\eF,0.015) -- cycle;
+
+      % ---------- solid curve：g(\varepsilon)\bar n_FD(\varepsilon) ----------
+      \draw[line width=2.2pt]
+        plot[smooth,domain=0:\xmax-0.3,samples=340]
+        (\x,{ (\A*sqrt(\x))*(1/(exp((\x-\mupos)/\kT)+1)) });
+
+      % ---------- dashed curve：g(\varepsilon) ----------
+      \draw[dashed,line width=1.6pt,dash pattern=on 4pt off 3pt]
+        plot[smooth,domain=0:\xmax-1.2,samples=240]
+        (\x,{ \A*sqrt(\x) });
+
+      % ---------- \varepsilon_F marker ----------
+      \draw[line width=0.8pt] (\eF,0.22) -- (\eF,-0.14);
+      \draw[line width=0.8pt] (\eF,0) -- (\eF,{ \A*sqrt(\eF) });
+
+      % ---------- bottom “fork” for \mupos and \varepsilon_F ----------
+      \draw[line width=0.8pt] (\eF,-0.14) -- (\eF,-0.2);
+      \draw[line width=0.8pt] (\mupos,0.14) -- (\mupos,-0.2);
+      \draw[line width=0.8pt] (\mupos,-0.2) -- (\mupos-0.35,-0.45);
+      \draw[line width=0.8pt] (\eF,-0.2) -- (\eF+0.35,-0.45);
+
+      \node[below] at (\mupos-0.35,-0.45) {$\mu$};
+      \node[below] at (\eF+0.35,-0.45) {$\varepsilon_\mathrm{F}$};
+
+      % ---------- labels ----------
+      \node[anchor=west] at (\xmax-3.0,\ymax-0.35) {$g(\varepsilon)$};
+
+      \node[anchor=west] (lab) at (7.2,1.85) {$g(\varepsilon)\,\overline n_{\mathrm{FD}}(\varepsilon)$};
+      \draw[line width=0.9pt] (lab.south west) -- (6.75,1);
+
+    \end{tikzpicture}%
+  }
+  \caption{$T>0$ 时态密度与 Fermi--Dirac 分布加权}
+\end{figure}

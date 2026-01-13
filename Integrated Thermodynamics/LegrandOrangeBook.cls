@@ -19,6 +19,9 @@
 
 \usepackage{float} % Allows more precisely positioning floats e.g. \begin{figure}[H]
 
+\usepackage{caption} % Control caption formatting
+\captionsetup{font=small} % Make captions smaller globally (use footnotesize if you want even smaller)
+
 \usepackage[svgnames, table]{xcolor} % Required for defining and using custom colors
 
 \usepackage{calc} % For simpler calculations - used for spacing the index letter headings correctly
@@ -61,6 +64,7 @@
 
 \renewcommand{\contentsname}{{目录}}
 \renewcommand{\listfigurename}{{插图目录}}
+\renewcommand{\figurename}{图}
 \renewcommand{\listtablename}{{表格目录}}
 \renewcommand{\bibname}{{参考文献}}
 \renewcommand{\indexname}{{索引}}
@@ -778,6 +782,8 @@
 %----------------------------------------------------------------------------------------
 
 \usepackage{tikz} % Required for drawing custom shapes and positioning elements absolutely on the page
-\usetikzlibrary{arrows.meta}
+\usetikzlibrary{arrows.meta,calc,decorations.pathmorphing}
+%\usetikzlibrary{fpu}
 
 \usepackage{pdfpages} % Insert external PDF pages
+\usepackage{siunitx}

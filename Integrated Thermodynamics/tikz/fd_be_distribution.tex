@@ -1,0 +1,65 @@
+\begin{figure}[htbp]
+  \centering
+  \resizebox{0.9\linewidth}{!}{%
+    \begin{tikzpicture}[
+      x=1cm,y=1cm,
+      >=Stealth,
+      every node/.style={font=\small}
+    ]
+
+      % ---------- parameters ----------
+      \def\xmin{-4.5}
+      \def\xmax{8.6}
+      \def\ymax{5.6}
+
+      % key marks (placeholders on the x-axis)
+      \def\mupos{0.0}        % position for \mu
+      \def\mukTpos{2.0}      % position for \mu+kT
+
+      % ---------- axes ----------
+      \draw[-{Stealth[length=4mm,width=3.2mm]}, line width=0.9pt] (\xmin,0) -- (\xmax,0);
+      \draw[-{Stealth[length=4mm,width=3.2mm]}, line width=0.9pt] (0,0) -- (0,\ymax);
+
+      % axis labels
+      \node[anchor=west] at (\xmax+0.12,0.02) {$\varepsilon$};
+      \node[anchor=south] at (0,\ymax-0.05) {$\overline n$};
+
+      % ---------- x ticks ----------
+      \foreach \x in {-4,-2,0,2,4,6,8}{
+        \draw[line width=0.8pt] (\x,0.14) -- (\x,-0.14);
+      }
+
+      % ---------- y=1 tick + label ----------
+      \draw[line width=0.8pt] (-0.14,2) -- (0.14,2);
+      \node[anchor=east] at (-0.18,2) {$1$};
+
+      % ---------- special labels on x-axis ----------
+      \node[below] at (\mupos,-0.42) {$\mu$};
+      \node[below] at (\mukTpos,-0.42) {$\mu+kT$};
+
+      % ---------- curves  ----------
+      % Using x := (\epsilon-\mu)/kT as the plotting variable for shape matching
+      % MB: exp(-x)
+      \draw[line width=2.2pt]
+        plot[smooth,domain=-1.87:\xmax-0.2,samples=260]
+        (\x,{2*exp(-0.5*\x)});
+
+      % FD: 1/(exp(x)+1)
+      \draw[line width=2.2pt]
+        plot[smooth,domain=\xmin:\xmax-0.2,samples=260]
+        (\x,{2/(exp(0.5*\x)+1)});
+
+      % BE: 1/(exp(x)-1) (diverges at x->0+, so start slightly right of 0)
+      \draw[line width=2.2pt]
+        plot[smooth,domain=0.66:\xmax-0.2,samples=260]
+        (\x,{2/(exp(0.5*\x)-1)});
+
+      % ---------- text labels ----------
+      \node[anchor=west] at (-3.5,4.05) {Boltzmann};
+      \node[anchor=west] at (-3.85,1.15) {Fermi--Dirac};
+      \node[anchor=west] at (1.25,3.25) {Bose--Einstein};
+
+    \end{tikzpicture}%
+  }
+  \caption{同样的 $\mu$ 下三种分布的比较}
+\end{figure}

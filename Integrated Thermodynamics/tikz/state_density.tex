@@ -1,0 +1,45 @@
+\begin{figure}[htbp]
+  \centering
+  \resizebox{0.9\linewidth}{!}{%
+    \begin{tikzpicture}[
+      x=1cm,y=1cm,
+      >=Stealth,
+      every node/.style={font=\small}
+    ]
+
+      % ---------- parameters ----------
+      \def\xmax{10}
+      \def\ymax{4.2}
+      \def\eF{6.2}     % epsilon_F position
+
+      % curve: g(eps) = A*sqrt(eps)  (concave-down increasing, like the screenshot)
+      \def\A{1.25}
+
+      % ---------- axes ----------
+      \draw[-{Stealth[length=4mm,width=3.2mm]}, line width=0.9pt] (0,0) -- (\xmax,0);
+      \draw[-{Stealth[length=4mm,width=3.2mm]}, line width=0.9pt] (0,0) -- (0,\ymax);
+
+      \node[anchor=south] at (0,\ymax) {$g(\varepsilon)$};
+      \node[anchor=west]  at (\xmax+0.1,0.02) {$\varepsilon$};
+
+      % ---------- shaded area: 0 to eF ----------
+      \path[fill=black!15]
+        (0,0.015)
+        -- plot[smooth,domain=0:\eF,samples=220] (\x,{ \A*sqrt(\x) })
+        -- (\eF,0.015) -- cycle;
+
+      % ---------- curve ----------
+      \draw[line width=2.2pt]
+        plot[smooth,domain=0:\xmax-1.5,samples=260]
+        (\x,{ \A*sqrt(\x) });
+
+      % ---------- epsilon_F marker ----------
+      \draw[line width=0.8pt] (\eF,0.22) -- (\eF,-0.14);
+      \draw[line width=0.8pt] (\eF,0) -- (\eF,{ \A*sqrt(\eF) });
+
+      \node[below] at (\eF,-0.20) {$\varepsilon_\mathrm{F}$};
+
+    \end{tikzpicture}%
+  }
+  \caption{三维盒子中无相互作用粒子的态密度 $g(\varepsilon)$}
+\end{figure}

@@ -1,519 +1,512 @@
 \chapter{量子统计}
 
 \section{Gibbs 因子}
-在 6.1 节我们讨论系统与热库交换能量，现在我们允许交换粒子 $\Rightarrow dN\neq 0$。
+在 6.1 节中我们讨论了一个可以与热库交换能量的系统，其微观态的概率分布。现在我们允许这个系统和热库交换粒子 $\implies \mathrm{d}N\neq 0$，则由\eqref{eq:deltaS}：
+\begin{equation}
+    S_R(s_2)-S_R(s_1)
+    =-\frac{1}{T}\left[E(s_2)-E(s_1)-\mu N(s_2)+\mu N(s_1)\right]
+\end{equation}
+于是：
+\begin{equation}
+\frac{\mathcal{P}(s_2)}{\mathcal{P}(s_1)}
+=\frac{e^{-\left[E(s_2)-\mu N(s_2)\right]/kT}}{e^{-\left[E(s_1)-\mu N(s_1)\right]/kT}}
+\implies
+P(s)\propto e^{-\left[E(s)-\mu N(s)\right]/kT}
+\end{equation}
+同样作归一化，得到巨配分函数$\mathcal{Z}$和 Gibbs 分布：
+\begin{definition}[Gibbs 因子，巨配分函数和Gibbs 分布]
+    \begin{align}
+        &\text{Gibbs 因子} = e^{-\left[E(s)-\mu N(s)\right]/kT} = e^{-\beta \left[E(s)-\mu N(s)\right]}\\
+        &\mathcal{Z} = \sum_s e^{-\beta \left[E(s)-\mu N(s)\right]}\\
+        &\mathcal{P}(s)=\frac{1}{\mathcal{Z}}e^{-\beta \left[E(s)-\mu N(s)\right]}
+    \end{align}
+\end{definition}
+所有这种概率服从 Gibbs 分布的假想系统的集合称为\textbf{巨正则系综}。
 
-则
-\begin{align}
-S_R(S_2)-S_R(S_1)
-=-\frac{1}{T}\Bigl[E(S_2)-E(S_1)-\mu N(S_2)+\mu N(S_1)\Bigr].
-\end{align}
-于是
-\begin{align}
-\frac{P(S_2)}{P(S_1)}
-=\frac{e^{-\left[E(S_2)-\mu N(S_2)\right]/kT}}{e^{-\left[E(S_1)-\mu N(S_1)\right]/kT}}
-\quad\Rightarrow\quad
-P(S)\propto e^{-\left[E(S)-\mu N(S)\right]/kT}
-\qquad (\text{Gibbs 因子}).
-\end{align}
-归一化得
-\begin{align}
-P(S)=\frac{1}{\Xi}\,e^{-\left[E(S)-\mu N(S)\right]/kT},
-\qquad
-\Xi=\sum_S e^{-\left[E(S)-\mu N(S)\right]/kT}
-\qquad (\text{巨配分函数}).
-\end{align}
+现在来考虑一个简单的应用：$\mathrm{O_2}$ 与血红素的结合。系统有两个态：未占据 $0$与占据 $\varepsilon$，故：
+\begin{equation}
+    \mathcal{P}(\mathrm{O_2})
+    =\frac{1}{\mathcal{Z}}e^{-(\varepsilon-\mu)/kT}
+    =\frac{e^{-(\varepsilon-\mu)/kT}}{e^{-(\varepsilon-\mu)/kT}+1}
+\end{equation}
+又：
+\begin{equation}
+    e^{-\mu/kT}=\frac{Z_{\mathrm{int}}}{Nv_Q}=\frac{kT}{PV}\frac{Z_{\mathrm{int}}}{v_Q}
+\end{equation}
+因此：
+\begin{corollary}[Langmuir 吸附]
+    \begin{equation}
+        \mathcal{P}(\mathrm{O_2})
+        =\frac{1}{P_0/P+1}
+        =\frac{P}{P_0+P},
+        \qquad \text{其中}
+        P_0=\frac{kTZ_{\mathrm{int}}}{v_Q}e^{\varepsilon/kT}
+    \end{equation}
+\end{corollary}
 
-以 $\mathrm{O_2}$ 结合血红素为例：系统有两个态：未占据 $0$，与占据 $\varepsilon$。
-\begin{align}
-P(\mathrm{O_2})
-=\frac{1}{\Xi}e^{-(\varepsilon-\mu)/kT}
-=\frac{e^{-(\varepsilon-\mu)/kT}}{e^{-(\varepsilon-\mu)/kT}+1}.
-\end{align}
-又
-\begin{align}
-e^{-\mu/kT}=\frac{Z_{\mathrm{int}}}{Nv_Q}=\frac{kT\,Z_{\mathrm{int}}}{PV\,v_Q}.
-\end{align}
-因此
-\begin{align}
-P(\mathrm{O_2})
-=\frac{1}{P_0/P+1}
-=\frac{P}{P_0+P},
-\qquad
-P_0=\frac{kT\,Z_{\mathrm{int}}}{v_Q}e^{\varepsilon/kT}
-\qquad (\text{Langmuir 吸附}).
-\end{align}
 
 \section{玻色子和费米子}
-经典的统计
-\begin{align}
+在经典的系统中，
+\begin{equation}
 Z=\frac{1}{N!}Z_1^N
-\end{align}
-的前提是粒子不可区分，即多个粒子占据相同单粒子态的可能性忽略不计（$Z_1\gg N$）。例如对于理想气体
-\begin{align}
-Z_1=\frac{V}{v_Q}Z_{\mathrm{int}},
-\qquad
-v_Q=\ell_Q^3=\left(\frac{h}{\sqrt{2\pi mkT}}\right)^3,
-\end{align}
-大约是平均 de Broglie 波长的三方。
-\begin{align}
+\end{equation}
+的前提是粒子不可区分，即多个粒子占据相同单粒子态的可能性忽略不计（$Z_1\gg N$）。例如对于理想气体：
+\begin{equation}
+Z_1=\frac{V}{v_Q}Z_{\mathrm{int}}
+\end{equation}
+其中 $Z_\mathrm{int}$ 很小，而量子体积
+\begin{equation}
+    v_Q=\ell_Q^3=\left(\frac{h}{\sqrt{2\pi mkT}}\right)^3
+\end{equation}
+大约是平均 de Broglie 波长的立方。因此：
+\begin{equation}
 Z_1\gg N
 \iff
-\frac{V}{N}\gg v_Q,
-\end{align}
-即平均距离 $\gg$ de Broglie 波长，故是经典的。
+\frac{V}{N}\gg v_Q
+\end{equation}
+即只要粒子之间的平均距离 $\gg$ 平均 de Broglie 波长，理想气体就是经典的。
 
-但当 $Z_1\gg N$ 被违反时，多个粒子占据相同单粒子态不可忽略（变为量子系统）。此时粒子的性质很重要：可以与相同物质共享态的粒子为玻色子 (boson)，不能的叫做费米子 (fermion)。前者有整数自旋，后者有半整数自旋。
+但当 $Z_1\gg N$ 被违反时，多个粒子占据相同单粒子态的可能性不可忽略，研究这样的密集系统需要\textbf{量子统计}。此时粒子的性质很重要：\textit{可以}与相同物质共享态的粒子为\textbf{玻色子}（boson），包括光子等；\textit{不能}的叫做\textbf{费米子}（fermion），包括电子、质子、中子等。前者有整数自旋，后者有半整数自旋。
 
-\subsection*{分布函数}
-首先考虑由一个单粒子态组成的系统，这个态的能量为 $\varepsilon$，则它被 $n$ 个粒子占据的概率为
-\begin{align}
-P(n)=\frac{1}{\Xi}e^{-n(\varepsilon-\mu)/kT}.
-\end{align}
+\subsection{分布函数}
+首先考虑由\textit{一个单粒子态}组成的系统，这个态的能量为 $\varepsilon$，则它被 $n$ 个粒子占据的概率为：
+\begin{equation}
+    \mathcal{P}(n)=\frac{1}{\mathcal{Z}}e^{-(n\varepsilon-\mu n)/kT} = \frac{1}{\mathcal{Z}}e^{-n(\varepsilon-\mu)/kT} 
+\end{equation}
 
-对于费米子，$n=0/1$，
-\begin{align}
-\Xi=1+e^{-(\varepsilon-\mu)/kT},
-\end{align}
-故该态的占据数为
-\begin{align}
-\bar n_{\mathrm{FD}}
-=\sum_n nP(n)=0\cdot P(0)+1\cdot P(1)
-=\frac{e^{-(\varepsilon-\mu)/kT}}{1+e^{-(\varepsilon-\mu)/kT}}
-=\frac{1}{e^{(\varepsilon-\mu)/kT}+1}
-\qquad (\text{Fermi--Dirac 分布}).
-\end{align}
+对于费米子，$n=0/1$，因此：
+\begin{equation}
+    \mathcal{Z}=1+e^{-(\varepsilon-\mu)/kT}
+\end{equation}
+故该态的占据数为：
+\begin{equation}
+    \overline n_{\mathrm{FD}}
+    =\sum_n nP(n)=0\cdot P(0)+1\cdot P(1)
+    =\frac{e^{-(\varepsilon-\mu)/kT}}{1+e^{-(\varepsilon-\mu)/kT}}
+    =\frac{1}{e^{(\varepsilon-\mu)/kT}+1}
+\end{equation}
+\begin{definition}[费米子的 Fermi--Dirac 分布]
+    \begin{equation}
+        \overline n_{\mathrm{FD}} = \frac{1}{e^{(\varepsilon-\mu)/kT}+1}
+    \end{equation}
+\end{definition}
 
-对于玻色子，$n=0,1,2,\dots$，
-\begin{align}
-\Xi=\sum_{n=0}^{\infty}e^{-n(\varepsilon-\mu)/kT}
-=\frac{1}{1-e^{-(\varepsilon-\mu)/kT}}.
-\end{align}
-并且
-\begin{align}
-\bar n_{\mathrm{BE}}
-&=\sum_{n=0}^{\infty} nP(n)
-=\sum_{n=0}^{\infty} n\cdot\frac{1}{\Xi}e^{-n(\varepsilon-\mu)/kT}
- =-\frac{1}{\Xi}\sum_{n=0}^{\infty}\frac{\partial}{\partial x}e^{-nx}
-\quad\left(x=\frac{\varepsilon-\mu}{kT}\right)\\
-&=-\frac{1}{\Xi}\frac{\partial \Xi}{\partial x}
-=-(1-e^{-x})\frac{\partial}{\partial x}(1-e^{-x})^{-1}
-=(e^{x}-1)^{-1}
-=\frac{1}{e^{(\varepsilon-\mu)/kT}-1}
-\qquad (\text{Bose--Einstein 分布}).
-\end{align}
+对于玻色子，$n=0,1,2,\dots$，因此
+\begin{equation}
+\mathcal{Z}=\sum_{n=0}^{\infty}e^{-n(\varepsilon-\mu)/kT}
+=\frac{1}{1-e^{-(\varepsilon-\mu)/kT}}
+\end{equation}
+故该态的占据数为：
+\begin{equation}
+    \begin{split}
+        \overline n_{\mathrm{BE}}
+        &=\sum_{n=0}^{\infty} nP(n)
+        =\sum_{n=0}^{\infty} n\cdot\frac{1}{\mathcal{Z}}e^{-n(\varepsilon-\mu)/kT}\\
+        &\xlongequal{x=(\varepsilon-\mu)/kT}-\frac{1}{\mathcal{Z}}\sum_{n=0}^{\infty}\frac{\partial}{\partial x}e^{-nx}
+        =-\frac{1}{\mathcal{Z}}\frac{\partial \mathcal{Z}}{\partial x}\\
+        &=-(1-e^{-x})\frac{\partial}{\partial x}(1-e^{-x})^{-1}
+        =(e^{x}-1)^{-1}\\
+        &=\frac{1}{e^{(\varepsilon-\mu)/kT}-1}
+    \end{split}
+\end{equation}
+\begin{definition}[玻色子的 Bose--Einstein 分布]
+    \begin{equation}
+        \overline n_{\mathrm{BE}} = \frac{1}{e^{(\varepsilon-\mu)/kT}-1}
+    \end{equation}
+\end{definition}
 
-另外
-\begin{align}
-\bar n_{\mathrm{Boltzmann}}=NP(s)=\frac{N}{Z_1}e^{-\varepsilon/kT},
+对比遵循\textit{Boltzmann 统计}的粒子：
+\begin{equation}
+\overline n_{\mathrm{Boltzmann}}=N\mathcal{P}(s)=\frac{N}{Z_1}e^{-\varepsilon/kT},
 \qquad
-\mu=-kT\ln\frac{Z_1}{N}\ (\text{参考习题 6.44}),
-\end{align}
-从而
-\begin{align}
-\bar n_{\mathrm{Boltzmann}}=e^{-(\varepsilon-\mu)/kT}.
-\end{align}
-当 $(\varepsilon-\mu)/kT\gg 1$ 时，$\bar n_{\mathrm{FD}}=\bar n_{\mathrm{BE}}=\bar n_{\mathrm{Boltzmann}}$。
+\mu=-kT\ln\frac{Z_1}{N}\ (\text{参考习题 6.44})
+\end{equation}
+从而：
+\begin{equation}
+\overline n_{\mathrm{Boltzmann}}=e^{-(\varepsilon-\mu)/kT}
+\end{equation}
+
+\input{tikz/fd_be_distribution.tex}
+
+当 $(\varepsilon-\mu)/kT\gg 1$ 时，$\overline n_{\mathrm{FD}}=\overline n_{\mathrm{BE}}=\overline n_{\mathrm{Boltzmann}}$。如果令最低能量的态 $\varepsilon \approx 0$，则只要 $\mu \ll -kT \iff Z_1 \gg N$，所有的态就将满足条件。这与我们前面讨论的区分经典和量子系统的条件是一致的。
 
 \section{简并 Fermi 气体}
-考虑极低温下的 Fermi 气体（如电子气体），这里极低温指 $V/N\ll v_Q$。
+作为量子统计的第一个应用，考虑极低温下的 Fermi 气体（如电子气体）的行为，这里极低温指 $V/N\ll v_Q$。
 
 \subsection{温度为零}
-$T=0$ 时，Fermi--Dirac 分布退化为阶跃函数，所有能量小于 $\mu$ 的单粒子态已被占据，其余均未被占据。此时 Fermi 气体是简并的，$\mu$ 被称为 Fermi 能，$\varepsilon_F\equiv \mu$。
+$T=0$ 时，Fermi--Dirac 分布退化为阶跃函数，所有能量小于 $\mu$ 的单粒子态已被占据，其余均未被占据。此时 Fermi 气体是简并的，$\mu$ 也称为\textbf{Fermi 能}：
+\begin{definition}[Fermi 能]
+    \begin{equation}
+        \varepsilon_\mathrm{F}\equiv \mu\ (T=0)
+    \end{equation}
+\end{definition}
 
-$\varepsilon_F$ 代表电子的最高能量。为计算 $\varepsilon_F$，假设电子限制在 $V=L^3$ 内的自由粒子，则
-\begin{align}
-\lambda_n=\frac{2L}{n},\qquad
-p_n=\frac{h}{\lambda_n}=\frac{hn}{2L}
-\quad\Rightarrow\quad
-\varepsilon=\frac{|\vec p|^2}{2m}=\frac{h^2}{8mL^2}(n_x^2+n_y^2+n_z^2).
-\end{align}
-可以想象一个能量空间，每个格点代表一个能量的两个态（自旋）。$N$ 足够大时，所有电子占据的格点近似构成一个球面。
-
-记半径为 $n_{\max}$，则
-\begin{align}
-\varepsilon_F=\frac{h^2n_{\max}^2}{8mL^2}.
-\end{align}
-另一方面
-\begin{align}
-N=2\times\frac{1}{8}\times\frac{4}{3}\pi n_{\max}^3=\frac{\pi n_{\max}^3}{3}
-\quad\Rightarrow\quad
-n_{\max}=\left(\frac{3N}{\pi}\right)^{1/3}.
-\end{align}
-故
-\begin{align}
-\varepsilon_F
-=\frac{h^2}{8mL^2}\left(\frac{3N}{\pi}\right)^{2/3}
-=\frac{h^2}{8m}\left(\frac{3N}{\pi V}\right)^{2/3}.
-\end{align}
-这是一个强度量，只与电子密度 $N/V$ 有关 $\Rightarrow$ 适用于任何宏观气态系统。
+$\varepsilon_\mathrm{F}$ 代表电子的最高能量。为计算 $\varepsilon_\mathrm{F}$，假设电子是被限制在 $V=L^3$ 内的自由粒子，则：
+\begin{equation}
+    \lambda_n=\frac{2L}{n} \implies
+    p_n=\frac{h}{\lambda_n}=\frac{hn}{2L}
+    \implies
+    \varepsilon=\frac{|\vec{p}|^2}{2m}=\frac{h^2}{8mL^2}(n_x^2+n_y^2+n_z^2)
+\end{equation}
+可以想象一个能量空间，每个格点代表一个能量的两个态（自旋）。$N$ 足够大时，所有电子占据的格点近似构成一个$1/8$球面，记其半径为 $n_{\max}$，则：
+\begin{equation}
+    \varepsilon_\mathrm{F}=\frac{h^2n_{\max}^2}{8mL^2}
+\end{equation}
+另一方面：
+\begin{equation}
+    N=2\times\frac{1}{8}\times\frac{4}{3}\pi n_{\max}^3=\frac{\pi n_{\max}^3}{3}
+    \implies
+    n_{\max}=\left(\frac{3N}{\pi}\right)^{1/3}
+\end{equation}
+因此：
+\begin{corollary}[Fermi 能与$N$和盒子体积 $V$的关系]
+    \begin{equation}
+        \varepsilon_\mathrm{F}
+        =\frac{h^2}{8mL^2}\left(\frac{3N}{\pi}\right)^{2/3}
+        =\frac{h^2}{8m}\left(\frac{3N}{\pi V}\right)^{2/3}
+    \end{equation}
+\end{corollary}
+这是一个强度量，只与电子密度 $N/V$ 有关，所以它适用于任何宏观气态系统。
 
 电子的平均能量会小一些：
-\begin{align}
-U
-&=2\sum_{n_x}\sum_{n_y}\sum_{n_z}\varepsilon(\vec n)
-=2\iiint \varepsilon(\vec n)\,dn_x\,dn_y\,dn_z
-=2\int_0^{n_{\max}}dn\int_0^{\pi/2}d\theta\int_0^{\pi/2}d\phi\,n^2\sin\theta\,\varepsilon(n)\\
-&=\pi\int_0^{n_{\max}}\varepsilon(n)n^2\,dn
-=\pi\frac{h^2}{8mL^2}\int_0^{n_{\max}}n^4\,dn
-=\frac{\pi h^2n_{\max}^5}{40mL^2}
-=\frac{3}{5}N\varepsilon_F
-\quad\Rightarrow\quad
-\bar\varepsilon=\frac{3}{5}\varepsilon_F.
-\end{align}
+\begin{equation}\label{eq:fermiE}
+    \begin{split}
+        U
+        &=2\sum_{n_x}\sum_{n_y}\sum_{n_z}\varepsilon(\vec n)
+        =2\iiint \varepsilon(\vec n)\,\mathrm{d}n_x\,\mathrm{d}n_y\,\mathrm{d}n_z\\
+        &=2\int_0^{n_{\max}}\mathrm{d}n\int_0^{\pi/2}\mathrm{d}\theta\int_0^{\pi/2}\mathrm{d}\phi\,n^2\sin\theta \, \varepsilon(n)\\
+        &=\pi\int_0^{n_{\max}}\varepsilon(n)n^2\,\mathrm{d}n
+        =\pi\frac{h^2}{8mL^2}\int_0^{n_{\max}}n^4\,\mathrm{d}n\\
+        &=\frac{\pi h^2n_{\max}^5}{40mL^2}
+        =\frac{3}{5}N\varepsilon_\mathrm{F}
+    \end{split}
+\end{equation}
+所以\textit{平均}每个电子的能量是 Fermi 能的 $3/5$。
 
-对于典型金属中的电子，$\varepsilon_F\sim 3\,\mathrm{eV}$，而室温下 $kT\sim \tfrac{1}{40}\,\mathrm{eV}$，故 $V/N\ll v_Q\iff kT\ll \varepsilon_F$，此时作 $T\approx 0$ 近似是合理的（涨落可忽略）。
+对于典型金属中的电子，$\varepsilon_\mathrm{F}\sim \qty{3}{\electronvolt}$，而室温下 $kT\sim \qty[parse-numbers=false]{\tfrac{1}{40}}{\electronvolt}$，故 $V/N\ll v_Q\iff kT\ll \varepsilon_\mathrm{F}$，此时作 $T\approx 0$ 近似是合理的（涨落可忽略）。
 
-对于 Fermi 气体，使 $kT=\varepsilon_F$ 的温度为 Fermi 温度
-\begin{align}
-T_F=\frac{\varepsilon_F}{k}.
-\end{align}
-同时可以计算 Fermi 气体的压强（简并压），这个压强来自不相容原理：
-\begin{align}
-P=-\frac{\partial U}{\partial V}
-=-\frac{\partial}{\partial V}\left(\frac{3}{5}N\varepsilon_F\right)
-=\frac{2N\varepsilon_F}{5V}=\frac{2}{3}\frac{U}{V}.
-\end{align}
-这个值 $P>0$，对抗金属中的静电力。
-
-实际可测量的是压缩模量：
-\begin{align}
-B=-V\left(\frac{\partial P}{\partial V}\right)_T=\frac{10}{9}\frac{U}{V}.
-\end{align}
+对于 Fermi 气体，使 $kT=\varepsilon_\mathrm{F}$ 的温度称为\textbf{Fermi 温度}：
+\begin{definition}[Fermi 温度]
+    \begin{equation}
+        T_\mathrm{F}=\frac{\varepsilon_\mathrm{F}}{k}
+    \end{equation}
+\end{definition}
+同时可以计算 Fermi 气体的压强（\textbf{简并压}），这个压强来自 Pauli 不相容原理：
+\begin{equation}
+    P=-\frac{\partial U}{\partial V}
+    =-\frac{\partial}{\partial V}\left(\frac{3}{5}N\varepsilon_\mathrm{F}\right)
+    =\frac{2N\varepsilon_\mathrm{F}}{5V}=\frac{2}{3}\frac{U}{V}
+\end{equation}
+这个值 $P>0$，对抗金属中的静电力。实际可测量的是压缩模量：
+\begin{equation}
+    B=-V\left(\frac{\partial P}{\partial V}\right)_T=\frac{10}{9}\frac{U}{V}
+\end{equation}
 
 \subsection{较小的 $T\neq 0$}
-在 $T$ 下，所有粒子通常会获得 $kT$ 热能，但在简并 Fermi 气体中，大部分粒子获得 $kT$ 而可能进入的态已被占据，能够获得 $kT$ 的粒子只有处于靠近 $\varepsilon_F$ 的于 $kT$ 的粒子。
-\begin{align}
-\Rightarrow\ \text{受 $T$ 增加影响的电子数}\propto T,\qquad \text{同时也}\propto N\ (\text{广延量}).
-\end{align}
-因此额外的能量
-\begin{align}
-\Delta U\propto (NkT)(kT)=N(kT)^2.
-\end{align}
-从量纲上看，$[N(kT)^2]=\mathrm{J}^2$，需除以一个单位为能量的量 $\Rightarrow\varepsilon_F$。最后得到（精确证明）
-\begin{align}
-U=\frac{3}{5}N\varepsilon_F+\frac{\pi^2}{4}N\frac{(kT)^2}{\varepsilon_F}
-\quad\Rightarrow\quad
-C_V=\left(\frac{\partial U}{\partial T}\right)_V=\frac{\pi^2Nk^2T}{2\varepsilon_F}.
-\end{align}
+在 $T$ 下，所有粒子通常会获得 $kT$ 热能，但在简并 Fermi 气体中，大部分粒子获得 $kT$ 而可能进入的态已被占据，能够获得 $kT$ 的粒子只有处于离$\varepsilon_\mathrm{F}$ 小于 $kT$ 的粒子，因此我们可以想象受 $T$ 增加影响的电子数 $\propto T$，当然同时也$\propto N$（广延量）。所以从零升高温度至 $T$，气体获得的额外能量：
+\begin{equation}
+    \Delta U\propto (NkT)(kT)=N(kT)^2
+\end{equation}
+
+从量纲上看，$[N(kT)^2]=\mathrm{J}^2$，需除以一个单位为能量的量，而这里唯一可能的常数是$\varepsilon_\mathrm{F}$。再乘上一个无量纲的常数（$\pi^2/4$），最后得到：
+\begin{corollary}[简并 Fermi 气体的能量和热容]
+    \begin{align}
+        &U=\frac{3}{5}N\varepsilon_\mathrm{F}+\frac{\pi^2}{4}N\frac{(kT)^2}{\varepsilon_\mathrm{F}}\\
+        &C_V=\left(\frac{\partial U}{\partial T}\right)_V=\frac{\pi^2Nk^2T}{2\varepsilon_\mathrm{F}}
+    \end{align}
+\end{corollary}
+稍后我们会给出更加严谨的推导过程。
 
 \subsection{态密度}
-对
-\begin{align}
-U=\pi\int_0^{n_{\max}}\varepsilon(n)n^2\,dn
-\end{align}
-作换元：
-\begin{align}
-\varepsilon=\frac{h^2}{8mL^2}n^2
-\quad\Rightarrow\quad
-n=\sqrt{\frac{8mL^2}{h^2}}\,\sqrt{\varepsilon},
-\qquad
-dn=\sqrt{\frac{8mL^2}{h^2}}\,\frac{1}{2\sqrt{\varepsilon}}\,d\varepsilon.
-\end{align}
-得到 $T=0$ 时
-\begin{align}
-U=\int_0^{\varepsilon_F}\varepsilon\left[\frac{\pi}{2}\left(\frac{8mL^2}{h^2}\right)^{3/2}\right]\sqrt{\varepsilon}\,d\varepsilon.
-\end{align}
-括号内的记作态密度 $g(\varepsilon)$：
-\begin{align}
-g(\varepsilon)
-&=\frac{\pi}{2}\left(\frac{8mL^2}{h^2}\right)^{3/2}\sqrt{\varepsilon}
-=\frac{\pi(8m)^{3/2}}{2h^3}V\sqrt{\varepsilon}
-=\frac{3N}{2\varepsilon_F^{3/2}}\sqrt{\varepsilon}
-=g_0\sqrt{\varepsilon}\propto \sqrt{\varepsilon}.
-\end{align}
+回到刚才计算能量的积分\eqref{eq:fermiE}，作换元：
+\begin{equation}
+    \varepsilon=\frac{h^2}{8mL^2}n^2
+    \implies
+    n=\sqrt{\frac{8mL^2}{h^2}}\,\sqrt{\varepsilon},
+    \qquad
+    \mathrm{d}n=\sqrt{\frac{8mL^2}{h^2}}\,\frac{1}{2\sqrt{\varepsilon}}\,\mathrm{d}\varepsilon
+\end{equation}
+得到 $T=0$ 时：
+\begin{equation}
+    U=\int_0^{\varepsilon_\mathrm{F}}\varepsilon\left[\frac{\pi}{2}\left(\frac{8mL^2}{h^2}\right)^{3/2}\sqrt{\varepsilon}\right]\,\mathrm{d}\varepsilon
+\end{equation}
+括号内的部分可以看作是每单位能量的单粒子态的个数，称作\textbf{态密度} $g(\varepsilon)$：
+\begin{definition}[态密度]
+    \begin{equation}\label{eq:state_density}
+        g(\varepsilon)
+        =\frac{\pi}{2}\left(\frac{8mL^2}{h^2}\right)^{3/2}\sqrt{\varepsilon}
+        =\frac{\pi(8m)^{3/2}}{2h^3}V\sqrt{\varepsilon}
+        =\frac{3N}{2\varepsilon_\mathrm{F}^{3/2}}\sqrt{\varepsilon}
+        \equiv g_0\sqrt{\varepsilon}
+    \end{equation}
+\end{definition}
 
-对于 $T=0$ 的气体，
+对于 $T=0$ 的气体：
+\begin{equation}
+    N=\int_0^{\varepsilon_\mathrm{F}}g(\varepsilon)\,d\varepsilon.
+\end{equation}
+
+\input{tikz/state_density.tex}
+
+$T\neq 0$ 时，需要引入 Fermi--Dirac 分布：
 \begin{align}
-N=\int_0^{\varepsilon_F}g(\varepsilon)\,d\varepsilon.
+    N&=\int_0^{\infty}g(\varepsilon)\,\overline n_{\mathrm{FD}}(\varepsilon)\,\mathrm{d}\varepsilon=\int_0^{\infty}g(\varepsilon)\,\frac{1}{e^{(\varepsilon-\mu)/kT}+1}\,\mathrm{d}\varepsilon\\
+    U&=\int_0^{\infty}\varepsilon g(\varepsilon)\,\overline n_{\mathrm{FD}}(\varepsilon)\,\mathrm{d}\varepsilon=\int_0^{\infty}\varepsilon g(\varepsilon)\,\frac{1}{e^{(\varepsilon-\mu)/kT}+1}\,\mathrm{d}\varepsilon
 \end{align}
-$T\neq 0$ 时则引入 Fermi--Dirac 分布：
-\begin{align}
-N&=\int_0^{\infty}g(\varepsilon)\,\bar n_{\mathrm{FD}}(\varepsilon)\,d\varepsilon
-=\int_0^{\infty}g(\varepsilon)\,\frac{1}{e^{(\varepsilon-\mu)/kT}+1}\,d\varepsilon,\\
-U&=\int_0^{\infty}\varepsilon g(\varepsilon)\,\bar n_{\mathrm{FD}}(\varepsilon)\,d\varepsilon
-=\int_0^{\infty}\varepsilon g(\varepsilon)\,\frac{1}{e^{(\varepsilon-\mu)/kT}+1}\,d\varepsilon.
-\end{align}
-此时化学势（一个态被占据的概率为 1 的 $\varepsilon$）$\mu<\varepsilon_F$（参考习题 7.28）。
+此时化学势（一个态被占据的概率为 1/2 的 $\varepsilon$）$\mu<\varepsilon_\mathrm{F}$。
+
+\input{tikz/state_density_fd.tex}
 
 \subsection{Sommerfeld 展开}
 我们希望计算 $N$，从而求解 $\mu(T)$，代入 $U(T)$，最终得到 $C_V(T)$，但它们无法直接积分求得。Sommerfeld 展开可以近似地计算：
-\begin{align}
-N
-&=\int_0^{\infty}g(\varepsilon)\,\bar n_{\mathrm{FD}}(\varepsilon)\,d\varepsilon
-=g_0\int_0^{\infty}\sqrt{\varepsilon}\,\bar n_{\mathrm{FD}}(\varepsilon)\,d\varepsilon
-=\frac{2}{3}g_0\varepsilon^{3/2}\bar n_{\mathrm{FD}}(\varepsilon)\Big|_0^{\infty}+\frac{2}{3}g_0\int_0^{\infty}\varepsilon^{3/2}\left(-\frac{d\bar n_{\mathrm{FD}}}{d\varepsilon}\right)d\varepsilon\\
-&=\frac{2}{3}g_0\int_0^{\infty}\frac{1}{kT}\frac{e^x}{(e^x+1)^2}\,\varepsilon^{3/2}\,d\varepsilon
-=\frac{2}{3}g_0\int_{-\mu/kT}^{\infty}\frac{e^x}{(e^x+1)^2}\,\varepsilon^{3/2}\,dx
-\qquad\left(x=\frac{\varepsilon-\mu}{kT}\right).
-\end{align}
-当 $|\varepsilon-\mu|\gg kT$ 时，$-\dfrac{d\bar n_{\mathrm{FD}}}{d\varepsilon}=\dfrac{1}{kT}\dfrac{e^x}{(e^x+1)^2}$ 指数衰减，故可作两处近似：把积分下限延展到 $-\infty$，并在 $\varepsilon=\mu$ 处 Taylor 展开 $\varepsilon^{3/2}$：
-\begin{align}
-\varepsilon^{3/2}=\mu^{3/2}+\frac{3}{2}(\varepsilon-\mu)\mu^{1/2}+\frac{3}{8}(\varepsilon-\mu)^2\mu^{-1/2}+\cdots.
-\end{align}
-于是
-\begin{align}
-N
-&\approx \frac{2}{3}g_0\int_{-\infty}^{\infty}\frac{e^x}{(e^x+1)^2}\left[\mu^{3/2}+\frac{3}{2}xkT\mu^{1/2}+\frac{3}{8}(xkT)^2\mu^{-1/2}+\cdots\right]dx\\
-&=\frac{2}{3}g_0\mu^{3/2}+\frac{\pi^2}{12}g_0(kT)^2\mu^{-1/2}+\cdots
-= N\left(\frac{\mu}{\varepsilon_F}\right)^{3/2}+N\frac{\pi^2}{8}\frac{(kT)^2}{\varepsilon_F^{3/2}\mu^{1/2}}+\cdots.
-\end{align}
-消去 $N$，可以看出 $\mu/\varepsilon_F\approx 1$，修正项 $\propto (kT/\varepsilon_F)^2$ 很小，可以用 $\mu$ 替换 $\varepsilon_F$，解出
-\begin{align}
-\frac{\mu}{\varepsilon_F}=\left[1-\frac{\pi^2}{8}\left(\frac{kT}{\varepsilon_F}\right)^2+\cdots\right]^{2/3}
-=1-\frac{\pi^2}{12}\left(\frac{kT}{\varepsilon_F}\right)^2+\cdots.
-\end{align}
-同样方法可以计算
-\begin{align}
-U=\frac{3}{5}N\varepsilon_F+\frac{\pi^2}{4}N\frac{(kT)^2}{\varepsilon_F}+\cdots.
-\end{align}
+\begin{equation}
+    \begin{split}
+        N
+        &=\int_0^{\infty}g(\varepsilon)\,\overline n_{\mathrm{FD}}(\varepsilon)\,\mathrm{d}\varepsilon
+        =g_0\int_0^{\infty}\sqrt{\varepsilon}\,\overline n_{\mathrm{FD}}(\varepsilon)\,\mathrm{d}\varepsilon\\
+        &=\frac{2}{3}g_0\varepsilon^{3/2}\overline n_{\mathrm{FD}}(\varepsilon)\Big|_0^{\infty}+\frac{2}{3}g_0\int_0^{\infty}\varepsilon^{3/2}\left(-\frac{\mathrm{d}\overline n_{\mathrm{FD}}}{\mathrm{d}\varepsilon}\right)\mathrm{d}\varepsilon\\
+        &=\frac{2}{3}g_0\int_0^{\infty}\frac{1}{kT}\frac{e^x}{(e^x+1)^2}\,\varepsilon^{3/2}\,\,\mathrm{d}\varepsilon \xlongequal{x=(\varepsilon-\mu)/kT}\frac{2}{3}g_0\int_{-\mu/kT}^{\infty}\frac{e^x}{(e^x+1)^2}\,\varepsilon^{3/2}\,\mathrm{d}x
+    \end{split}
+\end{equation}
+当 $|\varepsilon-\mu|\gg kT$ 时，$-\dfrac{\mathrm{d}\overline n_{\mathrm{FD}}}{\mathrm{d}\varepsilon}=\dfrac{1}{kT}\dfrac{e^x}{(e^x+1)^2}$ 指数衰减，故可作两处近似：把积分下限延展到 $-\infty$，并在 $\varepsilon=\mu$ 处 Taylor 展开 $\varepsilon^{3/2}$：
+\begin{equation}
+    \varepsilon^{3/2}=\mu^{3/2}+\frac{3}{2}(\varepsilon-\mu)\mu^{1/2}+\frac{3}{8}(\varepsilon-\mu)^2\mu^{-1/2}+\cdots
+\end{equation}
+于是：
+\begin{equation}
+    \begin{split}
+        N
+        &\approx \frac{2}{3}g_0\int_{-\infty}^{\infty}\frac{e^x}{(e^x+1)^2}\left[\mu^{3/2}+\frac{3}{2}xkT\mu^{1/2}+\frac{3}{8}(xkT)^2\mu^{-1/2}+\cdots\right]\mathrm{d}x\\
+        &=\frac{2}{3}g_0\mu^{3/2}+\frac{\pi^2}{12}g_0(kT)^2\mu^{-1/2}+\cdots\\
+        &= N\left(\frac{\mu}{\varepsilon_\mathrm{F}}\right)^{3/2}+N\frac{\pi^2}{8}\frac{(kT)^2}{\varepsilon_\mathrm{F}^{3/2}\mu^{1/2}}+\cdots
+    \end{split}
+\end{equation}
+消去 $N$，可以看出 $\mu/\varepsilon_\mathrm{F}\approx 1$时，修正项 $\propto (kT/\varepsilon_\mathrm{F})^2$ 很小，因此可以用 $\mu$ 替换其中的 $\varepsilon_\mathrm{F}$，反解出：
+\begin{equation}
+    \frac{\mu}{\varepsilon_\mathrm{F}}=\left[1-\frac{\pi^2}{8}\left(\frac{kT}{\varepsilon_\mathrm{F}}\right)^2+\cdots\right]^{2/3}
+    =1-\frac{\pi^2}{12}\left(\frac{kT}{\varepsilon_\mathrm{F}}\right)^2+\cdots
+\end{equation}
+同样方法可以计算：
+\begin{equation}
+    U=\frac{3}{5}N\varepsilon_\mathrm{F}+\frac{\pi^2}{4}N\frac{(kT)^2}{\varepsilon_\mathrm{F}}+\cdots
+\end{equation}
+可以看到，7.3.2 节中的预测基本是正确的。
 
 \section{黑体辐射}
-考虑一个量子化的电磁场，可以看作是不同波长的驻波叠加。每个驻波对应一个谐振子，其允许的能级为 $E_n=0,hf,2hf,\dots$，因此单个谐振子的配分函数
+现在我们转而考察玻色子的行为。考虑一个量子化的电磁场，可以看作是不同波长的驻波叠加的结果，每个驻波对应一个谐振子，其允许的能级为 $E_n=0,hf,2hf,\dots$，因此单个谐振子的配分函数和能量为：
 \begin{align}
-Z_1=1+e^{-\beta hf}+e^{-2\beta hf}+\cdots=\frac{1}{1-e^{-\beta hf}}
-\quad\Rightarrow\quad
-\bar E=-\frac{1}{Z_1}\frac{\partial Z_1}{\partial \beta}=\frac{hf}{e^{hf/kT}-1}.
+    &Z_1=1+e^{-\beta hf}+e^{-2\beta hf}+\cdots=\frac{1}{1-e^{-\beta hf}}\\
+    &\overline E=-\frac{1}{Z_1}\frac{\partial Z_1}{\partial \beta}=\frac{hf}{e^{hf/kT}-1}
 \end{align}
-把 $hf$ 看作能量单位，就得到能量除数的平均值
-\begin{align}
-\bar n_{\mathrm{pl}}=\frac{1}{e^{hf/kT}-1}
-\qquad (\text{Planck 分布}).
-\end{align}
+把 $hf$ 看作能量单位，就得到能量\textit{份数}的平均值，称为\textbf{Planck 分布}：
+\begin{definition}[Planck 分布]
+    \begin{equation}
+        \overline n_{\mathrm{Pl}}=\frac{1}{e^{hf/kT}-1}
+    \end{equation}
+\end{definition}
 
-电磁场中的能量单位是光子（一种玻色子），故也满足 Bose--Einstein 分布。比较 $\bar n_{\mathrm{BE}}$ 和 $\bar n_{\mathrm{pl}}$，$\varepsilon=hf\Rightarrow\mu=0$。
+电磁场的能量单位是光子（一种玻色子），故也满足 Bose--Einstein 分布。比较 $\overline n_{\mathrm{BE}}$ 和 $\overline n_{\mathrm{Pl}}$：
+\begin{equation}
+    \varepsilon=hf\implies\mu=0
+\end{equation}
+这一点可以从光子自由产生、湮灭看出来：当 $T,V$ 固定，系统的 $F$ 一定取到最小；对于光子系统，$N$ 并不守恒，但 $F$ 始终最小，故
+\begin{equation}
+    \mu=\left(\frac{\partial F}{\partial N}\right)_{T,V}=0
+\end{equation}
 
-这一点可以从光子自由产生/湮灭看出来：当 $T,V$ 固定，系统的 $F$ 一定取到最小。对于光子系统，$N$ 并不守恒，但 $F$ 始终最小，故
-\begin{align}
-\mu=\left(\frac{\partial F}{\partial N}\right)_{T,V}=0.
-\end{align}
+类似先前处理电子气体的方式，我们对光子的模式求和，注意光子有两个偏振方向，即每个波形对应 $2$ 个模式。
 
-类似电子气体，现在对光子的模式求和。注意光子有两个偏振方向，即每个波矢对应 $2$ 个。
-
-一维长度为 $L$ 的盒子中，
-\begin{align}
-\lambda=\frac{2L}{n}\Rightarrow p=\frac{h}{\lambda}=\frac{hn}{2L}\Rightarrow \varepsilon=pc=\frac{hcn}{2L}.
-\end{align}
+在一维长度为 $L$ 的盒子中，
+\begin{equation}
+    \lambda=\frac{2L}{n}\implies p=\frac{h}{\lambda}=\frac{hn}{2L}\implies \varepsilon=pc=\frac{hcn}{2L}
+\end{equation}
 换到三维，
-\begin{align}
-\varepsilon=c|\vec p|=\frac{hc}{2L}\sqrt{n_x^2+n_y^2+n_z^2}=\frac{hcn}{2L}.
-\end{align}
-
+\begin{equation}
+    \varepsilon=c|\vec p|=\frac{hc}{2L}\sqrt{n_x^2+n_y^2+n_z^2}=\frac{hcn}{2L}
+\end{equation}
 先求总数 $N$：
-\begin{align}
-N
-&=2\sum_{n_x}\sum_{n_y}\sum_{n_z}\bar n_{\mathrm{pl}}(\varepsilon)
-=2\sum_{n_x,n_y,n_z}\frac{1}{e^{hc n/(2LkT)}-1}
-=\int_0^{\infty}dn\int_0^{\pi/2}d\theta\int_0^{\pi/2}d\phi\,\frac{n^2\sin\theta}{e^{hc n/(2LkT)}-1}\\
-&=\pi\int_0^{\infty}\frac{n^2}{e^{hc n/(2LkT)}-1}\,dn
-=\pi\left(\frac{2LkT}{hc}\right)^3\int_0^{\infty}\frac{x^2}{e^x-1}\,dx
-\qquad\left(x=\frac{hcn}{2LkT}\right).
-\end{align}
+\begin{equation}
+    \begin{split}
+        N
+        &=2\sum_{n_x}\sum_{n_y}\sum_{n_z}\overline n_{\mathrm{Pl}}(\varepsilon)
+        =2\sum_{n_x,n_y,n_z}\frac{1}{e^{hcn/2LkT}-1}\\
+        &=\int_0^{\infty}\mathrm{d}n\int_0^{\pi/2}\mathrm{d}\theta\int_0^{\pi/2}\mathrm{d}\phi\,\frac{n^2\sin\theta}{e^{hc n/2LkT}-1}\\
+        &=\pi\int_0^{\infty}\frac{n^2}{e^{hcn/2LkT}-1}\,\mathrm{d}n\\
+        &\xlongequal{x=hcn/2LkT}\pi\left(\frac{2LkT}{hc}\right)^3\int_0^{\infty}\frac{x^2}{e^x-1}\,\mathrm{d}x
+    \end{split}
+\end{equation}
 这个积分无法解析求解。
 
 再求总能量：
-\begin{align}
-U
-&=2\sum_{n_x}\sum_{n_y}\sum_{n_z}\varepsilon\,\bar n_{\mathrm{pl}}(\varepsilon)
-=\sum_{n_x,n_y,n_z}\frac{hcn}{2L}\frac{1}{e^{hcn/(2LkT)}-1}\\
-&=\frac{\pi}{2}\int_0^{\infty}\frac{hc}{L}\frac{n^3}{e^{hcn/(2LkT)}-1}\,dn
-=V\int_0^{\infty}\frac{8\pi}{(hc)^3}\frac{\varepsilon^3}{e^{\varepsilon/kT}-1}\,d\varepsilon
-\qquad\left(\varepsilon=\frac{hcn}{2L},\ L^3=V\right).
-\end{align}
-因此
-\begin{align}
-\frac{U}{V}=\int_0^{\infty}\frac{8\pi}{(hc)^3}\frac{\varepsilon^3}{e^{\varepsilon/kT}-1}\,d\varepsilon.
-\end{align}
-此时被积函数数量单位光子能量的能量密度，光谱为
-\begin{align}
-u(\varepsilon)=\frac{8\pi}{(hc)^3}\frac{\varepsilon^3}{e^{\varepsilon/kT}-1}.
-\end{align}
+\begin{equation}
+    \begin{split}
+        U
+        &=2\sum_{n_x}\sum_{n_y}\sum_{n_z}\varepsilon\,\overline n_{\mathrm{Pl}}(\varepsilon)
+        =\sum_{n_x,n_y,n_z}\frac{hcn}{2L}\frac{1}{e^{hcn/2LkT}-1}\\
+        &=\frac{\pi}{2}\int_0^{\infty}\frac{hc}{L}\frac{n^3}{e^{hcn/2LkT}-1}\,\mathrm{d}n\\
+        &\xlongequal{\varepsilon=hcn/2L,\ V=L^3}V\int_0^{\infty}\frac{8\pi}{(hc)^3}\frac{\varepsilon^3}{e^{\varepsilon/kT}-1}\,\mathrm{d}\varepsilon
+    \end{split}
+\end{equation}
+因此：
+\begin{equation}
+    \frac{U}{V}=\int_0^{\infty}\frac{8\pi}{(hc)^3}\frac{\varepsilon^3}{e^{\varepsilon/kT}-1}\,\mathrm{d}\varepsilon
+\end{equation}
+此时被积函数是单位光子能量的能量密度，称为光子的\textbf{谱}：
+\begin{definition}[光子的谱]
+    \begin{equation}
+        u(\varepsilon)=\frac{8\pi}{(hc)^3}\frac{\varepsilon^3}{e^{\varepsilon/kT}-1}
+    \end{equation}
+\end{definition}
 
 再作一次换元得到无量纲变量 $x=\varepsilon/kT$：
-\begin{align}
-\frac{U}{V}
-&=\frac{8\pi(kT)^4}{(hc)^3}\int_0^{\infty}\frac{x^3}{e^x-1}\,dx
-=\frac{8\pi(kT)^4}{(hc)^3}\frac{\pi^4}{15}
-=\frac{8\pi^5(kT)^4}{15(hc)^3}
-\propto T^4.
-\end{align}
-进一步还可以计算其他量：
-\begin{align}
-C_V=\left(\frac{\partial U}{\partial T}\right)_V=4aT^3,
-\qquad
-a=\frac{8\pi^5k^4}{15(hc)^3}V.
-\end{align}
-\begin{align}
-S(T)=\int_0^T\frac{C_V(T')}{T'}\,dT'
-=4a\int_0^T {T'}^2\,dT'
-=\frac{4}{3}aT^3
-=\frac{32\pi^5}{45}V\left(\frac{kT}{hc}\right)^3k.
-\end{align}
-\begin{align}
-P=-\left(\frac{\partial U}{\partial V}\right)_{S,N},\quad \text{为固定 }S,\ U=aVT^4=\left(\frac{3S}{4}\right)^{4/3}(aV)^{-1/3}
-\end{align}
-因此
-\begin{align}
-P=-\left(\frac{\partial U}{\partial V}\right)_{S,N}=\frac{U}{3V}=\frac{1}{3}aT^4.
-\end{align}
-并且
-\begin{align}
-F=U-TS=aVT^4-\frac{4}{3}aVT^4=-\frac{1}{3}aVT^4=-\frac{1}{3}U.
-\end{align}
+\begin{equation}
+    \frac{U}{V}
+    =\frac{8\pi(kT)^4}{(hc)^3}\int_0^{\infty}\frac{x^3}{e^x-1}\,dx
+    =\frac{8\pi(kT)^4}{(hc)^3}\frac{\pi^4}{15}
+    =\frac{8\pi^5(kT)^4}{15(hc)^3}
+    \propto T^4
+\end{equation}
+进一步还可以计算其他热力学量：
+\begin{corollary}[光子气体的热力学性质]
+    \begin{align}
+        &C_V=\left(\frac{\partial U}{\partial T}\right)_V=4aT^3
+        ,\qquad
+        a\equiv\frac{8\pi^5k^4}{15(hc)^3}V\\
+        &S(T)=\int_0^T\frac{C_V(T')}{T'}\,\mathrm{d}T'
+        =4a\int_0^T {T'}^2\,\mathrm{d}T'
+        =\frac{4}{3}aT^3
+        =\frac{32\pi^5}{45}V\left(\frac{kT}{hc}\right)^3k\\
+        &P=-\left(\frac{\partial U}{\partial V}\right)_{S,N} = -\left(\frac{\partial}{\partial V}\Bigl[\Bigl(\frac{3S}{4}\Bigr)^{4/3}(aV)^{-1/3}\Bigr]\right)_{S,N}=\frac{U}{3V}=\frac{1}{3}aT^4\\
+        &F=U-Ts=aVT^4-\frac{4}{3}aVT^4=-\frac{1}{3}aVT^4=-\frac{1}{3}U
+    \end{align}
+\end{corollary}
 
-现在我们分析了处热平衡的室内光的气体，但实际上我们试图研究的是热物体发射的光子。为此，我们考虑围绕孔的小黑体试亮。
+\subsection{Stefan 定律}
 
-逃逸出去的能量 = 试亮总能量 $\times$ 逃逸概率：
-\begin{align}
-&=\int_0^{2\pi}d\phi\int_0^{\pi/2}d\theta\,\frac{U}{V}\,\bigl(Rd\theta\bigr)\bigl(R\sin\theta\,d\phi\bigr)\,c\,dt\times \frac{A\cos\theta}{4\pi R^2}\\
-&=\int_0^{2\pi}d\phi\int_0^{\pi/2}\sin\theta\cos\theta\,d\theta\,\frac{AUc}{4\pi V}\,dt
-=\frac{AU}{4V}c\,dt.
-\end{align}
-因此单位面积辐射功率
-\begin{align}
-\frac{1}{A}\frac{dU}{dt}=\frac{c}{4}\frac{U}{V}
-=\frac{2\pi^5}{15}\frac{(kT)^4}{h^3c^2}=\sigma T^4.
-\end{align}
-Stefan--Boltzmann 常量
-\begin{align}
-\sigma=\frac{2\pi^5k^4}{15h^3c^2}=5.67\times 10^{-8}\ \mathrm{W\,m^{-2}\,K^{-4}}.
-\end{align}
+刚才我们分析了处于热平衡的盒子内的光子气体，但实际上我们试图研究的是热物体发射的光子。为此，我们考虑围绕热物体上一个孔的某个球壳：
+\begin{equation}
+    \begin{split}
+        \text{逃逸能量} &= \text{球壳能量} \times \text{逃逸概率}\\
+        &=\int_0^{2\pi}\mathrm{d}\phi\int_0^{\pi/2}\mathrm{d}\theta\,\frac{U}{V}\,\bigl(R\,\mathrm{d}\theta\bigr)\bigl(R\sin\theta\,\mathrm{d}\phi\bigr)\,c\,\mathrm{d}t\times \frac{A\cos\theta}{4\pi R^2}\\
+        &=\int_0^{2\pi}\mathrm{d}\phi\int_0^{\pi/2}\sin\theta\cos\theta\,\mathrm{d}\theta\,\frac{AUc}{4\pi V}\,\mathrm{d}t\\
+        &=\frac{AU}{4V}c\,\mathrm{d}t
+    \end{split}
+\end{equation}
+因此单位面积的辐射功率为：
+\begin{equation}
+    \text{单位面积功率} = \frac{1}{A}\frac{\mathrm{d}U}{\mathrm{d}t}=\frac{c}{4}\frac{U}{V} =\frac{2\pi^5}{15}\frac{(kT)^4}{h^3c^2}\equiv\sigma T^4
+\end{equation}
+其中 $\sigma$ 称为 \textbf{Stefan--Boltzmann 常量}。
+\begin{corollary}[Stefan 定律]
+    \begin{equation}
+        P = \sigma T^4,\qquad \sigma =\frac{2\pi^5k^4}{15h^3c^2}=\qty{5.67e-8}{\watt\per\metre\squared\per\kelvin\tothe{4}}
+    \end{equation}
+\end{corollary}
 
-Stefan 定律也适用于温度为 $T$ 时由任何非反射表面辐射的光子（黑体辐射）。但若物体会反射一些光子，而对吸收剩下的光子比例为 $e$，则与完美黑体相似，$e$ 也是发射光子的比例。$e$ 称为发射率，通常取决于光的波长。若对所有波长使用 $e$ 的加权平均，则物体辐射总功率为
-\begin{align}
-\sigma eAT^4,
-\end{align}
-$A$ 为表面积。
-
-关于太阳与地球的例子，参考 7.4.11 和习题 7.55。
+Stefan 定律也适用于温度为 $T$ 时由任何非反射表面辐射的光子（黑体辐射）。但若物体会反射一些光子，而对吸收剩下的光（比例为 $e$），则与完美黑体相似，$e$ 也是发射光子的比例。$e$ 称为\textbf{发射率}，通常取决于光的波长。若对所有波长使用 $e$ 的加权平均，则物体辐射总功率为 $\sigma eAT^4$，其中 $A$ 为表面积。
 
 \section{固体的 Debye 模型}
-2.2 节讨论了固体的 Einstein 模型，这个模型将原子视为独立的三维谐振子。
+2.2 节中我们讨论了固体的 Einstein 模型，这个模型将原子视为独立的三维谐振子。Einstein 模型预测（习题 3.25）：
+\begin{equation}
+    C_V=3Nk\frac{(\varepsilon/kT)^2e^{\varepsilon/kT}}{(e^{\varepsilon/kT}-1)^2}
+\end{equation}
+其中$N$ 是原子数，$\varepsilon=hf$ 是能量单位。当$kT\gg \varepsilon$ 时，$C_V\to 3Nk$ 符合能量均分定理；$T\to 0$ 时，模型预测 $C_V$ \textit{指数衰减}到 $0$，但实验测得 $C_V\propto T^3$。
 
-Einstein 模型预测
-\begin{align}
-C_V=3Nk\frac{(\varepsilon/kT)^2e^{\varepsilon/kT}}{(e^{\varepsilon/kT}-1)^2}
-\qquad (\text{习题 3.25}),
-\end{align}
-$N$ 是原子数，$\varepsilon=hf$ 是能量单位。
+这是因为晶体中的原子并不是独立振动，在低温仍有许多低频振动模式未被冻结，它们类似于真空中的电磁波动振荡，这种在晶体中的机械振动称为声波，由\textbf{声子}介导。类似光子，我们也可以写出声子的 Planck 分布（声速$c_s$，晶体长度$L$）：
+\begin{equation}
+    \varepsilon=hf=\frac{hc_s}{\lambda}=\frac{hc_sn}{2L}\quad (n=|\vec n|\text{ 是声波矢量}),
+    \qquad
+    \overline n_{\mathrm{Pl}}=\frac{1}{e^{\varepsilon/kT}-1}
+\end{equation}
 
-$kT\gg \varepsilon$ 时，$C_V\to 3Nk$ 符合能量均分定理；$T\to 0$ 时，模型预测 $C_V$ 指数衰减到 $0$，但实验测得 $C_V\propto T^3$。
-
-这是因为晶体中的原子不是独立振动，在低温仍有许多低频振动模式未被冻结。它们类似于真空中的电磁波动振荡。这种在晶体中的机械振动称为声波，由声子介导。类似光子，我们也可以写出声子的 Planck 分布（$c_s$ 声速，$L$ 晶体长度）：
-\begin{align}
-\varepsilon=hf=\frac{hc_s}{\lambda}=\frac{hc_sn}{2L}\quad (n=|\vec n|\text{ 是声波矢量}),
-\qquad
-\bar n_{\mathrm{pl}}=\frac{1}{e^{\varepsilon/kT}-1}.
-\end{align}
-
-类似地，我们对所有模式求和，但这里求和上限不是 $\infty$，因为声波波长不能小于两个原子间距 $\Rightarrow n\le 3\sqrt{N}$。这里我们假设晶体是完美正方体，但这样空间并不连续积分（这样 $n_x,n_y,n_z$ 的关系很复杂）。一个好的近似是把 $\vec n$ 空间缩成体积为 $N$ 的高球体：
-\begin{align}
-n_{\max}=\left(\frac{6N}{\pi}\right)^{1/3}.
-\end{align}
+类似地，我们对所有模式求和，但这里求和上限不是 $\infty$，因为声波波长不能小于两个原子间距 $\implies n\le 3\sqrt[3]{N}$。这里我们假设晶体是完美正方体，但这样空间并不适合积分（这样 $n_x,n_y,n_z$ 的关系很复杂）。一个好的近似是把 $\vec n$ 空间看成是体积为 $N$ 的 $1/8$ 球体，其半径为：
+\begin{equation}
+    n_{\max}=\left(\frac{6N}{\pi}\right)^{1/3}
+\end{equation}
 
 Debye 近似在高低温极限都很准确，高温时关键是求出总自由度，故体积一致即可；低温时 $|\vec n|$ 较大的模式被冻结，因此可以对它们近似。
 
-总之
-\begin{align}
-U
-&=3\sum_{n_x}\sum_{n_y}\sum_{n_z}\varepsilon\,\bar n_{\mathrm{pl}}(\varepsilon)
-\qquad (3\text{ 来自每个 }\vec n\text{ 对应三个极化态})\\
-&=3\int_0^{n_{\max}}dn\int_0^{\pi/2}d\theta\int_0^{\pi/2}d\phi\,\frac{n^2\sin\theta\,\varepsilon}{e^{\varepsilon/kT}-1}
-=3\pi\int_0^{n_{\max}}\frac{hc_s}{2L}\frac{n^3}{e^{hc_sn/(2LkT)}-1}\,dn.
-\end{align}
-令
-\begin{align}
-x=\frac{hc_sn}{2LkT},
-\qquad
-x_{\max}=\frac{hc_sn_{\max}}{2LkT}
-=\frac{hc_s}{2LkT}\left(\frac{6N}{\pi}\right)^{1/3}\equiv \frac{T_D}{T},
-\end{align}
-得到
-\begin{align}
-U=\frac{9NkT^4}{T_D^3}\int_0^{T_D/T}\frac{x^3}{e^x-1}\,dx.
-\end{align}
-这里引入 Debye 温度
-\begin{align}
-T_D=\frac{hc_s}{2k}\left(\frac{6N}{\pi V}\right)^{1/3}.
-\end{align}
-这个积分无法解析求解，但可以考虑高低温极限。
+总之，我们将离散的求和近似为了 $\vec n$ 空间的积分，注意这里每个 $\vec n$ 都对应三个极化态：
+\begin{equation}
+\begin{split}
+    U
+    &=3\sum_{n_x}\sum_{n_y}\sum_{n_z}\varepsilon\,\overline n_{\mathrm{Pl}}(\varepsilon)
+    =3\int_0^{n_{\max}}\mathrm{d}n\int_0^{\pi/2}\mathrm{d}\theta\int_0^{\pi/2}\mathrm{d}\phi\,\frac{n^2\sin\theta\,\varepsilon}{e^{\varepsilon/kT}-1}\\
+    &=3\pi\int_0^{n_{\max}}\frac{hc_s}{2L}\frac{n^3}{e^{hc_sn/2LkT}-1}\,\mathrm{d}n
+\end{split}
+\end{equation}
+用无量纲量进行换元：
+\begin{equation}
+    x=\frac{hc_sn}{2LkT},
+    \qquad
+    x_{\max}=\frac{hc_sn_{\max}}{2LkT}
+    =\frac{hc_s}{2LkT}\left(\frac{6N}{\pi}\right)^{1/3}\equiv \frac{T_\mathrm{D}}{T}
+\end{equation}
+得到：
+\begin{equation}\label{eq:DebyeU}
+    U=\frac{9NkT^4}{T_\mathrm{D}^3}\int_0^{T_\mathrm{D}/T}\frac{x^3}{e^x-1}\,\mathrm{d}x.
+\end{equation}
+这里引入了\textbf{Debye 温度}：
+\begin{definition}[Debye 温度]
+    \begin{equation}
+        T_\mathrm{D}=\frac{hc_s}{2k}\left(\frac{6N}{\pi V}\right)^{1/3}
+    \end{equation}
+\end{definition}
+\eqref{eq:DebyeU}的积分无法解析求解，但可以考虑高低温极限：$T\gg T_\mathrm{D}$ 时，$T_\mathrm{D}/T\ll 1$，此时 $e^x-1\approx x$，于是：
+\begin{equation}
+    U\approx \frac{9NkT^4}{T_\mathrm{D}^3}\int_0^{T_\mathrm{D}/T}x^2\,\mathrm{d}x=3NkT
+    \implies
+    C_V\approx 3Nk
+\end{equation}
+$T\ll T_\mathrm{D}$ 时，$T_\mathrm{D}/T\to\infty$，于是：
+\begin{equation}
+    U\approx \frac{9NkT^4}{T_\mathrm{D}^3}\int_0^{\infty}\frac{x^3}{e^x-1}\,\mathrm{d}x
+    =\frac{3\pi^4}{5}Nk\frac{T^4}{T_\mathrm{D}^3}
+    \implies
+    C_V=\frac{12\pi^4Nk}{5T_\mathrm{D}^3}T^3\propto T^3
+\end{equation}
+都与实验有较好吻合。对于中间温度，直接对\eqref{eq:DebyeU}求导，得到：
+\begin{equation}
+    C_V=9Nk\left(\frac{T}{T_\mathrm{D}}\right)^3\int_0^{T_\mathrm{D}/T}\frac{x^4e^x}{(e^x-1)^2}\,\mathrm{d}x
+\end{equation}
+$T=T_\mathrm{D}$ 时，$C_V$ 达到最大值的 $95\%$，这说明 $T_\mathrm{D}$ 实际上代表一个我们可以大致使用能量均分定理的温度。
 
-$T\gg T_D$ 时，$T_D/T\ll 1$，此时 $e^x-1\approx x$：
-\begin{align}
-U\approx \frac{9NkT^4}{T_D^3}\int_0^{T_D/T}x^2\,dx=3NkT
-\quad\Rightarrow\quad
-C_V\approx 3Nk.
-\end{align}
-$T\ll T_D$ 时，$T_D/T\to\infty$：
-\begin{align}
-U\approx \frac{9NkT^4}{T_D^3}\int_0^{\infty}\frac{x^3}{e^x-1}\,dx
-=\frac{3\pi^4}{5}Nk\frac{T^4}{T_D^3}
-\quad\Rightarrow\quad
-C_V=\frac{12\pi^4Nk}{5T_D^3}T^3\propto T^3.
-\end{align}
-与实验有较好吻合。对于中间温度，直接对 $U=\dfrac{9NkT^4}{T_D^3}\int_0^{T_D/T}\dfrac{x^3}{e^x-1}\,dx$ 求导，得到
-\begin{align}
-C_V=9Nk\left(\frac{T}{T_D}\right)^3\int_0^{T_D/T}\frac{x^4e^x}{(e^x-1)^2}\,dx.
-\end{align}
-$T=T_D$ 时，$C_V$ 达到最大值的 $95\%$，这说明 $T_D$ 实际上代表一个我们可以大致能量均分定理的温度。
+\begin{corollary}[Debye 固体的热容]
+    \begin{align}
+        &C_V=9Nk\left(\frac{T}{T_\mathrm{D}}\right)^3\int_0^{T_\mathrm{D}/T}\frac{x^4e^x}{(e^x-1)^2}\,\mathrm{d}x,\qquad T_\mathrm{D}=\frac{hc_s}{2k}\left(\frac{6N}{\pi V}\right)^{1/3}\\
+        &T \ll T_\mathrm{D}\ \text{时，} C_V = 3Nk,\qquad T \gg T_\mathrm{D}\ \text{时，} C_V = \frac{12\pi^4Nk}{5T_\mathrm{D}^3}T^3
+    \end{align}
+\end{corollary}
 
 \section{Bose--Einstein 凝聚}
-7.4、7.5 节我们处理了可以任意数量存在的玻色子（光子、声子），其总数由热平衡确定。现在我们想知道数量固定的普通玻色子是怎样的。
+7.4、7.5 节我们处理了可以以任意数量存在的玻色子（光子、声子），其总数由热平衡确定。现在我们想知道数量固定的``普通''玻色子是怎样的\footnote{这里教材的逻辑有些混乱，我们给出一个不同于书上的、更加数学的推导过程}。
 
-我们先来确定化学势，考虑 $T>0$ 的极限。在 $T=0$ 时，所有原子处在基态。对于处在 $V=L^3$ 中的原子，
-\begin{align}
-\varepsilon_0=\frac{h^2}{8mL^2}(1^2+1^2+1^2)=\frac{3h^2}{8mL^2}.
-\end{align}
-这个值相当小，意味着
-\begin{align}
-e^{(\varepsilon_0-\mu)/kT}-1\approx \frac{\varepsilon_0-\mu}{kT}.
-\end{align}
-因此在 $T$ 足够低时，基态上的平均原子数
-\begin{align}
-N_0=\frac{1}{e^{(\varepsilon_0-\mu)/kT}-1}=\frac{kT}{\varepsilon_0-\mu}
-\qquad (N_0\gg 1\text{ 时}).
-\end{align}
-$\Rightarrow$ $T=0$ 时，$\mu=\varepsilon_0$；$T\neq 0$ 但很小时，$\mu\approx\varepsilon_0$ 且 $\mu<\varepsilon_0$。
+回忆我们在 7.3.3 节中引入的态密度概念，这里与\eqref{eq:state_density}不同的是，玻色子只有一种自旋，因此态密度只有一半：
+\begin{equation}
+    g(\varepsilon)=\frac{\pi}{4} \left(\frac{8mL^2}{h^2}\right)^{3/2}\sqrt{\varepsilon}
+\end{equation}
+所有能量大于基态的激发态（可以是看作 $\varepsilon>0$）所能容纳的粒子数为：
+\begin{equation}
+    N_\mathrm{ex} = \sum_{\varepsilon>0} \overline n(\varepsilon) = \int_0^\infty \frac{g(\varepsilon)}{e^{(\varepsilon-\mu)/kT}-1}\,\mathrm{d}\varepsilon
+\end{equation}
+我们感兴趣的是：$N_\mathrm{ex}(T)$ 随着 $T\to0$ 存不存在一个上限？假如这个上限存在，那么对于一个 $N$ 足够大的系统，随着温度降低，激发态能够容纳的粒子束有限，因此绝大部分的粒子都会进入基态 $N_0$，从而表现出``凝聚''。
 
-那么 $T$ 要多低才能使 $N_0\gg 1$？考虑
-\begin{align}
-N=\sum_s\frac{1}{e^{(\varepsilon_s-\mu)/kT}-1}\approx \int_0^{\infty}g(\varepsilon)\frac{1}{e^{(\varepsilon-\mu)/kT}-1}\,d\varepsilon.
-\end{align}
-这里态密度是 7.3 节的一半（只有一种自旋）：
-\begin{align}
-g(\varepsilon)=\frac{1}{4\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}V\sqrt{\varepsilon}.
-\end{align}
-这个积分无法解析求解，因此为了确定 $\mu$，必须不断做数值积分。考虑 $\mu=0$，这是 $T$ 足够低、$N_0$ 足够大时一个好近似。代入 $\mu=0$，令 $x=\varepsilon/kT$：
-\begin{align}
-N
-&=\frac{1}{4\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}V\int_0^{\infty}\frac{\sqrt{\varepsilon}\,d\varepsilon}{e^{\varepsilon/kT}-1}
-=\frac{1}{4\pi^2}\left(\frac{2mkT}{\hbar^2}\right)^{3/2}V\int_0^{\infty}\frac{x^{1/2}}{e^x-1}\,dx\\
-&=\zeta\!\left(\frac{3}{2}\right)\left(\frac{2\pi mkT}{h^2}\right)^{3/2}V
-\approx 2.612\left(\frac{2\pi mkT}{h^2}\right)^{3/2}V.
-\end{align}
-反解出对应的温度
-\begin{align}
-kT_c=0.527\left(\frac{h^2}{2\pi m}\right)\left(\frac{N}{V}\right)^{2/3}.
-\end{align}
-
-$T\neq T_c$ 时会发生什么？$T>T_c$ 时，$\mu$ 一定是小于 $0$；$T<T_c$ 时，如果 $\mu\to 0$，$N$ 一定变得更大，但我们已经固定了 $N$，发生了什么？
-
-问题在于把求和近似为积分的一步。在 $T\to 0$ 时，基态上有很多粒子，不能把离散的能级近似为连续的谱。实际上，应该把 $\varepsilon=0$ 的态单独看作离散基态，而把其余作为从第一个行态 $\varepsilon\sim kT$ 之间的下限开始，描述 $\varepsilon\gg \varepsilon_0$ 的大量态。
-
-此时
-\begin{align}
-N_{\mathrm{excited}}=2.612\left(\frac{2\pi mkT}{h^2}\right)^{3/2}V
-\qquad (T<T_c).
-\end{align}
-总之，$T<T_c$ 时，$\mu\approx 0$，
-\begin{align}
-N_{\mathrm{excited}}=\left(\frac{T}{T_c}\right)^{3/2}N
-\quad\Rightarrow\quad
-N_0=N-N_{\mathrm{excited}}=\left[1-\left(\frac{T}{T_c}\right)^{3/2}\right]N.
-\end{align}
-
-这种在 $T<T_c$ 时发生的基态原子宏观聚集称为 Bose--Einstein 凝聚，$T_c$ 为凝聚温度。回顾
-\begin{align}
-v_Q=\left(\frac{h}{\sqrt{2\pi mkT}}\right)^3,
-\end{align}
-$T=T_c$ 时 $v_Q=V/N$。也就是说当原子的热波动长度与平均间距相当时，凝聚就会发生。
+为了求这个上限，首先可以将 $N_\mathrm{ex}$ 看作是 $\mu$ 的函数，显然在 $\mu \to 0^-$ 的时候函数有最大值，因此（这里我们剩去常数的计算，只关心积分的敛散性）：
+\begin{equation}
+    \begin{split}
+        N_\mathrm{ex}^{\max} &=g_0\int_0^\infty \frac{\sqrt{\varepsilon}}{e^{\varepsilon/kT}-1}\,\mathrm{d}\varepsilon 
+        \propto \int_0^\infty \frac{\sqrt{x}}{e^x-1}\,\mathrm{d}x\\
+        &=\int_0^\infty \sqrt{x} \sum_{n=1}^\infty e^{-nx}\,\mathrm{d}x=\sum_{n=1}^\infty \int_0^\infty \sqrt{x}e^{-nx}\,\mathrm{d}x\\
+        &=\sum_{n=1}^\infty \Gamma(\frac{3}{2})\,n^{-3/2} = \Gamma(\frac{3}{2})\,\zeta(\frac{3}{2})
+    \end{split}
+\end{equation}
+$\zeta(3/2)$ 是收敛的，也就是说 $N_\mathrm{ex}^{\max} = \zeta(3/2)\,V/\ell_Q^3 \propto T^{3/2}$（你可以自行计算确认这里的常数项）。因此当 $T$ 足够小时，$N_\mathrm{ex}^{\max}<N$，大部分粒子进入基态，就会发生\textbf{Bose--Einstein 凝聚}，这个临界温度为：
+\begin{corollary}[三维 Bose 气体的 Bose--Einstein 凝聚温度]
+    \begin{equation}
+        T_c = \left[\frac{N}{V\zeta(3/2)}\right]^{2/3}\frac{h^2}{2\pi mk}
+    \end{equation}
+\end{corollary}
+$T<T_c$时：
+\begin{equation}
+    N_\mathrm{ex}^{\max} = N \left(\frac{T}{T_c}\right)^{3/2},\qquad N_0 = N \left[1-\left(\frac{T}{T_c}\right)^{3/2}\right]
+\end{equation}

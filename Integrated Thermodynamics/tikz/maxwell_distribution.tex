@@ -1,0 +1,58 @@
+\begin{figure}[htbp]
+  \centering
+  \resizebox{0.9\linewidth}{!}{%
+    \begin{tikzpicture}[
+        x=1cm,y=1cm,
+        >=Stealth,
+        every node/.style={font=\small}
+        ]
+        % ---------- parameters (tune if you want) ----------
+        \def\xmax{10.2}      % x-axis length
+        \def\ymax{3.6}       % y-axis length
+        \def\vmaxpos{3.5}    % v_max tick position
+        \def\vbarpos{4.0}    % v_bar tick position
+        \def\vrmspos{4.7}    % v_rms tick position
+
+        % Maxwell-like curve: y = A * x^2 * exp(-x^2/a)
+        % Choose a = vmax^2 so peak is near v_max tick.
+        \def\a{12.25}        % = (3.5)^2
+        \def\A{0.7}         % vertical scale
+
+        % ---------- axes ----------
+        \draw[-{Stealth[length=4mm,width=3.2mm]}, line width=0.9pt] (0,0) -- (\xmax,0);
+        \draw[-{Stealth[length=4mm,width=3.2mm]}, line width=0.9pt] (0,0) -- (0,\ymax);
+
+        \node[anchor=east] at (-0.25,\ymax-0.1) {$\mathcal{D}(v)$};
+        \node[anchor=west] at (\xmax+0.1,0.02) {$v$};
+
+        % ---------- curve ----------
+        \draw[line width=2.2pt]
+        plot[smooth,domain=0:\xmax-0.2,samples=250]
+        (\x,{ \A*(\x*\x)*exp(-(\x*\x)/\a) });
+
+        % ---------- annotations ----------
+        \node[anchor=east] (par) at (-0.1,1.25) {抛物线};
+        \draw[line width=0.9pt] (par.south) -- (0.65,0.40);
+
+        \node[anchor=west] (die) at (7.2,1.35) {指数衰减};
+        \draw[line width=0.9pt] (die.south) -- (7.65,0.55);
+
+        % ---------- ticks + labels (with the little “brackets”) ----------
+
+        \draw[line width=0.8pt] (\vmaxpos,0.22) -- (\vmaxpos,-0.14);
+        \draw[line width=0.8pt] (\vbarpos,0.22) -- (\vbarpos,-0.38);
+        \draw[line width=0.8pt] (\vrmspos,0.22) -- (\vrmspos,-0.14);
+
+        % small “bracket” connectors like the original (left and right)
+        \draw[line width=0.8pt] (\vmaxpos,-0.14) -- (\vmaxpos-0.35,-0.30);
+        \draw[line width=0.8pt] (\vrmspos,-0.14) -- (\vrmspos+0.35,-0.30);
+
+        % labels
+        \node[below] at (\vmaxpos-0.55,-0.38) {$v_{\max}$};
+        \node[below] at (\vbarpos,-0.38) {$\overline v$};
+        \node[below] at (\vrmspos+0.55,-0.38) {$v_{\mathrm{rms}}$};
+
+    \end{tikzpicture}%
+  }
+  \caption{Maxwell 速率分布示意图}
+\end{figure}
