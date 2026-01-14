@@ -1,1 +1,17 @@
 \section{引言}
+\label{sec:intro}
+
+\subsection{研究背景}
+以 T 细胞为核心效应细胞的肿瘤免疫治疗（如免疫检查点阻断与过继 T 细胞治疗）已成为肿瘤治疗的重要方向 \parencite{SharmaAllison2015Checkpoint}，其关键在于肿瘤抗原被有效呈递并触发 T 细胞的特异性识别与杀伤 \parencite{NeefjesEtAl2011MHCSystems}。在这一过程中，肿瘤细胞的抗原加工与呈递通路决定了其对细胞毒性 T 细胞（cytotoxic T lymphocyte, CTL）攻击的敏感性，也是肿瘤免疫逃逸的主要发生环节之一 \parencite{DhatchinamoorthyColbertRock2021MHCLoss}。
+
+\subsection{\textit{B2m}与抗原呈递及其免疫学意义}
+\(\beta\)-2 微球蛋白（\textit{B2m}）是 MHC-I 分子复合体的关键组成部分，参与 MHC-I 的稳定组装与细胞表面表达 \parencite{WangLiuWei2021B2MImmunotherapies}。若 \textit{B2m} 功能受损，MHC-I 表达下降将削弱抗原肽-MHC 复合体在肿瘤细胞表面的呈递，从而降低 CD8\textsuperscript{+} T 细胞的识别效率，表现为对 T 细胞介导杀伤的相对耐受 \parencite{ZaretskyGarciaDiazShinEtAl2016AcquiredResistancePD1}；相对地，在 NK 细胞相关的``missing-self''监视框架下，MHC-I 下调也可能带来不同的免疫选择压力 \parencite{Raulet2006MissingSelfNK}。基于上述机制，\textit{B2m} 既是研究肿瘤免疫逃逸的经典靶点，也常被用作体外共培养杀伤体系中验证抗原呈递依赖性的对照基因。
+
+\subsection{实验目的与总体设计}
+本实验旨在以 CRISPR-Cas9 介导的基因敲除策略，在小鼠肿瘤细胞 MC38 中构建 \textit{B2m} 的敲除细胞群体，并在体外共培养模型中评估 \textit{B2m} 敲除对抗原特异性 T 细胞杀伤效率的影响。根据实验手册流程，实验主要包含四个环节：
+(1) 设计并构建靶向 \textit{B2m} 的 sgRNA（KO-1、KO-2）及阴性对照 sgRNA（NC），并克隆至慢病毒载体；
+(2) 质粒扩增与提取后，在 293T 细胞中进行慢病毒包装；
+(3) 感染 MC38 细胞并通过流式分选获得目标细胞群体，从而建立稳定表达 sgRNA/Cas9 的细胞系；
+(4) 将 CTV 标记的对照靶细胞与未标记的敲除靶细胞按 1:1 混合，在 OVA 肽脉冲后加入 OT-1 T 细胞进行共培养，并用流式细胞术比较共培养后两类靶细胞的相对比例变化。
+
+在数据分析上，本实验以各孔内 CTV\textsuperscript{+}（NC）与 CTV\textsuperscript{--}（KO）门控比例计算比值 \(r=\mathrm{KO}/\mathrm{NC}\)，并使用同组 only 条件的均值 \(r_{\mathrm{only}}\) 进行归一化，从而得到 \(\mathrm{T/only}=r_{\mathrm{E:T}}/r_{\mathrm{only}}\) 及其对数变换 \(\log_2\mathrm{FC}\)。该指标刻画了在给定 E:T 条件下 KO 相对 NC 的存活变化，可用于不同处理组与不同 E:T 条件间的比较。

@@ -14,12 +14,24 @@
 
 \usepackage[
   backend=biber,
-  style=authoryear,
+  citestyle=authoryear,
+  bibstyle=numeric,
   sorting=nyt
 ]{biblatex}
+\DeclareDelimFormat{nameyeardelim}{\addcomma\space}
 \addbibresource{bib/references.bib}
 
+\newcommand{\beginsupplement}{%
+  \setcounter{figure}{0}%
+  \setcounter{table}{0}%
+  \renewcommand{\thefigure}{S\arabic{figure}}%
+  \renewcommand{\thetable}{S\arabic{table}}%
+}
+
 \setcounter{tocdepth}{1}
+
+\usepackage{seqsplit}
+\usepackage{listings}
 
 \begin{document}
 
@@ -35,6 +47,13 @@
 \input{sections/06-discussion.tex}
 \input{sections/07-acknowledgment.tex}
 
-\printbibliography
+% References
+\clearpage
+\printbibliography[title={参考文献}]
+
+% Appendices
+\clearpage
+\appendix
+\input{sections/99-appendix.tex}
 
 \end{document}

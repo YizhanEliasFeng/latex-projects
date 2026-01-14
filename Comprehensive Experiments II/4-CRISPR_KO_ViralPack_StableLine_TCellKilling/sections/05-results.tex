@@ -1,1 +1,189 @@
 \section{实验结果}
+
+\subsection{线性化载体提取}
+为获得用于后续连接反应的线性化载体，以 BsmB1 限制性内切酶对 LentiV2-puro 质粒进行双酶切（按实验手册体系配制），随后通过琼脂糖凝胶电泳分离目标条带并进行凝胶回收。电泳与回收结果如图~\ref{fig:linearized_vector_gel} 所示。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.8\textwidth]{Electrophoresis.jpg}
+    \caption{线性化载体的琼脂糖凝胶电泳与凝胶回收结果}
+    \label{fig:linearized_vector_gel}
+\end{figure}
+
+泳道加样顺序（自左向右）依次为：DL~15000 DNA Marker、LentiV2-puro 酶切载体 1--6 号以及 LentiV2-puro 空载对照。对回收产物进行分光光度法定量后，我负责样品的线性化 DNA 终浓度为 $\qty{53.5}{\ng\per\ul}$，A\textsubscript{260}/A\textsubscript{280} 为 1.78。
+
+\subsection{sgRNA 测序验证}
+为确认 sgRNA 插入片段构建正确，对各 sgRNA 载体进行 Sanger 测序，并将测序读段与设计序列进行比对。结果显示，所构建载体在插入位点附近的关键序列与设计序列完全一致，未观察到明显的碱基替换或缺失，说明 sgRNA 构建与克隆过程成功，可用于后续病毒包装与稳转细胞系构建。序列测序结果见附录。
+
+\subsection{流式细胞术结果统计}
+流式细胞术门控策略与代表性散点图见附录图~\ref{fig:cytometry1}--\ref{fig:cytometry2}。为定量比较不同处理组在 T 细胞共培养条件下的相对存活情况，以下基于各孔门控后细胞群体的相对比例进行统计与归一化计算。
+
+\paragraph{数据处理与指标定义}
+在每个孔内，分别记录 CTV$^+$（NC）与 CTV$^{-}$（KO）两类靶细胞的门控比例，并计算其比值
+\begin{equation}
+  r = \frac{\mathrm{KO}}{\mathrm{NC}}.
+\end{equation}
+其中，only 条件表示仅培养靶细胞而不加入 T 细胞，用于表征无杀伤压力下两类靶细胞的基线比例。对于给定 E:T 条件（1:6 或 1:9），将对应孔的比值 $r_{\mathrm{E:T}}$ 以同组 only 条件的平均比值 $\overline{r}_{\mathrm{only}}$ 进行归一化，得到
+\begin{equation}
+  \mathrm{T/only} = \frac{r_{\mathrm{E:T}}}{\overline{r}_{\mathrm{only}}},
+  \qquad
+  \log_2 \mathrm{FC} = \log_2\left(\frac{r_{\mathrm{E:T}}}{\overline{r}_{\mathrm{only}}}\right).
+\end{equation}
+每个条件均包含 3 个技术重复孔。
+
+\paragraph{结果统计表}
+表~\ref{tab:jxy-ncnc}--\ref{tab:qbw-ncko2} 汇总了各孔原始门控比例及上述派生指标，用于后续组间比较与可视化。
+
+\begin{table}[H]
+    \centering
+    \caption{NC+NC（第一组，姜歆宇）在不同 E:T 条件下的流式统计与比值计算}
+    \label{tab:jxy-ncnc}
+    \begin{tabular}{lccccccccc}
+        \toprule
+        & \multicolumn{3}{c}{NC+NC only}
+        & \multicolumn{3}{c}{NC+NC E:T=1:6}
+        & \multicolumn{3}{c}{NC+NC E:T=1:9} \\
+        \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+        & 1 & 2 & 3 & 1 & 2 & 3 & 1 & 2 & 3 \\
+        \midrule
+        CTV$^+$ NC  & 52.1 & 53.1 & 53.1 & 52.7 & 52.5 & 52.3 & 52.1 & 52.6 & 52.1 \\
+        CTV$^{-}$ KO  & 43.0 & 42.1 & 42.3 & 43.0 & 43.3 & 43.4 & 43.5 & 42.8 & 43.6 \\
+        \midrule
+        $\mathrm{KO/NC}$    & 0.8253 & 0.7928 & 0.7966 & 0.8159 & 0.8248 & 0.8298 & 0.8349 & 0.8137 & 0.8369 \\
+        $\overline{r}_{\mathrm{only}}$ & \multicolumn{3}{c}{0.8049} & \multicolumn{3}{c}{---} & \multicolumn{3}{c}{---} \\
+        \midrule
+        $\mathrm{T/only}$   & ---  & ---  & --- & 1.0137 & 1.0246 & 1.0309 & 1.0373 & 1.0109 & 1.0397 \\
+        $\log_2 \mathrm{FC}$   & ---  & ---  & --- & 0.0196 & 0.0351 & 0.0439 & 0.0528 & 0.0156 & 0.0561 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{NC+NC（第二组，刘天乐）在不同 E:T 条件下的流式统计与比值计算}
+    \label{tab:ltl-ncnc}
+    \begin{tabular}{lccccccccc}
+        \toprule
+        & \multicolumn{3}{c}{NC+NC only}
+        & \multicolumn{3}{c}{NC+NC E:T=1:6}
+        & \multicolumn{3}{c}{NC+NC E:T=1:9} \\
+        \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+        & 1 & 2 & 3 & 1 & 2 & 3 & 1 & 2 & 3 \\
+        \midrule
+        CTV$^+$ NC  & 33.2 & 63.2 & 55.5 & 45.2 & 86.1 & 40.6 & 49.4 & 84.2 & 54.3 \\
+        CTV$^{-}$ KO  & 65.2 & 34.2 & 42.3 & 52.2 & 8.92 & 55.8 & 47.9 & 12.0 & 43.3 \\
+        \midrule
+        $\mathrm{KO/NC}$    & 1.9639 & 0.5411 & 0.7622 & 1.1549 & 0.1036 & 1.3744 & 0.9696 & 0.1425 & 0.7974 \\
+        $\overline{r}_{\mathrm{only}}$ & \multicolumn{3}{c}{1.0891} & \multicolumn{3}{c}{---} & \multicolumn{3}{c}{---} \\
+        \midrule
+        $\mathrm{T/only}$   & ---  & ---  & --- & 1.0604 & 0.0951 & 1.2620 & 0.8903 & 0.1309 & 0.7322 \\
+        $\log_2 \mathrm{FC}$   & ---  & ---  & --- & 0.0847 & -3.3940 & 0.3357 & -0.1676 & -2.9339 & -0.4497 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{NC+KO-1（第一组，张一凡）在不同 E:T 条件下的流式统计与比值计算}
+    \label{tab:zyf-ncko1}
+    \begin{tabular}{lccccccccc}
+        \toprule
+        & \multicolumn{3}{c}{NC+KO-1 only}
+        & \multicolumn{3}{c}{NC+KO-1 E:T=1:6}
+        & \multicolumn{3}{c}{NC+KO-1 E:T=1:9} \\
+        \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+        & 1 & 2 & 3 & 1 & 2 & 3 & 1 & 2 & 3 \\
+        \midrule
+        CTV$^+$ NC  & 45.2 & 45.3 & 44.8 & 41.0 & 39.9 & 41.9 & 41.0 & 40.9 & 39.3 \\
+        CTV$^{-}$ KO  & 50.8 & 50.4 & 51.0 & 55.5 & 56.3 & 54.6 & 55.4 & 55.3 & 57.2 \\
+        \midrule
+        $\mathrm{KO/NC}$    & 1.1239 & 1.1126 & 1.1384 & 1.3537 & 1.4110 & 1.3031 & 1.3512 & 1.3521 & 1.4555 \\
+        $\overline{r}_{\mathrm{only}}$ & \multicolumn{3}{c}{1.1250} & \multicolumn{3}{c}{---} & \multicolumn{3}{c}{---} \\
+        \midrule
+        $\mathrm{T/only}$   & ---  & ---  & --- & 1.2033 & 1.2543 & 1.1584 & 1.2011 & 1.2019 & 1.2938 \\
+        $\log_2 \mathrm{FC}$   & ---  & ---  & --- & 0.2670 & 0.3269 & 0.2121 & 0.2644 & 0.2653 & 0.3716 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{NC+KO-1（第二组，冯翊展）在不同 E:T 条件下的流式统计与比值计算}
+    \label{tab:fyz-ncko1}
+    \begin{tabular}{lccccccccc}
+        \toprule
+        & \multicolumn{3}{c}{NC+KO-1 only}
+        & \multicolumn{3}{c}{NC+KO-1 E:T=1:6}
+        & \multicolumn{3}{c}{NC+KO-1 E:T=1:9} \\
+        \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+        & 1 & 2 & 3 & 1 & 2 & 3 & 1 & 2 & 3 \\
+        \midrule
+        CTV$^+$ NC  & 50.7 & 49.7 & 51.0 & 46.6 & 43.2 & 46.1 & 44.8 & 42.4 & 44.6 \\
+        CTV$^{-}$ KO  & 47.2 & 48.1 & 46.5 & 51.0 & 54.4 & 51.2 & 52.7 & 55.2 & 53.5 \\
+        \midrule
+        $\mathrm{KO/NC}$    & 0.9310 & 0.9678 & 0.9118 & 1.0944 & 1.2593 & 1.1106 & 1.1763 & 1.3019 & 1.1996 \\
+        $\overline{r}_{\mathrm{only}}$ & \multicolumn{3}{c}{0.9368} & \multicolumn{3}{c}{---} & \multicolumn{3}{c}{---} \\
+        \midrule
+        $\mathrm{T/only}$   & ---  & ---  & --- & 1.1682 & 1.3441 & 1.1855 & 1.2556 & 1.3896 & 1.2804 \\
+        $\log_2 \mathrm{FC}$   & ---  & ---  & --- & 0.2243 & 0.4267 & 0.2455 & 0.3284 & 0.4747 & 0.3566 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{NC+KO-2（第一组，韩翔宇）在不同 E:T 条件下的流式统计与比值计算}
+    \label{tab:hxy-ncko2}
+    \begin{tabular}{lccccccccc}
+        \toprule
+        & \multicolumn{3}{c}{NC+KO-2 only}
+        & \multicolumn{3}{c}{NC+KO-2 E:T=1:6}
+        & \multicolumn{3}{c}{NC+KO-2 E:T=1:9} \\
+        \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+        & 1 & 2 & 3 & 1 & 2 & 3 & 1 & 2 & 3 \\
+        \midrule
+        CTV$^+$ NC  & 45.9 & 40.4 & 38.6 & 35.0 & 35.4 & 35.4 & 44.1 & 41.3 & 39.5 \\
+        CTV$^{-}$ KO  & 49.6 & 56.0 & 58.2 & 61.7 & 61.1 & 60.7 & 52.0 & 55.2 & 56.6 \\
+        \midrule
+        $\mathrm{KO/NC}$    & 1.0806 & 1.3861 & 1.5078 & 1.7629 & 1.7260 & 1.7147 & 1.1791 & 1.3366 & 1.4329 \\
+        $\overline{r}_{\mathrm{only}}$ & \multicolumn{3}{c}{1.3248} & \multicolumn{3}{c}{---} & \multicolumn{3}{c}{---} \\
+        \midrule
+        $\mathrm{T/only}$   & ---  & ---  & --- & 1.3306 & 1.3028 & 1.2943 & 0.8900 & 1.0088 & 1.0816 \\
+        $\log_2 \mathrm{FC}$   & ---  & ---  & --- & 0.4121 & 0.3816 & 0.3721 & -0.1681 & 0.0127 & 0.1131 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{NC+KO-2（第二组，覃博文）在不同 E:T 条件下的流式统计与比值计算}
+    \label{tab:qbw-ncko2}
+    \begin{tabular}{lccccccccc}
+        \toprule
+        & \multicolumn{3}{c}{NC+KO-2 only}
+        & \multicolumn{3}{c}{NC+KO-2 E:T=1:6}
+        & \multicolumn{3}{c}{NC+KO-2 E:T=1:9} \\
+        \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+        & 1 & 2 & 3 & 1 & 2 & 3 & 1 & 2 & 3 \\
+        \midrule
+        CTV$^+$ NC  & 50.6 & 47.1 & 50.7 & 44.8 & 45.6 & 48.8 & 42.4 & 46.6 & 47.3 \\
+        CTV$^{-}$ KO  & 47.6 & 50.1 & 47.4 & 52.5 & 52.2 & 49.8 & 55.5 & 51.1 & 51.3 \\
+        \midrule
+        $\mathrm{KO/NC}$    & 0.9407 & 1.0637 & 0.9349 & 1.1719 & 1.1447 & 1.0205 & 1.3090 & 1.0966 & 1.0846 \\
+        $\overline{r}_{\mathrm{only}}$ & \multicolumn{3}{c}{0.9798} & \multicolumn{3}{c}{---} & \multicolumn{3}{c}{---} \\
+        \midrule
+        $\mathrm{T/only}$   & ---  & ---  & --- & 1.1961 & 1.1684 & 1.0416 & 1.3360 & 1.1192 & 1.1070 \\
+        $\log_2 \mathrm{FC}$   & ---  & ---  & --- & 0.2583 & 0.2245 & 0.0587 & 0.4179 & 0.1625 & 0.1466 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\paragraph{杀伤效率的汇总比较}
+为直观呈现 T 细胞介导杀伤在不同处理组间的差异，将各孔计算得到的 $\log_2\mathrm{FC}$ 按处理组与 E:T 条件进行汇总，并使用 GraphPad Prism 绘制柱状图（图~\ref{fig:log2FC}）。其中，$\log_2\mathrm{FC}$ 反映了给定 E:T 条件下 KO 靶细胞相对于 NC 靶细胞的相对存活变化，并已以 only 条件进行归一化。柱状图基于技术重复孔的 $\log_2\mathrm{FC}$ 计算结果进行汇总；误差线与显著性标注按 Prism 绘图与统计设置给出。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.7\textwidth]{log2FC.pdf}
+    \caption{不同 E:T 条件下 T 细胞介导杀伤效率的 $\log_2\mathrm{FC}$ 汇总}
+    \label{fig:log2FC}
+\end{figure}
