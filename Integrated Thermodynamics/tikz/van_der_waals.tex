@@ -1,0 +1,54 @@
+\begin{figure}[htbp]
+  \centering
+  \resizebox{0.9\linewidth}{!}{%
+    \begin{tikzpicture}[
+      x=1cm,y=1cm,
+      >=Stealth,
+      every node/.style={font=\small}
+    ]
+
+      % parameters
+      \def\xmin{-0.2}
+      \def\xmax{4.2}
+      \def\ymin{-0.6}
+      \def\ymax{2.6}
+
+      % reduced vdW: p = 8T/(3v-1) - 3/v^2
+      \pgfmathdeclarefunction{pr}{2}{\pgfmathparse{8*#1/(3*#2-1) - 3/(#2*#2)}}
+
+      % axes
+      \draw[-{Stealth[length=4mm,width=3.2mm]}, line width=0.9pt] (\xmin,0) -- (\xmax,0);
+      \draw[-{Stealth[length=4mm,width=3.2mm]}, line width=0.9pt] (0,\ymin) -- (0,\ymax);
+
+      \node[anchor=west] at (\xmax+0.05,0.02) {$V/V_{\mathrm c}$};
+      \node[anchor=east] at (-0.25,\ymax-0.05) {$P/P_{\mathrm c}$};
+
+      % x ticks
+      \foreach \x in {0.5,1.5,2.5,3.5}{
+        \draw[line width=0.6pt] (\x,0.09) -- (\x,-0.09);
+      }
+      \foreach \x/\lab in {1/1,2/2,3/3,4/}{
+        \draw[line width=0.8pt] (\x,0.14) -- (\x,-0.14);
+        \ifx\lab\empty\relax\else\node[below] at (\x,-0.22) {$\lab$};\fi
+      }
+
+      % y ticks
+      \foreach \y in {0.5,1.5}{
+        \draw[line width=0.6pt] (-0.09,\y) -- (0.09,\y);
+      }
+      \foreach \y/\lab in {1/1,2/2}{
+        \draw[line width=0.8pt] (-0.14,\y) -- (0.14,\y);
+        \node[anchor=east] at (-0.18,\y) {$\lab$};
+      }
+
+    %   % curves (top to bottom: T/Tc = 1.2, 1.1, 1.0, 0.9, 0.8)
+    %   \foreach \T in {1.2,1.1,1.0,0.9,0.8}{
+    %     \draw[line width=2.2pt]
+    %       plot[smooth,domain=0.36:4.0,samples=500]
+    %       (\x,{pr(\T,\x)});
+    %   }
+
+    \end{tikzpicture}%
+  }
+  \caption{van der Waals 气体的约化 $P$–$V$ 等温线：自上而下 $T/T_{\mathrm c}=1.2,\,1.1,\,1.0,\,0.9,\,0.8$}
+\end{figure}

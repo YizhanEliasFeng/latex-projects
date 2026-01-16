@@ -1,3 +1,482 @@
 \chapter{自由能与化学中的热力学}
 
-\section{Section Title}
+\section{自由能与可用功}
+在 1.6 节中我们定义了一个系统的焓 $H$ 并介绍了其物理意义：凭空创造一个系统\textbf{并放置在环境中所需要的总能量}。现在我们引入两个类似的与能量相关的量：
+\begin{definition}[Helmholtz 自由能]
+    Helmholtz 自由能 $F$ 表示凭空创造一个系统\textbf{所需要提供的能量}：
+    \begin{equation}
+        F \equiv U- TS
+    \end{equation}
+\end{definition}
+\begin{definition}[Gibbs 自由能]
+    Gibbs 自由能 $G$ 表示凭空创造一个系统\textbf{并放置在环境中所需要提供的能量}：
+    \begin{equation}
+        G \equiv U- TS + PV
+    \end{equation}
+\end{definition}
+\begin{remark}
+    比较这里物理意义的不同：``所需要的总能量''和``所需要提供的能量''的区别在于，当环境温度不变时，系统可以从环境中汲取热量，这一部分能量来在于熵的变化。
+\end{remark}
+于是我们得到了四个与能量相关的热力学量：$U$、$H$、$F$和$G$，它们统称为\textbf{热力学势}。
+
+
+通常我们更加关心的是系统 $F$ 和 $G$ 的\textit{变化}。首先考虑恒温 $T$ 下 $F$ 的变化：
+\begin{equation}
+    \Delta F
+    =\Delta U-T\Delta S
+    =Q+W-T\Delta S,\qquad Q\le T\Delta S
+    \implies \Delta F\le W
+\end{equation}
+若固定环境的压强 $P$，则：
+\begin{equation}
+    \Delta G
+    =\Delta U-T\Delta S+P\Delta V
+    =Q+W-T\Delta S+P\Delta V
+    \implies \Delta G\le W+P\Delta V
+\end{equation}
+如果我们把功 $W$ 写作环境做的体积功 $-P\Delta V$ 和``其他''功 $W_\text{其他}$，则 $\Delta G \le W_\text{其他}$。容易看出这里的取等条件都是过程可逆。于是我们得到关于两种自由能变的物理意义：
+\begin{corollary}{$\Delta F$ 和 $\Delta G$ 的物理意义}
+    恒温过程的 Helmholtz 自由能变表示该过程系统能对环境做的最大功：
+    \begin{equation}
+        \Delta F \le W
+    \end{equation}
+    恒温、恒压过程的 Gibbs 自由能变表示该过程系统能对环境做的最大其他功（非体积功）：
+    \begin{equation}
+        \Delta G \le W_\text{其他}
+    \end{equation}
+\end{corollary}
+
+\subsection{热力学恒等式}
+在 3.4 节中我们介绍了 $U$ 的热力学恒等式~\eqref{eq:IdentityU}，焓与自由能也有类似的公式，它们可以从定义和~\eqref{eq:IdentityU} 直接推出：
+\begin{corollary}[热力学恒等式]
+    \begin{align}
+        &\mathrm{d}U=T\,\mathrm{d}S-P\,\mathrm{d}V+\mu\,\mathrm{d}N\label{eq:Identity1}\\
+        &\mathrm{d}H=T\,\mathrm{d}S+V\,\mathrm{d}P+\mu\,\mathrm{d}N\label{eq:Identity2}\\
+        &\mathrm{d}F=-S\,\mathrm{d}T-P\,\mathrm{d}V+\mu\,\mathrm{d}N\label{eq:Identity3}\\ 
+        &\mathrm{d}G=-S\,\mathrm{d}T+V\,\mathrm{d}P+\mu\,\mathrm{d}N\label{eq:Identity4}
+    \end{align}
+\end{corollary}
+
+\subsection{对应系数关系式}
+由~\eqref{eq:Identity1}--\eqref{eq:Identity4} 可以推出一系列偏导公式，例如保持 $V$ 和 $N$ 不变，由~\eqref{eq:Identity1}，$\left(\frac{\partial U}{\partial S}\right)_{V,N}=T$。这些偏导公式统称为\textbf{对应系数关系式}：
+\begin{corollary}[对应系数关系式]
+    \begin{align}
+        T &= \left(\frac{\partial U}{\partial S}\right)_{V,N},
+        &\qquad
+        -P &= \left(\frac{\partial U}{\partial V}\right)_{S,N},
+        &\qquad
+        \mu &= \left(\frac{\partial U}{\partial N}\right)_{S,V}\label{eq:corres1}\\
+        T &= \left(\frac{\partial H}{\partial S}\right)_{P,N},
+        &\qquad
+        V &= \left(\frac{\partial H}{\partial P}\right)_{S,N},
+        &\qquad
+        \mu &= \left(\frac{\partial H}{\partial N}\right)_{S,P}\label{eq:corres2}\\
+        -S &= \left(\frac{\partial F}{\partial T}\right)_{V,N},
+        &\qquad
+        -P &= \left(\frac{\partial F}{\partial V}\right)_{T,N},
+        &\qquad
+        \mu &= \left(\frac{\partial F}{\partial N}\right)_{T,V}\label{eq:corres3}\\
+        -S &= \left(\frac{\partial G}{\partial T}\right)_{P,N},
+        &\qquad
+        V &= \left(\frac{\partial G}{\partial P}\right)_{T,N},
+        &\qquad
+        \mu &= \left(\frac{\partial G}{\partial N}\right)_{T,P}\label{eq:corres4}
+    \end{align}
+\end{corollary}
+
+\subsection{Maxwell 关系}
+我们通常认为物理学中的函数都具有较好的性质，比如混合偏导数不依赖于求导的次序，例如（固定 $N$）：
+\begin{equation}
+    \frac{\partial}{\partial V}\left(\frac{\partial U}{\partial S}\right) = \frac{\partial}{\partial S}\left(\frac{\partial U}{\partial V}\right)
+\end{equation}
+代入~\eqref{eq:corres1}，得到：
+\begin{equation}
+    \left(\frac{\partial T}{\partial V}\right)_{S} = -\left(\frac{\partial P}{\partial S}\right)_{V}
+\end{equation}
+这个等式称为\textbf{Maxwell 关系}。同理可以推出另外三个热力学势对应的 Maxwell 关系：
+\begin{corollary}[Maxwell 关系（固定 $N$ 不变）]
+    \begin{align}
+        &\left(\frac{\partial T}{\partial V}\right)_S = -\left(\frac{\partial P}{\partial S}\right)_V\\
+        &\left(\frac{\partial T}{\partial P}\right)_S = \left(\frac{\partial V}{\partial S}\right)_P\\
+        &\left(\frac{\partial S}{\partial V}\right)_T = \left(\frac{\partial P}{\partial T}\right)_V\\
+        &-\left(\frac{\partial S}{\partial P}\right)_T = 3\left(\frac{\partial V}{\partial T}\right)_P
+    \end{align}
+\end{corollary}
+
+\section{自由能与达到平衡的驱动力}
+在 2.6 节中我们讨论了孤立系统的 $S$ 总是倾向于增加，那对于非孤立系统有没有一个类似的衡量趋势的热力学量呢？我们假设一个系统与热库 $R$ 相平衡，共同组成一个大的孤立系统：
+\begin{equation}
+    \mathrm{d}S_\mathrm{tot} = \mathrm{d}S + \mathrm{d}S_R
+\end{equation}
+对于热库，
+\begin{equation}
+    \mathrm{d}S=\frac{1}{T}\,\mathrm{d}U+\frac{P}{T}\,\mathrm{d}V-\frac{\mu}{T}\,\mathrm{d}N
+\end{equation}
+假设 $V,N$ 不变，则：
+\begin{equation}
+    \mathrm{d}S_{\mathrm{tot}}
+    =\mathrm{d}S+\frac{1}{T_R}\,\mathrm{d}U_R
+    =\mathrm{d}S-\frac{1}{T}\,\mathrm{d}U
+    =-\frac{1}{T}\,\mathrm{d}F
+    \implies \text{系统会最小化}\ F
+\end{equation}
+同理，设 $P,N$ 不变，则：
+\begin{equation}
+    \mathrm{d}S_{\mathrm{tot}}
+    =\mathrm{d}S-\frac{1}{T}\,\mathrm{d}U-\frac{P}{T}\,\mathrm{d}V
+    =-\frac{1}{T}\,\mathrm{d}G
+    \implies \text{系统会最小化}\ G
+\end{equation}
+我们可以把这些观点总结为：
+\begin{corollary}[系统自发变化的方向]
+    在没有粒子交换的前提下（固定 $N$）：
+    \begin{align}
+        &\text{固定}\ U\ \text{和}\ V \text{，} S\ \text{倾向于增加}\\
+        &\text{固定}\ T\ \text{和}\ V \text{，} F\ \text{倾向于增加}\\
+        &\text{固定}\ T\ \text{和}\ P \text{，} G\ \text{倾向于增加}
+    \end{align}
+\end{corollary}
+
+\subsection{广延量和强度量}
+将物质加倍，那些\textit{会}随之加倍的量称为\textbf{广延量}，\textit{不会}随之加倍的量称为\textbf{强度量}：
+\begin{align}
+    &\text{广延量：}\ V,N,S,U,H,F,G\\
+    &\text{强度量：}\ T,P,\mu
+\end{align}
+由广延量和强度量的定义我们可以得到关于 $G$ 的一个重要性质。回忆偏导关系~\eqref{eq:corres4}，由于 $T$ 和 $P$ 是强度量，而 $G$ 是强度量，因此 $G \propto N$，而这个比例系数就是 $\mu$。因此：
+\begin{corollary}[化学势与 Gibbs 自由能的关系]
+    \begin{equation}
+        G = N\mu
+    \end{equation}
+\end{corollary}
+进一步，对于恒温的理想气体：
+\begin{equation}
+    \frac{\partial \mu}{\partial P}
+    =\frac{1}{N}\frac{\partial G}{\partial P}
+    =\frac{V}{N}
+    =\frac{kT}{P}
+    \implies \mu(T,P)=\mu^\circ(T)+kT\ln P
+\end{equation}
+
+我们可以和 $F$ 做个对比~\eqref{eq:corres3}，注意这里 $V$ 是广延量，意味着每增加一个粒子，为了保持 $T$ 和 $V$ 不变就需要改变密度，也就改变了 $\mu$。所以：
+\begin{equation}
+    F \neq N\mu
+\end{equation}
+
+另一个重要推论是\textbf{Gibbs-Dunhem 关系}。设 $U$ 是$S$、$V$和$N$的函数，由于 $U$ 是广延量，因此：
+\begin{equation}
+    \lambda U[S,V,N] = U[\lambda S, \lambda V, \lambda N]
+\end{equation}
+对 $\lambda$ 求导并令 $\lambda=1$：
+\begin{equation}
+    U = \frac{\partial U}{\partial S}S + \frac{\partial U}{\partial V}V + \frac{\partial U}{\partial N}N = TS - PV + \mu N
+\end{equation}
+这里用到了~\eqref{eq:corres1}。再求全微分：
+\begin{equation}
+    \mathrm{d}U = T\,\mathrm{d}S + S\,\mathrm{d}T - P\,\mathrm{d}V - V\,\mathrm{d}P + \mu\,\mathrm{d}N + N\,\mathrm{d}\mu
+\end{equation}
+代入~\eqref{eq:Identity1} 就得到：
+\begin{corollary}[Gibbs-Dunhem 关系]
+    \begin{equation}
+        S\,\mathrm{d}T - V\,\mathrm{d}P + N\,\mathrm{d}\mu = 0
+    \end{equation}
+\end{corollary}
+
+
+
+\section{纯净物的相变}
+\subsection{Clausius-Clapeyron 关系}
+考虑气相和液相的 $P$--$T$ 边界，在边界上$G_l=G_g$。现在给予经一个扰动 $\mathrm{d}T$ 和 $\mathrm{d}P$，应当仍有 $G_l=G_g$：
+\begin{equation}
+    \mathrm{d}G_l=\mathrm{d}G_g
+    \implies -S_l\,\mathrm{d}T+V_l\,\mathrm{d}P=-S_g\,\mathrm{d}T+V_g\,\mathrm{d}P
+    \implies \frac{\mathrm{d}P}{\mathrm{d}T}=\frac{S_g-S_l}{V_g-V_l}
+\end{equation}
+记气液相变的潜热为 $L$，则 $S_g-S_l=L/T$，故：
+\begin{corollary}[Clausius-Clapeyron 关系]
+    \begin{equation}
+        \frac{\mathrm{d}P}{\mathrm{d}T}=\frac{L}{T(V_g - V_l)}=\frac{L}{T\Delta V}
+    \end{equation}
+\end{corollary}
+
+通常在很小的区域内可以认为 $L$ 不变。此外，如果取其中一相为理想气体，则通常可以忽略凝聚相的体积，即 $\Delta V\approx V_g\approx RT/P$。于是：
+\begin{equation}
+    \frac{\mathrm{d}P}{\mathrm{d}T}=\frac{LP}{RT^2}
+    \implies \frac{\mathrm{d}P}{P}=\frac{L}{R}\frac{\mathrm{d}T}{T^2}
+    \implies \ln P=-\frac{L}{RT}+C;
+\end{equation}
+
+\subsection{van der Waals 模型}
+为了更加深刻地理解气液系统的相变，我们考虑对理想气体定律~\eqref{eq:IGL} 做一些修正。首先修正体积项：显然流体不能一直压缩到零体积，因此我们将体积的最小值限制为 $Nb$；其次修正压强项：想象某个瞬间冻结所有分子，此时唯一能量是分子之间相互吸引产生的负势能，和单个分子相关的相互作用势能应该正比于分子的密度 $N/V$，所以总的势能可以记为 $-aN^2/V$，这项势能引起的压强为：
+\begin{equation}
+    P' =-\frac{\partial U}{\partial V}
+    =-\frac{\partial}{\partial V}\left(-\frac{aN^2}{V}\right)
+    =-\frac{aN^2}{V^2}
+\end{equation}
+引入这两个修正，我们就得到了一个新的物态方程---\textbf{van der Waals方程}：
+\begin{corollary}[van der Waals方程]
+    \begin{equation}\label{eq:vdW}
+        \left(P+\frac{aN^2}{V^2}\right)(V-Nb)=NkT
+    \end{equation}
+\end{corollary}
+
+\input{tikz/van_der_waals.tex}
+
+在给定温度和压强下，系统的平衡态由 $G$ 决定，回忆~\eqref{eq:Identity4}，设 $T$ 和 $N$ 不变，则 $\mathrm{d}G=V\,\mathrm{d}P$，于是：
+\begin{equation}
+    \left(\frac{\partial G}{\partial V}\right)_{N,T}=V\left(\frac{\partial P}{\partial V}\right)_{N,T}
+\end{equation}
+将~\eqref{eq:vdW} 变形为：
+\begin{equation}\label{eq:vdWP}
+    P=\frac{NkT}{V-Nb}-\frac{aN^2}{V^2}
+\end{equation}
+代入得到：
+\begin{align}
+    &\left(\frac{\partial G}{\partial V}\right)_{N,T}
+    =-\frac{NkTV}{(V-Nb)^2}+\frac{2aN^2}{V^2}\\
+    &\implies
+    G=-NkT\ln(V-Nb)+\frac{NkT\,Nb}{V-Nb}-\frac{2aN^2}{V}+c(T)\\
+    &\implies
+    \frac{G}{NkT}=-\ln(V-Nb)+\frac{Nb}{V-Nb}-\frac{2a}{kT}\frac{N}{V}+C
+\end{align}
+和去量纲化的~\eqref{eq:vdWP}
+\begin{equation}
+    \frac{P}{kT/b}=\frac{Nb}{V-Nb}-\frac{a}{bT}\left(\frac{Nb}{V}\right)^2
+\end{equation}
+联立，我们可以画出 van der Waals 体系的 $G$--$P$ 和 $P$--$V$ 图：
+
+从 $G$--$P$ 图中讨论 $2\to3\to4\to5\to b$ 时不连续，实际上会从 $2$ 跳变为 $6$。
+
+\subsection{Maxwell 构造与临界点}
+$P$--$V$ 图上表现为 $V$ 迅速减小 $\implies$ 气--液相变。
+
+在 $G$--$P$ 图中容易看出其蒸气压，但在 $P$--$V$ 图却不显然。考虑 $2\to3\to4\to0\to b$：
+\begin{equation}
+    0=\oint \mathrm{d}G
+    =\oint\left(\frac{\partial G}{\partial P}\right)_T\mathrm{d}P
+    =\oint V\,\mathrm{d}P,
+\end{equation}
+即 $A,B$ 面积相等（Maxwell 构造）。
+
+在不同 $T$ 下重复 Maxwell 构造。
+
+在高温下，等 $T$ 线图随 $V$ 增加而单调 $\uparrow$，$\implies$ 无相变 $\implies$ 临界点 $(T_c,P_c,V_c)$。
+在这一点
+\begin{equation}
+    \frac{\partial P}{\partial V}
+    =-\frac{NkT}{(V-Nb)^2}+\frac{2aN^2}{V^3}=0,\qquad
+    \frac{\partial^2 P}{\partial V^2}
+    =\frac{2NkT}{(V-Nb)^3}-\frac{6aN^2}{V^4}=0,
+\end{equation}
+故
+\begin{equation}
+    V_c=3Nb,\qquad kT_c=\frac{8a}{27b},\qquad P_c=\frac{a}{27b^2}.
+\end{equation}
+临界点压缩系数
+\begin{equation}
+    \frac{P_cV_c}{NkT_c}=\frac{3}{8},
+\end{equation}
+对比 $\mathrm{H_2O}\ 0.227,\ \mathrm{He}\ 0.305,\ \mathrm{CO_2}\ 0.274$。
+
+引入对比参数
+\begin{equation}
+    t\equiv \frac{T}{T_c},\qquad p\equiv \frac{P}{P_c},\qquad v\equiv \frac{V}{V_c},
+\end{equation}
+则
+\begin{equation}
+    p=\frac{8t}{3v-1}-\frac{3}{v^2}.
+\end{equation}
+
+\section{混合物的相变}
+\subsection{理想混合物}
+混合前
+\begin{equation}
+    G=(1-x)G_A+xG_B.
+\end{equation}
+假设混合 $U,V$ 不变（理想混合物），则
+\begin{equation}
+    \Delta S_{\mathrm{mix}}=-R\bigl[x\ln x+(1-x)\ln(1-x)\bigr]
+    \implies \text{混合后 }G_{\mathrm{mix}}=G-T\Delta S_{\mathrm{mix}}.
+\end{equation}
+$G$--$x$ 是下凸的，故任何 $x$ 的混合都不会分相。
+
+\subsection{非理想混合物与分相}
+若非理想，且混合时 $U\uparrow$，则 $G$--$x$ 可能上凸 $\implies$ 分相。
+\begin{equation}
+    \implies \text{系统有浓稀度间隙，}A,B\text{ 不混溶。}\\
+    \implies \text{记录每个 }T\text{ 下的 }x_a,x_b\implies T\text{ 关于 }x\text{ 的相图：曲线之上均匀混合，之下分离。}
+\end{equation}
+
+\subsection{互溶混合物的相变}
+记纯 $A/B$ 沸点 $T_A/T_B$（共晶系统）。
+\begin{equation}
+    \frac{\partial G}{\partial T}=-S,\qquad S_g>S_l\implies T\uparrow.
+\end{equation}
+液线会逐渐相对气线下移，下移、交错、再分离。
+交错时作共切线，切点之间稳定构型是气液共存。
+气体的比例由左切点指定，液体比例由右切点指定。
+
+\section{稀溶液}
+\subsection{溶剂与溶质}
+纯溶剂：
+\begin{equation}
+    G=N_A\mu_0(T,P).
+\end{equation}
+加入一个 $B$ 分子，保持 $T,P$ 不变，$G$ 变化：
+\begin{equation}
+    \mathrm{d}G=\mathrm{d}U+P\,\mathrm{d}V-T\,\mathrm{d}S.
+\end{equation}
+其中 $\mathrm{d}U,P\,\mathrm{d}V$ 和 $N_A$ 无关，$\mathrm{d}S$ 一部分与 $N_A$ 无关，一部分与放置 $B$ 分子的熵效有关，因此
+\begin{equation}
+    \mathrm{d}S=k\ln N_A+(\text{与 }N_A\text{ 无关}),
+\end{equation}
+从而
+\begin{equation}
+    \mathrm{d}G=f(T,P)-kT\ln N_A.
+\end{equation}
+如果加入 $2$ 个 $B$ 分子，
+\begin{equation}
+    \mathrm{d}G=2f(T,P)-2kT\ln N_A+kT\ln 2\qquad (2\text{ 个 }B\text{ 分子不可区分}).
+\end{equation}
+扩展到 $N_B$ 个：
+\begin{equation}
+    G=N_A\mu_0(T,P)+N_Bf(T,P)-N_BkT\ln N_A+N_BkT\ln N_B-N_BkT.
+\end{equation}
+因此
+\begin{equation}
+    \mu_A=\left(\frac{\partial G}{\partial N_A}\right)_{T,P,N_B}=\mu_0(T,P)-\frac{N_BkT}{N_A},\\
+    \mu_B=\left(\frac{\partial G}{\partial N_B}\right)_{T,P,N_A}=f(T,P)+kT\ln\frac{N_B}{N_A}.
+\end{equation}
+记质量摩尔浓度
+\begin{equation}
+    m\equiv \frac{N_B}{m_A},
+\end{equation}
+可重写为
+\begin{equation}
+    \mu_B=\mu^0(T,P)+kT\ln m_B.
+\end{equation}
+
+\subsection{渗透压}
+为阻止渗透，必须向溶液加压使
+\begin{equation}
+    \mu_0(T,P_1)=\mu_0(T,P_2)-\frac{N_BkT}{N_A}.
+\end{equation}
+近似
+\begin{equation}
+    \mu_0(T,P_2)\approx \mu_0(T,P_1)+(P_2-P_1)\frac{\partial \mu_0}{\partial P},
+\end{equation}
+故
+\begin{equation}
+    (P_2-P_1)\frac{\partial \mu_0}{\partial P}=\frac{N_BkT}{N_A}.
+\end{equation}
+又
+\begin{equation}
+    \frac{\partial \mu_0}{\partial P}=\frac{1}{N_A}\frac{\partial G}{\partial P}=\frac{V}{N_A},
+\end{equation}
+因此
+\begin{equation}
+    (P_2-P_1)\frac{V}{N_A}=\frac{N_BkT}{N_A}
+    \implies P_2-P_1=\frac{N_BkT}{V}=\frac{n_BRT}{V}\qquad (\text{van't Hoff 公式}).
+\end{equation}
+
+\subsection{沸点与冰点：Raoult 定律与升降点}
+考虑一个在沸点的稀溶液：
+\begin{equation}
+    \mu_{A,l}(T,P)=\mu_{A,g}(T,P).
+\end{equation}
+气体无溶质：
+\begin{equation}
+    \mu_0(T,P)-\frac{N_BkT}{N_A}=\mu_g(T,P).
+\end{equation}
+先令 $T$ 不变，设 $P_0$ 为纯 $A$ 在 $T$ 的蒸气压，则 $\mu_0(T,P_0)=\mu_g(T,P_0)$。
+在 $P_0$ 处展开：
+\begin{equation}
+    \mu_0(T,P_0)+(P-P_0)\frac{\partial \mu_0}{\partial P}-\frac{N_BkT}{N_A}
+    =\mu_g(T,P_0)+(P-P_0)\frac{\partial \mu_g}{\partial P}.
+\end{equation}
+即
+\begin{equation}
+    (P-P_0)(\bar V)_l-\frac{N_BkT}{N_A}=(P-P_0)(\bar V)_g.
+\end{equation}
+忽略 $(\bar V)_l$，且 $(\bar V)_g=kT/P_0$，得
+\begin{equation}
+    P-P_0=-\frac{N_B}{N_A}P_0,\qquad \text{或}\qquad \frac{P}{P_0}=1-\frac{N_B}{N_A}\qquad (\text{Raoult 定律}).
+\end{equation}
+
+再令 $P$ 不变，设 $T_0$ 为纯 $A$ 在 $P$ 下的沸点，则 $\mu_0(T_0,P)=\mu_g(T_0,P)$。
+在 $T_0$ 处展开：
+\begin{equation}
+    \mu_0(T_0,P)+(T-T_0)\frac{\partial \mu_0}{\partial T}-\frac{N_BkT}{N_A}
+    =\mu_g(T_0,P)+(T-T_0)\frac{\partial \mu_g}{\partial T}.
+\end{equation}
+即
+\begin{equation}
+    (T-T_0)(\bar S)_l-\frac{N_BkT}{N_A}=(T-T_0)(\bar S)_g,
+    \qquad N\approx N_A,\qquad \Delta S=\frac{L}{T_0}.
+\end{equation}
+因此
+\begin{equation}
+    T-T_0=\frac{N_BkT\,T_0}{L}\approx \frac{N_BkT_0^2}{L}=\frac{n_BRT_0^2}{L}.
+\end{equation}
+同理对在冰点的稀溶液，
+\begin{equation}
+    T-T_0=-\frac{N_BkT_0^2}{L}=-\frac{n_BRT_0^2}{L}.
+\end{equation}
+
+\section{化学平衡}
+\subsection{平衡常数与 Le Chatelier 原理}
+\begin{equation}
+    \nu_1X_1+\nu_2X_2+\cdots\ \longleftrightarrow\ \nu_3X_3+\nu_4X_4+\cdots,
+    \qquad \text{平衡条件是 }\nu_1\mu_1+\cdots=\nu_3\mu_3+\cdots.
+\end{equation}
+设每种物质都为理想气体，
+\begin{equation}
+    \sum_i \nu_i\mu_i=\sum_j \nu_j\mu_j,
+\end{equation}
+且
+\begin{equation}
+    \mu=\mu^\circ+kT\ln\left(\frac{P}{P^\circ}\right).
+\end{equation}
+则
+\begin{equation}
+    \sum_i \nu_i\left[\mu_i^\circ+kT\ln\left(\frac{P_i}{P^\circ}\right)\right]
+    =\sum_j \nu_j\left[\mu_j^\circ+kT\ln\left(\frac{P_j}{P^\circ}\right)\right],\\
+    \sum_i \nu_i\,kT\ln\left(\frac{P_i}{P^\circ}\right)-\sum_j \nu_j\,kT\ln\left(\frac{P_j}{P^\circ}\right)
+    =\sum_j \nu_j\mu_j^\circ-\sum_i \nu_i\mu_i^\circ.
+\end{equation}
+因此
+\begin{equation}
+    RT\ln\left(\frac{\prod_i P_i^{\nu_i}}{\prod_j P_j^{\nu_j}}\cdot P^{\sum_i\nu_i-\sum_j\nu_j}\right)=\Delta G^\circ,
+\end{equation}
+从而
+\begin{equation}
+    \frac{\prod_i P_i^{\nu_i}}{\prod_j P_j^{\nu_j}}\cdot P^{\sum_i\nu_i-\sum_j\nu_j}
+    =e^{-\Delta G^\circ/RT}\equiv K\qquad \text{（平衡常数）}.
+\end{equation}
+
+Le Chatelier 原理：扰动一个处于平衡的系统，系统会部分减轻这个扰动。
+
+\subsection{van't Hoff 方程}
+\begin{equation}
+    \frac{\partial \ln K}{\partial T}
+    =\frac{\partial}{\partial T}\left(-\frac{\Delta G^\circ}{RT}\right)
+    =-\frac{T\,[\partial \Delta G^\circ/\partial T]-\Delta G^\circ}{RT^2}
+    =-\frac{-T\Delta S^\circ-\Delta H^\circ+T\Delta S^\circ}{RT^2}
+    =\frac{\Delta H^\circ}{RT^2}\qquad (\text{van't Hoff 方程}).
+\end{equation}
+忽略 $\Delta H^\circ$ 随 $T$ 的变化，
+\begin{equation}
+    \ln\frac{K(T_2)}{K(T_1)}=\frac{\Delta H^\circ}{R}\int_{T_1}^{T_2}\frac{\mathrm{d}T}{T^2}
+    =\frac{\Delta H^\circ}{R}\left(\frac{1}{T_1}-\frac{1}{T_2}\right).
+\end{equation}
+
+\subsection{溶解平衡：Henry 定律}
+考虑 $\mathrm{O_2(g)}\to \mathrm{O_2(aq)}$，平衡时 $\mu_g=\mu_{aq}$：
+\begin{equation}
+    \mu_g^\circ+kT\ln\left(\frac{P}{P^\circ}\right)=\mu_{aq}^\circ+kT\ln m.
+\end{equation}
+因此
+\begin{equation}
+    RT\ln\left(\frac{P/P^\circ}{m}\right)=N_A(\mu_{aq}^\circ-\mu_g^\circ)=\Delta G^\circ
+    \implies \frac{m}{P/P^\circ}=e^{-\Delta G^\circ/RT}\qquad (\text{Henry 定律}).
+\end{equation}

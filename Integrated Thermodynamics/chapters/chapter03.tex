@@ -1,3 +1,203 @@
 \chapter{相互作用及其结果}
 
-\section{Section Title}
+\section{温度}
+考虑两个 Einstein 固体。
+
+$S_{\mathrm{tot}}$ 最大时，
+\begin{align}
+\frac{\partial S_{\mathrm{tot}}}{\partial U_A}
+&=\frac{\partial S_A}{\partial U_A}+\frac{\partial S_B}{\partial U_A}
+=\frac{\partial S_A}{\partial U_A}-\frac{\partial S_B}{\partial U_B}.
+\end{align}
+取 $=0$，得
+\begin{align}
+\frac{\partial S_A}{\partial U_A}=\frac{\partial S_B}{\partial U_B}\qquad \text{（热平衡）}.
+\end{align}
+进一步，越远离平衡态，$\partial S$ 越大者倾向于获得能量，故其有更低温。
+\begin{align}
+\Rightarrow\quad \frac{1}{T}=\left(\frac{\partial S}{\partial U}\right)_{N,V},
+\qquad \text{这里系数 $1$ 是为了与 }PV=NkT\text{ 自洽。}
+\end{align}
+
+e.g.
+\begin{itemize}
+\item 大型 Einstein 固体，$q\gg N$：
+\begin{align}
+S&=Nk\left[\ln\frac{q}{N}+1\right]
+=Nk\ln U-Nk\ln(N\varepsilon)+Nk\qquad (U=\varepsilon q).
+\end{align}
+\begin{align}
+\Rightarrow\quad T=\left(\frac{\partial S}{\partial U}\right)^{-1}=\left(\frac{Nk}{U}\right)^{-1}
+\Rightarrow U=NkT\iff \text{能均分， }U=\frac{1}{2}kT\cdot f=\frac{1}{2}kT\cdot 2N.
+\end{align}
+
+\item 理想气体：
+\begin{align}
+S=Nk\ln V+\frac{3}{2}Nk\ln U+F(N)
+\Rightarrow T=\left(\frac{3}{2}\frac{Nk}{U}\right)^{-1}
+\Rightarrow U=\frac{3}{2}NkT.
+\end{align}
+\end{itemize}
+
+\section{熵和热}
+热容：
+\begin{align}
+C_V\equiv\left(\frac{\partial U}{\partial T}\right)_{N,V}
+\Rightarrow\ \text{Einstein 固体 }(q\gg N):\ C_V=Nk;\ \text{理想气体:}\ C_V=\frac{3}{2}Nk.
+\end{align}
+
+定容过程：
+\begin{align}
+\mathrm{d}S=\frac{\mathrm{d}U}{T}=\frac{C_V\,\mathrm{d}T}{T}\quad (\Delta V=0)
+\Rightarrow\ \Delta S=S_f-S_i=\int_{T_i}^{T_f}\frac{C_V}{T}\,\mathrm{d}T.
+\end{align}
+进一步求绝对熵：
+\begin{align}
+S_f=S(0)+\int_{0}^{T_f}\frac{C_V}{T}\,\mathrm{d}T,\qquad S(0)\text{ 是残余熵}.
+\end{align}
+要保证积分收敛，$\lim_{T\to 0}C_V=0$。
+
+\section{顺磁体}
+$N$ 个自旋 $1/2$ 子，处于 $+z$ 方向恒磁场 $\vec B$，每个偶极子之间无相互作用 $\Rightarrow$ 理想顺磁体。
+
+由于 $\vec B$ 取 $+z$，故 $\downarrow$ 比 $\uparrow$ 能量高。令 $\downarrow$ 为 $+\mu B$，$\uparrow$ 为 $-\mu B$，则
+\begin{align}
+U=\mu B\,(N-2N_1).
+\end{align}
+磁化强度
+\begin{align}
+M=\mu(N_\uparrow-N_\downarrow)=-\frac{U}{B}.
+\end{align}
+重数
+\begin{align}
+\Omega(N_1)=\binom{N}{N_1}=\frac{N!}{N_1!\,N_2!}.
+\end{align}
+
+以 $N=100$ 为例，可以看到：$U<0$ 时 $T>0$ 且 $T\uparrow$，到 $U=0$ 处 $T=\infty$，随后 $U>0$，$T<0$。
+\begin{align}
+\Rightarrow\ \text{当系统总能量有限时，会发生负温度。}
+\end{align}
+$T=\infty$ 时，并不是能量最大，而是随机性最高。
+
+\subsection*{进一步求解析解}
+\begin{align}
+\frac{S}{k}
+&=\ln N!-\ln N_1!-\ln N_2!
+\approx N\ln N-N_1\ln N_1-(N-N_1)\ln(N-N_1).
+\end{align}
+\begin{align}
+\Rightarrow\ \frac{1}{T}
+&=\left(\frac{\partial S}{\partial U}\right)_{N,B}
+=\frac{\partial N_1}{\partial U}\cdot\frac{\partial S}{\partial N_1}
+=-\frac{k}{2\mu B}\cdot\frac{\partial S}{\partial N_1}
+=-\frac{k}{2\mu B}\bigl[-\ln N_1-1+\ln(N-N_1)+1\bigr]\\
+&=\frac{k}{2\mu B}\ln\left(\frac{N-U/\mu B}{N+U/\mu B}\right).
+\end{align}
+\begin{align}
+\Rightarrow\quad
+U&=N\mu B\left(\frac{1-\exp(2\mu B/kT)}{1+\exp(2\mu B/kT)}\right)
+=-N\mu B\tanh\left(\frac{\mu B}{kT}\right),\\
+M&=N\mu\tanh\left(\frac{\mu B}{kT}\right),\\
+C_B&=\left(\frac{\partial U}{\partial T}\right)_{N,B}
+=Nk\,\frac{(\mu B/kT)^2}{\cosh^2(\mu B/kT)}.
+\end{align}
+
+现实的顺磁体，偶极子可以是电子，此时
+\begin{align}
+\mu=\mu_B=\frac{e\hbar}{4\pi m_e}=9.274\times 10^{-24}\ \mathrm{J\,T^{-1}}.
+\end{align}
+此时 $\mu B/kT\ll 1\Rightarrow \tanh x\approx x$，
+\begin{align}
+M\approx \frac{N\mu^2B}{kT}\qquad (\text{Curie's Law}).
+\end{align}
+
+\section{机械平衡与压强}
+容易看到 $S_{\mathrm{tot}}$ 是 $U_A,V_A$ 函数，且取 $\max$ 时
+\begin{align}
+\frac{\partial S_{\mathrm{tot}}}{\partial U_A}=0\Rightarrow \text{热平衡},
+\qquad
+\frac{\partial S_{\mathrm{tot}}}{\partial V_A}=0\Rightarrow \text{力平衡}.
+\end{align}
+类似的有
+\begin{align}
+\frac{\partial S_A}{\partial V_A}=\frac{\partial S_B}{\partial V_B}
+\Rightarrow\ \text{令 }P=T\left(\frac{\partial S}{\partial V}\right)_{U,N}.
+\end{align}
+
+联立：
+\begin{align}
+\Omega=f(N)V^NU^{3N/2}
+\Rightarrow S=Nk\ln V+\frac{3}{2}Nk\ln U+k\ln f(N)
+\Rightarrow P=T\cdot\frac{Nk}{V}.
+\end{align}
+\begin{align}
+\Rightarrow\quad PV=NkT\qquad \text{是自洽的。}
+\end{align}
+
+设想：$S_i\xrightarrow[\Delta U,\,\Delta V]{}S_f$，
+\begin{align}
+\Delta S=(\Delta S)_1+(\Delta S)_2
+=\left(\frac{\partial S}{\partial U}\right)_V\Delta U+\left(\frac{\partial S}{\partial V}\right)_U\Delta V.
+\end{align}
+\begin{align}
+\Rightarrow\ \mathrm{d}S
+=\left(\frac{\partial S}{\partial U}\right)_V\mathrm{d}U+\left(\frac{\partial S}{\partial V}\right)_U\mathrm{d}V
+=\frac{1}{T}\,\mathrm{d}U+\frac{P}{T}\,\mathrm{d}V.
+\end{align}
+\begin{align}
+\Rightarrow\ \mathrm{d}U=T\,\mathrm{d}S-P\,\mathrm{d}V.
+\end{align}
+联立 $\mathrm{d}U=\delta Q+\delta W$，准静态 $\delta W=-P\,\mathrm{d}V$，
+\begin{align}
+\Rightarrow\ \delta Q=T\,\mathrm{d}S.
+\end{align}
+
+\section{扩散平衡和化学势}
+设 $U_{\mathrm{tot}},N_{\mathrm{tot}}$ 恒定，$S_{\mathrm{tot}}=S(U_A,N_A)$。
+平衡时
+\begin{align}
+\left(\frac{\partial S_{\mathrm{tot}}}{\partial U_A}\right)_{N_A,V_A}=0,
+\qquad
+\left(\frac{\partial S_{\mathrm{tot}}}{\partial N_A}\right)_{U_A,V_A}=0.
+\end{align}
+同理，
+\begin{align}
+\frac{\partial S_A}{\partial N_A}=\frac{\partial S_B}{\partial N_B}\qquad (\text{扩散平衡}).
+\end{align}
+\begin{align}
+\Rightarrow\ \text{令化学势 }\mu\equiv -T\left(\frac{\partial S}{\partial N}\right)_{U,V}.
+\end{align}
+\begin{align}
+\Rightarrow\ \mathrm{d}S=\frac{1}{T}\,\mathrm{d}U+\frac{P}{T}\,\mathrm{d}V-\frac{\mu}{T}\,\mathrm{d}N
+\Rightarrow\ \mathrm{d}U=T\,\mathrm{d}S-P\,\mathrm{d}V+\mu\,\mathrm{d}N.
+\end{align}
+
+\begin{equation}\label{eq:IdentityU}
+    \mathrm{d}U=T\,\mathrm{d}S-P\,\mathrm{d}V+\mu\,\mathrm{d}N.
+\end{equation}
+固定 $S,V$，有
+\begin{align}
+\mu=\left(\frac{\partial U}{\partial N}\right)_{S,V}<0
+\Rightarrow\ \text{保持 }S(\text{重数})\text{ 不变，增加粒子需做出能量。}
+\end{align}
+
+e.g.
+\begin{align}
+\text{单原子分子理想气体：}
+\qquad
+S=Nk\left\{\ln\left[V\left(\frac{4\pi mU}{3h^2}\right)^{3/2}\right]-\ln N^{5/2}+\frac{5}{2}\right\}.
+\end{align}
+\begin{align}
+\mu
+&=-T\left\{k\left[\ln\left(V\left(\frac{4\pi mU}{3h^2}\right)^{3/2}\right)-\ln N^{5/2}+\frac{5}{2}\right]-Nk\cdot\frac{5}{2}\cdot\frac{1}{N}\right\}\\
+&=-kT\ln\left[\frac{V}{N}\left(\frac{4\pi mU}{3h^2}\right)^{3/2}\right]\qquad \left(U=\frac{3}{2}NkT\right)\\
+&=-kT\ln\left[\frac{V}{N}\left(\frac{2\pi mkT}{h^2}\right)^{3/2}\right].
+\end{align}
+
+\begin{align}
+U(\lambda S,\lambda V,\lambda N)=\lambda U(S,V,N),\ \text{对 }\lambda\text{ 求导并令 }\lambda=1:\\
+\frac{\partial U}{\partial S}S+\frac{\partial U}{\partial V}V+\frac{\partial U}{\partial N}N=U
+\Rightarrow TS-PV+\mu N=U,\ \text{对其微分}\\
+T\,\mathrm{d}S+S\,\mathrm{d}T-P\,\mathrm{d}V-V\,\mathrm{d}P+\mu\,\mathrm{d}N+N\,\mathrm{d}\mu=\mathrm{d}U\\
+\Rightarrow S\,\mathrm{d}T-V\,\mathrm{d}P+N\,\mathrm{d}\mu=0\qquad (\text{Gibbs--Duhem 关系}).
+\end{align}

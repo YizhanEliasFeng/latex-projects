@@ -309,7 +309,7 @@
 
 \usepackage{titletoc} % Required for manipulating the table of contents
 
-\setcounter{tocdepth}{2} % Display down to subsections in the table of contents
+\setcounter{tocdepth}{1} % Display down to chapters/sections/subsections in the table of contents
 
 \contentsmargin{0cm} % Removes the default right margin
 
