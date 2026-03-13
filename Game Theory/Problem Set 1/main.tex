@@ -1,0 +1,577 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-en.tex}
+
+\setmainfont{Times New Roman}
+\setmonofont{Menlo}
+
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=none
+]{biblatex}
+\addbibresource{bib/references.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead[L]{Yizhan Feng 2400017802}
+\fancyhead[C]{}
+\fancyhead[R]{GAME THEORY, Spring 2026, PS01}
+
+\setlength{\parindent}{1.5em}
+
+\begin{document}
+
+\maketitle
+
+\section{\texorpdfstring{$n$}{n}-Bidder Auction}
+Consider the first/second price auction enviornment we covered in class. Instead of 2 bidders, assume there are $n$ bidders with value $v_1,\dots,v_n$.
+\begin{enumerate}[label=(\alph*)]
+  \item Extend the first price auction to this case. As usual, if more than one bidder bid the same highest price, a winning bidder is randomly drawn from them with equal probabilities. (Use this tie breaking rule also for the next question).
+  \item Extend the second price auction to this case.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:} We write the induced normal-form game in the standard way.
+
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{First-price auction.} Let the set of players be $N=\{1,\dots,n\}$. For each bidder $i\in N$, the strategy space is $S_i=\mathbb{R}_{+}$. For a bid profile $s=(s_1,\dots,s_n)\in \prod_{i=1}^n S_i$, define the highest bid by
+  \[
+    M(s)=\max_{j\in N} s_j,
+  \]
+  and the set of highest bidders by
+  \[
+    H(s)=\{j\in N: s_j=M(s)\}.
+  \]
+  The payoff of bidder $i$ is
+  \[
+    u_i(s)=
+    \begin{cases}
+      \dfrac{v_i-s_i}{|H(s)|}, & i\in H(s),\\[6pt]
+      0, & i\notin H(s).
+    \end{cases}
+  \]
+
+  \item \textbf{Second-price auction.} Again the player set is $N=\{1,\dots,n\}$ and each bidder $i$ chooses a bid $s_i\in S_i=\mathbb{R}_{+}$. Let
+  \[
+    S(s)=\max\{s_j: j\in N\setminus H(s)\}
+  \]
+  denote the highest bid among those who are not tied for the win. Then bidder $i$'s payoff can be written as
+  \[
+    u_i(s)=
+    \begin{cases}
+      v_i-S(s), & \text{if } |H(s)|=1 \text{ and } i\in H(s),\\[6pt]
+      \dfrac{v_i-M(s)}{|H(s)|}, & \text{if } |H(s)|\ge 2 \text{ and } i\in H(s),\\[6pt]
+      0, & i\notin H(s).
+    \end{cases}
+  \]
+\end{enumerate}
+
+\section{Iterated Elimination}
+
+In the following normal-form game, which strategy profiles survive iterated elimination of strictly dominated strategies?
+
+\[
+\begin{array}{c@{\hspace{1em}}c}
+& \text{Player 2} \\[0.7em]
+\text{Player 1} &
+\begin{array}{|c|c|c|c|}
+  \hline
+  & L & C & R \\
+  \hline
+  U & 6,8 & 2,6 & 8,2 \\
+  \hline
+  M & 8,2 & 4,4 & 9,5 \\
+  \hline
+  D & 8,10 & 4,6 & 6,7 \\
+  \hline
+\end{array}
+\end{array}
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:} First, for Player 1, strategy $U$ is strictly dominated by $M$, since
+  \[
+    8>6,\qquad 4>2,\qquad 9>8.
+  \]
+Hence $U$ is deleted.
+
+After removing $U$, consider Player 2's payoffs in the reduced game with rows $\{M,D\}$. Now column $C$ is strictly dominated by column $R$, because
+\[
+  5>4\qquad \text{and} \qquad 7>6.
+\]
+Hence $C$ is deleted.
+
+In the remaining game with rows $\{M,D\}$ and columns $\{L,R\}$, no further strict dominance exists. Therefore, the strategy profiles that survive IESDS are
+\[
+  (M,L),\quad (M,R),\quad (D,L),\quad (D,R).
+\]
+
+\section{Roommates}
+Two roommates each need to choose to clean their apartment, and each can choose an amount of time $t_i \ge 0$ to clean. If their choices are $t_i$ and $t_j$, then player $i$’s payoff is given by $(10 - t_j)t_i - t_i^2$. (This payoff function implies that the more one roommate cleans, the less valuable is cleaning for the other roommate.)
+\begin{enumerate}[label=(\alph*)]
+  \item What is the best response correspondence of each player $i$?
+  \item Which choices survive one round of IESDS?
+  \item Which choices survive IESDS?
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:}
+\begin{enumerate}[label=(\alph*)]
+  \item Fix player $j$'s choice $t_j\ge 0$. Player $i$ solves
+  \[
+    \max_{t_i\ge 0} u_i(t_i,t_j)=\max_{t_i\ge 0}\bigl((10-t_j)t_i-t_i^2\bigr).
+  \]
+  Since this objective is strictly concave in $t_i$, the best response is unique. The first-order condition is
+  \[
+    \frac{\partial u_i}{\partial t_i}=10-t_j-2t_i=0,
+  \]
+  so the unconstrained maximizer is $t_i=\frac{10-t_j}{2}$. Imposing $t_i\ge 0$, we obtain
+  \[
+    BR_i(t_j)=\max\left\{\frac{10-t_j}{2},0\right\}.
+  \]
+  Equivalently,
+  \[
+    BR_i(t_j)=
+    \begin{cases}
+      \dfrac{10-t_j}{2}, & 0\le t_j\le 10,\\[6pt]
+      0, & t_j\ge 10.
+    \end{cases}
+  \]
+  By symmetry, player $j$ has the same best-response correspondence.
+
+  \item Let $a,b\ge 0$ be two actions for player $i$. Then
+  \[
+    u_i(a,t_j)-u_i(b,t_j)
+    =(10-t_j)a-a^2-\bigl((10-t_j)b-b^2\bigr)
+    =(a-b)(10-t_j-a-b).
+  \]
+  If $b>5$, then action $5$ strictly dominates $b$, because for every $t_j\ge 0$,
+  \[
+    u_i(5,t_j)-u_i(b,t_j)=(5-b)(5-t_j-b)>0,
+  \]
+  since $5-b<0$ and $5-t_j-b<0$ for all $t_j\ge 0$ when $b>5$. Hence every action $b>5$ is eliminated. On the other hand, no action in $[0,5]$ is strictly dominated in the original game. Indeed, if $b\le 5$ and some $a>b$ were to strictly dominate $b$, we would need
+  \[
+    (a-b)(10-t_j-a-b)>0 \qquad \text{for all } t_j\ge 0,
+  \]
+  which is impossible because for sufficiently large $t_j$ the second factor becomes negative. If instead $a<b$, then strict dominance for all $t_j\ge 0$ would require $a+b>10$, which cannot hold when $b\le 5$ and $a<b$. Therefore, after one round of IESDS, the surviving choices are exactly
+  \[
+    [0,5].
+  \]
+
+  \item Let the current surviving interval be $[L,U]$. For any $a,b\in [L,U]$,
+  \[
+    u_i(a,t_j)-u_i(b,t_j)=(a-b)(10-t_j-a-b).
+  \]
+  If opponents are restricted to $t_j\in [L,U]$, then every action below $\frac{10-U}{2}$ is strictly dominated by $\frac{10-U}{2}$, and every action above $\frac{10-L}{2}$ is strictly dominated by $\frac{10-L}{2}$. Hence one more round of elimination maps the interval $[L,U]$ to
+  \[
+    \left[\frac{10-U}{2},\frac{10-L}{2}\right].
+  \]
+
+  Starting from the one-round survivor set $[0,5]$, we obtain the sequence
+  \[
+    [0,5]\;\to\;\left[\frac52,5\right]\;\to\;\left[\frac52,\frac{15}{4}\right]\;\to\;\left[\frac{25}{8},\frac{15}{4}\right]\;\to\;\cdots
+  \]
+  These intervals converge to the unique fixed point $t^*$ satisfying
+  \[
+    t^*=\frac{10-t^*}{2} \implies t^*=\frac{10}{3}.
+  \]
+  Therefore, the only choice that survives IESDS is
+  \[
+    t_i=\frac{10}{3}
+  \]
+  for each player.
+\end{enumerate}
+
+\section{Campaigning}
+Two candidates, 1 and 2, are running for office. Each has one of three choices in running his campaign: focus on the positive aspects of one’s own platform (call this a positive campaign [$P$]), focus on the positive aspects of one’s own platform while attacking one’s opponent’s campaign (call this a balanced campaign [$B$]), or finally focus only on attacking one’s opponent (call this a negative campaign [$N$]). All a candidate cares about is the probability of winning, so assume that if a candidate expects to win with probability $\pi \in [0, 1]$, then his payoff is $\pi$. The probability that a candidate wins depends on his choice of campaign and his opponent’s choice. The probabilities of winning are given as follows:
+
+\vspace{0.3cm}
+
+{\leftskip=3em
+\parindent=-1.5em
+If both choose the same campaign then each wins with probability 0.5.
+
+If candidate $i$ uses a positive campaign while $j \neq i$ uses a balanced one then $i$ loses for sure.
+
+If candidate $i$ uses a positive campaign while $j \neq i$ uses a negative one then $i$ wins with probability 0.3.
+
+If candidate $i$ uses a negative campaign while $j \neq i$ uses a balanced one then i wins with probability 0.6.
+
+}
+
+\vspace{0.3cm}
+
+\begin{enumerate}[label=(\alph*)]
+  \item Model this story as a normal-form game. (It suffices to be specific about the payoff function of one player and to explain how the other player’s payoff function is different and why.)
+  \item Write down the game in matrix form.
+  \item What happens at each stage of elimination of strictly dominated strategies? Will this procedure lead to a clear prediction?
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:}
+\begin{enumerate}[label=(\alph*)]
+  \item Let the set of players be $N = \{1,2\}$, and each player's strategy set be
+  \[
+    S_i=\{P,B,N\},\qquad i\in\{1,2\}.
+  \]
+  For player 1, the payoff function $u_1:S_1\times S_2\to[0,1]$ is given by player 1's probability of winning:
+  \[
+    u_1(P,P)=u_1(B,B)=u_1(N,N)=0.5,
+  \]
+  \[
+    u_1(P,B)=0,\qquad u_1(B,P)=1,
+  \]
+  \[
+    u_1(P,N)=0.3,\qquad u_1(N,P)=0.7,
+  \]
+  \[
+    u_1(N,B)=0.6,\qquad u_1(B,N)=0.4.
+  \]
+  Since the game is symmetric and one candidate's probability of winning is the other candidate's probability of losing, player 2's payoff function is given by
+  \[
+    u_2(s_1,s_2)=1-u_1(s_1,s_2).
+  \]
+
+  \item The game in matrix form is therefore
+  \[
+  \begin{array}{c@{\hspace{1em}}c}
+  & \text{Candidate 2} \\[0.7em]
+  \text{Candidate 1} &
+  \begin{array}{|c|c|c|c|}
+    \hline
+    & P & B & N \\
+    \hline
+    P & 0.5,0.5 & 0,1 & 0.3,0.7 \\
+    \hline
+    B & 1,0 & 0.5,0.5 & 0.4,0.6 \\
+    \hline
+    N & 0.7,0.3 & 0.6,0.4 & 0.5,0.5 \\
+    \hline
+  \end{array}
+  \end{array}
+  \]
+
+  \item First, for each player, strategy $P$ is strictly dominated by $N$, so $P$ is eliminated for both players. After deleting $P$, the reduced game has strategies $\{B,N\}$ for each player. In this reduced game, for each player, $B$ is strictly dominated by $N$. Therefore $B$ is eliminated as well, and the only surviving strategy for each player is $N$. Hence the unique strategy profile that survives IESDS is
+  \[
+    (N,N).
+  \]
+  So in this game, IESDS does lead to a clear prediction: both candidates run negative campaigns.
+\end{enumerate}
+
+\section{Beauty Contest Best Responses}
+Consider a game with $n$ players, so that $N = \{1,\dots, n\}$. Each player has to choose an integer between 0 and 20, so that $S_i = \{0, 1, 2,\dots, 19, 20\}$. The winners are the players who choose an integer number that is closest to $\frac{3}{4}$ of the average.
+
+Because more than one person can win, define th set of winners $W \subset N$ as those players who are closest to $\frac{3}{4}$ of the average, and the rest are all losers. The set of winners is defined as
+
+\[
+  W=\left\{i \in N:\arg\min_{i \in N} \left|s_i - \frac{3}{4}\frac{1}{n}\sum_{j=1}^n s_j\right|\right\}
+\]
+
+To introduce payoffs, each player pays 1 to play the game, and winners split the pot equally among themselves. This implies that if there are $m \ge 1$ winners, each gets a payoff of $\frac{N-m}{m}$ (his share of the pot net of his own contribution) while losers get $-1$ (they lose their contribution).
+
+\begin{enumerate}[label=(\alph*)]
+  \item Show that if player $i$ believes that everyone else is choosing 20 then 19 is not the only best response for any number of players $n$.
+  \item Show that the set of best-response strategies to everyone else choosing the number $20$ depends on the number of players $n$.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:}
+\begin{enumerate}[label=(\alph*)]
+  \item Suppose every player other than $i$ chooses $20$, and let player $i$ choose $x\in\{0,1,\dots,20\}$. Then the average is
+  \[
+    \bar s(x)=\frac{20(n-1)+x}{n},
+  \]
+  so the target number is
+  \[
+    T(x)=\frac34\bar s(x)=\frac34\cdot\frac{20(n-1)+x}{n}=15-\frac{15}{n}+\frac{3x}{4n}.
+  \]
+
+  Consider first $x=19$. Then
+  \[
+    T(19)=15-\frac{3}{4n},
+  \]
+  so player $i$'s distance from the target is
+  \[
+    |19-T(19)|=4+\frac{3}{4n},
+  \]
+  while each player choosing $20$ is at distance
+  \[
+    |20-T(19)|=5+\frac{3}{4n}.
+  \]
+  Hence $19$ makes player $i$ the unique winner.
+
+  Now consider $x=18$. Then
+  \[
+    T(18)=15-\frac{3}{2n},
+  \]
+  and therefore
+  \[
+    |18-T(18)|=3+\frac{3}{2n},
+    \qquad
+    |20-T(18)|=5+\frac{3}{2n}.
+  \]
+  So $18$ also makes player $i$ the unique winner.
+
+  If player $i$ is the unique winner, his payoff is $n-1$. Thus both $18$ and $19$ yield payoff $n-1$, so $19$ is \emph{not} the only best response for any $n$.
+
+  \item Again let player $i$ choose $x\in\{0,1,\dots,20\}$ while every other player chooses $20$. If $x=20$, then everyone ties as a winner, so player $i$'s payoff is
+  \[
+    \frac{n-n}{n}=0.
+  \]
+  If $x<20$, then the other $n-1$ players all choose the same number, so either player $i$ is the unique winner or else he loses. Hence for $x<20$,
+  \[
+    u_i(x,20,\dots,20)=
+    \begin{cases}
+      n-1, & \text{if } |x-T(x)|<|20-T(x)|,\\[6pt]
+      -1, & \text{if } |x-T(x)|>|20-T(x)|.
+    \end{cases}
+  \]
+  Therefore, the best responses are exactly those $x<20$ for which player $i$ is strictly closer to the target than $20$ is.
+
+  We solve
+  \[
+    |x-T(x)|<|20-T(x)|.
+  \]
+  Since $x<20$, we have $x-20<0$, so after squaring both sides and factoring,
+  \[
+    (x-T(x))^2<(20-T(x))^2
+    \iff (x-20)(x+20-2T(x))<0
+    \iff x+20-2T(x)>0.
+  \]
+  Substituting for $T(x)$ gives
+  \[
+    x+20-2\left(15-\frac{15}{n}+\frac{3x}{4n}\right)>0,
+  \]
+  which simplifies to
+  \[
+    x\left(1-\frac{3}{2n}\right)>10-\frac{30}{n}
+    \iff x(2n-3)>20(n-3).
+  \]
+  Thus the set of best responses is
+  \[
+    BR_i(20,\dots,20)=\left\{x\in\{0,1,\dots,19\}:x>\frac{20(n-3)}{2n-3}\right\}.
+  \]
+
+  This set depends on $n$. For example,
+  \[
+    BR_i(20)=\{0,1,\dots,19\} \quad \text{when } n=2,
+  \]
+  while
+  \[
+    BR_i(20,20,20)=\{5,6,\dots,19\} \quad \text{when } n=4.
+  \]
+  Hence the set of best-response strategies to everyone else choosing $20$ does indeed depend on the number of players $n$.
+\end{enumerate}
+
+\section{IESDS and BR in Infinite Games}
+Consider the following two-player game. Each player announces a nonnegative real number. The payoffs are
+\[
+  v_i(x_i, x_j)=
+  \begin{cases}
+    2, & \text{if } x_i=0 \text{ and } x_j=1,\\[6pt]
+    \arctan x_i, & \text{if otherwise.}
+  \end{cases}
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Argue that every positive announcement is strictly dominated.
+  \item Argue that announcement 0 is not strictly dominated.
+  \item From the above two questions, we know only 0 survives IESDS for both players. Are they mutual best responses?
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:}
+\begin{enumerate}[label=(\alph*)]
+  \item Fix any announcement $x_i>0$. We claim that $x_i$ is strictly dominated by any larger announcement $y_i>x_i$. Indeed, for every announcement $x_j\ge 0$ of player $j$, if player $i$ chooses $x_i>0$, then the special case in the payoff definition never applies, so
+  \[
+    v_i(x_i,x_j)=\arctan x_i.
+  \]
+  Likewise,
+  \[
+    v_i(y_i,x_j)=\arctan y_i.
+  \]
+  Since $\arctan(\cdot)$ is strictly increasing on $\mathbb{R}_{+}$ and $y_i>x_i$, we have
+  \[
+    \arctan y_i>\arctan x_i.
+  \]
+  Therefore,
+  \[
+    v_i(y_i,x_j)>v_i(x_i,x_j) \qquad \text{for all } x_j\ge 0,
+  \]
+  so every positive announcement is strictly dominated.
+
+  \item Let $y_i\ge 0$ be any alternative announcement. If $y_i=0$, then $y_i$ clearly does not strictly dominate $0$, since the two strategies are identical.
+
+  If $y_i>0$, consider the opponent announcement $x_j=1$. Then
+  \[
+    v_i(0,1)=2,
+  \]
+  while
+  \[
+    v_i(y_i,1)=\arctan y_i<\frac{\pi}{2}<2.
+  \]
+  Hence $y_i$ cannot strictly dominate $0$. Since no strategy $y_i\ge 0$ strictly dominates $0$, announcement $0$ is not strictly dominated.
+
+  \item From parts (a) and (b), the only strategy that survives IESDS is $0$ for each player. However, these are \emph{not} mutual best responses.
+
+  To see this, fix $x_j=0$. Then for player $i$,
+  \[
+    v_i(x_i,0)=\arctan x_i \qquad \text{for all } x_i\ge 0,
+  \]
+  because the exceptional payoff $2$ occurs only when $(x_i,x_j)=(0,1)$. Since $\arctan x_i$ is strictly increasing in $x_i$, we have
+  \[
+    \arctan x_i>\arctan 0=0 \qquad \text{for every } x_i>0.
+  \]
+  So $x_i=0$ is not a best response to $x_j=0$.
+
+  In fact, there is no best response to $x_j=0$ at all: the payoff $\arctan x_i$ can be made arbitrarily close to $\pi/2$ by choosing larger and larger $x_i$, but it never reaches $\pi/2$ for any finite $x_i$. Thus the best-response set to $0$ is empty.
+
+  Therefore, although IESDS leaves only the strategy profile $(0,0)$, that profile does not consist of mutual best responses.
+\end{enumerate}
+
+\section{\texorpdfstring{$n$}{n}-Firm Cournot Competition}
+Consider the $n$-firm Cournot competition. The demand curve is still
+\[
+  D(Q) = \max\{100-Q, 0\}.
+\]
+If each firm $i$ supplies $q_i$, the total supply is $\sum_{i=1}^n q_i$. Suppose each firm’s marginal cost is 10.
+
+\vspace{0.5cm}
+
+\begin{enumerate}[label=(\alph*)]
+  \item Write down its normal form game.
+  \item For each firm, what are the strategies that survive IESDS?
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:}
+\begin{enumerate}[label=(\alph*)]
+  \item Let the set of firms be $N=\{1,\dots,n\}$. Firm $i$ chooses an output level $q_i\in S_i=\mathbb{R}_{+}$. 
+  Since each firm has constant marginal cost $10$, firm $i$'s profit is
+  \[
+    v_i(q_1,\dots,q_n)=q_i\bigl(D(Q)-10\bigr)
+    =q_i\left(\max\left\{100-\sum_{k=1}^n q_k,0\right\}-10\right).
+  \]
+  Equivalently,
+  \[
+    v_i(q)=
+    \begin{cases}
+      q_i\left(90-\sum_{k=1}^n q_k\right), & \text{if } \sum_{k=1}^n q_k\le 100,\\[6pt]
+      -10q_i, & \text{if } \sum_{k=1}^n q_k>100.
+    \end{cases}
+  \]
+  Therefore the normal-form game is
+  \[
+    G=\bigl(N,(S_i)_{i\in N},(v_i)_{i\in N}\bigr)
+  \]
+  with $N=\{1,\dots,n\}$, $S_i=\mathbb{R}_{+}$ for every $i$, and payoff functions $v_i$ as above.
+
+  \item We first derive firm $i$'s best response to the total output of the other firms. Let
+  \[
+    x=\sum_{j\ne i} q_j.
+  \]
+  Then firm $i$ chooses $q_i\ge 0$ to maximize
+  \[
+    q_i\bigl(\max\{100-x-q_i,0\}-10\bigr).
+  \]
+  If $x\ge 90$, every positive $q_i$ yields negative profit, so the best response is $q_i=0$. If $x<90$, then the relevant objective is
+  \[
+    q_i(90-x-q_i),
+  \]
+  whose unique maximizer is obtained from the first-order condition
+  \[
+    90-x-2q_i=0.
+  \]
+  Thus
+  \[
+    BR_i(x)=\max\left\{\frac{90-x}{2},0\right\}.
+  \]
+
+  We now perform IESDS.
+
+  First, every quantity $q_i>90$ is strictly dominated by $0$, because for every profile of the other firms,
+  \[
+    v_i(q_i,q_{-i})<0=v_i(0,q_{-i}).
+  \]
+  Hence after the first round each firm's surviving strategies lie in
+  \[
+    [0,90].
+  \]
+
+  Next, in this reduced game every quantity $q_i>45$ is strictly dominated by $45$. Indeed, let $x=\sum_{j\ne i}q_j\ge 0$ and take any $q_i>45$. If $x+q_i\le 100$, then both profits are computed in the positive-price region, and
+  \[
+    v_i(45,x)-v_i(q_i,x)
+    =(45-q_i)(45-x-q_i)>0,
+  \]
+  because $45-q_i<0$ and $45-x-q_i<0$. If $x+q_i>100$, then $v_i(q_i,x)=-10q_i<-450$. 
+
+  On the other hand, if $x\le 55$, then
+  \[
+    v_i(45,x)=45(45-x)\ge -450,
+  \]
+  while if $x>55$, then also $x+45>100$, so
+  \[
+    v_i(45,x)=-450.
+  \]
+  In either case $v_i(45,x)>v_i(q_i,x)$. Hence every quantity above $45$ is eliminated. Therefore, after two rounds, each firm's surviving strategies are contained in
+  \[
+    [0,45].
+  \]
+
+  At this point the answer depends on $n$.
+
+  If $n=2$, let the current surviving interval be $[L,U]\subseteq[0,45]$. Since the opponent's output lies in $[L,U]$, firm $i$'s best responses lie in
+  \[
+    \left[\frac{90-U}{2},\frac{90-L}{2}\right].
+  \]
+  Hence one more round of elimination maps $[L,U]$ to
+  \[
+    \left[\frac{90-U}{2},\frac{90-L}{2}\right].
+  \]
+  Starting from $[0,45]$, we obtain
+  \[
+    [0,45]\;\to\;\left[\frac{45}{2},45\right]\;\to\;\left[\frac{45}{2},\frac{135}{4}\right]\;\to\;\cdots
+  \]
+  and these intervals converge to the unique fixed point $q^*$ satisfying
+  \[
+    q^*=\frac{90-q^*}{2}.
+  \]
+  Solving gives
+  \[
+    q^*=30.
+  \]
+  So when $n=2$, the only strategy that survives IESDS is
+  \[
+    q_i=30.
+  \]
+
+  If $n\ge 3$, no further elimination is possible after reaching $[0,45]$. To see this, fix any $q\in[0,45]$. Then
+  \[
+    x=90-2q\in[0,90].
+  \]
+  Because there are at least two rival firms, we can choose their outputs in $[0,45]$ so that their total output is exactly $x$ (for instance, let one rival produce $\min\{45,x\}$, another produce the remainder, and any further rivals produce $0$). Against such a profile, firm $i$'s best response is
+  \[
+    BR_i(x)=\frac{90-x}{2}=q.
+  \]
+  Hence every $q\in[0,45]$ is a best response to some surviving profile of the other firms, so no such strategy can be strictly dominated. Therefore, when $n\ge 3$, the strategies that survive IESDS are exactly
+  \[
+    [0,45].
+  \]
+\end{enumerate}
+
+% \printbibliography
+
+\end{document}
