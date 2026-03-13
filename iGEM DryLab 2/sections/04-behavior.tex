@@ -1,0 +1,69 @@
+\section{Expected Dynamic Behavior}
+
+\subsection*{Qualitative shape of $P(t)$}
+
+Even without the innate brake, the 4-state chain produces a characteristic delayed rise $\to$ peak $\to$ decay, because antigen production requires sequential progression through multiple steps (depot $\to$ uptake $\to$ cytosol $\to$ protein). This is consistent with many reported mRNA--LNP expression profiles where maximal signal occurs after several hours and then declines. \parencite{pardi2015expressionKinetics}
+
+The model also naturally produces:
+\begin{itemize}
+    \item \textbf{Delay before antigen accumulation}: controlled mainly by $1/(k_{\mathrm{up}}+k_{\mathrm{clr},L})$ and $1/(k_{\mathrm{rel}}+k_{\mathrm{loss},E})$.
+    \item \textbf{Peak timing}: controlled by the slowest upstream rates plus protein turnover.
+    \item \textbf{Persistence/tail}: controlled by the slower of (i) depot persistence, (ii) cytosolic mRNA decay, and (iii) protein clearance.
+\end{itemize}
+
+Adding the optional $I(t)$ module can yield sharp drops after an early peak, consistent with cases where strong innate responses produce translational inhibition. \parencite{Huysmans2019saRNALNPSkin}
+
+\subsection*{Analytical insights}
+
+Because the main model is linear, several ``global'' outcomes can be derived without simulation.
+
+\subsubsection*{Escape and uptake fractions}
+
+Define two dimensionless efficiencies:
+\begin{align}
+ f_{\mathrm{up}} &= \frac{k_{\mathrm{up}}}{k_{\mathrm{up}} + k_{\mathrm{clr},L}} \, \qquad \text{(fraction of depot that becomes internalized)}, \\
+ f_{\mathrm{esc}} &= \frac{k_{\mathrm{rel}}}{k_{\mathrm{rel}} + k_{\mathrm{loss},E}} \, \qquad \text{(fraction of internalized mRNA that becomes cytosolic)}.
+\end{align}
+
+Reported cytosolic delivery efficiencies for LNP systems motivate $f_{\mathrm{esc}} \ll 1$ in many regimes (order $0.01$--$0.03$). \parencite{Pei2025EndosomalEscapeLNP}
+
+\subsubsection*{Total cytosolic mRNA exposure}
+
+Integrate $\mathrm{d}M/\mathrm{d}t = k_{\mathrm{rel}}E - k_{\mathrm{deg}}M$ from $0$ to $\infty$ (with $M(0)=M(\infty)=0$):
+\begin{equation}
+\int_0^{\infty} k_{\mathrm{rel}}E(t)\,\mathrm{d}t = k_{\mathrm{deg}}\int_0^{\infty} M(t)\,\mathrm{d}t.
+\end{equation}
+
+Similarly, conservation through the upstream chain gives total cytosolic ``arrivals'':
+\begin{equation}
+\int_0^{\infty} k_{\mathrm{rel}}E(t)\,\mathrm{d}t = D_0 f_{\mathrm{up}} f_{\mathrm{esc}}.
+\end{equation}
+
+Therefore,
+\begin{equation}
+\int_0^{\infty} M(t)\,\mathrm{d}t = \frac{D_0 f_{\mathrm{up}} f_{\mathrm{esc}}}{k_{\mathrm{deg}}}.
+\end{equation}
+
+Interpretation: cytosolic mRNA exposure scales multiplicatively with (i) how much dose is internalized, (ii) how much escapes, and (iii) the cytosolic lifetime.
+
+\subsubsection*{Antigen exposure (AUC) as a product of mechanisms}
+
+Integrate $\mathrm{d}P/\mathrm{d}t = k_{\mathrm{tl}}M - k_{\mathrm{clr}}P$ (with $P(0)=P(\infty)=0$):
+\begin{equation}
+ k_{\mathrm{tl}}\int_0^{\infty} M(t)\,\mathrm{d}t = k_{\mathrm{clr}}\int_0^{\infty} P(t)\,\mathrm{d}t.
+\end{equation}
+
+So:
+\begin{equation}
+\mathrm{AUC}_P \equiv \int_0^{\infty} P(t)\,\mathrm{d}t = D_0 f_{\mathrm{up}} f_{\mathrm{esc}}\frac{k_{\mathrm{tl}}}{k_{\mathrm{deg}}k_{\mathrm{clr}}}.
+\end{equation}
+
+Interpretation:
+\begin{itemize}
+    \item If endosomal escape is 1--3\%, it can dominate the overall scaling even if translation is strong. \parencite{Pei2025EndosomalEscapeLNP}
+    \item Improvements in mRNA chemistry/purity that reduce innate activation can increase the effective $k_{\mathrm{tl}}$ by preventing translation shutdown, linking immunogenicity to expression kinetics. \parencite{Nelson2020mRNAChemistryInnateImmunity}
+\end{itemize}
+
+\subsection*{Peak vs persistence trade-off}
+
+In this linear chain, higher persistence can be achieved by reducing $k_{\mathrm{clr},L}$, $k_{\mathrm{deg}}$, or $k_{\mathrm{clr}}$, but those changes often shift the peak later and broaden the curve (longer transit/accumulation). Conversely, aggressive early uptake/release (large $k_{\mathrm{up}}$, effectively larger early flux) can create early high peaks but short duration if clearance/decay rates are also high.

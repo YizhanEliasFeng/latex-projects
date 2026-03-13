@@ -1,0 +1,67 @@
+\section{Model Structure and Biological Assumptions}
+
+\subsection*{Modeling framework}
+
+We use a \textbf{compartmental ODE  model} (linear, first-order kinetics) describing a chain:
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        node distance=12mm,
+        box/.style={
+            draw, rounded corners,
+            align=center,
+            minimum height=10mm,
+            text width=5.2cm,
+            inner sep=6pt
+        },
+        arr/.style={-{Stealth[length=3mm,width=2.2mm]}, line width=0.9pt}
+        ]
+        \node[box] (dose) {Injected dose\\(local LNP depot)};
+        \node[box, below=of dose] (pre) {Cell-associated, pre-cytosolic mRNA};
+        \node[box, below=of pre] (cyto) {Cytosolic mRNA};
+        \node[box, below=of cyto] (prot) {Antigen protein};
+
+        \draw[arr] (dose) -- (pre);
+        \draw[arr] (pre) -- (cyto);
+        \draw[arr] (cyto) -- (prot);
+    \end{tikzpicture}
+    \caption{Simplified mRNA vaccine expression pipeline.}
+\end{figure}
+
+This explicitly represents the biological sequence requested:
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Delivery} (availability + cellular uptake)
+    \item \textbf{Release} \& degradation (productive cytosolic release vs. nonproductive loss; cytosolic decay)
+    \item \textbf{Translation} (protein synthesis from cytosolic mRNA)
+    \item \textbf{Antigen expression} (protein accumulation with clearance)
+    \item \textbf{Immune activation} (modeled via interpretable exposure metrics and, optionally, a minimal ``innate brake'')
+\end{enumerate}
+
+\subsection*{State variables}
+All state variables are \textbf{lumped, tissue-level ``effective amounts''} within the relevant expressing compartment (e.g., injection site + draining immune microenvironment). Units can be mass (e.g., \qty{}{\micro\gram} equivalents) or arbitrary units (AU) depending on available measurements.
+
+\begin{itemize}
+    \item $L(t)$: extracellular/interstitial \textbf{LNP-associated mRNA depot} that remains available for cellular uptake at the site (or local microenvironment).
+    \item $E(t)$: \textbf{cell-associated, pre-cytosolic mRNA} (internalized/endosomal/vesicular; not yet available for ribosomal translation).
+    \item $M(t)$: \textbf{cytosolic mRNA} available for translation.
+    \item $P(t)$: \textbf{antigen protein} (intracellular + surface-associated).
+\end{itemize}
+
+Optional immune-related variable (used only when needed to reproduce ``peak then crash'' behavior):
+
+\begin{itemize}
+    \item $I(t)$: a dimensionless \textbf{translation-inhibition/innate-stress} proxy induced by RNA/LNP sensing that down-modulates translation.
+\end{itemize}
+
+\subsection*{Core assumptions}
+
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{First-order kinetics} for uptake, release, and degradation. This is a standard approximation when detailed molecular steps are aggregated and when concentrations are below strong saturation regimes. \parencite{pardi2015expressionKinetics}
+    \item \textbf{Well-mixed effective compartment}: spatial biodistribution and cell-to-cell variability are not explicitly modeled (limitations discussed later).
+    \item \textbf{Two competing fates} for internalized mRNA: productive cytosolic release vs.~nonproductive loss. The low cytosolic delivery efficiency widely reported for LNP systems motivates keeping this competition explicit. \parencite{Pei2025EndosomalEscapeLNP}
+    \item \textbf{Translation proportional to $M(t)$} in the main model (linear translation). Saturation can be added later if data show plateaus inconsistent with linearity; in vitro evidence of saturation with LNP mRNA transfection has been noted. \parencite{pardi2015expressionKinetics}
+    \item \textbf{Protein clearance is first-order} (net degradation + secretion + cell turnover lumped).
+\end{enumerate}
+
+Despite simplification, the model encodes the most influential ``knobs'' known to shift expression kinetics --- uptake/depot persistence, endosomal escape, mRNA stability, translation potency, and protein turnover. Therefore, the it can be considered biologically reasonable.

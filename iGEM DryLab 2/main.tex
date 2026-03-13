@@ -1,0 +1,41 @@
+\documentclass[10pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-en.tex}
+
+\setmainfont{Times New Roman}
+\setmonofont{Menlo}
+
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=none
+]{biblatex}
+\addbibresource{bib/references.bib}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\input{sections/00-abstract.tex}
+\input{sections/01-background.tex}
+\input{sections/02-framework&assumption.tex}
+\input{sections/03-formulation.tex}
+\input{sections/04-behavior.tex}
+\input{sections/05-simulation.tex}
+\input{sections/06-interpretation.tex}
+\input{sections/07-sensitivity.tex}
+\input{sections/08-limitations.tex}
+\input{sections/09-conclusion.tex}
+
+
+\printbibliography
+
+\end{document}

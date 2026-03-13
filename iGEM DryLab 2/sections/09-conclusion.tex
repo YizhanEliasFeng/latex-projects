@@ -1,0 +1,16 @@
+\section{Final Conclusion}
+
+A small ODE model with \textbf{an LNP depot, cell-associated pre-cytosolic mRNA, cytosolic mRNA, and antigen protein} is sufficient to reproduce the key antigen-expression phenotypes observed in mRNA--LNP vaccination: delayed rise, a peak, and a decaying tail, with strong dependence on delivery and stability parameters.
+
+The most interpretable mechanistic insight is that \textbf{total antigen exposure (AUC)} factorizes into a product of step efficiencies and lifetimes:
+\begin{equation}
+\mathrm{AUC}_P \propto D_0 \times f_{\mathrm{up}} \times f_{\mathrm{esc}} \times \frac{k_{\mathrm{tl}}}{k_{\mathrm{deg}}k_{\mathrm{clr}}},
+\end{equation}
+so small efficiencies \textemdash{} especially endosomal escape, widely reported to be low \textemdash{} can dominate platform performance.
+
+Differences between sharp/transient vs.~lower/sustained expression at fixed dose can be explained by:
+\begin{itemize}
+    \item time-shaping of supply (burst vs.~sustained depot/uptake),
+    \item mRNA and protein lifetimes, and
+    \item innate-response--driven translation suppression, which can be included as a minimal inhibitory state when abrupt post-peak drops are observed.
+\end{itemize}

@@ -1,0 +1,57 @@
+\section{Sensitivity and Design Insights}
+
+\subsection*{Sensitivity structure}
+
+For the linear main model, antigen exposure satisfies:
+\begin{equation}
+\mathrm{AUC}_P \propto D_0 \times f_{\mathrm{up}} \times f_{\mathrm{esc}} \times \frac{k_{\mathrm{tl}}}{k_{\mathrm{deg}}k_{\mathrm{clr}}}.
+\end{equation}
+
+This implies:
+\begin{itemize}
+    \item If $f_{\mathrm{esc}}$ is very small (as commonly reported), improving endosomal escape can dominate compared with modest changes in other parameters.
+    \item If protein clearance is fast (high $k_{\mathrm{clr}}$), improvements in mRNA stability may have diminishing returns on peak (protein cannot accumulate), though they still increase cumulative production.
+    \item If innate activation reduces translation, then improving mRNA chemistry/purity can increase the effective $k_{\mathrm{tl}}$ and prevent collapse dynamics.
+\end{itemize}
+
+\subsection*{Design levers mapped to parameters}
+
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Increase fraction of cells receiving mRNA / effective delivery}
+    \begin{itemize}
+        \item In model terms: increase $\eta_{\mathrm{avail}}$ and/or increase $k_{\mathrm{up}}$ relative to $k_{\mathrm{clr},L}$.
+        \item Empirically, trafficking and expression occur in specific immune and stromal cell populations at injection sites and draining lymph nodes, implying delivery can be highly cell-type- and tissue-structured. \parencite{Hassett2024mRNAVaccineTrafficking}
+    \end{itemize}
+
+    \item \textbf{Improve endosomal escape / functional cytosolic delivery}
+    \begin{itemize}
+        \item Increase $f_{\mathrm{esc}}$ by increasing $k_{\mathrm{rel}}$ and/or decreasing $k_{\mathrm{loss},E}$.
+        \item Endosomal escape is widely regarded as a primary bottleneck with low efficiencies reported for standard systems, motivating this as a high-impact lever. \parencite{Pei2025EndosomalEscapeLNP}
+    \end{itemize}
+
+    \item \textbf{Tune release speed vs persistence}
+    \begin{itemize}
+        \item Adjust $k_{\mathrm{up}}$ and $k_{\mathrm{clr},L}$ to shape burst vs.~sustained profiles.
+        \item This is a direct mechanistic explanation for why two designs with identical dose can look different: the input flux to cytosolic mRNA is time-shaped.
+    \end{itemize}
+
+    \item \textbf{Increase effective translation while controlling innate sensing}
+    \begin{itemize}
+        \item Increase $k_{\mathrm{tl}}$ (e.g., UTR optimization, codon usage, chemistry) and/or reduce innate-driven inhibition (optional $I(t)$).
+        \item Nucleoside modification and dsRNA impurity reduction have been shown to reduce innate immune activation and improve protein expression consistency. \parencite{Nelson2020mRNAChemistryInnateImmunity}
+    \end{itemize}
+\end{enumerate}
+
+\subsection*{Calibration}
+
+A practical calibration strategy is to fit $P(t)$ (and ideally $M(t)$ proxies) from experiments such as:
+\begin{itemize}
+    \item \textbf{Reporter bioluminescence time courses} (luciferase) to capture effective translation kinetics; luciferase enzymatic half-life can be short (hours), making it a closer proxy for active translation rather than long-lived protein accumulation.
+    \item \textbf{Tissue mRNA quantification} over time (e.g., bDNA assays, in situ hybridization) and protein localization (IHC), which have been used to measure time courses in animal models and nonhuman primates, including peak mRNA early and peak protein later.
+\end{itemize}
+
+To fit the 
+\begin{enumerate}[label=\arabic*.]
+    \item Fit the linear model first (least squares / maximum likelihood) to obtain $(k_{\mathrm{up}}, k_{\mathrm{clr},L}, k_{\mathrm{deg}}, k_{\mathrm{clr}})$ identifiable from timing/shape.
+    \item Then assess whether residuals show ``peak then crash'' behavior; if so, introduce the $I(t)$ module and fit $(k_I, k_{I,\mathrm{decay}})$.
+\end{enumerate}

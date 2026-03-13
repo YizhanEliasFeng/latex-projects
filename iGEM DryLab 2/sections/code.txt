@@ -1,0 +1,36 @@
+Algorithm: Simulation and metric extraction for the mRNA vaccine model
+
+Input:
+    Baseline parameters θ = {D0, ηavail, kup, kclr,L, krel, kloss,E, kdeg, ktl, kclr}
+    Simulation time interval [0, T]
+    Scenario set S
+
+For each scenario s in S do
+    1. Replace baseline parameters θ by the scenario-specific values θs
+
+    2. Initialize state variables:
+           L(0) = ηavail · D0
+           E(0) = 0
+           M(0) = 0
+           P(0) = 0
+
+    3. Define the ODE system:
+           dL/dt = -(kup + kclr,L) · L
+           dE/dt = kup · L - (krel + kloss,E) · E
+           dM/dt = krel · E - kdeg · M
+           dP/dt = ktl · M - kclr · P
+
+    4. Numerically solve the ODE system on [0, T]
+
+    5. From the simulated antigen trajectory P(t), compute:
+           Pmax   = max P(t)
+           tpeak  = time at which P(t) reaches Pmax
+           AUCP   = integral of P(t) over time
+           FWHM   = duration for which P(t) ≥ Pmax / 2
+
+    6. Store the metric results of scenario s
+End
+
+Output:
+    Time-course curves of L(t), E(t), M(t), P(t)
+    Summary table of Pmax, tpeak, AUCP, and FWHM for all scenarios

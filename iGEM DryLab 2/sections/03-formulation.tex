@@ -1,0 +1,74 @@
+\section{Mathematical Formulation}
+\subsection*{Main model: 4-state}
+
+Multi-day translation signatures at injection sites have been observed, suggesting prolonged availability and/or ongoing uptake in some contexts. \parencite{pardi2015expressionKinetics} Therefore, it is valuable to include a \textbf{local depot + uptake} step explicitly upon basic intracellular model. We hence choose the following 4-state model as the main model:
+\begin{align}
+\frac{\mathrm{d}L}{\mathrm{d}t} &= -(k_{\mathrm{up}} + k_{\mathrm{clr},L})L, \\
+\frac{\mathrm{d}E}{\mathrm{d}t} &= k_{\mathrm{up}}L - (k_{\mathrm{rel}} + k_{\mathrm{loss},E})E, \\
+\frac{\mathrm{d}M}{\mathrm{d}t} &= k_{\mathrm{rel}}E - k_{\mathrm{deg}}M, \\
+\frac{\mathrm{d}P}{\mathrm{d}t} &= k_{\mathrm{tl}}M - k_{\mathrm{clr}}P.
+\end{align}
+
+\subsection*{Meaning of each term}
+
+\begin{itemize}
+    \item $k_{\mathrm{up}}L$: \textbf{delivery into cells} (effective uptake rate of depot cargo into a cell-associated compartment).
+    \item $k_{\mathrm{clr},L}L$: \textbf{loss of depot availability} (drainage, extracellular degradation, irreversible dispersion).
+    \item $k_{\mathrm{rel}}E$: \textbf{productive endosomal escape / cytosolic release} (functionally available mRNA).
+    \item $k_{\mathrm{loss},E}E$: \textbf{nonproductive loss of internalized mRNA} (endosomal degradation, recycling/ exocytosis, irreversible trapping). Low net cytosolic delivery motivates allowing $k_{\mathrm{loss},E} \gg k_{\mathrm{rel}}$ in some regimes. \parencite{Pei2025EndosomalEscapeLNP}
+    \item $k_{\mathrm{deg}}M$: \textbf{cytosolic mRNA decay} (RNases, decay pathways). Median mammalian mRNA half-lives on the order of hours support $k_{\mathrm{deg}}$ in the \qtyrange{0.03}{0.3}{\per \hour} range, though delivered IVT mRNA can differ substantially. \parencite{Sharova2009mRNAHalfLifeESC}
+    \item $k_{\mathrm{tl}}M$: \textbf{translation rate} (effective protein production per cytosolic mRNA).
+    \item $k_{\mathrm{clr}}P$: \textbf{net antigen clearance/degradation}. Protein half-lives span wide ranges (hours to days depending on state/tissue), supporting a broad plausible range for $k_{\mathrm{clr}}$. \parencite{Toyama2013ProteinHomeostasis}
+\end{itemize}
+
+\subsection*{Optional extension: minimal innate ``translation brake'' (when sharp drops occur)}
+
+To capture cases where expression peaks and then rapidly collapses via innate responses (e.g., strong IFN-associated translation block), add:
+\begin{equation}
+\frac{\mathrm{d}I}{\mathrm{d}t} = k_I M - k_{I,\mathrm{decay}} I
+\end{equation}
+and replace the translation term with an inhibited form:
+\begin{equation}
+\frac{\mathrm{d}P}{\mathrm{d}t} = k_{\mathrm{tl}}\frac{M}{1+I} - k_{\mathrm{clr}}P.
+\end{equation}
+
+Rationale: innate sensing of RNA/LNP can lead to stress and reduced translation; such feedback is described mechanistically and observed experimentally, including profiles consistent with a rapid innate response followed by decreased expression. \parencite{Nelson2020mRNAChemistryInnateImmunity}
+
+\subsection*{Initial conditions}
+
+For a single bolus injection at $t=0$:
+\begin{equation}
+L(0)=\eta_{\mathrm{avail}}D_0, \qquad E(0)=0, \qquad M(0)=0, \qquad P(0)=0.
+\end{equation}
+
+\begin{itemize}
+    \item $D_0$: injected mRNA dose (mass or AU).
+    \item $\eta_{\mathrm{avail}}$: fraction of dose that remains as a \textbf{bioavailable local depot} (captures losses during injection, aggregation, immediate clearance). If unknown, fold it into $D_0$.
+\end{itemize}
+
+\subsection*{Parameters}
+
+The numerical values below are \textbf{illustrative} (not fitted). They are chosen to generate a peak on the order of $\sim 1$ day with multi-day tails, roughly consistent with reported in vivo antigen/reporter kinetics after intramuscular administration. \parencite{Hassett2024mRNAVaccineTrafficking}
+
+Key external anchors used qualitatively:
+\begin{itemize}
+    \item Cytosolic delivery efficiency often $\sim 1$--$3\%$ of internalized cargo. \parencite{Pei2025EndosomalEscapeLNP}
+    \item Protein expression peaks can occur within hours to $\sim 1$ day depending on route/tissue, with translation signals detectable for days in some contexts. \parencite{pardi2015expressionKinetics}
+    \item Median mammalian mRNA half-life estimates on the order of hours (context-dependent). \parencite{Sharova2009mRNAHalfLifeESC}
+    \item Protein half-lives in mammalian systems span hours to days, depending on cell state/tissue. \parencite{Toyama2013ProteinHomeostasis}
+\end{itemize}
+
+\subsubsection*{Baseline example (used for scenario comparisons in a later section)}
+
+Time in hours:
+\begin{align*}
+D_0 &= 1 \quad \text{(normalized)}, \\
+\eta_{\mathrm{avail}} &= 1 \quad \text{(absorbed into $D_0$)}, \\
+k_{\mathrm{up}} &= 0.10\ \mathrm{h}^{-1}, \\
+k_{\mathrm{clr},L} &= 0.02\ \mathrm{h}^{-1}, \\
+k_{\mathrm{rel}} &= 0.20\ \mathrm{h}^{-1}, \\
+k_{\mathrm{loss},E} &= 9.80\ \mathrm{h}^{-1} \quad (\text{gives escape fraction } \approx 0.02 \ \text{\parencite{Pei2025EndosomalEscapeLNP}}), \\
+k_{\mathrm{deg}} &= 0.10\ \mathrm{h}^{-1}, \\
+k_{\mathrm{tl}} &= 1.0\ (\text{protein AU})(\text{mRNA AU})^{-1}\mathrm{h}^{-1}, \\
+k_{\mathrm{clr}} &= 0.03\ \mathrm{h}^{-1}.
+\end{align*}

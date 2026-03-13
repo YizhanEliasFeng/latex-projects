@@ -1,0 +1,44 @@
+\section{Biological Interpretation}
+
+\subsection*{Mechanisms producing a sharp, short-lived peak}
+
+In this model, sharp transient expression arises when antigen production is front-loaded and/or clearance is fast:
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Fast uptake + fast depot loss} ($k_{\mathrm{up}}$ high, $k_{\mathrm{clr},L}$ high): many cells get payload quickly, but the source is exhausted rapidly $\to$ early peak, limited persistence.
+    \item \textbf{Fast cytosolic mRNA decay} ($k_{\mathrm{deg}}$ high): even if delivery is good, mRNA disappears quickly $\to$ short translation window.
+    \item \textbf{Fast antigen clearance} ($k_{\mathrm{clr}}$ high): protein cannot accumulate; peaks earlier and decays quickly.
+    \item \textbf{Innate-driven translation shutdown (optional module)}: strong innate sensing can yield a peak followed by a sharp drop consistent with translation blockage. This mechanism is supported by reports where LNP-delivered RNA induced rapid IFN responses and was associated with abrupt expression loss. \parencite{Huysmans2019saRNALNPSkin}
+\end{enumerate}
+
+Mechanistically, innate sensing can be triggered by both (a) the RNA cargo (especially unmodified uridine or dsRNA impurities) and (b) the LNP components, and downstream signaling can reduce translation. \parencite{Nelson2020mRNAChemistryInnateImmunity}
+
+\subsection*{Mechanisms producing lower but longer-lasting expression}
+
+Sustained expression emerges when the input to translation is time-distributed and/or the degradation/clearance rates are slower:
+\begin{enumerate}[label=\arabic*.]
+    \item \textbf{Prolonged depot availability} (smaller $k_{\mathrm{clr},L}$) and/or \textbf{slow uptake} (smaller $k_{\mathrm{up}}$): extends the time over which mRNA becomes cytosolic, lowering peak but lengthening duration.
+    \item \textbf{Improved cytosolic mRNA stability} (smaller $k_{\mathrm{deg}}$): increases both AUC and duration; also tends to shift peak later because accumulation continues longer.
+    \item \textbf{Longer antigen half-life} (smaller $k_{\mathrm{clr}}$): increases AUC and extends tails even if mRNA is transient.
+\end{enumerate}
+
+Experimentally, multi-day translation signatures have been measured in some tissues/routes, and antigen protein expression can persist beyond the period where intact mRNA is abundant \textemdash{} consistent with protein half-life effects and time-distributed delivery. \parencite{pardi2015expressionKinetics}
+
+\subsection*{Which parameters are most influential?}
+
+The analytical AUC result highlights multiplicative bottlenecks:
+\begin{itemize}
+    \item $f_{\mathrm{esc}} = k_{\mathrm{rel}}/(k_{\mathrm{rel}} + k_{\mathrm{loss},E})$ can be very small (order $0.01$--$0.03$), so improving it can produce large gains.
+    \item $f_{\mathrm{up}} = k_{\mathrm{up}}/(k_{\mathrm{up}} + k_{\mathrm{clr},L})$ can vary widely with formulation and microenvironment; it strongly scales overall output.
+    \item $k_{\mathrm{deg}}$ and $k_{\mathrm{clr}}$ control duration and AUC through $1/(k_{\mathrm{deg}}k_{\mathrm{clr}})$.
+    \item $k_{\mathrm{tl}}$ is a potent scaling factor, but its effective value can be suppressed by innate activation.
+\end{itemize}
+
+\subsection*{Are ``strong'' and ``long-lasting'' synergistic or a trade-off?}
+
+Both effects can be synergistic in terms of AUC (e.g., increasing $f_{\mathrm{esc}}$ and lowering $k_{\mathrm{deg}}$ directly multiply). However, peak height vs.~duration can trade off:
+\begin{itemize}
+    \item Slowing upstream delivery (smaller $k_{\mathrm{up}}$, smaller $k_{\mathrm{clr},L}$) tends to reduce peak while increasing duration (a classic depot effect).
+    \item Increasing protein stability (smaller $k_{\mathrm{clr}}$) can raise both peak and duration, but may shift peak later and prolong exposure beyond desired windows (which may affect reactogenicity or tolerance risk; outside scope of this simple model).
+    \item Strong innate responses may simultaneously improve adjuvanticity and reduce translation, creating a nontrivial trade-off between immune stimulation and antigen production.
+\end{itemize}
+

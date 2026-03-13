@@ -1,0 +1,13 @@
+\section{Limitations of the Model}
+
+This model is intentionally simplified; key omissions that can matter in real vaccines include:
+\begin{itemize}
+    \item \textbf{Cell-to-cell heterogeneity}: distribution of LNP copies per cell and variability in translation capacity can broaden kinetics beyond a single-compartment average. \parencite{pardi2015expressionKinetics}
+    \item \textbf{Tissue distribution and pharmacokinetics}: biodistribution to liver/spleen/lymph nodes and time-varying trafficking alter both the magnitude and the location of antigen production; empirical data show tissue-specific time courses. \parencite{Hassett2024mRNAVaccineTrafficking}
+    \item \textbf{Innate immune sensing complexity}: the optional $I(t)$ is a coarse proxy; real pathways involve endosomal TLRs, cytosolic sensors, cytokine cascades, and cell recruitment, and can differ across formulations and impurity profiles. \parencite{Nelson2020mRNAChemistryInnateImmunity}
+    \item \textbf{Nonlinear translation saturation}: uptake/translation saturation has been observed in vitro, implying that at higher doses or high intracellular concentrations, linear $k_{\mathrm{tl}}M$ may overpredict. \parencite{pardi2015expressionKinetics}
+    \item \textbf{Adaptive immune feedback}: antigen-specific killing of expressing cells, antibody-mediated clearance and lymphocyte dynamics can reshape later time courses; not represented.
+    \item \textbf{Antigen processing/presentation details}: surface presentation, secretion, and MHC loading are collapsed into a single protein pool $P(t)$, whereas actual immune activation depends on antigen-presenting cell biology and context.
+\end{itemize}
+
+These limitations are acceptable for an initial platform model aimed at explaining why kinetics differ at equal dose, but they constrain direct quantitative prediction without calibration.
