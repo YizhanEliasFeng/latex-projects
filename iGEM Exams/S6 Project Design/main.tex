@@ -1,0 +1,62 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-en.tex}
+
+\setmainfont{Times New Roman}
+\setmonofont{Menlo}
+
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=none
+]{biblatex}
+\addbibresource{bib/references.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead[L]{Yizhan Feng 2400017802}
+\fancyhead[C]{}
+\fancyhead[R]{Peking 2026 iGEM Entrance Examination, S6}
+
+%\setlength{\parindent}{1.5em}
+
+\begin{document}
+
+\maketitle
+
+\section{Toolbox Application}
+\noindent\textbf{Answer:} I would choose \textbf{Figure 1 + Figure 2 + Figure 3} together, because they provide the three core functions needed for the project: \textbf{sensing}, \textbf{reporting}, and \textbf{capture}.
+
+A rough design is to use a \textbf{heavy-metal-responsive promoter} as the sensing module. Once Pb$^{2+}$ or Cd$^{2+}$ is detected, this promoter activates two downstream branches. One branch drives a \textbf{reporter gene} such as sfGFP or lacZ, so the bacteria produce a visible or measurable signal. The other branch drives a \textbf{surface-display module} fused with a \textbf{metal-binding peptide (MBP)}, so that the cells can expose binding sites on the surface and adsorb heavy metal ions from water.
+
+In this way, the engineered bacteria can both \textbf{detect} the target metal and \textbf{capture} it at the same time. This makes the overall design simple, self-consistent, and suitable for a Detect-and-Capture biosensor system.
+
+\section{Wet Lab Troubleshooting}
+\noindent\textbf{Answer:}  
+I would pivot the project from a \textbf{direct wild-water purification system} to a \textbf{closed, modular detect--capture--warn platform}. Since our data show that adsorption efficiency drops sharply in real samples, it is more scientifically honest to redefine the engineered bacteria as a selective capture layer rather than the sole purification engine. This redesign remains reasonable because heavy-metal biosorption is strongly affected by pH and competing ions, which are known to reduce adsorption in complex wastewater environments.  
+
+In practice, I would narrow the application scenario to \textbf{high-risk point-source monitoring} or \textbf{small-volume pretreatment}, such as industrial outfalls or mining wastewater, instead of claiming universal remediation of natural water. At the hardware level, I would introduce a prefiltration and conditioning module, followed by an immobilized-cell cartridge, so that the device can stabilize sample conditions and improve contact efficiency. Immobilized biosorbents are widely used because they improve controllability, recovery, and practical deployment compared with free cells.
+
+With this adjustment, the project’s value shifts from ``fully removing heavy metals from raw water'' to \textbf{early warning, selective enrichment, and partial risk reduction in realistic settings}. This keeps the project self-consistent, experimentally supported, and still meaningful as an iGEM engineering project, especially since iGEM emphasizes integrated engineering design and human-practices-aware problem solving rather than only maximal final performance.
+
+\section{Biosafety}
+\noindent\textbf{Answer:} Two suitable intrinsic biocontainment strategies are:
+
+\begin{enumerate}
+    \item \textbf{Synthetic auxotrophy.}  
+    Engineer the bacteria so that survival depends on a non-natural nutrient, such as an unnatural amino acid, supplied only inside the product. Once the bacteria leak into a natural lake, this nutrient is absent, so essential cellular functions fail and the cells cannot continue growing. This reduces both long-term survival and the chance of gene escape in the environment.  
+
+    \item \textbf{Environment-responsive kill switch.}  
+    Introduce a toxin--antitoxin or similar suicide circuit in which the bacteria remain alive only under device-specific conditions, such as the presence of an inducer or a controlled chemical signal. After leakage, the environmental signal changes, the toxin is activated, and the cells self-destruct. Classic examples include the \emph{Deadman} and \emph{Passcode} kill-switch designs.
+\end{enumerate}
+
+For stronger biosafety, these two strategies can be combined into a multi-layer containment system, so that even if one safeguard fails, the other can still prevent environmental persistence and ecological invasion.
+% \printbibliography
+
+\end{document}

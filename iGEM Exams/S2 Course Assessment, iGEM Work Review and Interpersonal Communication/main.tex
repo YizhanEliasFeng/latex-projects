@@ -1,0 +1,107 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-en.tex}
+
+\setmainfont{Times New Roman}
+\setmonofont{Menlo}
+
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=none
+]{biblatex}
+\addbibresource{bib/references.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead[L]{Yizhan Feng 2400017802}
+\fancyhead[C]{}
+\fancyhead[R]{Peking 2026 iGEM Entrance Examination, S2}
+
+%\setlength{\parindent}{1.5em}
+
+\begin{document}
+
+\maketitle
+
+\section{Course Assessment}
+
+\begin{enumerate}[parsep=0.5\baselineskip] 
+  \item \textbf{Engineering}. A concise way to state the primary mission of synthetic biology is engineering: the field is fundamentally about designing, constructing, and redesigning biological parts, systems, and organisms so they perform useful, predictable functions.
+  \item \textbf{(a)} is an AND gate. IPTG induces protein A and aTc induces protein B, and both proteins are required together to activate GFP. That matches the logic ``input 1 AND input 2 $\to$ output''. (b) is a NOR gate and (c) is an OR gate.
+  \item \textbf{(b)}.
+\end{enumerate}
+
+\section{iGEM Work Review}
+
+\begin{enumerate}[parsep=0.5\baselineskip] 
+  \item I think our project is creative and ambitious, but as an iGEM project its main weakness is overexpansion. It covers too many branches at once, so the core proof of concept is not sharp enough.
+  
+  \textbf{Main shortages:}
+  \begin{enumerate}
+    \item The scope is too broad, with too many systems and applications in parallel. There is no single decisive experiment proving the whole concept.
+    \item The central engineering cycle is not clear enough.
+    \item Dry lab modeling and human practices are interesting, but not tightly linked to design decisions.
+    \item Some application claims are too speculative compared with the current evidence.
+  \end{enumerate}
+  \textbf{Future improvements:}
+  \begin{enumerate}
+    \item Narrow the project to one core proof of concept, such as light-induced locus seeding with measurable reporter activation.
+    \item Organize the work around clearer Design--Build--Test--Learn cycles.
+    \item Use modeling to guide concrete construct and assay choices.
+    \item Present the system as a reusable platform first, and leave broader applications as future work.
+  \end{enumerate}
+
+  \item I am very impressed by McGill 2025's project Cohera. Their project is not just a single application, but a universal platform built around a clear fundamental question: how to construct robust, flexible, and programmable cell-cell adhesion. Its strongest feature is the integration of wet lab, dry lab, and application thinking into one coherent story. The team first defined a general toolbox, then validated its core functions experimentally, and finally used modeling and optimization to improve the system. This makes the project feel both scientifically fundamental and engineering-oriented.
+
+  What we can learn from it is that a strong iGEM project should have a clear core module, a complete engineering logic, and a platform mindset. First, the central question must be simple and memorable. Second, every part of the project should serve the same core goal, instead of expanding in too many directions. Third, dry lab should not exist independently, but should guide design and optimization. Finally, applications should be presented as evidence of the platform's power, rather than replacing the platform itself. In short, the McGill project shows that the most impressive iGEM work is usually not the broadest idea, but the one with the clearest core, the strongest integration, and the best balance between innovation and feasibility.
+\end{enumerate}
+
+\section{Interpersonal Communication}
+\begin{enumerate}[parsep=0.5\baselineskip] 
+  \item 
+  \begin{enumerate}
+    \item At the preliminary stage, how do you judge whether a project is solving a real problem or just demonstrating a clever biological mechanism?
+    \item What is the earliest sign that a project has real translational potential?
+    \item If you were evaluating an early iGEM project, what criteria would you use to decide whether it should become a platform technology or stay focused on one narrow application?
+    \item How would you recommend balancing scientific novelty against engineering feasibility in an iGEM project?
+    \item When should a team pivot? What kinds of negative results suggest ``optimize further'', and what kinds suggest ``abandon the route and redesign the project''?
+    \item If our project is still early and incomplete, how can we frame it responsibly without overselling it? 
+  \end{enumerate}
+  \item A possible template is as follows:
+  
+  \fbox{
+    \begin{minipage}{0.9\textwidth}
+      \textbf{Subject:} URGENT: Wiki Freeze Technical Issue - Team Peking \\
+      
+      Dear iGEM Support Team,\\
+  
+      I am writing to you urgently on behalf of Team Peking. We are currently trying to finalize and submit our wiki before today's freeze deadline, but we have encountered a critical technical issue that is preventing our updates from going through. \\
+  
+      Specifically, we are experiencing [Briefly describe the exact error, e.g., a recurring pipeline build failure / an inability to push our final commits to the GitLab repository / a server timeout error when uploading assets]. \\
+  
+      We have already attempted to troubleshoot the issue on our end by [Mention 1-2 steps we took, e.g., rolling back to our previous stable commit / testing the build locally where it passes without errors / clearing our cache and using different networks], but the problem persists. \\
+  
+      Given how close we are to the deadline, could you please advise us on how to proceed? If this is a platform-side issue, we would appreciate any guidance on alternative ways to submit our files or secure our final wiki state so we are not penalized for this delay. \\
+  
+      Thank you very much for your time and urgent assistance.\\
+  
+      Best regards,
+  
+      [Name/Title]
+
+      Team Peking
+
+      [Your Phone Number or Alternative Contact]
+    \end{minipage}
+  }
+\end{enumerate}
+% \printbibliography
+
+\end{document}

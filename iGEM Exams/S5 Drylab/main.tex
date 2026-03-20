@@ -1,0 +1,282 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-en.tex}
+
+\setmainfont{Times New Roman}
+\setmonofont{Menlo}
+
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=none
+]{biblatex}
+\addbibresource{bib/references.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead[L]{Yizhan Feng 2400017802}
+\fancyhead[C]{}
+\fancyhead[R]{Peking 2026 iGEM Entrance Examination, S5}
+
+%\setlength{\parindent}{1.5em}
+
+\begin{document}
+
+\maketitle
+
+\section{Critical Evaluation and Redesign of the Peking iGEM 2025 Drylab Work}
+
+\section{RNA-seq Data Analysis and Statistical Interpretation}
+
+\section{AI for Biology: Single-Cell Data Analysis and Machine
+Learning}
+
+\subsection{Data Exploration and Visualization}
+
+\subsection{Neural Network Classification}
+
+\subsection{AI Principles and Reasoning}
+\subsubsection{Correlated mutations}
+Correlated mutations in an MSA are informative because residues that are close in a protein's three-dimensional structure often evolve under shared constraints: if one residue changes, a nearby interacting residue may also mutate to preserve packing, bonding, or function. Across many homologous sequences, these compensatory changes create coevolution signals that help identify likely residue--residue contacts or distance constraints. Such information is highly useful for protein structure prediction, and modern systems such as AlphaFold use MSAs to extract these evolutionary patterns and improve prediction accuracy.
+
+\subsubsection{LLM maths failure}
+Predicting the next token well does not necessarily guarantee correct logical or mathematical reasoning, because the base LLM objective is to model likely text continuations rather than to execute a reliable step-by-step algorithm. As a result, the model may generate outputs that \emph{look} plausible in language while still making mistakes in arithmetic, carry operations, or multi-step deduction. Research has also shown that reasoning performance can improve substantially with methods such as chain-of-thought prompting, indicating that fluent next-token prediction alone is not the same as robust reasoning ability.
+
+\subsubsection{Multimodal mistakes}
+Possible reasons include the following. First, many multimodal models are trained mainly for image--text matching, captioning, or next-token prediction rather than for \emph{exact} counting, so they may learn coarse semantic recognition (``this is a hand'') better than precise numerosity. Second, counting requires fine-grained spatial reasoning, instance separation, and robustness to occlusion or unusual viewpoints; recent work shows that VLMs still have clear weaknesses on spatial-reasoning and counting-style benchmarks. Third, architectural compression of an image into patches or latent tokens can blur small local details, making exact enumeration of fingers or other repeated parts harder than broad object recognition. Finally, training data may contain relatively few examples where exact counts are explicitly supervised, especially for ambiguous cases such as bent, overlapping, or partially hidden fingers.
+
+
+
+\section{Mathematical Models in Biophysics}
+\subsection{Central Dogma Dynamics}
+
+\subsubsection{Steady-state values \texorpdfstring{$m^*$ and $p^*$}{m* and p*}.}
+At steady state,
+\[
+  \frac{dm}{dt}=0,\qquad \frac{dp}{dt}=0.
+\]
+From the mRNA equation,
+\[
+  0=k_{\mathrm{tr}}-\gamma_m m^*
+\]
+so
+\[
+  m^*=\frac{k_{\mathrm{tr}}}{\gamma_m}.
+\]
+From the protein equation,
+\[
+  0=k_{\mathrm{tl}}m^*-\gamma_p p^*
+\]
+we obtain
+\[
+  p^*=\frac{k_{\mathrm{tl}}m^*}{\gamma_p}=\frac{k_{\mathrm{tl}}k_{\mathrm{tr}}}{\gamma_p\gamma_m}.
+\]
+
+\subsubsection{Steady-state protein level.}
+From the result above, the steady-state protein level is
+\[
+  p^* = \frac{20\times5}{1\times0.05}=2000.
+\]
+
+\subsubsection{Effect of doubling the transcription rate.}
+If the transcription rate doubles, then
+\[
+  k'_{\mathrm{tr}}=10.
+\]
+The new mRNA steady state is
+\[
+  m^{*\prime}=\frac{10}{1}=10,
+\]
+and the new protein steady state is
+\[
+  p^{*\prime}=\frac{20\times 10}{0.05}=4000.
+\]
+
+
+\subsubsection{Response times of mRNA and protein.}
+For a first-order degradation process, the characteristic response time is approximately
+\[
+  \tau\approx \frac{1}{\gamma}.
+\]
+Thus,
+\[
+  \tau_m=\frac{1}{\gamma_m}=\frac{1}{1}=1\ \text{min},
+\]
+\[
+  \tau_p=\frac{1}{\gamma_p}=\frac{1}{0.05}=20\ \text{min}.
+\]
+
+Protein dynamics are slower because the protein degradation rate is much smaller than the mRNA degradation rate, which gives protein a much longer characteristic timescale.
+
+\subsubsection{How to rapidly turn off protein expression.}
+To rapidly reduce the protein level, it is more effective to increase the protein degradation rate rather than only increase the mRNA degradation rate. Faster mRNA degradation reduces new protein synthesis, but already synthesized protein can still persist. Increasing protein degradation directly removes the existing protein pool more quickly. Therefore,
+
+\subsection{Gene Regulation and Nonlinear Dynamics}
+\subsubsection{Biological meanings of \texorpdfstring{$K$}{K} and \texorpdfstring{$n$}{n}.}
+For the repression function
+\[
+  f(p)=\frac{1}{1+(p/K)^n},
+\]
+$K$ is the characteristic concentration scale of the repressor. When $p=K$,
+\[
+  f(K)=\frac{1}{1+1}=\frac{1}{2},
+\]
+so $K$ is the protein concentration at which transcription is reduced to one half of its unrepressed level. Biologically, it reflects the effective binding strength of the repressor to the promoter: a smaller $K$ means repression becomes significant at a lower protein concentration.
+
+The parameter $n$ is the Hill coefficient. It describes the degree of cooperativity in regulation. A larger $n$ means the response curve becomes steeper near the threshold, so transcription changes more abruptly as $p$ passes through the region around $K$.
+
+\subsubsection{Why a larger \texorpdfstring{$n$}{n} makes the response switch-like.}
+From
+\[
+  f(p)=\frac{1}{1+(p/K)^n},
+\]
+when $n=1$, repression changes gradually with protein concentration. As $n$ increases, the term $(p/K)^n$ varies much more sharply near $p=K$. If $p<K$, then $(p/K)^n$ becomes very small and $f(p)\approx 1$; if $p>K$, then $(p/K)^n$ becomes very large and $f(p)\approx 0$.
+
+Therefore, a larger $n$ makes the transition from high expression to strong repression much steeper, so the regulatory response behaves more like an on-off switch.
+
+\subsubsection{Why cooperative binding gives steeper regulation curves.}
+If transcription factors bind cooperatively, the binding of one molecule increases the likelihood that additional molecules will bind. As a result, promoter occupancy no longer rises gradually with protein concentration. Instead, once the concentration enters the threshold region, occupancy increases rapidly over a narrow range.
+
+This creates a steep input-output curve: promoter activity changes little at low concentration, then changes sharply near the threshold, and finally saturates at high concentration. Thus cooperative binding produces a steeper regulation curve than independent binding.
+
+\subsection{Random Walk Search on DNA}
+
+\subsubsection{Mean displacement and mean squared displacement.}
+Let the position after $n$ steps be
+\[
+  x_n=\sum_{i=1}^{n}\xi_i,
+\]
+where each step satisfies $\xi_i=\pm a$ with equal probability $1/2$. For one step,
+\[
+  \langle \xi_i\rangle=\frac{1}{2}a+\frac{1}{2}(-a)=0.
+\]
+Hence,
+\[
+  \langle x_n\rangle=\left\langle \sum_{i=1}^{n}\xi_i\right\rangle=\sum_{i=1}^{n}\langle \xi_i\rangle=0.
+\]
+
+For the mean squared displacement,
+\[
+  x_n^2=\left(\sum_{i=1}^{n}\xi_i\right)^2=\sum_{i=1}^{n}\xi_i^2+2\sum_{i<j}\xi_i\xi_j.
+\]
+Taking expectation values gives
+\[
+  \langle x_n^2\rangle=\sum_{i=1}^{n}\langle \xi_i^2\rangle+2\sum_{i<j}\langle \xi_i\xi_j\rangle.
+\]
+Because the steps are independent and $\langle \xi_i\rangle=0$,
+\[
+  \langle \xi_i\xi_j\rangle=0\qquad(i\neq j).
+\]
+Also, since $\xi_i=\pm a$,
+\[
+  \langle \xi_i^2\rangle=a^2.
+\]
+Therefore,
+\[
+  \langle x_n^2\rangle=na^2.
+\]
+
+\subsubsection{Effective diffusion coefficient \texorpdfstring{$D$}{D}.}
+If each step takes time $\tau$, then the total time is
+\[
+  t=n\tau,
+\]
+so
+\[
+  n=\frac{t}{\tau}.
+\]
+Substituting into the expression for the mean squared displacement,
+\[
+  \langle x^2(t)\rangle=na^2=\frac{a^2}{\tau}t.
+\]
+Comparing this with the one-dimensional diffusion relation
+\[
+  \langle x^2(t)\rangle=2Dt,
+\]
+we obtain
+\[
+  D=\frac{a^2}{2\tau}.
+\]
+
+\subsubsection{Order of magnitude of the search time.}
+If the protein must search over a distance of order $L$, then the typical displacement satisfies
+\[
+  L^2\sim \langle x^2(t)\rangle\sim 2Dt.
+\]
+Therefore, the search time is of order
+\[
+  t_{\mathrm{search}}\sim \frac{L^2}{2D}.
+\]
+Using $D=a^2/(2\tau)$, this can also be written as
+\[
+  t_{\mathrm{search}}\sim \frac{L^2\tau}{a^2}.
+\]
+
+\subsubsection{Why one-dimensional sliding helps nearby search but is inefficient over long distances.}
+One-dimensional sliding is useful when the target site is nearby, because once the protein lands on DNA close to the target, it can scan adjacent base pairs without repeatedly dissociating and rebinding. This makes local search efficient.
+
+However, over long distances, one-dimensional diffusion is inefficient because the search time scales roughly as $L^2$. This quadratic scaling makes long-range sliding slow. For this reason, many DNA-binding proteins use a mixed strategy that combines three-dimensional diffusion for long-range relocation with short one-dimensional sliding for local scanning.
+
+\subsection{Quantum Model of a Proton in a Hydrogen Bond}
+
+\subsubsection{Stationary Schr\"odinger equation and the meaning of each term.}
+For the double-well potential
+\[
+  V(x)=V_0\left[\left(\frac{x}{a}\right)^2-1\right]^2,
+\]
+the stationary Schr"odinger equation is
+\[
+  -\frac{\hbar^2}{2m}\frac{d^2\psi}{dx^2}+V_0\left[\left(\frac{x}{a}\right)^2-1\right]^2\psi(x)=E\psi(x).
+\]
+Here,
+\[
+  -\frac{\hbar^2}{2m}\frac{d^2\psi}{dx^2}
+\]
+is the kinetic-energy term of the proton,
+\[
+  V(x)\psi(x)
+\]
+is the potential-energy term, and
+\[
+  E\psi(x)
+\]
+represents the total energy eigenvalue equation. The wavefunction $\psi(x)$ gives the probability amplitude, and $|\psi(x)|^2$ is the probability density for finding the proton at position $x$.
+
+\subsubsection{Consequence of parity symmetry for the ground state.}
+Because the potential is symmetric,
+\[
+  V(x)=V(-x),
+\]
+the Hamiltonian is invariant under spatial inversion. Therefore, its eigenfunctions can be chosen to have definite parity: they are either even or odd.
+
+For the ground state of a symmetric double well, the wavefunction is even, so
+\[
+  \psi_0(x)=\psi_0(-x).
+\]
+This means the lowest-energy state is distributed symmetrically across the two wells.
+
+\subsubsection{Why tunneling splits the degeneracy.}
+If the two wells were completely isolated, a proton localized in the left well and a proton localized in the right well would have the same energy, so the two states would be degenerate.
+
+When the barrier is finite, quantum tunneling couples the two wells. The true eigenstates become the symmetric and antisymmetric combinations of the localized states,
+\[
+  \psi_{+}\sim \psi_L+\psi_R,
+  \qquad
+  \psi_{-}\sim \psi_L-\psi_R.
+\]
+The symmetric state has lower energy, while the antisymmetric state has higher energy. Thus tunneling removes the degeneracy and produces an energy splitting.
+
+\subsubsection{Effect of a higher or wider barrier on tunneling splitting and localization.}
+If the barrier becomes higher or wider, tunneling between the two wells becomes weaker. As a result, the overlap of the wavefunctions decreases, and the energy splitting between the symmetric and antisymmetric states becomes smaller.
+
+Physically, this means the proton becomes more localized in one well or the other, because the two wells behave more like independent sites.
+
+% \printbibliography
+
+\end{document}

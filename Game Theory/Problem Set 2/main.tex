@@ -1,0 +1,813 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-en.tex}
+
+\setmainfont{Times New Roman}
+\setmonofont{Menlo}
+\usepackage{unicode-math}
+\setmathfont{texgyretermes-math.otf}
+
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=none
+]{biblatex}
+\addbibresource{bib/references.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead[L]{Yizhan Feng 2400017802}
+\fancyhead[C]{}
+\fancyhead[R]{GAME THEORY, Spring 2026, PS2}
+
+\setlength{\parindent}{1.5em}
+
+\begin{document}
+
+\maketitle
+
+\section{Splitting Pizza}
+You and a friend are in an Italian restaurant, and the owner offers both of you a free eight-slice pizza under the following condition. Each of you must simultaneously announce how many slices you would like; that is, each player $i \in \{1, 2\}$ names his desired amount of pizza, $0 \le s_i \le 8$. If $s_1 + s_2 \le 8$ then the players get their demands (and the owner eats any leftover slices). If $s_1 + s_2 > 8$, then the players get nothing. Assume that you each care only about how much pizza you individually consume, and the more the better.
+
+\begin{enumerate}[label=(\alph*)]
+  \item Write out or graph each player’s best-response correspondence.
+  \item What outcomes can be supported as pure-strategy Nash equilibria?
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:} Let player \(i\)'s payoff be
+\[
+u_i(s_1,s_2)=
+\begin{cases}
+s_i, & \text{if } s_1+s_2\le 8,\\
+0, & \text{if } s_1+s_2>8.
+\end{cases}
+\]
+
+\begin{enumerate}[label=(\alph*)]
+  \item Fix player \(j\)'s choice \(s_j\). If \(s_j<8\), then player \(i\) can obtain a positive payoff as long as \(s_i\le 8-s_j\), and since more pizza is always better, his unique best response is to choose the largest feasible demand:
+  \[
+  s_i=8-s_j.
+  \]
+
+  If \(s_j=8\), then:
+  \begin{itemize}
+      \item if player \(i\) chooses \(s_i=0\), he gets \(0\);
+      \item if player \(i\) chooses any \(s_i\ge 1\), then \(s_i+s_j>8\), so he also gets \(0\).
+  \end{itemize}
+  Hence every action gives the same payoff \(0\), so every action is a best response.
+
+  Therefore the best-response correspondence of player \(i\) is
+  \[
+  BR_i(s_j)=
+  \begin{cases}
+  \{\,8-s_j\,\}, & \text{if } s_j<8,\\[4pt]
+  \{0,1,2,\dots,8\}, & \text{if } s_j=8.
+  \end{cases}
+  \]
+
+  By symmetry,
+  \[
+  BR_1(s_2)=
+  \begin{cases}
+  \{\,8-s_2\,\}, & \text{if } s_2<8,\\[4pt]
+  \{0,1,2,\dots,8\}, & \text{if } s_2=8,
+  \end{cases}
+  \]
+  and
+  \[
+  BR_2(s_1)=
+  \begin{cases}
+  \{\,8-s_1\,\}, & \text{if } s_1<8,\\[4pt]
+  \{0,1,2,\dots,8\}, & \text{if } s_1=8.
+  \end{cases}
+  \]
+
+  \item A pure-strategy Nash equilibrium is a pair \((s_1,s_2)\) such that
+  \[
+  s_1\in BR_1(s_2)
+  \qquad\text{and}\qquad
+  s_2\in BR_2(s_1).
+  \]
+
+  We now characterize all such pairs.
+
+  First, any pair satisfying
+  \[
+  s_1+s_2=8
+  \]
+  is a Nash equilibrium. If both \(s_1<8\) and \(s_2<8\), then
+  \[
+  s_1=8-s_2\in BR_1(s_2),\qquad s_2=8-s_1\in BR_2(s_1).
+  \]
+  The boundary cases \((8,0)\) and \((0,8)\) also satisfy the equilibrium condition because when one player chooses \(8\), the other player is indifferent among all actions.
+
+  Second, \((8,8)\) is also a Nash equilibrium. Since
+  \[
+  BR_1(8)=\{0,1,2,\dots,8\},\qquad BR_2(8)=\{0,1,2,\dots,8\},
+  \]
+  it follows that
+  \[
+  8\in BR_1(8)\qquad\text{and}\qquad 8\in BR_2(8),
+  \]
+  so \((8,8)\) is a Nash equilibrium.
+
+  Now consider any other outcome. 
+  
+  If \(s_1+s_2<8\), then there is leftover pizza, so at least one player can increase his demand while keeping the total demand weakly below \(8\), thereby increasing his payoff. Hence such an outcome cannot be a Nash equilibrium.
+
+  If \(s_1+s_2>8\) and \((s_1,s_2)\neq(8,8)\), then at least one player has chosen a number strictly less than \(8\). Suppose \(s_1<8\). Since both players currently get \(0\), player 2 can deviate to \(8-s_1\), which is feasible and yields payoff \(8-s_1>0\). Thus such an outcome cannot be a Nash equilibrium. The same argument applies symmetrically if \(s_2<8\).
+
+  Therefore the full set of pure-strategy Nash equilibria is
+  \[
+  \{(s_1,s_2)\in\{0,1,\dots,8\}^2: s_1+s_2=8\}\cup\{(8,8)\}.
+  \]
+
+  Explicitly, the pure-strategy Nash equilibria are
+  \[
+  (0,8),(1,7),(2,6),(3,5),(4,4),(5,3),(6,2),(7,1),(8,0),(8,8).
+  \]
+\end{enumerate}
+
+\section{Tragedy of the Roommates}
+You and your $n-1$ roommates each have five hours of free time you could spend cleaning your apartment. You all dislike cleaning, but you all like having a clean apartment: each person's payoff is the total hours spent (by everyone) cleaning, minus a number $c$ times the hours spent (individually) cleaning. That is,
+\[
+    v_i(s_1,s_2,\ldots,s_n)=-c\cdot s_i+\sum_{j=1}^n s_j.
+\]
+Assume everyone chooses simultaneously how much time to spend cleaning.
+\begin{enumerate}[label=(\alph*)]
+  \item Find the Nash equilibrium if $c<1$.
+  \item Find the Nash equilibrium if $c>1$.
+  \item Set $n=5$ and $c=2$. Is the Nash equilibrium Pareto efficient? If not, can you find an outcome in which everyone is better off than in the Nash equilibrium outcome?
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:} For player $i$, write the payoff as
+\[
+    v_i(s_1,\dots,s_n)=-c s_i+\sum_{j=1}^n s_j
+    =(1-c)s_i+\sum_{j\ne i}s_j.
+\]
+Since $\sum_{j\ne i}s_j$ is independent of $s_i$, player $i$ chooses $s_i\in[0,5]$ to maximize the linear term $(1-c)s_i$.
+
+\begin{enumerate}[label=(\alph*)]
+  \item If $c<1$, then $1-c>0$, so $v_i$ is strictly increasing in $s_i$. Hence each player strictly prefers the largest feasible cleaning time, namely
+  \[
+      s_i=5.
+  \]
+  Therefore the unique Nash equilibrium is
+  \[
+      (s_1^*,\dots,s_n^*)=(5,\dots,5).
+  \]
+
+  \item If $c>1$, then $1-c<0$, so $v_i$ is strictly decreasing in $s_i$. Hence each player strictly prefers the smallest feasible cleaning time, namely
+  \[
+      s_i=0.
+  \]
+  Therefore the unique Nash equilibrium is
+  \[
+      (s_1^*,\dots,s_n^*)=(0,\dots,0).
+  \]
+
+  \item Now set $n=5$ and $c=2$. By part (b), the Nash equilibrium is
+  \[
+      (0,0,0,0,0).
+  \]
+  At this outcome, each player's payoff is
+  \[
+      v_i(0,0,0,0,0)=0.
+  \]
+  This equilibrium is \emph{not} Pareto efficient. For example, consider the outcome in which each roommate cleans for one hour:
+  \[
+      (1,1,1,1,1).
+  \]
+  Then each player's payoff is
+  \[
+      v_i(1,1,1,1,1)=-2\cdot 1+\sum_{j=1}^5 1=-2+5=3.
+  \]
+  Since $3>0$, every player is strictly better off at $(1,1,1,1,1)$ than at the Nash equilibrium. Hence the Nash equilibrium is not Pareto efficient.
+\end{enumerate}
+
+\section{Synergies}
+Two division managers can invest time and effort in creating a better working relationship. Each invests $e_i\ge 0$, and if both invest more then both are better off, but it is costly for each manager to invest. In particular the payoff function for player $i$ from effort levels $(e_i,e_j)$ is
+\[
+    v_i(e_i,e_j)=(a+e_j)e_i-e_i^2.
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item What is the best-response correspondence of each player?
+  \item In what way are the best-response correspondences different from those in the Cournot game? Why?
+  \item Find the Nash equilibrium of this game and argue that it is unique.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:} 
+\begin{enumerate}[label=(\alph*)]
+  \item For player $i$, given $e_j\ge 0$, the payoff as a function of $e_i$ is
+  \[
+      v_i(e_i,e_j)=(a+e_j)e_i-e_i^2.
+  \]
+  Treating $e_j$ as fixed, this is a strictly concave quadratic in $e_i$. The first-order condition is
+  \[
+      \frac{\partial v_i}{\partial e_i}=a+e_j-2e_i=0,
+  \]
+  so the unconstrained maximizer is
+  \[
+      e_i=\frac{a+e_j}{2}.
+  \]
+  Because the feasible set requires $e_i\ge 0$, the best response is this value whenever it is nonnegative, and $0$ otherwise. Hence, the best-response correspondence of player $i$ is
+  \[
+      BR_i(e_j)=\max\!\left\{0,\frac{a+e_j}{2}\right\}.
+  \]
+  Equivalently,
+  \[
+      BR_1(e_2)=\max\!\left\{0,\frac{a+e_2}{2}\right\},
+      \qquad
+      BR_2(e_1)=\max\!\left\{0,\frac{a+e_1}{2}\right\}.
+  \]
+
+  \item In the Cournot game, best responses slope downward: when one firm produces more, the other wants to produce less. Here the best responses slope upward: when one manager invests more, the other wants to invest more as well. The reason is that efforts are \emph{strategic complements} in this game. A higher $e_j$ raises player $i$'s marginal benefit from effort, since
+  \[
+      \frac{\partial v_i}{\partial e_i}=a+e_j-2e_i
+  \]
+  is increasing in $e_j$. By contrast, in the Cournot game quantities are strategic substitutes, because a rival's higher output lowers a firm's marginal profit.
+
+  \item A Nash equilibrium $(e_1^*,e_2^*)$ must satisfy
+  \[
+      e_1^*=\max\!\left\{0,\frac{a+e_2^*}{2}\right\},
+      \qquad
+      e_2^*=\max\!\left\{0,\frac{a+e_1^*}{2}\right\}.
+  \]
+  By symmetry, any equilibrium must have $e_1^*=e_2^*=e^*$. Then $e^*$ solves
+  \[
+      e^*=\max\!\left\{0,\frac{a+e^*}{2}\right\}.
+  \]
+  If the interior expression is nonnegative, then
+  \[
+      2e^*=a+e^* \quad \Rightarrow \quad e^*=a.
+  \]
+  This is feasible only if $a\ge 0$. Hence if $a\ge 0$, the unique Nash equilibrium is
+  \[
+      (e_1^*,e_2^*)=(a,a).
+  \]
+
+  If $a<0$, then $e^*=a$ is infeasible because effort must be nonnegative. In that case, $(0,0)$ is the equilibrium, since when $e_j=0$ we have
+  \[
+      BR_i(0)=\max\!\left\{0,\frac{a}{2}\right\}=0.
+  \]
+  Therefore if $a<0$, the unique Nash equilibrium is
+  \[
+      (e_1^*,e_2^*)=(0,0).
+  \]
+
+  Combining the two cases, the unique Nash equilibrium is
+  \[
+      (e_1^*,e_2^*)=
+      \begin{cases}
+          (0,0), & \text{if } a<0,\\
+          (a,a), & \text{if } a\ge 0.
+      \end{cases}
+  \]
+
+  Uniqueness follows because each best-response function is single-valued and the system of best-response equations has only this one solution.
+\end{enumerate}
+
+\section{Asymmetric Bertrand}
+Consider the Bertrand game with $c_1(q_1)=q_1$ and $c_2(q_2)=2q_2$ and demand equal to $p=100-q$, in which firms must choose prices in increments of \$0.01. We have seen in Section 5.2.4 that one possible Nash equilibrium is
+\[
+    (p_1^*,p_2^*)=(1.99,2.00).
+\]
+\begin{enumerate}[label=(\alph*)]
+  \item Show that there are other Nash equilibria for this game.
+  \item How many Nash equilibria does this game have?
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:} Let market demand be $q=100-p$. Then profits are
+\[
+    v_1(p_1,p_2)=
+    \begin{cases}
+        (p_1-1)(100-p_1), & \text{if } p_1<p_2,\\
+        \dfrac12 (p_1-1)(100-p_1), & \text{if } p_1=p_2,\\
+        0, & \text{if } p_1>p_2,
+    \end{cases}
+\]
+\[
+    v_2(p_1,p_2)=
+    \begin{cases}
+        (p_2-2)(100-p_2), & \text{if } p_2<p_1,\\
+        \dfrac12 (p_2-2)(100-p_2), & \text{if } p_1=p_2,\\
+        0, & \text{if } p_2>p_1.
+    \end{cases}
+\]
+
+\begin{enumerate}[label=(\alph*)]
+  \item Besides $(1.99,2.00)$, another Nash equilibrium is
+  \[
+      (p_1^*,p_2^*)=(2.00,2.01).
+  \]
+  To see this, first fix $p_2=2.01$. If firm 1 charges $2.00$, it gets the whole market and earns
+  \[
+      v_1(2.00,2.01)=(2.00-1)(100-2.00)=98.
+  \]
+  If instead it matches at $2.01$, it gets only half the market and earns
+  \[
+      v_1(2.01,2.01)=\frac12(2.01-1)(100-2.01)=49.48495<98.
+  \]
+  Any higher price than $2.01$ gives firm 1 no profit, and any lower price than $2.00$ gives firm 1 a lower profit, since on this range its profit from winning the market is increasing in price. Hence $2.00$ is a best response to $2.01$.
+
+  Next fix $p_1=2.00$. Firm 2 cannot profitably undercut: any price below $2.00$ gives negative profit, while any price above $2.00$ gives zero profit, and charging exactly $2.00$ also gives zero profit. Thus $2.01$ is a best response to $2.00$. Therefore $(2.00,2.01)$ is also a Nash equilibrium.
+
+  \item Consider any pair of prices of the form
+  \[
+      (p_1,p_2)=(x,x+0.01)
+  \]
+  where $x\in\{1.01,1.02,\dots,2.00\}$. For such a pair, firm 2 loses the market and gets profit $0$. Since any price below $x$ would be strictly below its marginal cost whenever $x\le 2.00$, firm 2 cannot do better than zero; hence $x+0.01$ is a best response to $x$.
+
+  For firm 1, given $p_2=x+0.01$, the highest price at which it can still win the whole market is exactly $x$. On the interval relevant here, firm 1's winning-profit function
+  \[
+      (p_1-1)(100-p_1)
+  \]
+  is increasing in $p_1$, so charging $x$ is optimal among all prices below $p_2$. Matching $p_2$ is worse because then firm 1 gets only half the market. Hence $x$ is a best response to $x+0.01$.
+
+  Therefore every profile
+  \[
+      (x,x+0.01), \qquad x\in\{1.01,1.02,\dots,2.00\},
+  \]
+  is a Nash equilibrium.
+
+  These are all the Nash equilibria. Indeed:
+  \begin{itemize}
+      \item If $p_1>2.00$, then firm 2 can obtain strictly positive profit by matching or slightly undercutting, so a profile with $p_1>2.00$ cannot be an equilibrium.
+      \item If $p_1<1.01$, then given any best response of firm 2 with $p_2>p_1$, firm 1 would rather match $p_2$ than undercut by one cent, so such a profile cannot be an equilibrium.
+      \item If $1.01\le p_1\le 2.00$, equilibrium requires firm 2 to stay just above firm 1, i.e.
+      \[
+          p_2=p_1+0.01,
+      \]
+      because if $p_2\ge p_1+0.02$, firm 1 would profitably raise its price by one cent while still winning the whole market.
+  \end{itemize}
+
+  Hence the full set of Nash equilibria is
+  \[
+      \{(x,x+0.01): x=1.01,1.02,\dots,2.00\},
+  \]
+  so the number of Nash equilibria is $100$.
+
+  Alternatively, write out the BR correspondences for both firms:
+  \[
+    BR_1(p_2)=
+      \begin{cases}
+      (p_2,+\infty), & \text{if } p_2<1,\\
+      [p_2,+\infty), & \text{if } p_2=1,\\
+      \{1.01\}, & \text{if } p_2=1.01,\\
+      \{p_2-0.01\}, & \text{if } 1.02\le p_2\le 50.5,\\
+      \left\{50.5\right\}, & \text{if } p_2>50.5.
+    \end{cases}
+  \]
+  \[
+    BR_2(p_1)=
+      \begin{cases}
+      (p_1,+\infty), & \text{if } p_1<2,\\
+      [p_1,+\infty), & \text{if } p_1=2,\\
+      \{2.01\}, & \text{if } p_1=2.01,\\
+      \{p_1-0.01\}, & \text{if } 2.02\le p_1\le 51,\\
+      \{51\}, & \text{if } p_1>51.
+    \end{cases}
+  \]
+
+  Graph them together in the $S_1 \times S_2$ plane. It is clear to see that the only intersection is the blue line within red area, which corresponds to the set we just deducted.
+  \begin{center}
+    \begin{tikzpicture}[scale=1.2]
+
+      \definecolor{brone}{RGB}{70,90,220}
+      \definecolor{brtwo}{RGB}{220,80,70}
+
+      % axis
+      \draw[thick,->] (0,0) -- (6.3,0) node[right] {$p_1$};
+      \draw[thick,->] (0,0) -- (0,6.3) node[above] {$p_2$};
+
+      % 45-degree line
+      \draw[dashed] (0,0) -- (6,6);
+
+      % ticks
+      \draw (1,0) -- (1,-0.08) node[below] {$1$};
+      \draw (2,0) -- (2,-0.08) node[below] {$2$};
+      \draw (5.3,0) -- (5.3,-0.08) node[below] {$50.5$};
+
+      \draw (0,1) -- (-0.08,1) node[left] {$1$};
+      \draw (0,2) -- (-0.08,2) node[left] {$2$};
+      \draw (0,5.5) -- (-0.08,5.5) node[left] {$51$};
+
+      % ====================================================
+      % BR1 REGION
+      % ====================================================
+
+      \fill[brone,opacity=0.35]
+      (0,0) -- (5.3,0) -- (5.3,1) -- (1,1) -- cycle;
+
+      \draw[very thick,brone] (1,1) -- (5.3,1);
+
+      % slanted BR1 segment p1 = p2 - 0.01
+      \draw[very thick,brone] (1.01,1.05) -- (5.25,5.29);
+
+      % monopoly vertical
+      \draw[very thick,brone] (5.3,5.3) -- (5.3,6.2);
+
+      % ====================================================
+      % BR2 REGION
+      % ====================================================
+
+      \fill[brtwo,opacity=0.35]
+      (0,0) -- (0,5.5) -- (2,5.5) -- (2,2) -- cycle;
+
+      \draw[very thick,brtwo] (2,2) -- (2,5.5);
+
+      % slanted BR2 segment p2 = p1 - 0.01
+      \draw[very thick,brtwo] (2.05,2.01) -- (5.48,5.44);
+
+      % monopoly horizontal
+      \draw[very thick,brtwo] (5.5,5.5) -- (6.2,5.5);
+
+      % ====================================================
+      % key points
+      % ====================================================
+
+      \fill[brone] (1,1) circle (0.05);
+      \fill[brtwo] (2,2) circle (0.05);
+      \fill[brone] (1.05,1.05) circle (0.05);
+      \fill[brtwo] (2.05,2.05) circle (0.05);
+      \draw (5.3,5.3) circle (0.05);
+      \draw (5.5,5.5) circle (0.05);
+
+      % labels
+      \node[blue] at (4.2,0.5) {$BR_1$};
+      \node[red] at (0.9,4.2) {$BR_2$};
+
+    \end{tikzpicture}
+  \end{center}
+  
+\end{enumerate}
+
+\section{Asymmetric Bertrand II}
+Consider the asymmetric Bertrand competition in ST Exercise 5.12 (Problem 4) again. Now assume that the firms can charge any prices, as is the example we covered in class. But assume that when there is a tie in prices, the consumers buy from the firm with lower marginal cost (firm 1). Find all Nash equilibria.
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:} Now ties are broken in favor of the low-cost firm, firm 1. Thus the profit functions are
+\[
+    v_1(p_1,p_2)=
+    \begin{cases}
+        (p_1-1)(100-p_1), & \text{if } p_1\le p_2,\\
+        0, & \text{if } p_1>p_2,
+    \end{cases}
+\]
+\[
+    v_2(p_1,p_2)=
+    \begin{cases}
+        (p_2-2)(100-p_2), & \text{if } p_2<p_1,\\
+        0, & \text{if } p_2\ge p_1.
+    \end{cases}
+\]
+We will show that the set of pure-strategy Nash equilibria is
+\[
+\{(x,x): x\in\{1.00,1.01,\dots,2.01\}\}.
+\]
+
+Fix such an \(x\). At \((x,x)\), firm 1 gets the whole market and firm 2 gets nothing. Hence
+\[
+v_1=(x-1)(100-x),\qquad v_2=0.
+\]
+
+First consider firm 1. Since firm 1 already gets the whole market at price \(x\), any deviation to a price above \(x\) loses the market, while any deviation to a price below \(x\) keeps the market but lowers its margin. Therefore firm 1 cannot profitably deviate.
+
+Now consider firm 2. In order to win the market, firm 2 must choose a price strictly below \(x\). Since prices move in increments of \(0.01\), the highest such deviation is \(x-0.01\). But if \(x\le 2.01\), then
+\[
+x-0.01\le 2.00,
+\]
+so any price below \(x\) gives firm 2 profit at most
+\[
+(p_2-2)(100-p_2)\le 0.
+\]
+Thus firm 2 cannot obtain strictly positive profit by undercutting. Since staying at price \(x\) already gives firm 2 payoff \(0\), it has no profitable deviation either.
+
+Hence every pair
+\[
+(x,x),\qquad x\in\{1.00,1.01,\dots,2.01\},
+\]
+is a Nash equilibrium.
+
+We now rule out all other price pairs.
+
+\emph{Case 1: \(p_1<p_2\).}
+
+Then firm 1 gets the whole market at price \(p_1\). If \(p_2>1\), firm 1 can deviate upward to price \(p_2\), still obtain the whole market because ties are awarded to firm 1, and earn strictly higher profit. If $p_2\le1$, then firm 1 already gets negative profit, and by deviating upward to any price weakly higher than $p_2$, firm 1 gets a better zero profit. Therefore no such pair can be a Nash equilibrium.
+
+\emph{Case 2: \(p_1>p_2\).}
+
+Then firm 2 gets the whole market at price \(p_2\). If \(p_2>1\), firm 1 can deviate to \(p_1'=p_2\). Because ties are awarded to firm 1, this deviation gives firm 1 the whole market at price \(p_2\), yielding profit
+\[
+(p_2-1)(100-p_2)>0.
+\]
+If $p_2\le1$, then firm 2 gets negative profit, and by deviating upward to any price strictly higher than $p_1$, firm 1 gets a better zero profit. So no such pair can be a Nash equilibrium.
+
+\emph{Case 3: \(p_1=p_2=x>2.01\).}
+
+At such a profile, firm 1 gets the whole market and firm 2 gets zero. But firm 2 can deviate to \(x-0.01\), capture the whole market, and obtain profit
+\[
+(x-0.01-2)(100-(x-0.01)).
+\]
+Since \(x>2.01\), we have \(x-0.01>2\), so this profit is strictly positive. Hence \((x,x)\) cannot be a Nash equilibrium.
+
+\emph{Case 4: \(p_1=p_2=x<1\).}
+
+At such a profile, firm 1 gets the whole market, but with negative profit. In order to avoid negative profit, firm 1 can set a price strictly higher than $p_2$ and get zero profit, which is a more profitable outcome. Hence it can be Nash equilibrium.
+
+Combining the four cases, the only pure-strategy Nash equilibria are the pairs \((x,x)\) with
+\[
+x=1.00,1.01,\dots,2.01.
+\]
+
+Therefore the set of pure-strategy Nash equilibria is
+\[
+\{(x,x): x\in\{1.00,1.01,\dots,2.01\}\}.
+\]
+There are exactly $102$ pure-strategy Nash equilibria.
+
+Again we can verify it by writing out the BR correspondences as
+\[
+  BR_1(p_2)=
+    \begin{cases}
+    (p_2,+\infty), & \text{if } p_2<1,\\
+    [p_2,+\infty), & \text{if } p_2=1,\\
+    \{p_2\}, & \text{if } 1<p_2\le 50.5,\\
+    \left\{50.5\right\}, & \text{if } p_2>50.5.
+  \end{cases}
+\]
+\[
+  BR_2(p_1)=
+    \begin{cases}
+    [p_1,+\infty), & \text{if } p_1\le2,\\
+    [2,+\infty), & \text{if } p_1 = 2.01,\\
+    \{p_1-0.01\}, & \text{if } 2.02\le p_1\le 51,\\
+    \{51\}, & \text{if } p_1>51,
+  \end{cases}
+\]
+
+and then graph them together. We can observe that $BR_1$ and $BR_2$ have intersections at
+\[
+\{(x,x): x\in\{1.00,1.01,\dots,2.01\}\}.
+\]
+
+\begin{center}
+  \begin{tikzpicture}[scale=1.2]
+
+    \definecolor{brone}{RGB}{70,90,220}
+    \definecolor{brtwo}{RGB}{220,80,70}
+
+    % axis
+    \draw[thick,->] (0,0) -- (6.3,0) node[right] {$p_1$};
+    \draw[thick,->] (0,0) -- (0,6.3) node[above] {$p_2$};
+
+    % 45-degree line
+    \draw[dashed] (0,0) -- (6,6);
+
+    % ticks
+    \draw (1,0) -- (1,-0.08) node[below] {$1$};
+    \draw (2,0) -- (2,-0.08) node[below] {$2$};
+    \draw (5.3,0) -- (5.3,-0.08) node[below] {$50.5$};
+
+    \draw (0,1) -- (-0.08,1) node[left] {$1$};
+    \draw (0,2) -- (-0.08,2) node[left] {$2$};
+    \draw (0,5.5) -- (-0.08,5.5) node[left] {$51$};
+
+    % ====================================================
+    % BR1 REGION
+    % ====================================================
+
+    \fill[brone,opacity=0.35]
+    (0,0) -- (5.3,0) -- (5.3,1) -- (1,1) -- cycle;
+
+    \draw[very thick,brone] (1,1) -- (5.3,1);
+
+    % slanted BR1 segment p1 = p2 - 0.01
+    \draw[very thick,brone] (1.01,1.01) -- (5.25,5.25);
+
+    % monopoly vertical
+    \draw[very thick,brone] (5.3,5.3) -- (5.3,6.2);
+
+    % ====================================================
+    % BR2 REGION
+    % ====================================================
+
+    \fill[brtwo,opacity=0.35]
+    (0,0) -- (0,5.5) -- (2,5.5) -- (2,2) -- cycle;
+
+    \draw[very thick,brtwo] (2,2) -- (2,5.5);
+    \draw[very thick,brtwo] (0,0) -- (1,1);
+    \draw[thick,brtwo] (1,1.02) -- (2,2.02);
+    % slanted BR2 segment p2 = p1 - 0.01
+    \draw[very thick,brtwo] (2.05,2.01) -- (5.48,5.44);
+    \draw[very thick,brtwo] (2.05,2.01) -- (2.05,5.5);
+    % monopoly horizontal
+    \draw[very thick,brtwo] (5.5,5.5) -- (6.2,5.5);
+
+    % ====================================================
+    % key points
+    % ====================================================
+
+    \fill[brone] (1,1) circle (0.05);
+    \fill[brtwo] (2,2) circle (0.05);
+    \fill[brtwo] (2.05,2) circle (0.05);
+
+    \fill[brone] (5.3,5.3) circle (0.05);
+    \draw (5.5,5.5) circle (0.05);
+
+    % labels
+    \node[blue] at (4.2,0.5) {$BR_1$};
+    \node[red] at (0.9,4.2) {$BR_2$};
+
+  \end{tikzpicture}
+\end{center}
+
+
+\section{Hotelling's Price Competition}
+Imagine a continuum of potential buyers, located on the line segment $[0,1]$, with uniform distribution. (Hence the ``mass'' or quantity of buyers in the interval $[a,b]$ is equal to $b-a$.) Imagine two firms, players 1 and 2, who are located at each end of the interval (player 1 at the 0 point and player 2 at the 1 point). Each player $i$ can choose its price $p_i$, and each customer goes to the vendor who offers him the highest value. However, price alone does not determine the value; distance is important as well. In particular each buyer who buys the product from player $i$ has a net value of $v-p_i-d_i$, where $d_i$ is the distance between the buyer and vendor $i$ and represents the transportation costs of buying from vendor $i$. Thus buyer $a\in[0,1]$ buys from 1 and not 2 if
+\[
+    v-p_1-d_1 > v-p_2-d_2
+\]
+and if buying is better than getting 0. (Here $d_1=a$ and $d_2=1-a$. The buying choice would be reversed if the inequality were reversed.) Finally, assume that the cost of production is zero.
+\begin{enumerate}[label=(\alph*)]
+  \item Assume that $v$ is very large so that all the customers will be served by at least one firm, and that some customer $x^* \in [0,1]$ is indifferent between the two firms. What is the best-response function of each player?
+  \item Assume that $v=1$. What is the Nash equilibrium? Is it unique?
+  \item  Now assume that $v=1$ and that the transportation costs are $\frac{1}{2}d_i$, so that a buyer buys from 1 if and only if
+  \[
+      v-p_1-\frac{1}{2}d_1 > v-p_2-\frac{1}{2}d_2.
+  \]
+  Write down the best-response function of each player and solve for the Nash equilibrium.
+  \item Assume that $v=1$. Following your analysis in (c), imagine that transportation costs are $\alpha d_i$, with $\alpha\in[0,\frac{1}{2}]$. What happens to the Nash equilibrium as $\alpha\to 0$? What is the intuition for this result?
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:} Let $x$ denote the location of the consumer who is indifferent between buying from firm 1 and firm 2. With transportation cost $d_i$, this consumer satisfies
+\[
+    v-p_1-x=v-p_2-(1-x),
+\]
+so
+\[
+    x=\frac{1+p_2-p_1}{2}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+  \item If the market is covered, firm 1 sells to consumers in $[0,x]$ and firm 2 sells to consumers in $[x,1]$. Hence, in the covered-market case,
+  \[
+      q_1=\frac{1+p_2-p_1}{2},
+      \qquad
+      q_2=\frac{1+p_1-p_2}{2},
+  \]
+  and profits are
+  \[
+      v_1(p_1,p_2)=p_1\frac{1+p_2-p_1}{2},
+      \qquad
+      v_2(p_1,p_2)=p_2\frac{1+p_1-p_2}{2}.
+  \]
+  The first-order conditions are
+  \[
+      \frac{\partial v_1}{\partial p_1}=\frac{1+p_2-2p_1}{2}=0,
+      \qquad
+      \frac{\partial v_2}{\partial p_2}=\frac{1+p_1-2p_2}{2}=0.
+  \]
+  Thus the covered-market best-response functions are
+  \[
+      BR_1(p_2)=\frac{1+p_2}{2},
+      \qquad
+      BR_2(p_1)=\frac{1+p_1}{2}.
+  \]
+
+  \item Now set $v=1$. A consumer at location $a$ buys from firm 1 only if
+  \[
+      1-p_1-a\ge 0,
+  \]
+  and similarly for firm 2. Hence uncovered market outcomes are possible.
+
+  For firm 1, demand is
+  \[
+      q_1=\max\left\{0,\min\left\{1-p_1,\frac{1+p_2-p_1}{2}\right\}\right\}.
+  \]
+  From this, one gets the piecewise best-response function
+  \[
+      BR_1(p_2)=
+      \begin{cases}
+          \dfrac{1+p_2}{2}, & \text{if } p_2\le \dfrac13,\\
+          1-p_2, & \text{if } \dfrac13\le p_2\le \dfrac12,\\
+          \dfrac12, & \text{if } p_2\ge \dfrac12.
+      \end{cases}
+  \]
+  By symmetry,
+  \[
+      BR_2(p_1)=
+      \begin{cases}
+          \dfrac{1+p_1}{2}, & \text{if } p_1\le \dfrac13,\\
+          1-p_1, & \text{if } \dfrac13\le p_1\le \dfrac12,\\
+          \dfrac12, & \text{if } p_1\ge \dfrac12.
+      \end{cases}
+  \]
+
+  A Nash equilibrium must satisfy $p_1\in BR_1(p_2)$ and $p_2\in BR_2(p_1)$. The unique solution is
+  \[
+      (p_1^*,p_2^*)=\left(\frac12,\frac12\right).
+  \]
+  Indeed, if $p_2\ge \frac12$, then $BR_1(p_2)=\frac12$, and similarly if $p_1\ge \frac12$, then $BR_2(p_1)=\frac12$. So $\left(\frac12,\frac12\right)$ is an equilibrium. It is unique, because the equations
+  \[
+      p_1=\frac{1+p_2}{2}, \qquad p_2=\frac{1+p_1}{2}
+  \]
+  imply $p_1=p_2=1$, which does not lie in the relevant branch, while on the middle branch
+  \[
+      p_1=1-p_2, \qquad p_2=1-p_1
+  \]
+  force $p_1+p_2=1$, and consistency with both best-response functions again yields only
+  \[
+      p_1=p_2=\frac12.
+  \]
+
+  \item Now suppose transportation costs are $\frac12 d_i$. The indifferent consumer solves
+  \[
+      v-p_1-\frac12 x=v-p_2-\frac12(1-x),
+  \]
+  so
+  \[
+      x=\frac12+p_2-p_1.
+  \]
+  In the covered-market region,
+  \[
+      q_1=\frac12+p_2-p_1,
+      \qquad
+      q_2=\frac12+p_1-p_2.
+  \]
+  Therefore
+  \[
+      v_1(p_1,p_2)=p_1\left(\frac12+p_2-p_1\right),
+      \qquad
+      v_2(p_1,p_2)=p_2\left(\frac12+p_1-p_2\right).
+  \]
+  The first-order conditions give
+  \[
+      BR_1(p_2)=\frac{\frac12+p_2}{2}=\frac14+\frac{p_2}{2},
+      \qquad
+      BR_2(p_1)=\frac{\frac12+p_1}{2}=\frac14+\frac{p_1}{2}.
+  \]
+  Solving
+  \[
+      p_1=\frac14+\frac{p_2}{2},
+      \qquad
+      p_2=\frac14+\frac{p_1}{2},
+  \]
+  yields
+  \[
+      (p_1^*,p_2^*)=\left(\frac12,\frac12\right).
+  \]
+
+  \item More generally, with transportation costs $\alpha d_i$, the indifferent consumer is located at
+  \[
+      x=\frac12+\frac{p_2-p_1}{2\alpha}.
+  \]
+  Hence, in the covered-market case,
+  \[
+      q_1=\frac12+\frac{p_2-p_1}{2\alpha},
+      \qquad
+      q_2=\frac12+\frac{p_1-p_2}{2\alpha}.
+  \]
+  The profit functions are
+  \[
+      \pi_1(p_1,p_2)=p_1\left(\frac12+\frac{p_2-p_1}{2\alpha}\right),
+      \qquad
+      \pi_2(p_1,p_2)=p_2\left(\frac12+\frac{p_1-p_2}{2\alpha}\right).
+  \]
+  Their first-order conditions imply
+  \[
+      BR_1(p_2)=\frac{\alpha+p_2}{2},
+      \qquad
+      BR_2(p_1)=\frac{\alpha+p_1}{2}.
+  \]
+  Solving these equations gives the symmetric Nash equilibrium
+  \[
+      p_1^*=p_2^*=\alpha.
+  \]
+  Therefore, as $\alpha\to 0$,
+  \[
+      (p_1^*,p_2^*)\to(0,0).
+  \]
+  The intuition is that when transportation costs become negligible, the two firms become nearly perfect substitutes. Competition therefore becomes more and more like Bertrand competition, which drives prices down toward marginal cost, here equal to $0$.
+\end{enumerate}
+
+% \printbibliography
+
+\end{document}

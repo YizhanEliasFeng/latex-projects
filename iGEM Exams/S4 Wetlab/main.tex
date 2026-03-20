@@ -1,0 +1,258 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-en.tex}
+
+\setmainfont{Times New Roman}
+\setmonofont{Menlo}
+
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=none
+]{biblatex}
+\addbibresource{bib/references.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead[L]{Yizhan Feng 2400017802}
+\fancyhead[C]{}
+\fancyhead[R]{Peking 2026 iGEM Entrance Examination, S4}
+
+%\setlength{\parindent}{1.5em}
+
+\begin{document}
+
+\maketitle
+
+\section{Basic Knowledge}
+\subsection{Judgment Questions}
+\begin{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item False.
+    \item True.
+    \item False.
+  \end{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item False.
+    \item True.
+    \item False.
+  \end{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item True.
+    \item False.
+    \item True.
+  \end{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item True.
+    \item True.
+    \item True.
+  \end{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item False.
+    \item True.
+    \item False.
+  \end{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item True.
+    \item False.
+    \item True.
+  \end{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item True.
+    \item False.
+    \item True.
+  \end{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item False.
+    \item True.
+    \item True.
+  \end{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item True.
+    \item False.
+    \item True.
+  \end{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item True.
+    \item True.
+    \item False.
+  \end{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item True.
+    \item False.
+    \item True.
+  \end{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item True.
+    \item True.
+    \item False.
+  \end{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item True.
+    \item False.
+    \item True.
+  \end{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item True.
+    \item False.
+    \item True.
+  \end{enumerate}
+  \item \begin{enumerate}[label=(\Alph*)]
+    \item True.
+    \item True.
+    \item False.
+    \item True.
+  \end{enumerate}
+\end{enumerate}
+
+\subsection{Short Answers}
+\begin{enumerate}[parsep=0.5\baselineskip] 
+  \item In a gene-expression cassette:
+  \begin{itemize}
+    \item The \textbf{promoter} is the DNA sequence where RNA polymerase and associated factors bind to start transcription. It largely determines whether, when, and how strongly the gene is transcribed.
+    \item The \textbf{ribosome binding site (RBS)} in bacteria is a sequence in the mRNA 5' region that helps recruit and position the ribosome for translation initiation. In eukaryotes, the \textbf{Kozak sequence} is the nucleotide context around the start codon that helps efficient recognition of the AUG by the ribosome.
+    \item The \textbf{coding sequence (CDS)} is the DNA sequence that is translated into the protein’s amino acid sequence. It specifies the product being expressed.
+    \item The \textbf{terminator} is the sequence that signals transcription termination, causing RNA polymerase to stop and release the RNA transcript. It helps define the transcript end and can affect transcript stability and proper gene-expression control.
+  \end{itemize}
+
+  \item Much lower expression of the same gene in one species than in another can result from several factors:
+  \begin{itemize}
+    \item \textbf{The promoter and other regulatory elements may not be well recognized} by the host transcription machinery. An engineering solution is to replace them with a \textbf{host-compatible promoter} and, if needed, a better terminator. 
+    \item \textbf{Translation-initiation signals may be suboptimal}, such as a weak bacterial RBS or poor Kozak context in eukaryotes. This can be improved by \textbf{redesigning the RBS or Kozak sequence}. 
+    \item The gene may have \textbf{unfavorable codon usage} relative to the host tRNA pool, reducing translation efficiency. A common solution is \textbf{host-specific codon optimization}.
+    \item Differences in \textbf{mRNA stability or RNA structure} can reduce transcript abundance or ribosome access; these problems can be addressed by \textbf{engineering the 5$'$ UTR, coding sequence, or terminator} to improve transcript stability and translation.
+    \item The protein may be \textbf{misfolded, insoluble, or degraded more rapidly} in one host. Possible solutions include \textbf{lowering expression temperature, co-expressing chaperones, adding fusion tags, or moving expression to a more suitable host}.
+  \end{itemize}
+
+  \item In SDS-PAGE sample preparation:
+  \begin{itemize}
+    \item SDS denatures proteins and coats them with a largely uniform negative charge, so their separation depends mainly on size rather than native shape or charge.
+    \item A reducing reagent such as DTT or $\beta$-mercaptoethanol breaks disulfide bonds, helping dissociate protein subunits and fully unfold the polypeptides.
+    \item The sample is often heated before loading to promote denaturation and reduction, so that proteins enter the gel in a more uniformly unfolded state and migrate more consistently.
+  \end{itemize}
+  
+  \item When designing primers for PCR, several factors should be considered to improve amplification specificity and efficiency:
+  \begin{itemize}
+    \item The two primers should have \textbf{similar melting temperatures (Tm)} so that they anneal efficiently under the same cycling conditions.
+    \item Primer \textbf{length and GC content} should be appropriate, because these affect binding strength and specificity; in general, moderate length and balanced GC content are preferred. 
+    \item Primers should \textbf{avoid secondary structures} such as hairpins and also avoid strong complementarity to each other, which can cause primer-dimers.
+    \item The \textbf{3$'$ end of the primer} should be designed carefully, because mismatches or excessive GC richness at the 3$'$ end can promote nonspecific amplification. 
+    \item The primers should be \textbf{specific to the target sequence}, ideally checked against the host genome or related sequences to reduce off-target binding.
+    \item A suitable \textbf{amplicon length} should be chosen, since excessively long products usually amplify less efficiently.
+  \end{itemize}
+
+  \item In a bacterial transformation experiment with antibiotic selection, several controls should be included:
+  \begin{itemize}
+    \item \textbf{Untransformed cells plated on LB + antibiotic} serve as a negative control for selection; they should not grow, so growth on this plate suggests that the antibiotic plate is ineffective or contaminated.
+    \item \textbf{Transformed cells plated on LB without antibiotic} serve as a viability control; growth shows that the cells survived the transformation procedure, whereas no growth suggests failure of the competent cells or the handling process.
+    \item \textbf{Untransformed cells plated on plain LB} serve as a general growth control; they should grow if the cells and plating procedure are working normally.
+    \item If available, a \textbf{positive-control transformation} using a known plasmid can confirm that the competent cells and transformation protocol are functional. Growth in this control means the transformation system works, whereas failure suggests problems with competence, DNA quality, or the protocol itself.
+  \end{itemize}
+  Together, these controls help distinguish between failure of selection, failure of cell survival, and failure of DNA uptake.
+\end{enumerate}
+
+\section{Toward a Project}
+\subsection{Project Design}
+\begin{enumerate}[parsep=0.5\baselineskip]
+  \item To construct this chromatin-engineering system, the design can be divided into three major functional modules:
+  \begin{enumerate}
+    \item \textbf{CRISPR targeting module.} This module provides sequence-specific localization to the two genomic elements that are intended to be connected. It includes a \textbf{dCas9 protein}, an \textbf{sgRNA targeting the distal enhancer}, an \textbf{sgRNA targeting the target promoter}, and the corresponding mammalian \textbf{expression cassettes} for these components. Its role is to guide the system precisely to the enhancer and promoter without altering their DNA sequence.
+    \item \textbf{Interaction or looping module.} This module is responsible for physically bringing the two loci into proximity in three-dimensional nuclear space. It consists of \textbf{programmable interaction domains} (e.g., chemically induced dimerization (CID) domains like FKBP/FRB or ABI/PYL, or light-inducible domains like CRY2/CIB1) fused to the dCas9 complexes bound at the enhancer and promoter. Once both dCas9 fusions are recruited to their respective loci, the interaction domains dimerize or associate, thereby increasing enhancer--promoter proximity and promoting the formation of an engineered chromatin loop.
+    \item \textbf{Reporter or readout module.} This module is used to determine whether the induced spatial proximity actually changes gene regulation. It may include a \textbf{fluorescent or luciferase reporter} driven by the target promoter, measurement of the \textbf{endogenous target-gene expression} by qPCR or RNA-seq, and structural validation by \textbf{chromatin-contact assays} such as 3C-related methods or imaging. Its role is to distinguish successful physical looping from successful transcriptional modulation.
+  \end{enumerate}
+
+  \item Although the project is often described as ``CRISPR/Cas9-based,'' \textbf{dCas9 is more suitable than nuclease-active Cas9} for this application because the purpose of the system is to \textbf{bind and reposition genomic loci rather than cut DNA}. Nuclease-active Cas9 introduces double-strand breaks, which can cause indels, unwanted DNA-repair outcomes, chromosomal rearrangements, and activation of DNA-damage responses. These effects would make it difficult to determine whether a change in gene expression is caused by the intended enhancer--promoter proximity or by unintended sequence disruption. By contrast, dCas9 retains \textbf{programmable, sgRNA-directed DNA binding} but lacks cleavage activity, so it can serve as a \textbf{molecular scaffold} for recruiting interaction domains while minimizing DNA damage. Therefore, dCas9 is better suited for testing whether forced chromatin proximity alone is sufficient to rewire transcriptional regulation.
+\end{enumerate}
+
+\subsection{Experiment Design}
+\begin{enumerate}[parsep=0.5\baselineskip]
+  \item For plasmid construction, I would choose \textbf{Gibson Assembly}. This method is well suited for building a mammalian expression plasmid containing multiple defined components because it enables seamless assembly of DNA fragments with overlapping ends in a single reaction. To construct one of the dCas9-fusion plasmids, I would first prepare a mammalian vector backbone and design DNA fragments corresponding to the \textbf{dCas9 coding sequence}, a \textbf{flexible linker}, and the chosen \textbf{interaction domain}. Each fragment would be generated by PCR or gene synthesis with appropriate overlapping sequences at its ends. The vector backbone would then be linearized, and all fragments would be mixed in a Gibson Assembly reaction so that the overlaps guide them into the correct order. After assembly, I would transform the product into \textit{E.~coli}, screen colonies by colony PCR and possibly restriction digest, and finally confirm the correct construct by Sanger sequencing before mammalian-cell transfection.
+
+  \item After plasmid construction and transfection into mammalian cells, the system should be evaluated at both the \textbf{chromatin-structure level} and the \textbf{transcriptional-output level}.
+  \begin{itemize}
+    \item To assess the \textbf{engineered chromatin interaction}, one suitable method is \textbf{3C-qPCR} (chromosome conformation capture followed by qPCR). In this approach, cells are cross-linked, chromatin is digested and religated, and then qPCR is used to test whether the targeted enhancer and promoter show an increased interaction frequency compared with controls.
+    \item To assess the \textbf{downstream transcriptional effect}, one straightforward method is \textbf{RT-qPCR} to measure the expression level of the endogenous target gene. If a synthetic reporter has also been included in the design, a \textbf{luciferase assay} or \textbf{fluorescence readout} can provide an additional measurement of whether forced enhancer--promoter proximity leads to the expected change in transcription.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Lab Work}
+\begin{enumerate}[parsep=0.5\baselineskip]
+  \item If colony PCR gives multiple nonspecific bands, I would first \textbf{optimize the PCR conditions that control primer specificity}. The most important adjustment is usually to increase the annealing temperature or run an annealing-temperature gradient, because annealing that is too low promotes off-target primer binding. I would also consider \textbf{reducing primer concentration}, \textbf{reducing Mg$^{2+}$} if it is high, \textbf{reducing the number of cycles}, and \textbf{shortening annealing or extension time} if these steps are overly permissive. In addition, I would \textbf{re-check primer design itself}, since primers with poor specificity, self-complementarity, or additional binding sites in the template can also generate extra bands. 
+
+  \item After transfecting mammalian cells with the dCas9-based constructs, very low reporter signal and poor expression of the fusion proteins could arise for several reasons. Three possible explanations are:
+  \begin{itemize}
+    \item \textbf{Suboptimal construct design.} The mammalian promoter may be too weak or unsuitable for the chosen cell line, the Kozak sequence may be poor, or the large dCas9--fusion design may reduce protein stability, folding, or nuclear localization.
+    \item \textbf{Low transfection efficiency.} The amount of DNA, the transfection reagent:DNA ratio, the incubation conditions for complex formation, or the cell density at the time of transfection may not have been optimized, leading to poor plasmid delivery.
+    \item \textbf{Poor plasmid or clone quality.} The plasmid DNA may be impure or partially degraded, or the construct may contain an assembly error, mutation, or rearrangement that reduces reporter expression or prevents proper fusion-protein production.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Data Analysis}
+\begin{enumerate}[parsep=0.5\baselineskip]
+  \item Two possible explanations are:
+  \begin{itemize}
+    \item \textbf{The transcriptional response may be triggered by rare or transient enhancer–promoter contacts that are biologically effective before they become easy to detect in a population-averaged structural assay.} Many chromatin-contact assays such as 3C-based methods measure average interaction frequency across many cells, so weak, short-lived, or cell-subset-specific contacts can already be sufficient to increase transcription while still producing only a modest structural signal. In fact, transcription and contact frequency are not always linearly coupled, and 3C-type assays inherently report population averages rather than instantaneous single-cell events.
+    \item \textbf{The apparent lag may also be technical: the structural assay may have lower sensitivity or slower kinetics of detection than the transcription assay.} RT-qPCR for reporter mRNA can detect relatively small early changes in transcript abundance, whereas chromatin-contact assays depend on crosslinking, digestion, ligation efficiency, and sufficient contact enrichment above background. 3C-based methods have been noted of important limitations in sensitivity, resolution, and assay bias, so a real structural change may begin earlier than 24 hours but only become clearly detectable later. 
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Iteration}
+\begin{enumerate}[parsep=0.5\baselineskip]
+  \item Two different strategies can be used in the next DBTL iteration to improve both specificity and functional efficiency:
+  \begin{itemize}
+    \item \textbf{Optimize the targeting design.} I would redesign the sgRNAs so that they target more unique and accessible genomic sequences near the enhancer and promoter, while avoiding sequences with high predicted off-target potential. If necessary, I would also consider switching to a high-fidelity dCas9 backbone derived from high-specificity Cas9 variants. This strategy should reduce unintended binding at off-target loci, thereby decreasing off-target transcriptional changes, while at the same time improving the fraction of dCas9 complexes that are recruited to the intended enhancer and promoter.
+    \item \textbf{Optimize expression and induction conditions.} From the experimental-operation perspective, I would systematically adjust the DNA dose, the expression level and stoichiometry of the two dCas9 fusion proteins and their sgRNAs, and the timing or strength of inducible activation if an inducible dimerization system is used. Excessively high expression can increase nonspecific occupancy, whereas balanced and properly tuned expression should increase the probability of productive on-target looping. Therefore, this strategy can improve looping efficiency while also reducing background off-target effects.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Bonus}
+\textbf{Clarification:} This part is \textbf{entirely AI-generated} and was \textbf{not fully checked} due to time constraints. It is included for reference only. (\textit{I'm really suprised by how powerful AI is now.})
+
+\begin{enumerate}[parsep=0.5\baselineskip]
+  \item Design summary:
+  \begin{itemize}
+    \item Enhancer arm: EF1a promoter $\to$ NLS-dCas9-linker-FKBP12 $\to$ P2A $\to$ EGFP $\to$ polyA, plus U6-driven sgRNA cassette.
+    \item Promoter arm: EF1a promoter $\to$ NLS-dCas9-linker-FRB $\to$ P2A $\to$ mCherry $\to$ polyA, plus U6-driven sgRNA cassette.
+  \end{itemize}
+
+  \item Intended assembly method
+  \begin{itemize}
+    \item Gibson Assembly for the major expression cassettes and the U6-sgRNA cassette.
+    \item After assembly, verify by colony PCR + restriction digest + Sanger sequencing.
+  \end{itemize}
+\end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width = 0.8\linewidth]{enhancer.png}
+  \caption{pLoop\_EnhancerArm\_v1.gb}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width = 0.8\linewidth]{promoter.png}
+  \caption{pLoop\_PromoterArm\_v1.gb}
+\end{figure}
+% \printbibliography
+
+\end{document}

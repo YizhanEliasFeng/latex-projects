@@ -1,0 +1,97 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-en.tex}
+
+\setmainfont{Times New Roman}
+\setmonofont{Menlo}
+
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=none
+]{biblatex}
+\addbibresource{bib/references.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead[L]{Yizhan Feng 2400017802}
+\fancyhead[C]{}
+\fancyhead[R]{Peking 2026 iGEM Entrance Examination, S3}
+
+%\setlength{\parindent}{1.5em}
+
+\begin{document}
+
+\maketitle
+
+\section{Research process of the whole article}
+
+This study followed a theory-to-engineering-to-validation workflow to build and test a synthetic multistable gene circuit in mammalian cells.
+
+\subsection*{1. Define the problem and design goals}
+The authors aimed to overcome the limitation of conventional synthetic mammalian circuits, which usually support only two stable states. They set out to design a circuit that could maintain multiple stable states, permit switching between them, allow selective destabilization, and be expandable.
+
+\subsection*{2. Propose the \textit{MultiFate} architecture}
+Drawing inspiration from natural cell-fate systems, they combined two principles: positive autoregulation and competitive protein-protein interactions. This led to the \textit{MultiFate} design, in which transcription factors can form both homodimers and heterodimers. Only homodimers activate their own promoter, whereas heterodimers do not activate transcription and instead function as a form of mutual inhibition by sequestering transcription factors away from productive self-activation.
+
+\subsection*{3. Build a mathematical model}
+The authors then established a theoretical model to test whether this architecture could generate multistability. The model predicted that a two-factor system could exhibit multiple stable states, that protein stability could control the available attractors, and that adding factors could increase the number of stable states.
+
+\subsection*{4. Engineer and validate the molecular components}
+Next, they constructed synthetic zinc finger transcription factors and verified the two key mechanisms required by the model: homodimer-dependent self-activation and heterodimer-dependent inhibition. These experiments confirmed that the designed components functioned as intended.
+
+\subsection*{5. Construct and test \textit{MultiFate-2}}
+After validating the parts, they assembled the two-factor circuit in CHO-K1 cells. Flow cytometry and long-term culture showed that the system could maintain three stable states: A-only, B-only, and A+B. Time-lapse imaging further confirmed that these states were mitotically heritable.
+
+\subsection*{6. Test switching and selective destabilization}
+The authors next examined whether the stable states could be manipulated. By applying transient inducers, they showed that cells could switch between attractor states. By lowering TMP and reducing protein stability, they selectively destabilized the A+B state, leading to an irreversible transition to single-positive states.
+
+\subsection*{7. Expand the system to \textit{MultiFate-3}}
+To test scalability, they introduced a third transcription factor and built \textit{MultiFate-3}. The expanded circuit generated seven stable states, which were also maintained over time and inherited through cell division.
+
+\subsection*{8. Refine the model and conclude}
+Finally, the authors incorporated asymmetry and stochastic effects into refined models to better match experimental observations. Overall, the study showed that the \textit{MultiFate} architecture can be used to engineer synthetic mammalian circuits with multiple stable, heritable, and controllable expression states.
+
+\section{Terms and paper-specific questions}
+
+\subsection{Autoregulation}
+Autoregulation refers to a regulatory structure in which a gene product directly affects its own expression. In this paper, the relevant form is positive autoregulation: each transcription factor, when present as a homodimer, activates transcription from its own promoter. In dynamical-systems terms, this positive feedback helps stabilize an ON state by allowing high expression to sustain itself.
+
+This mechanism is directly related to stable cell states in the paper. A state such as A-only or B-only can persist only because the corresponding transcription factor continues to promote its own expression after the initial external induction has been removed. Without autoregulation, expression would decay through degradation and dilution, and the cell would return to an OFF state.
+
+The experiments that most directly test this point are the self-activation assay in Fig.~2C and the inducer-withdrawal experiments in Fig.~3C in the later \textit{MultiFate} systems. In Fig.~2C, cells first received transient Dox induction, and then the authors asked whether expression could persist after Dox removal. They found that sustained expression required both AP1903-dependent dimerization and TMP-mediated protein stabilization. Likewise, in the \textit{MultiFate} circuits, removal of the supporting conditions led to loss of the maintained expression states. Together, these experiments show that positive autoregulation is the basis of state maintenance.
+
+\subsection{Multilineage priming}
+Multilineage priming refers to a condition in which a cell simultaneously expresses regulators associated with more than one possible fate before final commitment. In dynamical-systems language, it can be understood as a state that still retains access to multiple downstream attractors.
+
+Among the states of \textit{MultiFate-3}, the A+B+C state best corresponds to multilineage priming. This state expresses all three synthetic fate regulators at the same time and therefore most closely resembles a maximally multipotent or broadly primed condition. The paper also shows that as protein stability is reduced, such multi-positive states are lost before the single-positive states, which is consistent with the idea that multilineage-primed states represent a less restricted fate potential.
+
+\subsection{Bifurcations}
+A bifurcation is a qualitative change in the number or stability of steady states caused by continuous variation in system parameters. In this paper, the relevant parameter is protein stability, which is experimentally tuned through TMP.
+
+When protein stability decreases, transcription factors are degraded more rapidly, so positive autoregulation becomes less capable of sustaining high-expression states. As a result, some attractors disappear. In \textit{MultiFate-2}, lowering TMP destabilizes the A+B state and converts a tristable system into a bistable one. In \textit{MultiFate-3}, lowering TMP progressively reduces the system from seven stable states to fewer stable states. These are concrete examples of bifurcations induced by parameter change.
+
+\section{Molecular architecture of the synthetic autoregulatory construct}
+The synthetic autoregulatory construct in Fig.~2C was designed to test whether a single engineered transcription factor could maintain its own expression through a positive-feedback loop after a transient initial stimulus. In other words, the authors wanted to validate the minimal core principle of the \textit{MultiFate} system before building the larger multistable circuits.
+
+The construct contains a transient induction module, a self-activation module, and a fluorescent reporter. Tet3G and Dox provide the initial pulse of transcriptional activation so that expression can be turned on experimentally at the beginning. The coding region produces an engineered transcription factor containing FKBP, a zinc-finger DNA-binding domain, the VP48 activation domain, and a DHFR degron. The promoter also contains the binding sites required for the homodimerized transcription factor to activate its own transcription. In addition, an IRES--mCitrine-PEST reporter allows the expression state of the construct to be monitored.
+
+The role of Tet3G is primarily to initialize the system rather than to maintain the stable ON state. After Dox is removed, maintenance depends on self-activation rather than continued external induction. AP1903 is required because it promotes FKBP-mediated homodimerization, and the homodimer is the active form that drives autoregulation. TMP is also important because it stabilizes the DHFR-tagged transcription factor; without sufficient stability, the protein level cannot remain high enough to sustain the positive-feedback loop.
+
+If Tet3G were omitted, the circuit would lose its convenient experimental trigger and it would become difficult to push cells into the initial ON state. If AP1903 were omitted, active homodimer formation would be greatly reduced and autoregulation would fail. If TMP were omitted, the transcription factor would be destabilized and the maintained ON state would collapse much more easily. Thus, Tet3G mainly supports induction, whereas AP1903 and TMP are essential for reliable maintenance of the autoregulatory state in this experimental design.
+
+\section{Recommended articles}
+\begin{enumerate}[label=(\alph*)]
+  \item Novák, B. and Tyson, J.~J. ``Design principles of biochemical oscillators.'' \textit{Nature Reviews Molecular Cell Biology} \textbf{9}(12), 981--991 (2008). doi:10.1038/nrm2530.
+  \item Gardner, T.~S., Cantor, C.~R., and Collins, J.~J. ``Construction of a genetic toggle switch in \textit{Escherichia coli}.'' \textit{Nature} \textbf{403}(6767), 339--342 (2000). doi:10.1038/35002131.
+\end{enumerate}
+
+% \printbibliography
+
+\end{document}
