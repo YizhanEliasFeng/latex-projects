@@ -1,0 +1,472 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-en.tex}
+
+\setmainfont{Times New Roman}
+\setmonofont{Menlo}
+\usepackage{unicode-math}
+\setmathfont{texgyretermes-math.otf}
+
+\usepackage[
+  backend=biber,
+  style=numeric,
+  sorting=none
+]{biblatex}
+\addbibresource{bib/references.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead[L]{Yizhan Feng 2400017802}
+\fancyhead[C]{}
+\fancyhead[R]{MICROECONOMICS, Spring 2026, PS01}
+
+\setlength{\parindent}{1.5em}
+
+\begin{document}
+
+\maketitle
+
+\section{Utility functions}
+Do the following utility functions represent the same preferences? Please provide your reasoning.
+
+\begin{enumerate}[label=(\alph*)]
+  \item $u(x,y)=xy$, \quad $v(x,y)=3(xy)^2+6$
+  \item $u(x,y)=xy$, \quad $v(x,y)=-3(xy)^2+6$
+  \item $u(x,y)=xy$, \quad $v(x,y)=\ln x+\ln y$
+  \item $u(x,y)=xy$, \quad $v(x,y)=x+y$
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:} Two utility functions represent the same preferences if one is a strictly increasing transformation of the other on the relevant domain.
+
+\begin{enumerate}[label=(\alph*)]
+  \item Yes, they represent the same preferences. We can write
+  \[
+    v(x,y)=3(xy)^2+6=3u(x,y)^2+6.
+  \]
+  Define $f(t)=3t^2+6$. On the usual consumption domain $x,y\ge 0$, we have $u(x,y)=xy\ge 0$, and $f$ is strictly increasing for $t\ge 0$. Therefore $v$ is a strictly increasing transformation of $u$, so $u$ and $v$ represent the same preferences.
+
+  \item No, they do not represent the same preferences. Here
+  \[
+    v(x,y)=-3(xy)^2+6=-3u(x,y)^2+6.
+  \]
+  The function $f(t)=-3t^2+6$ is strictly decreasing for $t\ge 0$. Thus bundles with higher $u$ get lower $v$, so the ranking is reversed rather than preserved. Hence they do not represent the same preferences.
+
+  \item Yes, they represent the same preferences, provided $x>0$ and $y>0$. We have
+  \[
+    v(x,y)=\ln x+\ln y=\ln(xy)=\ln u(x,y).
+  \]
+  Since $\ln(\cdot)$ is strictly increasing on $(0,\infty)$, $v$ is a strictly increasing transformation of $u$ on the strictly positive domain. Therefore they represent the same preferences on $x>0$, $y>0$.
+
+  \item No, they do not represent the same preferences. If two utility functions represent the same preferences, they must generate the same indifference curves. For $u(x,y)=xy$, the indifference curves are
+  \[
+    xy=c,
+  \]
+  which are hyperbolas. For $v(x,y)=x+y$, the indifference curves are
+  \[
+    x+y=k,
+  \]
+  which are straight lines. These are not the same.
+
+  A counterexample is that
+  \[
+    u(1,4)=4=u(2,2),
+  \]
+  so $(1,4)$ and $(2,2)$ are indifferent under $u$. But
+  \[
+    v(1,4)=5 \neq 4=v(2,2),
+  \]
+  so they are not indifferent under $v$. Hence $u$ and $v$ do not represent the same preferences.
+\end{enumerate}
+
+\section{Indifference curves}
+Well-behaved indifference curves (monotonic and convex) are downward sloping. True or false? Please prove your answer.
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:} True. 
+
+Let $(x_0,y_0)$ be a bundle on an indifference curve. Suppose, for contradiction, that the indifference curve were not downward sloping. Then there would exist another bundle $(x_1,y_1)$ on the same indifference curve such that one good is weakly higher and the other is strictly higher. For example,
+\[
+x_1 \ge x_0,\qquad y_1>y_0,
+\]
+and
+\[
+(x_1,y_1)\sim (x_0,y_0).
+\]
+
+However, by monotonicity, a bundle with at least as much of every good and strictly more of one good must be strictly preferred. Hence
+\[
+(x_1,y_1)\succ (x_0,y_0),
+\]
+which contradicts $(x_1,y_1)\sim (x_0,y_0)$.
+
+Therefore, an indifference curve cannot slope upward. It also cannot be horizontal or vertical over an interval, since moving right or up would give more of one good and no less of the other, which again contradicts monotonicity.
+
+Thus indifference curves must be downward sloping.
+
+\section{Budget Sets}
+This question concerns a consumer who is choosing how many of two goods to buy: footballs (the round ones, that you kick with your foot) and cricket balls (like baseballs, but better). The consumer has an income of \$20, and the cost of a football is \$4 and a cricket ball is \$2.
+
+\begin{enumerate}
+  \item Write down the equation for the consumer's budget constraint and graph it in the commodity space.
+  \item The government decides that football is evil and needs to be taxed. They introduce a 50\% tax on each football sold. Rewrite and re-graph the budget constraint.
+  \item A new government is elected that hates all sports. They now tax both footballs and cricket balls at 50\%. What does the budget constraint look like now?
+  \item Due to a threat of revolt amongst sports fans, the government hands out a subsidy of \$10 to the consumer. What does their new budget constraint look like? How would you expect consumer behavior to differ between this situation and the no-tax, no-subsidy situation described in part 1?
+  \item Revolution comes, and all taxes and subsidies are abolished. Even better, the consumer finds a new shop that offers bulk discounts. In this shop, footballs cost \$4 each if you buy 3 or fewer. However, the cost of any additional football after 3 is \$2. What does the budget set look like now? Graph it in the commodity space.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:} Let $f$ denote the number of footballs and $c$ the number of cricket balls.
+
+\begin{enumerate}
+  \item The original budget constraint is
+  \[
+    4f+2c\le 20,
+  \]
+  with budget line
+  \[
+    4f+2c=20.
+  \]
+  Equivalently,
+  \[
+    c=10-2f.
+  \]
+  \begin{center}
+    \begin{tikzpicture}[scale=0.7]
+      % shaded budget set
+      \fill[gray!20] (0,0) -- (0,10) -- (5,0) -- cycle;
+
+      % axes
+      \draw[thick,->] (0,0) -- (6.5,0) node[right] {$f$};
+      \draw[thick,->] (0,0) -- (0,11.5) node[above] {$c$};
+    
+      % budget line
+      \draw[thick] (0,10) -- (5,0);
+    
+      % intercept labels
+      \node[left] at (0,10) {$10$};
+      \node[below] at (5,0) {$5$};
+    
+      % origin
+      \node[below left] at (0,0) {$0$};
+    
+      % line label
+      \node[above right] at (2.5,5.8) {$c=10-2f$};
+    \end{tikzpicture}
+  \end{center}
+
+  \item A 50\% tax on footballs raises the price of a football from \$4 to \$6, while the cricket ball price stays at \$2. Hence the new budget constraint is
+  \[
+    6f+2c\le 20,
+  \]
+  with budget line
+  \[
+    c=10-3f.
+  \]
+  \begin{center}
+    \begin{tikzpicture}[scale=0.7]
+      % shaded budget set
+      \fill[gray!20] (0,0) -- (0,10) -- (10/3,0) -- cycle;
+
+      % axes
+      \draw[thick,->] (0,0) -- (6.5,0) node[right] {$f$};
+      \draw[thick,->] (0,0) -- (0,11.5) node[above] {$c$};
+    
+      % budget line
+      \draw[thick] (0,10) -- (10/3,0);
+    
+      % intercept labels
+      \node[left] at (0,10) {$10$};
+      \node[below] at (10/3,0) {$\frac{10}{3}$};
+    
+      % origin
+      \node[below left] at (0,0) {$0$};
+    
+      % line label
+      \node[above right] at (1.8,5.8) {$c=10-3f$};
+    \end{tikzpicture}
+  \end{center}
+
+  \item Now both goods are taxed by 50\%, so the new prices are \$6 for a football and \$3 for a cricket ball. The budget constraint becomes
+  \[
+    6f+3c\le 20,
+  \]
+  or
+  \[
+    c=\frac{20}{3}-2f.
+  \]
+  \begin{center}
+    \begin{tikzpicture}[scale=0.7]
+      % shaded budget set
+      \fill[gray!20] (0,0) -- (0,20/3) -- (10/3,0) -- cycle;
+
+      % axes
+      \draw[thick,->] (0,0) -- (5.5,0) node[right] {$f$};
+      \draw[thick,->] (0,0) -- (0,9.5) node[above] {$c$};
+    
+      % budget line
+      \draw[thick] (0,20/3) -- (10/3,0);
+    
+      % intercept labels
+      \node[left] at (0,20/3) {$\frac{20}{3}$};
+      \node[below] at (10/3,0) {$\frac{10}{3}$};
+    
+      % origin
+      \node[below left] at (0,0) {$0$};
+    
+      % line label
+      \node[above right] at (1.4,4) {$c=\frac{20}{3}-3f$};
+    \end{tikzpicture}
+  \end{center}
+
+  \item With all sports taxed at 50\% as in part 3, but with a subsidy of \$10, income rises from \$20 to \$30. Thus the budget constraint is
+  \[
+    6f+3c\le 30,
+  \]
+  or equivalently
+  \[
+    c=10-2f.
+  \]
+  The budget line is identical to the original no-tax, no-subsidy budget line. Therefore consumer behavior need not differ at all from part 1: the opportunity set is exactly the same, so any optimal bundle in part 1 is also optimal here, and vice versa.
+
+  \item Now there are no taxes or subsidies, but football pricing becomes nonlinear. Cricket balls still cost \$2 each. For the first 3 footballs, footballs cost \$4 each; after that, each additional football costs \$2.
+
+  If $0\le f\le 3$, total spending on footballs is $4f$, so the budget constraint is
+  \[
+    4f+2c\le 20,
+  \]
+  that is,
+  \[
+    c=10-2f.
+  \]
+  At $f=3$, this gives
+  \[
+    c=10-2\cdot 3=4.
+  \]
+
+  If $f>3$, then the first 3 footballs cost \$12 in total, and each extra football costs \$2. So football expenditure is
+  \[
+    12+2(f-3)=2f+6.
+  \]
+  Hence the budget constraint becomes
+  \[
+    (2f+6)+2c\le 20,
+  \]
+  so
+  \[
+    2f+2c\le 14,
+  \]
+  or
+  \[
+    c=7-f.
+  \]
+
+  Therefore the budget line is kinked:
+  \[
+    c=
+    \begin{cases}
+      10-2f, & 0\le f\le 3,\\[4pt]
+      7-f, & 3\le f\le 7.
+    \end{cases}
+  \]
+  \begin{center}
+    \begin{tikzpicture}[scale=0.75]
+      % shaded budget region
+      \fill[gray!20] (0,0) -- (0,10) -- (3,4) -- (7,0) -- cycle;
+    
+      % budget line
+      \draw[thick] (0,10) -- (3,4) -- (7,0);
+    
+      % axes
+      \draw[->, thick] (0,0) -- (8,0) node[right] {$f$};
+      \draw[->, thick] (0,0) -- (0,11) node[above] {$c$};
+    
+      % key points
+      \fill (0,10) circle (1.5pt);
+      \fill (3,4) circle (1.5pt);
+      \fill (7,0) circle (1.5pt);
+    
+      % labels
+      \node[left] at (0,10) {$10$};
+      \node[above right] at (3,4) {$(3,4)$};
+      \node[below] at (7,0) {$7$};
+      \node[below left] at (0,0) {$0$};
+    
+      % segment labels
+      \node[right] at (1.8,7.2) {$c=10-2f$};
+      \node[above] at (6.3,1.8) {$c=7-f$};
+    \end{tikzpicture}
+  \end{center}
+\end{enumerate}
+
+\section{UMP}
+Edmund consumes two commodities, sewage and punk rock video cassettes. He does not drink sewage, of course, but he gets paid for taking it away at \$2 per ton. Edmund can accept as much sewage as he wishes at that price. He has no other source of income. Video cassettes cost him \$6 each. He has a utility function $u(s,v)$ on sewage ($s$) and videos ($v$) which is decreasing in $s$ and increasing in $v$.
+
+\begin{enumerate}
+  \item If Edmund accepts 0 tons of sewage, how many video cassettes can he buy?
+  \item Write down Edmund's constrained optimization problem.
+  \item Draw Edmund's budget line and shade his budget set.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:} Since accepting $s$ tons of sewage gives Edmund income $2s$, and purchasing $v$ cassettes costs him $6v$, all feasible bundles satisfy
+\[
+6v \le 2s,
+\]
+or equivalently
+\[
+3v \le s.
+\]
+\begin{enumerate}
+  \item If Edmund accepts $0$ tons of sewage, then his income is $0$. Hence
+  \[
+    6v \le 0,
+  \]
+  which implies
+  \[
+    v=0.
+  \]
+  So if Edmund accepts no sewage, he can buy $0$ video cassettes.
+
+  \item Edmund's constrained optimization problem is
+  \[
+    \max_{s,v\ge 0} u(s,v)
+    \quad \text{subject to} \quad
+    3v \le s.
+  \]
+
+  Since utility is decreasing in $s$ and increasing in $v$, Edmund will never choose more sewage than necessary for any given number of videos. Therefore at an optimum the constraint binds:
+  \[
+    6v = 2s,
+  \]
+  or equivalently
+  \[
+    3v=s.
+  \]
+
+  \item The budget line is
+  \[
+    3v=s,
+  \]
+  The budget set is
+  \[
+    \{(s,v)\in \mathbb{R}_+^2 : 6v \le 2s\},
+  \]
+  or equivalently the region
+  \[
+    v \le \frac{s}{3}
+  \]
+  in the first quadrant.
+  \begin{center}
+    \begin{tikzpicture}[scale=0.9]
+      % shaded budget set
+      \fill[gray!20] (0,0) -- (7.5,0) -- (7.5,2.5) -- cycle;
+
+      % axes
+      \draw[thick, ->] (0,0) -- (8,0) node[right] {$s$};
+      \draw[thick, ->] (0,0) -- (0,3.2) node[above] {$v$};
+
+      % budget line
+      \draw[thick] (0,0) -- (7.5,2.5) node[above right] {$v=\frac{s}{3}$};
+
+      % origin label
+      \node[below left] at (0,0) {$O$};
+    \end{tikzpicture}
+  \end{center}
+\end{enumerate}
+
+\section{UMP}
+A consumer has utility function $u(x,y)=x^{\frac{1}{2}}y^{\frac{1}{2}}$. Let the prices of goods $x$ and $y$ be given by $p_x$ and $p_y$ respectively, and let $m$ denote the consumer's wealth. Assume that $p_x$, $p_y$, and $m$ are all strictly positive.
+
+\begin{enumerate}
+  \item Write down the consumer's utility maximization problem.
+  \item Derive the consumer's optimal choice of $x$ and $y$.
+  \item Are there any prices and wealth $(p_x, p_y, m)$ at which good $x$ is a Giffen good? Briefly explain why.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer:}
+
+\begin{enumerate}
+  \item The consumer's utility maximization problem is
+  \[
+    \max_{x,y\ge 0} x^{\frac{1}{2}} y^{\frac{1}{2}}
+    \quad \text{subject to} \quad
+    p_x x + p_y y \le m, \quad x,y\ge0.
+  \]
+  Since utility is increasing in both goods, the budget constraint binds at the optimum, so
+  \[
+    p_x x + p_y y = m.
+  \]
+
+  \item The marginal utilities are
+  \[
+    MU_x = \frac{1}{2}x^{-\frac{1}{2}}y^{\frac{1}{2}},
+    \qquad
+    MU_y = \frac{1}{2}x^{\frac{1}{2}}y^{-\frac{1}{2}}.
+  \]
+  Hence the marginal rate of substitution is
+  \[
+    \frac{MU_x}{MU_y} = \frac{y}{x}.
+  \]
+  At an interior optimum,
+  \[
+    \frac{MU_x}{MU_y} = \frac{p_x}{p_y},
+  \]
+  so
+  \[
+    \frac{y}{x} = \frac{p_x}{p_y}
+    \quad \Rightarrow \quad
+    y = \frac{p_x}{p_y}x.
+  \]
+  Substituting into the budget constraint gives
+  \[
+    p_x x + p_y\left(\frac{p_x}{p_y}x\right) = m,
+  \]
+  so
+  \[
+    2p_x x = m,
+  \]
+  and therefore
+  \[
+    x^* = \frac{m}{2p_x}.
+  \]
+  Then
+  \[
+    y^* = \frac{p_x}{p_y}x^*
+    = \frac{p_x}{p_y}\cdot \frac{m}{2p_x}
+    = \frac{m}{2p_y}.
+  \]
+  Thus the consumer's optimal choice is
+  \[
+    x^* = \frac{m}{2p_x},
+    \qquad
+    y^* = \frac{m}{2p_y}.
+  \]
+
+  \item No, good $x$ is never a Giffen good. The Marshallian demand for $x$ is
+  \[
+    x^*(p_x,p_y,m) = \frac{m}{2p_x}.
+  \]
+  Therefore,
+  \[
+    \frac{\partial x^*}{\partial p_x}
+    = -\frac{m}{2p_x^2} < 0.
+  \]
+  So when the price of $x$ rises, demand for $x$ falls. Hence there are no prices and wealth levels $(p_x,p_y,m)$ at which good $x$ is a Giffen good.
+\end{enumerate}
+
+% \printbibliography
+
+\end{document}
