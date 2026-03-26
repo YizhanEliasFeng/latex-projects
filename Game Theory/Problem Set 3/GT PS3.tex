@@ -1,0 +1,439 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-en.tex}
+
+% \usepackage[
+%   backend=biber,
+%   style=numeric,
+%   sorting=none
+% ]{biblatex}
+% \addbibresource{bib/references.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead[L]{Yizhan Feng 2400017802}
+\fancyhead[C]{}
+\fancyhead[R]{GAME THEORY, Spring 2026, PS3}
+
+\begin{document}
+
+\maketitle
+
+\section{Cops and Robbers}
+Player 1 is a police officer who must decide whether to patrol the streets or to hang out at the coffee shop. His payoff from hanging out at the coffee shop is \(10\), while his payoff from patrolling the streets depends on whether he catches a robber, who is player 2. If the robber prowls the streets then the police officer will catch him and obtain a payoff of \(20\). If the robber stays in his hideaway then the officer's payoff is \(0\). The robber must choose between staying hidden or prowling the streets. If he stays hidden then his payoff is \(0\), while if he prowls the streets his payoff is \(-10\) if the officer is patrolling the streets and \(10\) if the officer is at the coffee shop.
+
+\begin{enumerate}[label=\alph*.]
+  \item Write down the matrix form of this game.
+  \item Draw the best-response function of each player.
+  \item Find the Nash equilibrium of this game. What kind of game does this game remind you of?
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer: }Player 1 has two actions: \(P\) for patrol and \(C\) for coffee shop; Player 2 also has two actions: \(H\) for hide and \(R\) for prowl.
+
+\begin{enumerate}[label=\alph*.]
+  \item The matrix form of the game is
+  \[
+  \begin{array}{c|cc}
+   & H & R\\
+  \hline
+  P & (0,0) & (20,-10)\\
+  C & (10,0) & (10,10)
+  \end{array}
+  \]
+
+  \item Let \(p\) be the probability that player 1 chooses \(P\) and \(q\) be the probability that player 2 chooses \(R\). 
+  
+  Player 1's expected payoff is
+  \[
+    u_1(P)=0\cdot(1-q)+20q=20q,
+  \]
+  \[
+    u_1(C)=10.
+  \]
+  Therefore player 1's best-response function is
+  \[
+    BR_1(q)=
+    \begin{cases}
+      p=0, & \text{if }q<\frac12,\\[4pt]
+      p\in[0,1], & \text{if }q=\frac12,\\[4pt]
+      p=1, & \text{if }q>\frac12.
+    \end{cases}
+  \]
+
+  Player 2's expected payoff is
+  \[
+    u_2(H)=0,
+  \]
+  \[
+    u_2(R)=(-10)p+10(1-p)=10-20p.
+  \]
+  Therefore player 2's best-response function is
+  \[
+    BR_2(p)=
+    \begin{cases}
+      q=1, & \text{if }p<\frac12,\\[4pt]
+      q\in[0,1], & \text{if }p=\frac12,\\[4pt]
+      q=0, & \text{if }p>\frac12.
+    \end{cases}
+  \]
+
+  \begin{center}
+    \begin{tikzpicture}[scale=5]
+        \draw[->] (0,0) -- (1.08,0) node[right] {$p$};
+        \draw[->] (0,0) -- (0,1.08) node[above] {$q$};
+
+        \draw[dashed] (0,0) rectangle (1,1);
+
+        \draw[dashed] (0.5,0) -- (0.5,1);
+        \draw[dashed] (0,0.5) -- (1,0.5);
+
+        \node[below] at (0.5,0) {$\frac12$};
+        \node[left] at (0,0.5) {$\frac12$};
+        \node[below left] at (0,0) {$0$};
+        \node[below] at (1,0) {$1$};
+        \node[left] at (0,1) {$1$};
+
+        % BR1(q): as a subset in (p,q)-space
+        \draw[very thick,blue] (0,0) -- (0,0.5);
+        \draw[very thick,blue] (0,0.5) -- (1,0.5);
+        \draw[very thick,blue] (1,0.5) -- (1,1);
+
+        % BR2(p): as a subset in (p,q)-space
+        \draw[very thick, red] (0,1) -- (0.5,1);
+        \draw[very thick, red] (0.5,0) -- (0.5,1);
+        \draw[very thick, red] (0.5,0) -- (1,0);
+
+        % equilibrium point
+        \fill (0.5,0.5) circle (0.01);
+
+        \node[blue] at (0.18,0.18) {$BR_1$};
+        \node[red] at (0.8,0.82) {$BR_2$};
+    \end{tikzpicture}
+  \end{center}
+  \item To find the mixed-strategy Nash equilibrium, make each player indifferent between his two pure strategies.
+
+  For player 1:
+  \[
+    20q=10
+    \implies
+    q=\frac12.
+  \]
+
+  For player 2:
+  \[
+    10-20p=0
+    \implies
+    p=\frac12.
+  \]
+
+  Hence the unique mixed-strategy Nash equilibrium is:
+  \[
+    p=\frac12,\qquad q=\frac12.
+  \]
+
+  This game is reminiscent of a \emph{matching pennies} type game.
+\end{enumerate}
+
+\section{Market Entry}
+Three firms are considering entering a new market. The payoff for each firm that enters is\(\frac{150}{n}\), where \(n\) is the number of firms that enter. The cost of entering is \(62\).
+
+\begin{enumerate}[label=\alph*.]
+  \item Find all the pure-strategy Nash equilibria.
+  \item Find the symmetric mixed-strategy equilibrium in which all three players enter with the same probability.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer: }Let each firm's strategy set be \(\{E,O\}\), where \(E\) means enter and \(O\) means out. If \(n\) firms enter, then each entering firm receives net payoff
+\[
+\frac{150}{n}-62,
+\]
+and a firm that stays out gets payoff \(0\).
+
+\begin{enumerate}[label=\alph*.]
+  \item To find the pure-strategy Nash equilibria, consider the possible numbers of entrants.
+
+  If exactly one firm enters, then an outside firm can deviate and enter, obtaining payoff
+  \[
+  \frac{150}{2}-62=13>0,
+  \]
+  so this cannot be a Nash equilibrium.
+
+  If all three firms enter, then each gets
+  \[
+  \frac{150}{3}-62=-12<0,
+  \]
+  so any entering firm would prefer to deviate and stay out, getting \(0\). Hence this is not a Nash equilibrium.
+
+  If all three firms stay out, then any one firm can deviate and enter alone, obtaining
+  \[
+  150-62=88>0,
+  \]
+  so this is not a Nash equilibrium.
+
+  If exactly two firms enter and one stays out, then each entering firm gets
+  \[
+  \frac{150}{2}-62=13>0,
+  \]
+  so neither entrant wants to leave. The outsider, if he deviates and enters, would make the number of entrants equal to \(3\), and would get
+  \[
+  \frac{150}{3}-62=-12<0,
+  \]
+  so he does not want to enter.
+
+  Therefore the pure-strategy Nash equilibria are
+  \[
+  (E,E,O),\qquad (E,O,E),\qquad (O,E,E).
+  \]
+
+  \item Now find the symmetric mixed-strategy equilibrium. Suppose each firm enters with probability \(p\).
+
+  If a given firm chooses \(O\), its payoff is always \(0\).
+
+  If it chooses \(E\), then among the other two firms:
+
+  \begin{itemize}
+    \item with probability \((1-p)^2\), neither enters, so the firm earns \(88\);
+    \item with probability \(2p(1-p)\), exactly one enters, so the firm earns \(13\);
+    \item with probability \(p^2\), both enter, so the firm earns \(-12\).
+  \end{itemize}
+  Hence the expected payoff from entering is
+  \[
+  88(1-p)^2+13\cdot 2p(1-p)-12p^2=88-150p+50p^2.
+  \]
+
+  In a symmetric mixed-strategy Nash equilibrium, the firm must be indifferent between entering and staying out, so
+  \[
+  88-150p+50p^2=0.
+  \]
+  Solving,
+  \[
+  p=\frac{11}{5}\quad\text{or}\quad p=\frac45.
+  \]
+  Since probabilities must lie in \([0,1]\), the only valid solution is
+  \[
+  p=\frac45.
+  \]
+
+  Therefore the symmetric mixed-strategy equilibrium is that each firm enters with probability \(\frac{4}{5}\) and stays out with probability \(\frac{1}{5}\).
+\end{enumerate}
+
+\section{Perpetrators and Victims}
+There are \(n \ge 2\) victims of sexual harassment by a perpetrator. Each of the victims simultaneously and independently decides whether to report the harassment or keep quiet. As long as at least one victim reports, the perpetrator is punished and each of the victims gets a payoff of \(1\). If no victim reports, the perpetrator is not punished and the victims get \(0\). Reporting has a cost \(c \in (0,1)\), while keeping quiet costs \(0\). Model this situation as a normal form game of the \(n\) victims.
+
+\begin{enumerate}[label=(\alph*)]
+  \item Model this situation as a normal form game of the \(n\) victims.
+  \item Find all pure strategy Nash equilibria.
+  \item Find a Nash equilibrium in mixed strategies.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer: }
+
+Let the players be the \(n\) victims, indexed by \(i=1,\dots,n\). Each player has strategy set \(S_i=\{R,Q\}\), where \(R\) means reporting and \(Q\) means keeping quiet.
+
+For a strategy profile \(s=(s_1,\dots,s_n)\), let
+\[
+m(s)=\left|\{j|s_j=R\}\right|
+\]
+denote the number of victims who report.
+
+The payoff function of player \(i\) is
+\[
+u_i(s)=
+\begin{cases}
+1-c, & \text{if } s_i=R,\\[4pt]
+1, & \text{if } s_i=Q \text{ and } m(s)\ge 1,\\[4pt]
+0, & \text{if } s_i=Q \text{ and } m(s)=0.
+\end{cases}
+\]
+
+\begin{enumerate}[label=(\alph*)]
+  \item Thus the normal-form game is
+  \[
+  \left(\{1,\dots,n\},\,\{S_i\}_{i=1}^n,\,\{u_i\}_{i=1}^n\right),
+  \]
+  where each \(S_i=\{R,Q\}\) and \(u_i\) is given above.
+
+  \item We now find all pure-strategy Nash equilibria.
+
+  First, the profile
+  \[
+  (Q,\dots,Q)
+  \]
+  cannot be a Nash equilibrium, because any player can deviate from \(Q\) to \(R\) and increase his payoff from \(0\) to \(1-c>0\).
+
+  Next, suppose exactly one player reports and all others keep quiet. Then the reporting player gets \(1-c\), and if he deviates to \(Q\), then nobody reports and his payoff falls to \(0\). So he does not want to deviate. Each quiet player gets \(1\), and if such a player deviates to \(R\), his payoff becomes \(1-c<1\), so he also does not want to deviate. Hence any profile with exactly one reporter is a Nash equilibrium.
+
+  Finally, if at least two players report, then any one of those reporters can deviate to \(Q\) while still ensuring that at least one other player reports. His payoff would rise from \(1-c<1\) to \(1\), so such a profile cannot be a Nash equilibrium.
+
+  Therefore, the pure-strategy Nash equilibria are exactly the profiles in which \emph{exactly one} player reports and all others keep quiet.
+
+  \item Now find a mixed-strategy Nash equilibrium. Consider a symmetric mixed strategy in which each player reports with probability \(p\).
+
+  If player \(i\) chooses \(R\), then the perpetrator is punished for sure, so player \(i\)'s payoff is
+  \[
+  u_i(R)=1-c.
+  \]
+
+  If player \(i\) chooses \(Q\), then he gets payoff \(1\) unless all other \(n-1\) players also choose \(Q\). The probability that all other players keep quiet is \((1-p)^{n-1}\).
+  Hence
+  \[
+  u_i(Q)=1-(1-p)^{n-1}.
+  \]
+
+  In a mixed-strategy Nash equilibrium, player \(i\) must be indifferent between \(R\) and \(Q\), so
+  \[
+  1-c=1-(1-p)^{n-1}.
+  \]
+  Therefore,
+  \[
+  (1-p)^{n-1}=c \implies   p=1-c^{1/(n-1)}.
+  \]
+
+  Hence a symmetric mixed-strategy Nash equilibrium is that each player reports with probability \(1-c^{1/(n-1)}\) and keeps quiet with probability \(c^{1/(n-1)}\).
+\end{enumerate}
+
+\section{Discrete All-Pay Auction}
+In Section 6.1.4 we introduced a version of an all-pay auction that worked as follows: Each bidder submits a bid. The highest bidder gets the good, but \emph{all bidders pay their bids}. Consider an auction in which player 1 values the item at \(3\) while player 2 values the item at \(5\). Each player can bid either \(0\), \(1\), or \(2\). If player \(i\) bids more than player \(j\) then \(i\) wins the good and both pay. If both players bid the same amount then a coin is tossed to determine who gets the good, but again both pay.
+
+\begin{enumerate}[label=\alph*.]
+  \item Write down the game in matrix form. Which strategies survive IESDS?
+  \item Find the Nash equilibria for this game.
+\end{enumerate}
+
+\vspace{0.5cm}
+\noindent\textbf{Answer: }Let player 1's valuation be \(v_1=3\) and player 2's valuation be \(v_2=5\).  
+
+If player \(i\) bids \(b_i\) and player \(j\) bids \(b_j\), then:
+\begin{itemize}
+  \item if \(b_i>b_j\), player \(i\) wins and gets payoff \(v_i-b_i\), while player \(j\) gets \(-b_j\);
+  \item if \(b_i<b_j\), player \(i\) loses and gets \(-b_i\);
+  \item if \(b_i=b_j=b\), each player wins with probability \(\frac12\), so
+  \[
+  u_i=\frac{v_i}{2}-b.
+  \]
+\end{itemize}
+
+\begin{enumerate}[label=\alph*.]
+  \item The matrix form of the game is
+  \[
+  \begin{array}{c|ccc}
+   & 0 & 1 & 2\\
+  \hline
+  0 & \left(\frac32,\frac52\right) & (0,4) & (0,3)\\
+  1 & (2,0) & \left(\frac12,\frac32\right) & (-1,3)\\
+  2 & (1,0) & (1,-1) & \left(-\frac12,\frac12\right)
+  \end{array}
+  \]
+  where rows are player 1's bids and columns are player 2's bids.
+
+  Now consider iterated elimination of strictly dominated strategies.
+
+  First, for player 2, strategy \(0\) is strictly dominated by strategy \(2\), since:
+  \[
+  3>\frac52,\qquad 2>0,\qquad \frac12>0.
+  \]
+  Hence bid \(0\) is eliminated for player 2.
+
+  Then the matrix becomes
+  \[
+  \begin{array}{c|cc}
+   & 1 & 2\\
+  \hline
+  0 & (0,4) & (0,3)\\
+  1 & \left(\frac12,\frac32\right) & (-1,3)\\
+  2 & (1,-1) & \left(-\frac12,\frac12\right)
+  \end{array}
+  \]
+  For player 1, strategy \(1\) is strictly dominated by strategy \(2\), since:
+  \[
+  1>\frac12,\qquad -\frac12>0-1.
+  \]
+  Hence bid \(1\) is eliminated for player 1.
+
+  Therefore the strategies that survive IESDS are:
+  \[
+  \begin{array}{c|cc}
+   & 1 & 2\\
+  \hline
+  0 & (0,4) & (0,3)\\
+  2 & (1,-1) & \left(-\frac12,\frac12\right)
+  \end{array}
+  \]
+
+  \item We now find the Nash equilibria.
+
+  First compute pure best responses.
+
+  For player 1:
+  \begin{itemize}
+    \item against \(0\), payoffs are \(\frac32,2,1\), so the best response is \(1\);
+    \item against \(1\), payoffs are \(0,\frac12,1\), so the best response is \(2\);
+    \item against \(2\), payoffs are \(0,-1,-\frac12\), so the best response is \(0\).
+  \end{itemize}
+
+  For player 2:
+  \begin{itemize}
+    \item against \(0\), payoffs are \(\frac52,4,3\), so the best response is \(1\);
+    \item against \(1\), payoffs are \(0,\frac32,3\), so the best response is \(2\);
+    \item against \(2\), payoffs are \(0,-1,\frac12\), so the best response is \(2\).
+  \end{itemize}
+  Therefor there is no pure strategy Nash equilibrium.
+
+  Now consider a mixed equilibrium on the surviving strategies. Let player 1 bid \(0\) with probability \(p\) and bid \(2\) with probability \(1-p\). Let player 2 bid \(1\) with probability \(q\) and bid \(2\) with probability \(1-q\).
+
+  Player 1's expected payoff from bidding \(0\) is
+  \[
+  u_1(0)=0.
+  \]
+  His expected payoff from bidding \(2\) is
+  \[
+  u_1(2)=q+(-\frac12)(1-q)=\frac32 q-\frac{1}{2}.
+  \]
+  Indifference requires
+  \[
+  0=\frac32 q-\frac12,
+  \]
+  so
+  \[
+  q=\frac13.
+  \]
+
+  Player 2's expected payoff from bidding \(1\) is
+  \[
+  u_2(1)=4p+(-1)(1-p)=5p-1.
+  \]
+  His expected payoff from bidding \(2\) is
+  \[
+  u_2(2)=3p+\frac12(1-p)=\frac52 p-\frac12.
+  \]
+  Indifference requires
+  \[
+  5p-1=\frac{5}{2}p-\frac{1}{2},
+  \]
+  so
+  \[
+  p=\frac35.
+  \]
+
+  Therefore there is also a mixed-strategy Nash equilibrium given by
+  \[
+  \sigma_1=\left(\frac35,0,\frac25\right),\qquad
+  \sigma_2=\left(0,\frac13,\frac23\right),
+  \]
+  where the coordinates correspond to bids \(0,1,2\).
+\end{enumerate}
+
+% \printbibliography
+
+\end{document}

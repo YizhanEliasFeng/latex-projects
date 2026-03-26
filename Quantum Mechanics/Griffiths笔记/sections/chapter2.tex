@@ -1,0 +1,488 @@
+\newpage
+\section{定态薛定谔方程}
+\subsection{定态}
+如何求解薛定谔方程？在大部分情况下，势能可以假设与时间无关，于是我们可以用分离变量法。令\(\Psi(x,t)=\psi(x)\varphi(t)\)，代入薛定谔方程得
+\begin{equation}
+    i\hbar \psi \dv{\varphi}{t}
+    =
+    -\frac{\hbar^2}{2m}\varphi \dv[2]{\psi}{x}
+    +V\psi\varphi.
+\end{equation}
+两边同时除以 \(\psi\varphi\)，得到
+\begin{equation}
+    i\hbar \frac{1}{\varphi}\dv{\varphi}{t}
+    =
+    -\frac{\hbar^2}{2m}\frac{1}{\psi}\dv[2]{\psi}{x}+V.
+\end{equation}
+左边只与 \(t\) 有关，右边只与 \(x\) 有关，因此二者都必须等于某个常数，记作 \(E\)。于是有
+\begin{equation}
+    i\hbar \frac{1}{\varphi}\dv{\varphi}{t}=E,
+    \qquad
+    -\frac{\hbar^2}{2m}\dv[2]{\psi}{x}+V\psi=E\psi.
+\end{equation}
+
+第一个方程可以直接解出
+\begin{equation}
+    \varphi(t)=e^{-iEt/\hbar}.
+\end{equation}
+第二个方程就是定态薛定谔方程，其具体形式依赖于势能函数 \(V(x)\) 的表达式。
+
+因此，只要
+\begin{equation}
+    \Psi(x,t)=\psi(x)e^{-iEt/\hbar},
+\end{equation}
+则体系的概率密度
+\begin{equation}
+    \abs{\Psi(x,t)}^2=\abs{\psi(x)}^2
+\end{equation}
+与时间无关。也就是说，此时体系处于定态；尽管波函数本身随时间变化，但任何力学量的平均值都不随时间变化。此外，这时体系具有确定的总能量 \(E\)。
+
+记哈密顿算符为
+\begin{equation}
+    \hat{H}=-\frac{\hbar^2}{2m}\dv[2]{x}+V(x),
+\end{equation}
+则定态薛定谔方程可以写成
+\begin{equation}
+    \hat{H}\psi=E\psi.
+\end{equation}
+于是
+\begin{equation}
+    \ev{H}=\int \psi^*\hat{H}\psi\,\dd x
+    =
+    E\int \abs{\psi}^2\,\dd x
+    =E,
+\end{equation}
+这里用到了波函数的归一化条件。进一步，
+\begin{equation}
+    \ev{H^2}=\int \psi^*\hat{H}^2\psi\,\dd x
+    =
+    E^2\int \abs{\psi}^2\,\dd x
+    =E^2.
+\end{equation}
+因此能量的不确定度为
+\begin{equation}
+    \sigma_H^2=\ev{H^2}-\ev{H}^2=0.
+\end{equation}
+
+\subsection{无限深方势阱}
+
+设势能函数为
+\begin{equation}
+    V(x)=
+    \begin{cases}
+        0, & 0\le x\le a,\\
+        \infty, & \text{其他}.
+    \end{cases}
+\end{equation}
+在势阱外，粒子出现的概率必须为零，因此
+\begin{equation}
+    \psi(x)=0 \qquad \left( x<0 \text{ 或 } x>a \right).
+\end{equation}
+在势阱内，\(V=0\)，定态薛定谔方程化为
+\begin{equation}
+    -\frac{\hbar^2}{2m}\dv[2]{\psi}{x}=E\psi,
+\end{equation}
+即
+\begin{equation}
+    \dv[2]{\psi}{x}=-k^2\psi,
+    \qquad
+    k\equiv \frac{\sqrt{2mE}}{\hbar}.
+\end{equation}
+这是一个二阶常系数微分方程，其通解为
+\begin{equation}
+    \psi(x)=A\sin kx+B\cos kx.
+\end{equation}
+
+由边界条件
+\begin{equation}
+    \psi(0)=0,
+    \qquad
+    \psi(a)=0,
+\end{equation}
+可得
+\begin{equation}
+    B=0,
+    \qquad
+    \sin ka=0.
+\end{equation}
+因此
+\begin{equation}
+    k_n=\frac{n\pi}{a},
+    \qquad
+    n=1,2,\cdots
+\end{equation}
+从而能量本征值只能取离散值
+\begin{equation}
+    E_n=\frac{\hbar^2 k_n^2}{2m}
+    =
+    \frac{n^2\pi^2\hbar^2}{2ma^2}.
+\end{equation}
+
+再对波函数作归一化：
+\begin{equation}
+    \int_0^a \abs{\psi(x)}^2\,\dd x=1.
+\end{equation}
+代入 \(\psi(x)=A\sin\left( k_nx \right)\)，得
+\begin{equation}
+    \int_0^a \abs{A}^2\sin^2\left( k_nx \right)\,\dd x
+    =
+    \abs{A}^2\frac{a}{2}
+    =1,
+\end{equation}
+所以
+\begin{equation}
+    \abs{A}^2=\frac{2}{a}.
+\end{equation}
+取 \(A=\sqrt{2/a}\)，便得到无限深方势阱的定态解：
+\begin{equation}
+    \psi_n(x)=\sqrt{\frac{2}{a}}\sin\left( \frac{n\pi x}{a} \right).
+\end{equation}
+
+\(\psi_n(x)\) 的几个重要性质包括：第一，奇偶性交替；第二，节点数为 \(n-1\)；第三，不同本征态彼此正交；第四，这些本征函数构成完备集。
+
+于是相应的一维无限深方势阱的含时解为
+\begin{equation}
+    \Psi_n(x,t)
+    =
+    \sqrt{\frac{2}{a}}
+    \sin\left( \frac{n\pi x}{a} \right)
+    e^{-iE_nt/\hbar}
+    =
+    \sqrt{\frac{2}{a}}
+    \sin\left( \frac{n\pi x}{a} \right)
+    \exp\left( -i\frac{n^2\pi^2\hbar}{2ma^2}t \right).
+\end{equation}
+
+\subsection{谐振子}
+
+经典力学中的简谐振子满足
+\begin{equation}
+    F=-kx=m\dv[2]{x}{t},
+\end{equation}
+其解为
+\begin{equation}
+    x(t)=A\sin \omega t+B\cos \omega t,
+    \qquad
+    \omega=\sqrt{\frac{k}{m}}.
+\end{equation}
+对应的势能函数为
+\begin{equation}
+    V(x)=\frac{1}{2}kx^2=\frac{1}{2}m\omega^2x^2.
+\end{equation}
+类似地，我们关心的定态薛定谔方程是
+\begin{equation}
+    -\frac{\hbar^2}{2m}\dv[2]{\psi}{x}
+    +\frac{1}{2}m\omega^2x^2\psi
+    =E\psi.
+\end{equation}
+
+\subsubsection{代数法}
+
+将方程写作
+\begin{equation}
+    \frac{1}{2m}\left[ \hat{p}^{\,2}+\left( m\omega x \right)^2 \right]\psi=E\psi.
+\end{equation}
+我们希望把哈密顿量因式分解。定义升降算符
+\begin{equation}
+    \hat{a}_\pm
+    =
+    \frac{1}{\sqrt{2\hbar m\omega}}
+    \left( \mp i\hat{p}+m\omega x \right).
+\end{equation}
+则
+\begin{equation}
+    \hat{a}_-\hat{a}_+
+    =
+    \frac{1}{2\hbar m\omega}
+    \left[ \hat{p}^{\,2}+\left( m\omega x \right)^2-i m\omega\left( x\hat{p}-\hat{p}x \right) \right].
+\end{equation}
+由于算符不对易，我们先来计算 \(x\) 与 \(\hat{p}\) 的对易关系。记 \(\hat{p}=-i\hbar \dv{x}\)，对任意函数 \(f(x)\) 有
+\begin{equation}
+    [x,\hat{p}]f(x)
+    =
+    \left[ x\left( -i\hbar \dv{x} \right)-\left( -i\hbar \dv{x} \right)x \right]f(x)
+    =
+    i\hbar f(x),
+\end{equation}
+因此
+\begin{equation}
+    [x,\hat{p}]=i\hbar.
+\end{equation}
+代回上式便得
+\begin{equation}
+    \hat{a}_-\hat{a}_+
+    =
+    \frac{1}{\hbar \omega}\hat{H}+\frac{1}{2},
+\end{equation}
+同理
+\begin{equation}
+    \hat{a}_+\hat{a}_-
+    =
+    \frac{1}{\hbar \omega}\hat{H}-\frac{1}{2}.
+\end{equation}
+于是哈密顿量可写为
+\begin{equation}
+    \hat{H}
+    =
+    \hbar\omega\left( \hat{a}_-\hat{a}_+-\frac{1}{2} \right)
+    =
+    \hbar\omega\left( \hat{a}_+\hat{a}_-+\frac{1}{2} \right).
+\end{equation}
+
+设 \(\psi\) 是哈密顿量的本征态，满足
+\begin{equation}
+    \hat{H}\psi=E\psi.
+\end{equation}
+则
+\begin{equation}
+    \hat{H}\left( \hat{a}_+\psi \right)
+    =
+    \hbar\omega\left( \hat{a}_+\hat{a}_-+\frac{1}{2} \right)\left( \hat{a}_+\psi \right)
+    =
+    \hat{a}_+\left[ \hbar\omega\left( \hat{a}_-\hat{a}_++\frac{1}{2} \right)\psi \right].
+\end{equation}
+利用
+\begin{equation}
+    \hat{a}_-\hat{a}_+
+    =
+    \hat{a}_+\hat{a}_-+1,
+\end{equation}
+可得
+\begin{equation}
+    \hat{H}\left( \hat{a}_+\psi \right)=\left( E+\hbar\omega \right)\left( \hat{a}_+\psi \right).
+\end{equation}
+同理，
+\begin{equation}
+    \hat{H}\left( \hat{a}_-\psi \right)=\left( E-\hbar\omega \right)\left( \hat{a}_-\psi \right).
+\end{equation}
+因此 \(\hat{a}_+\) 与 \(\hat{a}_-\) 分别对应升高和降低一个能级。
+
+反复作用 \(\hat{a}_-\) 在任意本征态上，能量会不断减小。为了保证归一化，最终必然会得到一个最低能态 \(\psi_0\)，使得
+\begin{equation}
+    \hat{a}_-\psi_0=0.
+\end{equation}
+即
+\begin{equation}
+    \frac{1}{\sqrt{2\hbar m\omega}}
+    \left( i\hat{p}+m\omega x \right)\psi_0=0.
+\end{equation}
+代入 \(\hat{p}=-i\hbar \dv{x}\)，得到
+\begin{equation}
+    \dv{\psi_0}{x}=-\frac{m\omega}{\hbar}x\psi_0.
+\end{equation}
+解得
+\begin{equation}
+    \psi_0(x)=Ae^{-m\omega x^2/2\hbar}.
+\end{equation}
+由归一化条件
+\begin{equation}
+    \int_{-\infty}^{\infty}\abs{\psi_0(x)}^2\,\dd x=1
+\end{equation}
+可得
+\begin{equation}
+    \abs{A}^2=\sqrt{\frac{m\omega}{\pi\hbar}},
+\end{equation}
+因此基态波函数为
+\begin{equation}
+    \psi_0(x)=\left( \frac{m\omega}{\pi\hbar} \right)^{1/4}e^{-m\omega x^2/2\hbar}.
+\end{equation}
+
+再代回
+\begin{equation}
+    \hat{H}=\hbar\omega\left( \hat{a}_+\hat{a}_-+\frac{1}{2} \right),
+\end{equation}
+由于 \(\hat{a}_-\psi_0=0\)，便得
+\begin{equation}
+    E_0=\frac{1}{2}\hbar\omega.
+\end{equation}
+于是通过不断施加升算符，可以得到全部激发态：
+\begin{equation}
+    \psi_n(x)=A_n\left( \hat{a}_+ \right)^n\psi_0(x),
+    \qquad
+    E_n=\left( n+\frac{1}{2} \right)\hbar\omega.
+\end{equation}
+
+最后确定归一化系数。由于 \(\hat{a}_+\psi_n\) 与 \(\psi_{n+1}\) 对应同一能量本征值 \(E_{n+1}\)，故应有
+\begin{equation}
+    \hat{a}_+\psi_n=c_n\psi_{n+1}.
+\end{equation}
+同理
+\begin{equation}
+    \hat{a}_-\psi_n=d_n\psi_{n-1}.
+\end{equation}
+注意 \(\hat{a}_+\) 与 \(\hat{a}_-\) 互为共轭算符，即对任意 \(f(x)\)、\(g(x)\)，有
+\begin{equation}
+    \int_{-\infty}^{\infty} f^*\left( \hat{a}_\pm g \right)\,\dd x
+    =
+    \int_{-\infty}^{\infty} \left( \hat{a}_\mp f \right)^*g\,\dd x.
+\end{equation}
+特别地，
+\begin{equation}
+    \int_{-\infty}^{\infty}\left( \hat{a}_+\psi_n \right)^*\left( \hat{a}_+\psi_n \right)\,\dd x
+    =
+    \int_{-\infty}^{\infty}\left( \hat{a}_-\hat{a}_+\psi_n \right)^*\psi_n\,\dd x.
+\end{equation}
+而
+\begin{equation}
+    \hat{a}_-\hat{a}_+\psi_n
+    =
+    \left( \frac{\hat{H}}{\hbar\omega}+\frac{1}{2} \right)\psi_n
+    =
+    \left( n+1 \right)\psi_n,
+\end{equation}
+因此
+\begin{equation}
+    \abs{c_n}^2=n+1.
+\end{equation}
+同理可得
+\begin{equation}
+    \abs{d_n}^2=n.
+\end{equation}
+取相位约定后，
+\begin{equation}
+    \hat{a}_+\psi_n=\sqrt{n+1}\,\psi_{n+1},
+    \qquad
+    \hat{a}_-\psi_n=\sqrt{n}\,\psi_{n-1}.
+\end{equation}
+于是
+\begin{equation}
+    \psi_n=\frac{1}{\sqrt{n!}}\left( \hat{a}_+ \right)^n\psi_0.
+\end{equation}
+
+和无限深方势阱类似，谐振子的含时定态解都具有形式
+\begin{equation}
+    \Psi_n(x,t)=\psi_n(x)e^{-iE_nt/\hbar}.
+\end{equation}
+
+\subsubsection{解析法}
+
+用级数方法也可以求解。引入无量纲变量
+\begin{equation}
+    \xi\equiv \sqrt{\frac{m\omega}{\hbar}}\,x,
+\end{equation}
+则薛定谔方程可写成
+\begin{equation}
+    \dv[2]{\psi}{\xi}=\left( \xi^2-K \right)\psi,
+    \qquad
+    K\equiv \frac{2E}{\hbar\omega}.
+\end{equation}
+
+当 \(\xi\to\infty\) 时，如果 \(\xi^2\gg K\)，方程近似为
+\begin{equation}
+    \dv[2]{\psi}{\xi}\approx \xi^2\psi.
+\end{equation}
+其渐近解为
+\begin{equation}
+    \psi(\xi)\approx Ae^{-\xi^2/2}+Be^{\xi^2/2}.
+\end{equation}
+后一个解无法归一化，因此舍去，我们设
+\begin{equation}
+    \psi(\xi)=h(\xi)e^{-\xi^2/2}.
+\end{equation}
+代回原方程得
+\begin{equation}
+    \dv[2]{h}{\xi}-2\xi \dv{h}{\xi}+\left( K-1 \right)h=0.
+\end{equation}
+
+为求出 \(h(\xi)\)，设其为幂级数
+\begin{equation}
+    h(\xi)=a_0+a_1\xi+\cdots=\sum_{j=0}^{\infty}a_j\xi^j.
+\end{equation}
+代入后比较各阶系数，得递推关系
+\begin{equation}
+    \left( j+1 \right)\left( j+2 \right)a_{j+2}-\left( 2j+1-K \right)a_j=0,
+\end{equation}
+即
+\begin{equation}
+    a_{j+2}=\frac{2j+1-K}{\left( j+1 \right)\left( j+2 \right)}a_j.
+\end{equation}
+
+乍看之下，似乎总能得到级数解；但事实上若级数不终止，当 \(j\) 很大时有
+\begin{equation}
+    a_{j+2}\approx \frac{2}{j}a_j,
+\end{equation}
+于是其渐近行为与 \(e^{\xi^2}\) 类似，从而
+\begin{equation}
+    h(\xi)\sim e^{\xi^2},
+    \qquad
+    \psi(\xi)\sim e^{\xi^2/2},
+\end{equation}
+仍然无法归一化。因此级数必须在某处中断，即存在某个 \(n\) 使得
+\begin{equation}
+    a_{n+2}=0.
+\end{equation}
+这要求
+\begin{equation}
+    K=2n+1,
+\end{equation}
+于是能量本征值为
+\begin{equation}
+    E_n=\left( n+\frac{1}{2} \right)\hbar\omega.
+\end{equation}
+
+对于允许的 \(K\)，级数终止后得到多项式解，记为厄米多项式 \(H_n(\xi)\)。因此谐振子的本征函数写成
+\begin{equation}
+    \psi_n(x)
+    =
+    \left( \frac{m\omega}{\pi\hbar} \right)^{1/4}
+    \frac{1}{\sqrt{2^n n!}}
+    H_n(\xi)e^{-\xi^2/2},
+    \qquad
+    \xi=\sqrt{\frac{m\omega}{\hbar}}\,x.
+\end{equation}
+前几个厄米多项式是
+\begin{equation}
+    H_0=1,
+    \qquad
+    H_1=2\xi,
+    \qquad
+    H_2=4\xi^2-2,
+    \qquad
+    H_3=8\xi^3-12\xi.
+\end{equation}
+
+\subsection{自由粒子}
+
+现在考虑完全自由的粒子，即
+\begin{equation}
+    V(x)=0.
+\end{equation}
+对应的定态薛定谔方程为
+\begin{equation}
+    -\frac{\hbar^2}{2m}\dv[2]{\psi}{x}=E\psi,
+\end{equation}
+或写成
+\begin{equation}
+    \dv[2]{\psi}{x}=-k^2\psi,
+    \qquad
+    k\equiv \frac{\sqrt{2mE}}{\hbar}.
+\end{equation}
+这与无限深方势阱内部的方程形式相同，因此其通解为
+\begin{equation}
+    \psi(x)=Ae^{ikx}+Be^{-ikx}.
+\end{equation}
+这里没有边界条件限制，因此 \(k\) 不再量子化。再乘上时间因子 \(e^{-iEt/\hbar}\)，得到
+\begin{equation}
+    \Psi(x,t)
+    =
+    Ae^{ik\left( x-\frac{\hbar k}{2m} t \right)}
+    +
+    Be^{-ik\left( x+\frac{\hbar k^2}{2m} t \right)}.
+\end{equation}
+其中第一项表示沿 \(+x\) 方向传播的平面波，第二项表示沿 \(-x\) 方向传播的平面波。通常也可以写成
+\begin{equation}
+    \Psi_k(x,t)=Ae^{i\left( kx-\frac{\hbar k}{2m} t \right)},
+    \qquad
+    k=\pm \frac{\sqrt{2mE}}{\hbar},
+\end{equation}
+其中 \(k>0\) 表示向右传播，\(k<0\) 表示向左传播。
+
+然而，我们会发现这个波函数无法被归一化，因为
+\begin{equation}
+    \int \Psi_k^* \Psi_k\,\dd x = \abs{A}^2 \int \,\dd x = \text{发散}.
+\end{equation}
+这表明自由粒子不能存在于定态上，不存在一个自由粒子有确定的能能量。
+由此看，自由粒子的``定态''是不停传播的波，波长为\(\lambda=2\pi/\abs{k}\)，具有动量\(p=\hbar k\)。这些波的速度是
+\begin{equation}
+    v_\text{量子} = \frac{\hbar \abs{k}}{2m} = \sqrt{\frac{E}{2m}}.
+\end{equation}

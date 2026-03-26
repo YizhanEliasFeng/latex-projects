@@ -1,0 +1,42 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-zh.tex}
+
+% \usepackage[
+%   backend=biber,
+%   style=authoryear,
+%   sorting=nyt
+% ]{biblatex}
+% \addbibresource{bib/references.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead[L]{冯翊展 2400017802}
+\fancyhead[C]{}
+\fancyhead[R]{Griffiths《量子力学概论》笔记}
+
+\setlength{\parindent}{1.5em}
+
+\allowdisplaybreaks[3]
+\numberwithin{equation}{section}
+
+\usepackage{physics}
+\AtBeginDocument{\RenewCommandCopy\qty\SI}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\input{sections/chapter1.tex}
+\input{sections/chapter2.tex}
+
+%\printbibliography
+
+\end{document}

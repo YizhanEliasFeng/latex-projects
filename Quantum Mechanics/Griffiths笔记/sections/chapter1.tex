@@ -1,0 +1,62 @@
+\newpage
+\section{波函数}
+
+量子力学关心粒子的波函数，满足薛定谔方程，本质上就是单个粒子的总能量等于动能与势能之和：
+\begin{equation}
+    i\hbar\pdv{\Psi}{t} = -\frac{\hbar}{2m} \pdv[2]{\Psi}{x} + V\Psi,
+\end{equation}
+这里$\hbar=h/2\pi$。给定$\Psi(x,0)$，便可以求出对应的$\Psi(x,t)$。
+
+$\abs{\Psi(x,t)}^2$ 表示 $t$ 时刻在 $x$ 处发现粒子的概率，故需要满足归一化：
+\begin{equation}
+    \int_{-\infty}^\infty \abs{\Psi(x,t)}^2\,\dd x = 1.
+\end{equation}
+观察(1.1)，发现$A\Psi$也是方程的一个解，所以我们总可以用一个因子归一化$\Psi$，不能归一化的解将被舍弃。
+
+我们还想说明：假如\(t=0\)时\(\Psi\)被归一化了，那么随时间演变\(\Psi\)始终保持归一化。首先，
+\begin{equation}
+    \begin{split}
+        \dv{t}\int_{-\infty}^\infty \abs{\Psi(x,t)}^2 \, \dd x &= \int_{-\infty}^\infty \pdv{t}\abs{\Psi}^2\,\dd x\\
+        &=\int_{-\infty}^\infty \pdv{t}(\Psi^*\Psi)\,\dd x\\
+        &=\int_{-\infty}^\infty \Psi^*\pdv{\Psi}{t} + \pdv{\Psi^*}{t}\Psi \,\dd x.
+    \end{split}
+\end{equation}
+变换(1.1)并取共轭，
+\begin{eqnarray}
+    \pdv{\Psi}{t} = \frac{i\hbar}{2m} \pdv[2]{\Psi}{x} - \frac{i}{\hbar}V\Psi, \qquad \pdv{\Psi^*}{t} = -\frac{i\hbar}{2m} \pdv[2]{\Psi^*}{x} + \frac{i}{\hbar}V\Psi^* \\
+    \implies \pdv{t}\abs{\Psi}^2 = \frac{i\hbar}{2m}\left(\Psi^*\pdv[2]{\Psi}{x}-\pdv[2]{\Psi^*}{x}\right) = \pdv{x}\left[\frac{i\hbar}{2m}\left(\Psi^*\pdv{\Psi}{x}-\pdv{\Psi^*}{x}\Psi\right)\right]\\
+    \implies \dv{t}\int_{-\infty}^{\infty}\abs{\Psi}^2\,\dd x = \eval{\frac{i\hbar}{2m}\left(\Psi^*\pdv{\Psi}{x}-\pdv{\Psi^*}{x}\Psi\right)}_{-\infty}^{\infty},
+\end{eqnarray}
+但归一化要求\(x\to\pm \infty\)时，\(\Psi\to0\)，因此这个积分为\(0\)。
+
+对于\(\Psi\)态的粒子，\(x\)的期望\(\ev{x}=\int x\abs{\Psi}^2\,\dd x\)。随着\(t\)变化\(\ev{x}\)也变化，我们可以记速度的期望为\(\ev{v}=\dv{\ev{x}}{t}\)，利用(1.7)：
+\begin{equation}
+    \begin{split}
+        \dv{\ev{x}}{t} &=  \int x \pdv{t}\abs{\Psi}^2\,\dd x \\
+        &= \frac{i\hbar}{2m}\int x\pdv{x}\left(\Psi^*\pdv{\Psi}{x}-\pdv{\Psi^*}{x}\Psi\right)\,\dd x \quad \text{（分部积分）}\\
+        &= -\frac{i\hbar}{2m} \int \left(\Psi^*\pdv{\Psi}{x}-\pdv{\Psi^*}{x}\Psi\right) \,\dd x \quad \text{（对第二项分部积分）}\\
+        &= -\frac{i\hbar}{m} \int \Psi^*\pdv{\Psi}{x} \,\dd x.
+    \end{split}
+\end{equation}
+
+比起\(\ev{v}\)，我们更常用动量\(\ev{p}=m\ev{v}\)，
+\begin{equation}
+    \ev{p}=-i\hbar\int \Psi^*\pdv{\Psi}{x} \,\dd x = \int \Psi^* \left(-i\hbar \pdv{x}\right) \Psi \,\dd x,
+\end{equation}
+这样我们就引入了动量算符 \(\hat{p} = -i\hbar\pdv{x}\)。类似地，动能期望为
+\begin{equation}
+    \ev{T} = \int \Psi^* \left(\frac{\hat{p}^2}{2m}\right) \Psi \,\dd x = -\frac{\hbar^2}{2m}\int \Psi^* \pdv[2]{\Psi}{x} \,\dd x.
+\end{equation}
+可以验证，这里\(\ev{p}\)依然像经典定律满足
+\begin{equation}
+    \dv{\ev{p}}{t} = \ev{-\pdv{V}{x}}.
+\end{equation}
+
+最后我们给出不确定性原理。粒子的动量和波长由德布罗意公式联系：
+\begin{equation}
+    p=\frac{h}{\lambda}=\frac{2\pi\hbar}{\lambda}.
+\end{equation}
+这样，波长的弥散就对应动量的弥散。对于通常的观测，我们无法兼顾位置与动量的精确：
+\begin{equation}
+    \sigma_x \sigma_p \ge \frac{\hbar}{2}.
+\end{equation}

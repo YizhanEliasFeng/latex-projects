@@ -1,0 +1,1185 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-zh.tex}
+
+% \usepackage[
+%   backend=biber,
+%   style=numeric,
+%   sorting=none
+% ]{biblatex}
+% \addbibresource{bib/references.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead[L]{冯翊展 2400017802}
+\fancyhead[C]{}
+\fancyhead[R]{量子力学（A）（2026年春）第3章作业}
+
+\allowdisplaybreaks[3]
+
+\usepackage{physics}
+\AtBeginDocument{\RenewCommandCopy\qty\SI}
+
+\begin{document}
+
+\maketitle
+
+\section{}
+设 \(A\) 与 \(B\) 为厄米算符，则
+\[
+\frac{1}{2}(AB+BA)
+\quad \text{和} \quad
+\frac{1}{2i}(AB-BA)
+\]
+也均是厄米算符。由此证明：任何一个算符 \(F\) 均可分解为
+\[
+F = F_{+} + iF_{-},
+\]
+其中
+\[
+F_{+} = \frac{1}{2}(F+F^{+}), 
+\qquad
+F_{-} = \frac{1}{2i}(F-F^{+}),
+\]
+且 \(F_{+}\) 与 \(F_{-}\) 均为厄米算符。
+
+\vspace{0.5cm}
+
+
+\noindent\textbf{证明：}因为 \(A^{+}=A,\ B^{+}=B\)，所以
+\[
+\left[\frac{1}{2}(AB+BA)\right]^{+}
+=
+\frac{1}{2}(B^{+}A^{+}+A^{+}B^{+})
+=
+\frac{1}{2}(BA+AB)
+=
+\frac{1}{2}(AB+BA),
+\]
+\[
+\left[\frac{1}{2i}(AB-BA)\right]^{+}
+=
+-\frac{1}{2i}(B^{+}A^{+}-A^{+}B^{+})
+=
+-\frac{1}{2i}(BA-AB)
+=
+\frac{1}{2i}(AB-BA).
+\]
+即
+\[
+\frac{1}{2}(AB+BA)
+\quad \text{和} \quad
+\frac{1}{2i}(AB-BA)
+\]
+均为厄米算符。
+
+又
+\[
+F=\frac{F}{2}+\frac{F}{2}
+=\frac{1}{2}(F+F^{+})+\frac{1}{2}(F-F^{+})
+=F_{+}+iF_{-}.
+\]
+而
+\[
+F_{+}=\frac{1}{2}(F+F^{+}),
+\qquad
+F_{-}=\frac{1}{2i}(F-F^{+}),
+\]
+显然均为厄米算符。
+
+\section{}
+已知粒子的坐标 \(\vb{r}\) 和动量 \(\vb{p}\) 均为厄米算符，判断下列算符是否为厄米算符：
+\[
+\vb{l}=\vb{r}\times\vb{p},\qquad
+\vb{r}\cdot\vb{p},\qquad
+\vb{p}\times\vb{l},\qquad
+\vb{r}\times\vb{l}.
+\]
+如果不是，试构造相应的厄米算符。
+
+\vspace{0.5cm}
+
+\noindent\textbf{解：}
+对于\(\vb{l}=\vb{r}\times\vb{p}\)，有
+\[
+l_x=yp_z-zp_y,
+\]
+于是
+\[
+l_x^{+}
+=
+(yp_z-zp_y)^{+}
+=
+p_z^{+}y^{+}-p_y^{+}z^{+}
+=
+p_zy-p_yz
+=
+yp_z-zp_y
+=
+l_x.
+\]
+同理
+\[
+l_y^{+}=l_y,\qquad l_z^{+}=l_z.
+\]
+所以\(\vb{l}=\vb{r}\times\vb{p}=\vb{l}^{+}\)是厄米算符。
+
+对于\(\vb{r}\cdot\vb{p}\)，有
+\[
+(\vb{r}\cdot\vb{p})^{+}
+=
+(xp_x+yp_y+zp_z)^{+}
+=
+p_xx+p_yy+p_zz.
+\]
+而
+\[
+p_xx=xp_x-i\hbar,\qquad
+p_yy=yp_y-i\hbar,\qquad
+p_zz=zp_z-i\hbar,
+\]
+故
+\[
+(\vb{r}\cdot\vb{p})^{+}
+=
+\vb{r}\cdot\vb{p}-3i\hbar.
+\]
+因此 \(\vb{r}\cdot\vb{p}\) 不是厄米算符。相应的厄米算符为
+\[
+\frac{1}{2}\left[(\vb{r}\cdot\vb{p})+(\vb{p}\cdot\vb{r})\right]
+=
+\vb{r}\cdot\vb{p}-\frac{3}{2}i\hbar.
+\]
+
+类似地，
+\[
+(\vb{p}\times\vb{l})^{+}=-(\vb{l}\times\vb{p}),
+\]
+本身非厄米算符，但可以构造相应的厄米算符
+\[
+\frac{1}{2}\left[(\vb{p}\times\vb{l})-(\vb{l}\times\vb{p})\right]
+=
+\vb{p}\times\vb{l}-i\hbar \vb{p}.
+\]
+
+又
+\[
+(\vb{r}\times\vb{l})^{+}=-(\vb{l}\times\vb{r}),
+\]
+本身也非厄米算符，但可以构造相应的厄米算符
+\[
+\frac{1}{2}\left[(\vb{r}\times\vb{l})-(\vb{l}\times\vb{r})\right]
+=
+\vb{r}\times\vb{l}-i\hbar \vb{r}.
+\]
+
+\section{}
+设 \(F(x,p)\) 是 \(x\) 和 \(p\) 的整函数，证明
+\[
+[p,F]=-i\hbar \pdv{F}{x},
+\qquad
+[x,F]=i\hbar \pdv{F}{p}.
+\]
+整函数是指 \(F(x,p)\) 可以展开成
+\[
+F(x,p)=\sum_{m,n=0}^{\infty}C_{mn}x^{m}p^{n}.
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{证明：}由
+\[
+[p,x^{m}]=-mi\hbar x^{m-1},
+\qquad
+[x,p^{n}]=ni\hbar p^{n-1},
+\]
+则
+\begin{align*}
+    [p,F]
+    &=
+    \sum_{m,n=0}^{\infty} C_{mn}[p,x^{m}]p^{n}
+    =
+    \sum_{m,n=0}^{\infty} C_{mn}(-i\hbar)mx^{m-1}p^{n}\\
+    &=
+    -i\hbar \pdv{x}
+    \sum_{m,n=0}^{\infty} C_{mn}x^{m}p^{n}
+    =
+    -i\hbar \pdv{F}{x}.
+\end{align*}
+同理，
+\begin{align*}
+    [x,F]
+    &=
+    \sum_{m,n=0}^{\infty} C_{mn}[x,p^{n}]x^{m}
+    =
+    \sum_{m,n=0}^{\infty} C_{mn}(i\hbar)np^{n-1}x^{m}\\
+    &=
+    -i\hbar \pdv{p}\sum_{m,n=0}^{\infty} C_{mn}x^{m}p^{n}
+    =
+    -i\hbar \pdv{F}{p}.
+\end{align*}
+
+\section{}
+定义反对易式
+\[
+[A,B]_{+}\equiv AB+BA.
+\]
+证明
+\[
+[AB,C]=A[B,C]_{+}-[A,C]_{+}B,
+\qquad
+[A,BC]=[A,B]_{+}C-B[A,C]_{+}.
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{证明：}
+\begin{align*}
+    A[B,C]_{+}-[A,C]_{+}B
+    &=
+    A(BC+CB)-(AC+CA)B\\
+    &=
+    ABC+ACB-ACB-CAB\\
+    &=
+    ABC-CAB\\
+    &=
+    [AB,C].
+\end{align*}
+\begin{align*}
+    [A,B]_{+}C-B[A,C]_{+}
+    &=
+    (AB+BA)C-B(AC+CA)\\
+    &=
+    ABC+BAC-BAC-BCA\\
+    &=
+    ABC-BCA\\
+    &=
+    [A,BC].
+\end{align*}
+
+\section{}
+设 \(\vb{A},\vb{B},\vb{C}\) 为矢量算符，\(\vb{A}\) 和 \(\vb{B}\) 的标积和矢积定义为
+\[
+\vb{A}\cdot \vb{B}=\sum_{\alpha}A_{\alpha}B_{\alpha},
+\qquad
+(\vb{A}\times \vb{B})_{\gamma}=\sum_{\alpha\beta}\varepsilon_{\alpha\beta\gamma}A_{\alpha}B_{\beta},
+\]
+其中 \(\alpha,\beta,\gamma=x,y,z\)，\(\varepsilon_{\alpha\beta\gamma}\) 为 Levi-Civita 符号。试验证
+\[
+\vb{A}\cdot (\vb{B}\times \vb{C})=(\vb{A}\times \vb{B})\cdot \vb{C}=\sum_{\alpha\beta\gamma}\varepsilon_{\alpha\beta\gamma}A_{\alpha}B_{\beta}C_{\gamma},
+\]
+\[
+[\vb{A}\times (\vb{B}\times \vb{C})]_{\alpha}=\vb{A}\cdot(B_{\alpha}\vb{C})-(\vb{A}\cdot \vb{B})C_{\alpha},
+\]
+\[
+[(\vb{A}\times \vb{B})\times \vb{C}]_{\alpha}=\vb{A}\cdot(B_{\alpha}\vb{C})-A_{\alpha}(\vb{B}\cdot \vb{C}).
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{证明：}由定义，
+\[
+\vb{A}\cdot (\vb{B}\times \vb{C})
+=
+\sum_{\gamma}A_{\gamma}(\vb{B}\times \vb{C})_{\gamma}
+=
+\sum_{\alpha\beta\gamma}\varepsilon_{\alpha\beta\gamma}A_{\gamma}B_{\alpha}C_{\beta}.
+\]
+将求和指标循环重命名，可得
+\[
+\vb{A}\cdot (\vb{B}\times \vb{C})
+=
+\sum_{\alpha\beta\gamma}\varepsilon_{\alpha\beta\gamma}A_{\alpha}B_{\beta}C_{\gamma}.
+\]
+同理，
+\[
+(\vb{A}\times \vb{B})\cdot \vb{C}
+=
+\sum_{\gamma}(\vb{A}\times \vb{B})_{\gamma}C_{\gamma}
+=
+\sum_{\alpha\beta\gamma}\varepsilon_{\alpha\beta\gamma}A_{\alpha}B_{\beta}C_{\gamma}.
+\]
+故
+\[
+\vb{A}\cdot (\vb{B}\times \vb{C})
+=
+(\vb{A}\times \vb{B})\cdot \vb{C}
+=
+\sum_{\alpha\beta\gamma}\varepsilon_{\alpha\beta\gamma}A_{\alpha}B_{\beta}C_{\gamma}.
+\]
+
+再证第二式：
+\[
+[\vb{A}\times (\vb{B}\times \vb{C})]_{\alpha}
+=
+\sum_{\beta\gamma}\varepsilon_{\beta\gamma\alpha}A_{\beta}(\vb{B}\times \vb{C})_{\gamma}
+=
+\sum_{\beta\gamma\mu\nu}\varepsilon_{\beta\gamma\alpha}\varepsilon_{\mu\nu\gamma}A_{\beta}B_{\mu}C_{\nu}.
+\]
+利用恒等式
+\[
+\sum_{\gamma}\varepsilon_{\beta\gamma\alpha}\varepsilon_{\mu\nu\gamma}
+=
+\delta_{\alpha\mu}\delta_{\beta\nu}-\delta_{\alpha\nu}\delta_{\beta\mu},
+\]
+得
+\[
+[\vb{A}\times (\vb{B}\times \vb{C})]_{\alpha}
+=
+\sum_{\beta\mu\nu}
+(\delta_{\alpha\mu}\delta_{\beta\nu}-\delta_{\alpha\nu}\delta_{\beta\mu})
+A_{\beta}B_{\mu}C_{\nu},
+\]
+即
+\[
+[\vb{A}\times (\vb{B}\times \vb{C})]_{\alpha}
+=
+\sum_{\beta}A_{\beta}B_{\alpha}C_{\beta}
+-
+\sum_{\beta}A_{\beta}B_{\beta}C_{\alpha}
+=
+\vb{A}\cdot (B_{\alpha}\vb{C})-(\vb{A}\cdot \vb{B})C_{\alpha}.
+\]
+
+最后，
+\[
+[(\vb{A}\times \vb{B})\times \vb{C}]_{\alpha}
+=
+\sum_{\beta\gamma}\varepsilon_{\beta\gamma\alpha}(\vb{A}\times \vb{B})_{\beta}C_{\gamma}
+=
+\sum_{\beta\gamma\mu\nu}\varepsilon_{\beta\gamma\alpha}\varepsilon_{\mu\nu\beta}A_{\mu}B_{\nu}C_{\gamma}.
+\]
+利用恒等式
+\[
+\sum_{\beta}\varepsilon_{\beta\gamma\alpha}\varepsilon_{\mu\nu\beta}
+=
+\delta_{\alpha\mu}\delta_{\gamma\nu}-\delta_{\alpha\nu}\delta_{\gamma\mu},
+\]
+得
+\[
+[(\vb{A}\times \vb{B})\times \vb{C}]_{\alpha}
+=
+\sum_{\mu\nu\gamma}
+(\delta_{\alpha\mu}\delta_{\gamma\nu}-\delta_{\alpha\nu}\delta_{\gamma\mu})
+A_{\mu}B_{\nu}C_{\gamma},
+\]
+即
+\[
+[(\vb{A}\times \vb{B})\times \vb{C}]_{\alpha}
+=
+\sum_{\mu}A_{\mu}B_{\alpha}C_{\mu}
+-
+\sum_{\gamma}A_{\alpha}B_{\gamma}C_{\gamma}
+=
+\vb{A}\cdot (B_{\alpha}\vb{C})-A_{\alpha}(\vb{B}\cdot \vb{C}).
+\]
+
+\section{}
+设 \(\vb{A}\) 与 \(\vb{B}\) 为矢量算符，\(F\) 为标量算符。证明
+\[
+[F,\vb{A}\cdot \vb{B}]=[F,\vb{A}]\cdot \vb{B}+\vb{A}\cdot [F,\vb{B}],
+\]
+\[
+[F,\vb{A}\times \vb{B}]=[F,\vb{A}]\times \vb{B}+\vb{A}\times [F,\vb{B}].
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{证明：}由标积定义，
+\[
+[F,\vb{A}\cdot \vb{B}]
+=
+\left[F,\sum_{\alpha}A_{\alpha}B_{\alpha}\right]
+=
+\sum_{\alpha}[F,A_{\alpha}B_{\alpha}].
+\]
+利用对易子的展开公式
+\[
+[F,AB]=[F,A]B+A[F,B],
+\]
+可得
+\[
+[F,\vb{A}\cdot \vb{B}]
+=
+\sum_{\alpha}\left([F,A_{\alpha}]B_{\alpha}+A_{\alpha}[F,B_{\alpha}]\right)
+=
+[F,\vb{A}]\cdot \vb{B}+\vb{A}\cdot [F,\vb{B}].
+\]
+
+再由矢积定义，
+\[
+[F,\vb{A}\times \vb{B}]_{\gamma}
+=
+\left[F,\sum_{\alpha\beta}\varepsilon_{\alpha\beta\gamma}A_{\alpha}B_{\beta}\right]
+=
+\sum_{\alpha\beta}\varepsilon_{\alpha\beta\gamma}[F,A_{\alpha}B_{\beta}].
+\]
+同样利用
+\[
+[F,AB]=[F,A]B+A[F,B],
+\]
+得
+\begin{align*}
+    [F,\vb{A}\times \vb{B}]_{\gamma}
+    &=
+    \sum_{\alpha\beta}\varepsilon_{\alpha\beta\gamma}
+    \left([F,A_{\alpha}]B_{\beta}+A_{\alpha}[F,B_{\beta}]\right)\\
+    &=
+    \left([F,\vb{A}]\times \vb{B}\right)_{\gamma}
+    +
+    \left(\vb{A}\times [F,\vb{B}]\right)_{\gamma}.
+\end{align*}
+故
+\[
+[F,\vb{A}\times \vb{B}]
+=
+[F,\vb{A}]\times \vb{B}+\vb{A}\times [F,\vb{B}].
+\]
+
+\section{}
+设 \(F\) 是由 \(\vb{r}\) 与 \(\vb{p}\) 的整函数构成的算符，证明
+\[
+[\vb{l},F]
+=
+i\hbar \pdv{F}{\vb{p}}\times \vb{p}
+-
+i\hbar \vb{r}\times \pdv{F}{\vb{r}}.
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{证明：}由
+\[
+\vb{l}=\vb{r}\times \vb{p},
+\qquad
+l_{\alpha}=\sum_{\beta\gamma}\varepsilon_{\beta\gamma\alpha}r_{\beta}p_{\gamma},
+\]
+有
+\[
+[l_{\alpha},F]
+=
+\sum_{\beta\gamma}\varepsilon_{\beta\gamma\alpha}[r_{\beta}p_{\gamma},F].
+\]
+利用
+\[
+[AB,F]=A[B,F]+[A,F]B,
+\]
+得
+\[
+[l_{\alpha},F]
+=
+\sum_{\beta\gamma}\varepsilon_{\beta\gamma\alpha}
+\left(
+r_{\beta}[p_{\gamma},F]+[r_{\beta},F]p_{\gamma}
+\right).
+\]
+又由
+\[
+[p_{\gamma},F]=-i\hbar \pdv{F}{r_{\gamma}},
+\qquad
+[r_{\beta},F]=i\hbar \pdv{F}{p_{\beta}},
+\]
+可得
+\[
+[l_{\alpha},F]
+=
+\sum_{\beta\gamma}\varepsilon_{\beta\gamma\alpha}
+\left(
+-i\hbar r_{\beta}\pdv{F}{r_{\gamma}}
++i\hbar \pdv{F}{p_{\beta}}p_{\gamma}
+\right).
+\]
+因此
+\[
+[l_{\alpha},F]
+=
+\left(
+i\hbar \pdv{F}{\vb{p}}\times \vb{p}
+-i\hbar \vb{r}\times \pdv{F}{\vb{r}}
+\right)_{\alpha}.
+\]
+故
+\[
+[\vb{l},F]
+=
+i\hbar \pdv{F}{\vb{p}}\times \vb{p}
+-
+i\hbar \vb{r}\times \pdv{F}{\vb{r}}.
+\]
+
+\section{}
+证明
+\[
+\vb{p}\times \vb{l}+\vb{l}\times \vb{p}=2i\hbar \vb{p},
+\]
+\[
+i\hbar (\vb{p}\times \vb{l}-\vb{l}\times \vb{p})=[\vb{l}^{2},\vb{p}].
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{证明：}先证第一式。由
+\[
+\vb{l}=\vb{r}\times \vb{p},
+\qquad
+[l_{\alpha},p_{\beta}]=i\hbar \sum_{\gamma}\varepsilon_{\alpha\beta\gamma}p_{\gamma},
+\]
+有
+\[
+(\vb{p}\times \vb{l}+\vb{l}\times \vb{p})_{\alpha}
+=
+\sum_{\beta\gamma}\varepsilon_{\beta\gamma\alpha}(p_{\beta}l_{\gamma}+l_{\beta}p_{\gamma}).
+\]
+将第二项中指标 \(\beta,\gamma\) 对调，得
+\[
+(\vb{p}\times \vb{l}+\vb{l}\times \vb{p})_{\alpha}
+=
+\sum_{\beta\gamma}\varepsilon_{\beta\gamma\alpha}(p_{\beta}l_{\gamma}-l_{\gamma}p_{\beta})
+=
+\sum_{\beta\gamma}\varepsilon_{\beta\gamma\alpha}[p_{\beta},l_{\gamma}].
+\]
+又因
+\[
+[p_{\beta},l_{\gamma}]=-i\hbar \sum_{\delta}\varepsilon_{\gamma\beta\delta}p_{\delta},
+\]
+故
+\[
+(\vb{p}\times \vb{l}+\vb{l}\times \vb{p})_{\alpha}
+=
+-i\hbar \sum_{\beta\gamma\delta}
+\varepsilon_{\beta\gamma\alpha}\varepsilon_{\gamma\beta\delta}p_{\delta}
+=
+2i\hbar\, p_{\alpha}.
+\]
+因此
+\[
+\vb{p}\times \vb{l}+\vb{l}\times \vb{p}=2i\hbar \vb{p}.
+\]
+
+再证第二式。由
+\[
+[l^{2},p_{\alpha}]
+=
+\sum_{\beta}(l_{\beta}[l_{\beta},p_{\alpha}]+[l_{\beta},p_{\alpha}]l_{\beta}),
+\]
+以及
+\[
+[l_{\beta},p_{\alpha}]
+=
+i\hbar \sum_{\gamma}\varepsilon_{\beta\alpha\gamma}p_{\gamma},
+\]
+可得
+\[
+[l^{2},p_{\alpha}]
+=
+i\hbar \sum_{\beta\gamma}\varepsilon_{\beta\alpha\gamma}(l_{\beta}p_{\gamma}+p_{\gamma}l_{\beta}).
+\]
+将 \(\varepsilon_{\beta\alpha\gamma}=-\varepsilon_{\alpha\beta\gamma}\) 代入，并与叉乘分量比较，得
+\[
+[l^{2},p_{\alpha}]
+=
+i\hbar (\vb{p}\times \vb{l}-\vb{l}\times \vb{p})_{\alpha}.
+\]
+故
+\[
+i\hbar (\vb{p}\times \vb{l}-\vb{l}\times \vb{p})=[l^{2},\vb{p}].
+\]
+
+\section{}
+计算
+\[
+\left[\left[\laplacian,x^{l}y^{m}z^{n}\right],r^{2}\right].
+\]
+
+\noindent\textbf{解：}设
+\[
+f=x^{l}y^{m}z^{n}.
+\]
+先利用恒等式
+\[
+\laplacian(f\psi)=f\laplacian\psi+2\nabla f\cdot \nabla\psi+(\laplacian f)\psi,
+\]
+可得作为算符恒等式
+\[
+[\laplacian,f]=2\nabla f\cdot \nabla+\laplacian f.
+\]
+因此
+\[
+\left[\left[\laplacian,f\right],r^{2}\right]
+=
+\left[2\nabla f\cdot \nabla+\laplacian f,\ r^{2}\right].
+\]
+其中 \(\laplacian f\) 是纯乘法算符，与 \(r^{2}\) 对易，故
+\[
+\left[\left[\laplacian,f\right],r^{2}\right]
+=
+2\left[\nabla f\cdot \nabla,\ r^{2}\right].
+\]
+又因为
+\[
+\nabla f\cdot \nabla
+=
+\pdv{f}{x}\pdv{x}
++\pdv{f}{y}\pdv{y}
++\pdv{f}{z}\pdv{z},
+\]
+并且
+\[
+\left[\pdv{x},r^{2}\right]=2x,\qquad
+\left[\pdv{y},r^{2}\right]=2y,\qquad
+\left[\pdv{z},r^{2}\right]=2z,
+\]
+所以
+\[
+\left[\nabla f\cdot \nabla,\ r^{2}\right]
+=
+2\left(
+x\pdv{f}{x}+y\pdv{f}{y}+z\pdv{f}{z}
+\right).
+\]
+而
+\[
+x\pdv{f}{x}=lf,\qquad
+y\pdv{f}{y}=mf,\qquad
+z\pdv{f}{z}=nf.
+\]
+故
+\[
+\left[\nabla f\cdot \nabla,\ r^{2}\right]
+=
+2(l+m+n)f.
+\]
+最终得到
+\[
+\left[\left[\laplacian,x^{l}y^{m}z^{n}\right],r^{2}\right]
+=
+4(l+m+n)x^{l}y^{m}z^{n}.
+\]
+
+\section{}
+定义径向动量算符
+\[
+p_{r}=\frac{1}{2}\left(\frac{1}{r}\,\vb{r}\cdot \vb{p}+\vb{p}\cdot \vb{r}\,\frac{1}{r}\right).
+\]
+证明：
+
+\begin{enumerate}[label=(\alph*)]
+    \item \[p_{r}^{+}=p_{r};\]
+    \item
+    \[
+    p_{r}=-i\hbar \left(\pdv{r}+\frac{1}{r}\right);
+    \]
+    \item
+    \[
+    [r,p_{r}]=i\hbar;
+    \]
+    \item
+    \[
+    p_{r}^{2}
+    =
+    -\hbar^{2}\left(\pdv[2]{r}+\frac{2}{r}\pdv{r}\right)
+    =
+    -\hbar^{2}\frac{1}{r^{2}}\pdv{r}r^{2}\pdv{r};
+    \]
+    \item
+    \[
+    p^{2}=\frac{1}{r^{2}}l^{2}+p_{r}^{2}.
+    \]
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{证明：}由
+\[
+\vb{p}=-i\hbar \nabla,
+\qquad
+\vb{r}\cdot \vb{p}=-i\hbar r\pdv{r},
+\qquad
+\vb{p}\cdot \vb{r}=-i\hbar \left(3+r\pdv{r}\right),
+\]
+可得
+\[
+p_r
+=
+\frac{1}{2}\left(\frac{1}{r}\vb r\cdot \vb p+\vb p\cdot \vb r\,\frac{1}{r}\right)
+=
+-\frac{i\hbar}{2}\left(\pdv{r}+\frac{1}{r}\left(3+r\pdv{r}\right)\frac{1}{r}\right)
+=
+-i\hbar\left(\pdv{r}+\frac{1}{r}\right).
+\]
+故 (b) 成立。
+
+由上式直接可见
+\[
+p_r^+=p_r,
+\]
+故 (a) 成立。
+
+再由
+\[
+\left[r,\pdv{r}\right]=-1,
+\]
+得
+\[
+[r,p_r]
+=
+-i\hbar \left[r,\pdv{r}\right]
+=
+i\hbar,
+\]
+故 (c) 成立。
+
+由
+\[
+p_r=-i\hbar\left(\pdv{r}+\frac{1}{r}\right),
+\]
+得
+\[
+p_r^2
+=
+-\hbar^2\left(\pdv{r}+\frac{1}{r}\right)\left(\pdv{r}+\frac{1}{r}\right)
+=
+-\hbar^2\left(\pdv[2]{r}+\frac{2}{r}\pdv{r}\right).
+\]
+又
+\[
+\frac{1}{r^2}\pdv{r}r^2\pdv{r}
+=
+\pdv[2]{r}+\frac{2}{r}\pdv{r},
+\]
+故
+\[
+p_r^{2}
+=
+-\hbar^{2}\left(\pdv[2]{r}+\frac{2}{r}\pdv{r}\right)
+=
+-\hbar^{2}\frac{1}{r^{2}}\pdv{r}r^{2}\pdv{r}.
+\]
+故 (d) 成立。
+
+最后，由球坐标中 Laplace 算符分解
+\[
+\nabla^2
+=
+\frac{1}{r^2}\pdv{r}r^2\pdv{r}
+-\frac{l^2}{\hbar^2 r^2},
+\]
+于是
+\[
+p^2=-\hbar^2\nabla^2
+=
+-\hbar^2\frac{1}{r^2}\pdv{r}r^2\pdv{r}
++\frac{l^2}{r^2}
+=
+p_r^2+\frac{l^2}{r^2}.
+\]
+故 (e) 成立。
+
+\section{}
+利用不确定度关系估算谐振子的基态能量。
+
+\noindent\textbf{解：}
+由于一维谐振子势具有对坐标原点的反射对称性，故
+\[
+\overline{x}=0,\qquad \overline{p}=0.
+\]
+因而
+\[
+\overline{\Delta x^{2}}=\overline{x^{2}}-\overline{x}^{2}=\overline{x^{2}},
+\qquad
+\overline{\Delta\vb{p}^{2}}=\overline{p^{2}}-\overline{p}^{2}=\overline{p^{2}}.
+\]
+所以在能量本征态下
+\[
+E=\frac{\overline{p^{2}}}{2m}+\frac{1}{2}m\omega^{2}\overline{x^{2}}
+=
+\frac{\overline{\Delta p^{2}}}{2m}+\frac{1}{2}m\omega^{2}\overline{\Delta x^{2}}.
+\]
+按不确定度关系
+\[
+\overline{(\Delta x)^{2}}\cdot \overline{(\Delta p)^{2}}\ge \frac{\hbar^{2}}{4},
+\]
+故
+\[
+E\ge \frac{\hbar^{2}}{8m\,\overline{(\Delta x)^{2}}}
++\frac{1}{2}m\omega^{2}\overline{(\Delta x)^{2}}.
+\]
+它取极小值的条件为
+\[
+\pdv{E}{\overline{(\Delta x)^{2}}}=0 \implies \overline{(\Delta x)^{2}}=\frac{\hbar}{2m\omega}.
+\]
+代回可知
+\[
+E\ge \frac{1}{2}\hbar \omega.
+\]
+所以谐振子基态能量为
+\[
+E_{0}=\frac{1}{2}\hbar \omega.
+\]
+
+\section{}
+证明在离散的能量本征态下动量平均值为零。
+
+\vspace{0.5cm}
+
+\noindent\textbf{证明：}
+体系的 Hamilton 量为
+\[
+H=\frac{{p}^{2}}{2m}+V(\vb{r}).
+\]
+有
+\[
+[r,H]=\left[r,\frac{p^{2}}{2m}\right]=i\hbar \frac{p}{m},
+\]
+即
+\[
+p=-i\frac{m}{\hbar}[r,H].
+\]
+对于束缚态，能量本征值是离散的，本征波函数 \(\psi\) 满足 \(H\psi=E\psi\)，并且可以归一化，所以
+\[
+\overline{p}=(\psi,p\psi)
+=
+-\frac{im}{\hbar}(\psi,[r,H]\psi)
+=
+-\frac{im}{\hbar}\left[(\psi,rH\psi)-(\psi,Hr\psi)\right]
+\]
+\[
+=
+-\frac{im}{\hbar}\left[(\psi,rH\psi)-(H\psi,r\psi)\right]
+=
+-\frac{im}{\hbar}E\left[\overline{r}-\overline{r}\right]
+=
+0.
+\]
+
+\section{}
+证明力学量 \(x\) 与 \(F(p_{x})\) 的不确定度关系
+\[
+\sqrt{\overline{(\Delta x)^{2}}\ \overline{(\Delta F)^{2}}}
+\ge
+\frac{\hbar}{2}\left|\pdv{F}{p_{x}}\right|.
+\]
+以 Hamilton 量
+\[
+H=\frac{p^{2}}{2m}+V(r)
+\]
+为例，结合 3.12 题进行讨论。
+
+\vspace{0.5cm}
+
+\noindent\textbf{证明：}
+利用 3.3 题
+\[
+[x,F]=i\hbar \pdv{F}{p_{x}},
+\]
+可得
+\[
+\sqrt{\overline{(\Delta x)^{2}}\ \overline{(\Delta F)^{2}}}
+\ge
+\frac{1}{2}\left|\overline{\left[x,F\right]}\right|
+=
+\frac{\hbar}{2}\left|\pdv{F}{p_{x}}\right|.
+\]
+
+\section{}
+证明在 \(l_{z}\) 的本征态下 \(\overline{l}_{x}=\overline{l}_{y}=0\)。
+
+\vspace{0.5cm}
+
+\noindent\textbf{证明：}
+假设 \(\psi_{m}\) 是 \(l_{z}\) 的本征态，相应本征值为 \(m\hbar\)，即
+\[
+l_{z}\psi_{m}=m\hbar \psi_{m}.
+\]
+根据角动量的对易关系
+\[
+l_{y}l_{z}-l_{z}l_{y}=i\hbar l_{x},
+\]
+可得
+\begin{align*}
+\overline{l}_{x}
+&=
+\frac{1}{i\hbar}\int \psi_{m}^{*}(l_{y}l_{z}-l_{z}l_{y})\psi_{m}\,\dd\tau\\
+&=\frac{1}{i\hbar}
+\left[\int \psi_{m}^{*}l_{y}l_{z}\psi_{m}\,\dd\tau
+-
+\int \psi_{m}^{*}l_{z}l_{y}\psi_{m}\,\dd\tau\right]\\ 
+&=\frac{1}{i\hbar}
+\left[
+m\hbar \int \psi_{m}^{*}l_{y}\psi_{m}\,\dd\tau
+-
+\int (l_{z}\psi_{m})^{*}l_{y}\psi_{m}\,\dd\tau
+\right]\\
+&=
+\frac{1}{i\hbar}m\hbar (\overline{l}_{y}-\overline{l}_{y})\\
+&=
+0.
+\end{align*}
+
+类似地，由
+\[
+l_{z}l_{x}-l_{x}l_{z}=i\hbar l_{y}
+\]
+可以证明
+\[
+\overline{l}_{y}=0.
+\]
+
+\section{}
+设粒子处于 \(Y_{lm}(\theta,\varphi)\) 状态下，求
+\[
+\overline{(\Delta l_{x})^{2}}
+\quad \text{和} \quad
+\overline{(\Delta l_{y})^{2}}.
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{解：}
+\(Y_{lm}(\theta,\varphi)\) 是 \(l^{2}\) 及 \(l_{z}\) 的本征函数，即
+\[
+l^{2}Y_{lm}(\theta,\varphi)=l(l+1)\hbar^{2}Y_{lm}(\theta,\varphi),
+\qquad
+l_{z}Y_{lm}(\theta,\varphi)=m\hbar Y_{lm}(\theta,\varphi).
+\]
+按 3.14 题，
+\[
+\overline{l}_{x}=\overline{l}_{y}=0,
+\]
+故
+\[
+\overline{(\Delta l_{x})^{2}}=\overline{l_{x}^{2}},
+\qquad
+\overline{(\Delta l_{y})^{2}}=\overline{l_{y}^{2}}.
+\]
+
+再证明
+\[
+\overline{l_{x}^{2}}=\overline{l_{y}^{2}}.
+\]
+利用
+\[
+l_{x}=\frac{1}{2}(l_{+}+l_{-}),
+\qquad
+l_{y}=\frac{1}{2i}(l_{+}-l_{-}),
+\]
+并在 \(\lvert lm\rangle\) 态下取平均，有
+\[
+\langle l m\lvert l _{x}^{2}\rvert l m\rangle
+=
+\frac{1}{4}
+\langle l m\lvert
+l_{+}l_{+}+l_{+}l_{-}+l_{-}l_{+}+l_{-}l_{-}
+\rvert l m\rangle
+=
+\frac{1}{4}\langle l m\lvert l _{+}l_{-}+l_{-}l_{+}\rvert l m\rangle,
+\]
+\[
+\langle l m\lvert l _{y}^{2}\rvert l m\rangle
+=
+-\frac{1}{4}
+\langle l m\lvert
+l_{+}l_{+}-l_{+}l_{-}-l_{-}l_{+}+l_{-}l_{-}
+\rvert l m\rangle
+=
+\frac{1}{4}\langle l m\lvert l _{+}l_{-}+l_{-}l_{+}\rvert l m\rangle.
+\]
+所以
+\[
+\overline{l_{x}^{2}}=\overline{l_{y}^{2}}.
+\]
+再利用
+\[
+l_{x}^{2}+l_{y}^{2}=l^{2}-l_{z}^{2},
+\]
+得到
+\[
+\overline{l_{x}^{2}}=\overline{l_{y}^{2}}
+=
+\frac{1}{2}\left(\overline{l^{2}}-\overline{l_{z}^{2}}\right)
+=
+\frac{\hbar^{2}}{2}\left[l(l+1)-m^{2}\right].
+\]
+因此
+\[
+\overline{(\Delta l _{x})^{2}}
+=
+\overline{(\Delta l _{y})^{2}}
+=
+\frac{\hbar^{2}}{2}\left[l(l+1)-m^{2}\right].
+\]
+
+\section{}
+设体系处于
+\[
+\psi=c_{1}Y_{11}+c_{2}Y_{20}
+\]
+状态（已归一化，即 \(|c_{1}|^{2}+|c_{2}|^{2}=1\)）。求
+
+\begin{enumerate}[label=(\alph*)]
+    \item \(l_{z}\) 的可能测值及平均值；
+    \item \(l^{2}\) 的可能测值及相应的概率；
+    \item \(l_{x}\) 的可能测值及相应的概率。
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{解：}
+\(Y_{11}\) 和 \(Y_{20}\) 是 \(l^{2}\) 和 \(l_{z}\) 的共同本征函数，即
+\[
+l^{2}Y_{11}=2\hbar^{2}Y_{11},\qquad
+l^{2}Y_{20}=6\hbar^{2}Y_{20},
+\]
+\[
+l_{z}Y_{11}=\hbar Y_{11},\qquad
+l_{z}Y_{20}=0.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item \(l_{z}\) 的可能测值为\(\hbar,0\)，相应测值概率分别为\(|c_{1}|^{2},|c_{2}|^{2}\)。因此
+    \[
+    \overline{l}_{z}=\hbar |c_{1}|^{2}.
+    \]
+
+    \item \(l^{2}\) 的可能测值为\(2\hbar^{2},6\hbar^{2}\)，相应概率分别为\(|c_{1}|^{2},|c_{2}|^{2}\)。
+
+    \item 在 \((l^{2},l_{z})\) 表象中 \(l_{x}\) 的矩阵元公式为
+    \[
+    \langle l'm\pm 1\lvert l_{x}\rvert lm\rangle
+    =
+    \frac{\hbar}{2}\sqrt{(l\pm m+1)(l\mp m)}\,\delta_{ll'}.
+    \]
+
+    可求出 \(l=1\) 的 3 维子空间中 \(l_{x}\) 的矩阵表示为
+    \[
+    l_{x}
+    =
+    \frac{\hbar}{2}
+    \begin{pmatrix}
+    0 & 1 & 0 \\
+    1 & 0 & 1 \\
+    0 & 1 & 0
+    \end{pmatrix}.
+    \]
+    由此可求出其本征值和本征态为
+    \[
+    l_{x}:\qquad
+    \hbar,\qquad 0,\qquad -\hbar,
+    \]
+    对应本征矢可取为
+    \[
+    \frac{1}{2}
+    \begin{pmatrix}
+    1\\ \sqrt{2}\\ 1
+    \end{pmatrix},
+    \qquad
+    \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+    1\\ 0\\ -1
+    \end{pmatrix},
+    \qquad
+    \frac{1}{2}
+    \begin{pmatrix}
+    1\\ -\sqrt{2}\\ 1
+    \end{pmatrix}.
+    \]
+    因而在 \(c_{1}Y_{11}\) 态下，测量 \(l_{x}\) 得 \(\hbar,0,-\hbar\) 的概率分别为
+    \[
+    \frac{1}{4}|c_{1}|^{2},\qquad
+    \frac{1}{2}|c_{1}|^{2},\qquad
+    \frac{1}{4}|c_{1}|^{2}.
+    \]
+
+    类似地，在 \(l=2\) 的 5 维子空间中，\(l_{x}\) 的矩阵表示为
+    \[
+    l_{x}
+    =
+    \hbar
+    \begin{pmatrix}
+    0 & 1 & 0 & 0 & 0 \\
+    1 & 0 & \sqrt{3/2} & 0 & 0 \\
+    0 & \sqrt{3/2} & 0 & \sqrt{3/2} & 0 \\
+    0 & 0 & \sqrt{3/2} & 0 & 1 \\
+    0 & 0 & 0 & 1 & 0
+    \end{pmatrix}.
+    \]
+    其本征值为
+    \[
+    2\hbar,\qquad \hbar,\qquad 0,\qquad -\hbar,\qquad -2\hbar.
+    \]
+    对应本征矢可取为
+    \[
+    \frac{1}{4}
+    \begin{pmatrix}
+    1\\ 2\\ -\sqrt{6}\\ 2\\ 1
+    \end{pmatrix},
+    \qquad
+    \frac{1}{2}
+    \begin{pmatrix}
+    1\\ 1\\0\\ -1\\-1
+    \end{pmatrix},
+    \qquad
+    \sqrt{\frac{3}{8}}
+    \begin{pmatrix}
+    1\\0\\ -\sqrt{\frac{2}{3}}\\ 0\\1
+    \end{pmatrix},
+    \qquad
+    \frac{1}{2}
+    \begin{pmatrix}
+    1\\ -1\\0\\ -1\\1
+    \end{pmatrix},
+    \qquad
+    \frac{1}{4}
+    \begin{pmatrix}
+    1\\ -2\\ \sqrt{6}\\ -2\\ 1
+    \end{pmatrix}.
+    \]
+    \(Y_{20}\) 态按这 5 个本征态展开的系数分别为
+    \[
+    -\frac{\sqrt{6}}{4},\qquad 0,\qquad -\sqrt{\frac{2}{8}},\qquad 0,\qquad \frac{\sqrt{6}}{4},
+    \]
+    所以在 \(c_{2}Y_{20}\) 态下，测量 \(l_{x}\) 得
+    \[
+    2\hbar,\qquad \hbar,\qquad 0,\qquad -\hbar,\qquad -2\hbar
+    \]
+    的概率分别为
+    \[
+    \frac{3}{8}|c_{2}|^{2},\qquad
+    0,\qquad
+    \frac{1}{4}|c_{2}|^{2},\qquad
+    0,\qquad
+    \frac{3}{8}|c_{2}|^{2}.
+    \]
+
+    故在总态
+    \[
+    \psi=c_{1}Y_{11}+c_{2}Y_{20}
+    \]
+    下，测量 \(l_{x}\) 的可能值和概率分别为
+    \[
+    l_{x}:\qquad
+    2\hbar,\qquad
+    \hbar,\qquad
+    0,\qquad
+    -\hbar,\qquad
+    -2\hbar,
+    \]
+    \[
+    P:\qquad
+    \frac{3}{8}|c_{2}|^{2},\qquad
+    \frac{1}{4}|c_{1}|^{2},\qquad
+    \frac{1}{2}|c_{1}|^{2}+\frac{1}{4}|c_{2}|^{2},\qquad
+    \frac{1}{4}|c_{1}|^{2},\qquad
+    \frac{3}{8}|c_{2}|^{2}.
+    \]
+\end{enumerate}
+
+% \printbibliography
+
+\end{document}

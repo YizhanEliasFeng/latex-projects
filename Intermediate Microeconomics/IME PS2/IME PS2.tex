@@ -1,0 +1,785 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-en.tex}
+
+% \usepackage[
+%   backend=biber,
+%   style=numeric,
+%   sorting=none
+% ]{biblatex}
+% \addbibresource{bib/references.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead[L]{Yizhan Feng 2400017802}
+\fancyhead[C]{}
+\fancyhead[R]{INT. MICROECONOMICS, Spring 2026, PS2}
+
+\usepackage{diagbox}
+
+\begin{document}
+
+\maketitle
+
+\section{Consumer's Problem}
+A utility-maximizing consumer has an income \(m>0\), which he/she allocates between two goods (1 and 2). For each good, the consumer faces a constant price, \(p_x>0\) and \(p_y>0\), respectively. For each of the following utility functions, derive the consumer's optimal demand \(x^*(p_x,p_y,m)\) and \(y^*(p_x,p_y,m)\).
+
+\begin{enumerate}[label=(\arabic*)]
+  \item \(u(x,y)=\sqrt{xy}\)
+  \item \(u(x,y)=\min\{x^2,y\}\)
+  \item \(u(x,y)=2\sqrt{x}+y\)
+  \item \(u(x,y)=\sqrt{x}+\sqrt{y}\)
+  \item \(u(x,y)=
+    \begin{cases}
+        x+y, & \text{if } 0\le x\le 20, \\
+        20+y, & \text{if } x>20.
+    \end{cases}\)
+\end{enumerate}
+
+\vspace{0.5cm}
+\noindent\textbf{Answer: }
+
+\begin{enumerate}[label=(\arabic*)]
+  \item For
+  \[
+    u(x,y)=\sqrt{xy},
+  \]
+  the utility is Cobb--Douglas with equal expenditure shares, so
+  \[
+    x^*(p_x,p_y,m)=\frac{m}{2p_x},
+    \qquad
+    y^*(p_x,p_y,m)=\frac{m}{2p_y}.
+  \]
+
+  \item For
+  \[
+    u(x,y)=\min\{x^2,y\},
+  \]
+  the optimum lies at the kink
+  \[
+    y=x^2.
+  \]
+  Using the budget constraint,
+  \[
+    p_xx+p_yy=m
+    \implies
+    p_xx+p_yx^2=m
+    \implies
+    p_yx^2+p_xx-m=0.
+  \]
+  Solving (taking the positive root only)
+  \[
+    x^*(p_x,p_y,m)=\frac{-p_x+\sqrt{p_x^2+4p_y m}}{2p_y}.
+  \]
+  Hence
+  \[
+    y^*(p_x,p_y,m)=\left(\frac{-p_x+\sqrt{p_x^2+4p_y m}}{2p_y}\right)^2.
+  \]
+
+  \item For
+  \[
+    u(x,y)=2\sqrt{x}+y,
+  \]
+  the marginal utilities are
+  \[
+    MU_x=\frac{1}{\sqrt{x}},
+    \qquad
+    MU_y=1.
+  \]
+  If the interior solution applies, then
+  \[
+    \frac{MU_x}{MU_y}=\frac{p_x}{p_y}
+    \implies
+    \frac{1}{\sqrt{x}}=\frac{p_x}{p_y},
+  \]
+  so
+  \[
+    x=\left(\frac{p_y}{p_x}\right)^2.
+  \]
+  This requires enough income to purchase that amount of \(x\), namely
+  \[
+    m\ge p_x\left(\frac{p_y}{p_x}\right)^2=\frac{p_y^2}{p_x}.
+  \]
+  Therefore
+  \[
+    (x^*,y^*)=
+    \begin{cases}
+      \left(\dfrac{m}{p_x},\,0\right), & \text{if }m<\dfrac{p_y^2}{p_x},\\[8pt]
+      \left(\dfrac{p_y^2}{p_x^2},\,\dfrac{m}{p_y}-\dfrac{p_y}{p_x}\right), & \text{if }m\ge \dfrac{p_y^2}{p_x}.
+    \end{cases}
+  \]
+
+  \item For
+  \[
+    u(x,y)=\sqrt{x}+\sqrt{y},
+  \]
+  the marginal utilities are
+  \[
+    MU_x=\frac{1}{2\sqrt{x}},
+    \qquad
+    MU_y=\frac{1}{2\sqrt{y}}.
+  \]
+  At an interior optimum,
+  \[
+    \frac{MU_x}{MU_y}=\frac{p_x}{p_y}
+    \implies
+    \frac{\sqrt{y}}{\sqrt{x}}=\frac{p_x}{p_y}.
+  \]
+  Thus
+  \[
+    y=x\frac{p_x^2}{p_y^2}.
+  \]
+  Substituting into the budget constraint gives
+  \[
+    p_xx+p_y\left(x\frac{p_x^2}{p_y^2}\right)=m
+    \implies
+    x^*(p_x,p_y,m)=\frac{m\,p_y}{p_x(p_x+p_y)}.
+  \]
+  Then
+  \[
+    y^*(p_x,p_y,m)=\frac{m\,p_x}{p_y(p_x+p_y)}.
+  \]
+
+  \item For
+  \[
+    u(x,y)=
+    \begin{cases}
+      x+y, & \text{if } 0\le x\le 20,\\
+      20+y, & \text{if } x>20,
+    \end{cases}
+  \]
+  the consumer values one additional unit of \(x\) exactly like one additional unit of \(y\) only up to \(x=20\). Beyond \(x=20\), extra \(x\) yields no additional utility.
+
+  Hence:
+  \begin{itemize}
+    \item If \(p_x>p_y\), good \(y\) is always cheaper per unit of utility, so
+    \[
+      x^*=0,
+      \qquad
+      y^*=\frac{m}{p_y}.
+    \]
+
+    \item If \(p_x<p_y\), good \(x\) is cheaper per unit of utility, so buy as much \(x\) as possible up to \(x=20\), then spend the rest on \(y\):
+    \[
+      (x^*,y^*)=
+      \begin{cases}
+        \left(\dfrac{m}{p_x},0\right), & \text{if }m<20p_x,\\[8pt]
+        \left(20,\dfrac{m-20p_x}{p_y}\right), & \text{if }m\ge 20p_x.
+      \end{cases}
+    \]
+
+    \item If \(p_x=p_y\), the consumer is indifferent between \(x\) and \(y\) as long as \(x\le 20\). Thus the optimum is not unique:
+    \[
+      0\le x\le \min\!\left\{20,\frac{m}{p_x}\right\},
+      \qquad
+      y=\frac{m-p_xx}{p_y}.
+    \]
+  \end{itemize}
+
+  To sum up:
+  \[
+    (x^*,y^*)=
+    \begin{cases}
+      \left(0,\dfrac{m}{p_y}\right) & \text{if } p_x >p_y, \\[8pt]
+      \left(\left[0, 20\right],\dfrac{m-p_xx^*}{p_y}\right) & \text{if } p_x = p_y \text{ and } p_x < \dfrac{m}{20}, \\[8pt]
+      \left(\left[0, \dfrac{m}{p_x}\right],\dfrac{m-p_xx^*}{p_y}\right) & \text{if } p_x = p_y \text{ and } p_x \ge \dfrac{m}{20},\\[8pt]
+      \left(\dfrac{m}{p_x},0\right), & \text{if } p_x<p_y \text{ and }m<20p_x,\\[8pt]
+      \left(20,\dfrac{m-20p_x}{p_y}\right), & \text{if } p_x<p_y \text{ and } m\ge 20p_x.
+    \end{cases}
+  \]
+\end{enumerate}
+
+\section{Choice Problem}
+
+Dave is deciding how much to work in the coming year. He derives utility from consumption, \(C\), but he also really likes taking leisure time \(L\). He must divide his available hours between work and leisure---for every hour of leisure he takes he must work one fewer hour. The function that describes his preferences is given by
+\[
+    U(C,L)=\sqrt{CL}.
+\]
+He can earn a wage of \(w\), and suppose the price of consumption is given by \(p=1\).
+
+\begin{enumerate}[label=\alph*.]
+    \item What is Dave's full income if he can work \(2000\) hours in a year? What is his measured income if he takes \(L\) hours for leisure? Write down his budget constraint.
+
+    \item Solve Dave's utility maximization problem and write down his optimal consumption of \(C\) and \(L\). What would Dave's choice of leisure and consumption be if \(w=20\)?
+
+    \item A payroll tax is proposed that would tax Dave's labor income by \(25\%\). Write Dave's new budget constraint and graph it together with the budget constraint where there is no tax. How much does Dave effectively earn per hour?
+
+    \item What is Dave's new choice for leisure and consumption?
+
+    \item Graphically depict the income and substitution effects on leisure hours associated with the tax.
+
+    \item Will the income and substitution effects have the same sign? What is the intuition for this?
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer: }
+\begin{enumerate}[label=\alph*.]
+  \item Let total available time be \(T=2000\). If Dave takes \(L\) hours of leisure, then he works \(H=2000-L\) hours.
+
+  If he devotes all available time to work, then his \emph{full income} is \(2000w\), and his \emph{measured income} is \(w(2000-L)\).
+
+  Since the price of consumption is \(p=1\) and consumption equals labor income, the budget constraint is
+  \[
+    C=w(2000-L)\implies C+mL = 2000w.
+  \]
+
+  \item Dave solves
+  \[
+    \max_{C,L \ge 0}\sqrt{CL}
+    \quad \text{subject to} \quad
+    C+wL=2000w.
+  \]
+
+  Since \(\sqrt{\cdot}\) is increasing, this is equivalent to
+  \[
+    \max_{C,L\ge 0} CL
+    \quad \text{subject to} \quad
+    C+wL=2000w,
+  \]
+  \[
+    \iff \max_{L\in[0,2000]} \; L(2000w-wL)=2000wL-wL^2.
+  \]
+  The first-order condition is
+  \[
+    \frac{\mathrm{d}}{\mathrm{d}L}(2000wL-wL^2)=2000w-2wL=0\implies L^*=1000.
+  \]
+  Then
+  \[
+    C^*=2000w-w(1000)=1000w.
+  \]
+  Therefore,
+  \[
+    L^*=1000,\qquad C^*=1000w.
+  \]
+  If \(w=20\), then
+  \[
+    L^*=1000,\qquad C^*=20000.
+  \]
+
+  \item A \(25\%\) payroll tax reduces Dave's net wage to
+  \[
+    (1-0.25)w=0.75w.
+  \]
+  Hence the new budget constraint is
+  \[
+    C=0.75w(2000-L) \iff C+0.75wL=1500w.
+  \]
+  Thus Dave effectively earns \(0.75w\) per hour of work.
+
+  \begin{center}
+    \begin{tikzpicture}[scale=0.3]
+        \draw[->, thick] (0,0) -- (22,0) node[below] {$L$};
+        \draw[->, thick] (0,0) -- (0,22) node[left] {$C$};
+
+        \draw[thick] (0,20) -- (20,0);
+        \draw[thick, dashed] (0,15) -- (20,0);
+
+        \fill (0,20) circle (0.18) node[left] {$2000w$};
+        \fill (0,15) circle (0.18) node[left] {$1500w$};
+        \fill (20,0) circle (0.18) node[below] {$2000$};
+
+        \fill[gray,opacity=0.35]
+        (0,0) -- (0,20) -- (20,0) -- cycle;
+        \fill[gray,opacity=0.55]
+        (0,0) -- (0,15) -- (20,0) -- cycle;
+
+        \node at (8.5,14.5) {No tax};
+        \node at (8.5,6) {With tax};
+    \end{tikzpicture}
+  \end{center}
+
+  \item Dave's new problem is
+  \[
+    \max_{C,L \ge 0}\sqrt{CL}
+    \quad \text{subject to} \quad
+    C+0.75wL=1500w.
+  \]
+  which is equivalent to
+  \[
+    \max_L \; L(1500w-0.75wL)=1500wL-0.75wL^2.
+  \]
+  The first-order condition is
+  \[
+    1500w-1.5wL=0\implies L^*=1000.
+  \]
+  Then
+  \[
+    C^*=1500w-0.75w(1000)=750w.
+  \]
+  Therefore,
+  \[
+    L^*=1000,\qquad C^*=750w.
+  \]
+
+  \item See the graph below.
+  \begin{center}
+        \begin{tikzpicture}[scale=0.55]
+        % Axes
+        \draw[->, thick] (0,0) -- (22,0) node[below] {$L$};
+        \draw[->, thick] (0,0) -- (0,22) node[left] {$C$};
+        
+        % Budget lines
+        \draw[thick, blue] (0,20) -- (20,0);
+        \draw[thick, cyan] (0,15) -- (20,0);
+        \draw[thick, dashed, green!50!black] (0,17.3205) -- (23.094,0);
+        
+        % Indifference curves 
+        \draw[thick, orange] plot[domain=5.2:19, smooth] (\x,{100/\x});
+        \draw[thick, red] plot[domain=4:19, smooth] (\x,{75/\x});
+
+        % Points
+        \fill (10,10) circle (0.16) node[above right] {$A$};
+        \fill (11.547,8.66) circle (0.16) node[above right] {$B$};
+        \fill (10,7.5) circle (0.16) node[below right] {$C$};
+        
+        % Effect arrows
+        \draw[->, line width=0.8mm, purple] (10,10) -- (11.547,8.66);
+        \draw[->, line width=0.8mm, teal] (11.547,8.66) -- (10,7.5);
+        
+        % Dashed guides
+        \draw[densely dashed, gray] (10,0) -- (10,10);
+        \draw[densely dashed, gray] (11.547,0) -- (11.547,8.66);
+        \draw[densely dashed, gray] (0,10) -- (10,10);
+        \draw[densely dashed, gray] (0,8.66) -- (11.547,8.66);
+        \draw[densely dashed, gray] (0,7.5) -- (10,7.5);
+        
+        % Tick labels
+        \node[below] at (10,0) {$1000$};
+        \node[below] at (11.547,0) {$L_B$};
+        \node[below] at (20,0) {$2000$};
+        \node[left] at (0,10) {$1000w$};
+        \node[left] at (0,8.66) {$C_B$};
+        \node[left] at (0,7.5) {$750w$};
+        \node[left] at (0,20) {$2000w$};
+        \node[left] at (0,15) {$1500w$};
+        \end{tikzpicture}
+    \end{center}
+    \noindent\textbf{Legend:}
+    \begin{itemize}
+    \item \textcolor{blue}{Blue solid line}: original budget line
+    \item \textcolor{cyan}{Cyan solid line}: tax budget line
+    \item \textcolor{green!50!black}{Green dashed line}: compensated budget line
+    \item \textcolor{orange}{Orange curve}: original indifference curve
+    \item \textcolor{red}{Red curve}: tax indifference curve
+    \item \textcolor{purple}{Purple arrow}: substitution effect
+    \item \textcolor{teal}{Teal arrow}: income effect
+    \end{itemize}
+
+  \item No, the income and substitution effects do not have the same sign.
+
+  The substitution effect on leisure is positive: when the tax lowers the net wage from \(w\) to \(0.75w\), leisure becomes cheaper in terms of forgone consumption, so Dave wants more leisure.
+
+  The income effect on leisure is negative: the tax makes Dave poorer, and since leisure is a normal good, being poorer causes him to demand less leisure.
+
+  Thus:
+  \[
+    \text{substitution effect on }L>0,
+    \qquad
+    \text{income effect on }L<0.
+  \]
+  For this particular utility function, these two effects exactly cancel, so leisure remains \(L^*=1000\).
+\end{enumerate}
+
+\section{Consumer Price Index (CPI) and Cost-of-Living Adjustments (COLA)}
+Consumer Price Index (CPI) is an index to measure the cost of a standard bundle of goods overtime. We have a reference year or base year (with the base year changing every few years). Consider two years: year 0 and year 1:
+\begin{eqnarray*}
+  I_0=p_x^0x_0+p_y^0y_0, \\
+  I_1=p_x^1x_0+p_y^1y_0.
+\end{eqnarray*} 
+Here \((x_0,y_0)\) is the market basket of goods. Also,
+\begin{eqnarray*}
+  p_x^0=\text{price of }x\text{ in year }0,&\qquad
+  p_y^0=\text{price of }y\text{ in year }0, \\
+  p_x^1=\text{price of }x\text{ in year }1,&\qquad
+  p_y^1=\text{price of }y\text{ in year }1, \\
+  I_0=\text{expenditure in year }0,&\qquad
+  I_1=\text{expenditure in year }1.
+\end{eqnarray*}
+Dividing \(I_1\) by \(I_0\), then
+\[
+    \mathrm{CPI}
+    =\frac{I_1}{I_0}
+    =\frac{p_x^1x_0+p_y^1y_0}{p_x^0x_0+p_y^0y_0}.
+\]
+
+\begin{enumerate}[label=(\alph*)]
+  \item Show that CPI is a weighted average of the price increase for each good,
+  \[
+      \frac{p_x^1}{p_x^0}
+      \qquad \text{and} \qquad
+      \frac{p_y^1}{p_y^0},
+  \]
+  where the weights are each good's budget share in the base year,
+  \[
+      s_x^0=\frac{p_x^0x_0}{I_0},
+      \qquad
+      s_y^0=\frac{p_y^0y_0}{I_0}.
+  \]
+
+  \item Problems with CPI: substitution bias.
+
+  By confining to a fixed basket of goods, the index is a biased measure of the cost of living because it does not consider the possibility that consumers make substitutions in the basket of goods when their prices change. The result is that economists estimate that CPI in the U.S. overstates the cost of living by approximately \(1.1\) percentage points annually.
+
+  \begin{enumerate}[label=(b.\arabic*)]
+    \item Fill in the blanks in the table:
+      \begin{center}
+        Cost-of-Living Adjustments (COLA):\\[4pt]
+        \(U(x,y)=20\sqrt{xy}\)
+      \end{center}
+        \[
+        \renewcommand{\arraystretch}{1.4}
+        \begin{array}{|c|c|c|c|c|c|c|}
+        \hline
+        & p_x & p_y & I & x^* & y^* & U \\
+        \hline
+        \text{Base year} & \$1 & \$4 & \$400 & 200 & 50 & 2000 \\
+        \hline
+        \text{First year} & \$2 & \$5 & - & - & - & - \\
+        \hline
+        \text{No adjustment} & - & - & \$400 & 100 & 40 & 1265 \\
+        \hline
+        \text{CPI adjustment} & - & - & \$650 &  &  &  \\
+        \hline
+        \text{True COLA} & - & - &  &  &  & 2000 \\
+        \hline
+        \end{array}
+        \]
+  \end{enumerate}
+  Where \(x^*\) and \(y^*\) are optimal levels of consumption choices of the two goods \(x\) and \(y\) given the utility maximization problem.
+
+  Let \(I^*\) be the income that would keep utility at the base year level (true COLA income), i.e.,
+  \[
+      U\left(p_x^0,p_y^0,I_0\right)=U\left(p_x^1,p_y^1,I^*\right).
+  \]
+  Calculate:
+  \begin{enumerate}[resume,label=(b.\arabic*)]
+  \item CPI\(=\frac{I_1}{I_0}\).
+  \item Increase in the true cost of living \(=\frac{I^*}{I_0}\).
+  \item Substitution bias in the CPI \(=\frac{I_1}{I^*}\).
+  \end{enumerate}
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer: }
+
+\begin{enumerate}[label=(\alph*)]
+  \item Rewrite
+  \[
+    \mathrm{CPI}
+    =\frac{p_x^1x_0+p_y^1y_0}{p_x^0x_0+p_y^0y_0}
+    =\frac{p_x^1x_0}{I_0}+\frac{p_y^1y_0}{I_0}
+    =
+    \frac{p_x^0x_0}{I_0}\cdot \frac{p_x^1}{p_x^0}
+    +
+    \frac{p_y^0y_0}{I_0}\cdot \frac{p_y^1}{p_y^0}.
+  \]
+  Since
+  \[
+    s_x^0=\frac{p_x^0x_0}{I_0},
+    \qquad
+    s_y^0=\frac{p_y^0y_0}{I_0},
+  \]
+  it follows that
+  \[
+    \mathrm{CPI}
+    =s_x^0\frac{p_x^1}{p_x^0}+s_y^0\frac{p_y^1}{p_y^0}.
+  \]
+
+  \item 
+  \begin{enumerate}[label=(b.\arabic*)]
+    \item For
+    \[
+      U(x,y)=20\sqrt{xy},
+    \]
+    the optimal demands are
+    \[
+      x^*=\frac{I}{2p_x},
+      \qquad
+      y^*=\frac{I}{2p_y}.
+    \]
+    The corresponding indirect utility is
+    \[
+      U^*(p_x,p_y,I)
+      =20\sqrt{\frac{I}{2p_x}\cdot \frac{I}{2p_y}}
+      =\frac{10I}{\sqrt{p_xp_y}}.
+    \]
+  
+    In the first year, under CPI adjustment,
+    \[
+      x^*=\frac{650}{2\cdot 2}=162.5,
+      \qquad
+      y^*=\frac{650}{2\cdot 5}=65,
+    \]
+    and
+    \[
+      U=\frac{10\cdot 650}{\sqrt{10}}
+      =650\sqrt{10}
+      \approx 2055.48.
+    \]
+  
+    For the true COLA, let \(I^*\) satisfy
+    \[
+      U(p_x^0,p_y^0,I_0)=U(p_x^1,p_y^1,I^*).
+    \]
+    Hence
+    \[
+      2000=\frac{10I^*}{\sqrt{10}}\implies I^*=200\sqrt{10}\approx 632.46.
+    \]
+    Then
+    \[
+      x^*=\frac{I^*}{2\cdot 2}=\frac{I^*}{4}=50\sqrt{10}\approx 158.11,
+      \qquad
+      y^*=\frac{I^*}{2\cdot 5}=\frac{I^*}{10}=20\sqrt{10}\approx 63.25.
+    \]
+  
+    Thus the completed table is
+    \[
+    \renewcommand{\arraystretch}{1.4}
+    \begin{array}{|c|c|c|c|c|c|c|}
+    \hline
+    & p_x & p_y & I & x^* & y^* & U \\
+    \hline
+    \text{Base year} & \$1 & \$4 & \$400 & 200 & 50 & 2000 \\
+    \hline
+    \text{First year} & \$2 & \$5 & - & - & - & - \\
+    \hline
+    \text{No adjustment} & - & - & \$400 & 100 & 40 & 1265 \\
+    \hline
+    \text{CPI adjustment} & - & - & \$650 & 162.5 & 65 & 2055.48 \\
+    \hline
+    \text{True COLA} & - & - & \$632.46 & 158.11 & 63.25 & 2000 \\
+    \hline
+    \end{array}
+    \]
+  
+    \item
+    \[
+      \mathrm{CPI}=\frac{I_1}{I_0}=\frac{650}{400}=1.625.
+    \]
+  
+    \item
+    \[
+      \text{increase in the true cost of living}
+      =\frac{I^*}{I_0}
+      =\frac{200\sqrt{10}}{400}
+      =\frac{\sqrt{10}}{2}
+      \approx 1.5811.
+    \]
+  
+    \item
+    \[
+      \text{substitution bias in the CPI}
+      =\frac{I_1}{I^*}
+      =\frac{650}{200\sqrt{10}}
+      =\frac{13}{4\sqrt{10}}
+      \approx 1.0277.
+    \]
+  \end{enumerate}
+\end{enumerate}
+
+
+
+
+\section{Cost Function}
+Consider the following production functions:
+\[
+    F(K,L)=K^2L^2,
+\]
+\[
+    F(K,L)=K^{\frac{1}{3}}L^{\frac{2}{3}}.
+\]
+
+\begin{enumerate}[label=\alph*.]
+    \item What is the returns to scale for each function (use formal argument with \(\lambda\))?
+\end{enumerate}
+
+Let \(w_K=w_L=1\).
+
+\begin{enumerate}[resume,label=\alph*.]
+    \item Find the cost functions for each of the production functions.
+
+    \item Plot the cost functions on the same graph with \(y\) on the horizontal axis and cost on the vertical one.
+
+    \item Find and plot the average and marginal cost functions with \(y\) on the horizontal axis and average cost on the vertical one.
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Answer: }\begin{enumerate}[label=\alph*.]
+  \item For
+  \[
+    F(K,L)=K^2L^2,
+  \]
+  we have
+  \[
+    F(\lambda K,\lambda L)
+    =(\lambda K)^2(\lambda L)^2
+    =\lambda^4K^2L^2
+    =\lambda^4F(K,L).
+  \]
+  Since \(4>1\), this production function exhibits increasing returns to scale.
+
+  For
+  \[
+    F(K,L)=K^{1/3}L^{2/3},
+  \]
+  we have
+  \[
+    F(\lambda K,\lambda L)
+    =(\lambda K)^{1/3}(\lambda L)^{2/3}
+    =\lambda^{1/3+2/3}K^{1/3}L^{2/3}
+    =\lambda F(K,L).
+  \]
+  Since the degree of homogeneity is \(1\), this production function exhibits constant returns to scale.
+
+  \item Since \(w_K=w_L=1\), the cost minimization problem is
+  \[
+    \min_{K,L\ge 0} K+L
+    \quad \text{subject to} \quad
+    F(K,L)\ge y.
+  \]
+
+  For
+  \[
+    F(K,L)=K^2L^2,
+  \]
+  the constraint becomes
+  \[
+    K^2L^2\ge y
+    \iff
+    KL\ge \sqrt y.
+  \]
+  By symmetry, the optimal choice is
+  \[
+    K=L=y^{1/4},
+  \]
+  Hence the cost function is
+  \[
+    c_1(y)=2y^{1/4}.
+  \]
+
+  For
+  \[
+    F(K,L)=K^{1/3}L^{2/3},
+  \]
+  the constraint is
+  \[
+    K^{1/3}L^{2/3}\ge y.
+  \]
+  The first-order condition for cost minimization is
+  \[
+    \frac{MP_K}{MP_L}=\frac{w_K}{w_L}=1.
+  \]
+  Now
+  \[
+    MP_K=\frac13 K^{-2/3}L^{2/3},
+    \qquad
+    MP_L=\frac23 K^{1/3}L^{-1/3}.
+  \]
+  Therefore,
+  \[
+    \frac{MP_K}{MP_L}
+    =\frac{1}{2}\frac{L}{K}=1 \implies L=2K.
+  \]
+  Substitute into the production constraint:
+  \[
+    K^{1/3}(2K)^{2/3}=2^{2/3}K=y.
+  \]
+  Thus
+  \[
+    K=\frac{y}{2^{2/3}},
+    \qquad
+    L=2K=2^{1/3}y.
+  \]
+  Hence the cost function is
+  \[
+    c_2(y)
+    =\frac{3y}{2^{2/3}}.
+  \]
+
+  \item See the graph below.
+  \begin{center}
+    \begin{tikzpicture}[scale=1]
+    % Axes
+    \draw[->, thick] (0,0) -- (8,0) node[below] {$y$};
+    \draw[->, thick] (0,0) -- (0,8) node[left] {cost};
+
+    % Cost functions
+    \draw[thick, blue, domain=0:6, samples=200]
+        plot (\x,{2*(\x)^(0.25)});
+    \draw[thick, red, domain=0:4]
+        plot (\x,{(3/2^(2/3))*\x});
+
+    % Labels near curves
+    \node[blue] at (5,2.2) {$c_1(y)=2y^{1/4}$};
+    \node[red] at (4.5,5.2) {$c_2(y)=\dfrac{3y}{2^{2/3}}$};
+    \end{tikzpicture}
+  \end{center}
+
+
+
+  \item For
+  \[
+    c_1(y)=2y^{1/4},
+  \]
+  the average cost is
+  \[
+    AC_1(y)=\frac{c_1(y)}{y}
+    =\frac{2y^{1/4}}{y}
+    =2y^{-3/4},
+  \]
+  and the marginal cost is
+  \[
+    MC_1(y)=c_1'(y)
+    =2\cdot \frac14 y^{-3/4}
+    =\frac12 y^{-3/4}.
+  \]
+
+  For
+  \[
+    c_2(y)=\frac{3y}{2^{2/3}},
+  \]
+  the average cost is
+  \[
+    AC_2(y)=\frac{c_2(y)}{y}=\frac{3}{2^{2/3}},
+  \]
+  and the marginal cost is
+  \[
+    MC_2(y)=c_2'(y)=\frac{3}{2^{2/3}}.
+  \]
+
+  \begin{center}
+    \begin{tikzpicture}[scale=1.6]
+    % Axes
+    \draw[->, thick] (0,0) -- (5.8,0) node[below] {$y$};
+    \draw[->, thick] (0,0) -- (0,4.6) node[left] {cost};
+
+    % AC1 and MC1
+    \draw[thick, blue, domain=0.35:5.2, smooth, samples=2000]
+        plot ({\x},{2/(\x^(0.75))});
+    \draw[thick, red, domain=0.1:5.2, smooth, variable=\x]
+        plot ({\x},{0.5/(\x^(0.75))});
+
+    % AC2 = MC2 horizontal line
+    \draw[thick, green!50!black] (0,1.8899) -- (5.2,1.8899);
+
+    % Labels on curves
+    \node[blue] at (1.5,3.5) {$AC_1(y)=2y^{-3/4}$};
+    \node[red] at (2.1,0.65) {$MC_1(y)=\frac12 y^{-3/4}$};
+    \node[green!50!black] at (4.2,2.25) {$AC_2(y)=MC_2(y)=\dfrac{3}{2^{2/3}}$};
+
+    \end{tikzpicture}
+  \end{center}
+\end{enumerate}
+
+% \printbibliography
+
+\end{document}
