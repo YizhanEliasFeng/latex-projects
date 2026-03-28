@@ -234,33 +234,33 @@ He can earn a wage of \(w\), and suppose the price of consumption is given by \(
   \[
     \max_{C,L \ge 0}\sqrt{CL}
     \quad \text{subject to} \quad
-    C+wL=2000w.
+    C+wL=wT.
   \]
 
   Since \(\sqrt{\cdot}\) is increasing, this is equivalent to
   \[
     \max_{C,L\ge 0} CL
     \quad \text{subject to} \quad
-    C+wL=2000w,
+    C+wL=wT,
   \]
   \[
-    \iff \max_{L\in[0,2000]} \; L(2000w-wL)=2000wL-wL^2.
+    \iff \max_{L\in[0,T]} \; L(wT-wL)=wLT-wL^2.
   \]
   The first-order condition is
   \[
-    \frac{\mathrm{d}}{\mathrm{d}L}(2000wL-wL^2)=2000w-2wL=0\implies L^*=1000.
+    \frac{\mathrm{d}}{\mathrm{d}L}(wLT-wL^2)=wT-2wL=0\implies L^*=0.5T.
   \]
   Then
   \[
-    C^*=2000w-w(1000)=1000w.
+    C^*=wT-w(0.5T)=0.5T.
   \]
   Therefore,
   \[
-    L^*=1000,\qquad C^*=1000w.
+    L^*=0.5T,\qquad C^*=0.5wT.
   \]
   If \(w=20\), then
   \[
-    L^*=1000,\qquad C^*=20000.
+    L^*=0.5T,\qquad C^*=10T.
   \]
 
   \item A \(25\%\) payroll tax reduces Dave's net wage to
@@ -269,7 +269,7 @@ He can earn a wage of \(w\), and suppose the price of consumption is given by \(
   \]
   Hence the new budget constraint is
   \[
-    C=0.75w(2000-L) \iff C+0.75wL=1500w.
+    C=0.75w(T-L) \iff C+0.75wL=0.75wT.
   \]
   Thus Dave effectively earns \(0.75w\) per hour of work.
 
@@ -281,9 +281,9 @@ He can earn a wage of \(w\), and suppose the price of consumption is given by \(
         \draw[thick] (0,20) -- (20,0);
         \draw[thick, dashed] (0,15) -- (20,0);
 
-        \fill (0,20) circle (0.18) node[left] {$2000w$};
-        \fill (0,15) circle (0.18) node[left] {$1500w$};
-        \fill (20,0) circle (0.18) node[below] {$2000$};
+        \fill (0,20) circle (0.18) node[left] {$wT$};
+        \fill (0,15) circle (0.18) node[left] {$0.75wT$};
+        \fill (20,0) circle (0.18) node[below] {$T$};
 
         \fill[gray,opacity=0.35]
         (0,0) -- (0,20) -- (20,0) -- cycle;
@@ -299,30 +299,30 @@ He can earn a wage of \(w\), and suppose the price of consumption is given by \(
   \[
     \max_{C,L \ge 0}\sqrt{CL}
     \quad \text{subject to} \quad
-    C+0.75wL=1500w.
+    C+0.75wL=0.75wT.
   \]
   which is equivalent to
   \[
-    \max_L \; L(1500w-0.75wL)=1500wL-0.75wL^2.
+    \max_L \; L(0.75wT-0.75wL)=0.75wTL-0.75wL^2.
   \]
   The first-order condition is
   \[
-    1500w-1.5wL=0\implies L^*=1000.
+    0.75wT-1.5wL=0\implies L^*=0.5T.
   \]
   Then
   \[
-    C^*=1500w-0.75w(1000)=750w.
+    C^*=0.75wT-0.75w(0.5T)=0.325wT.
   \]
   Therefore,
   \[
-    L^*=1000,\qquad C^*=750w.
+    L^*=0.5T,\qquad C^*=0.325wT.
   \]
 
   \item See the graph below.
   \begin{center}
         \begin{tikzpicture}[scale=0.55]
         % Axes
-        \draw[->, thick] (0,0) -- (22,0) node[below] {$L$};
+        \draw[->, thick] (0,0) -- (24,0) node[below] {$L$};
         \draw[->, thick] (0,0) -- (0,22) node[left] {$C$};
         
         % Budget lines
@@ -351,14 +351,14 @@ He can earn a wage of \(w\), and suppose the price of consumption is given by \(
         \draw[densely dashed, gray] (0,7.5) -- (10,7.5);
         
         % Tick labels
-        \node[below] at (10,0) {$1000$};
+        \node[below] at (10,0) {$0.5T$};
         \node[below] at (11.547,0) {$L_B$};
-        \node[below] at (20,0) {$2000$};
-        \node[left] at (0,10) {$1000w$};
+        \node[below] at (20,0) {$T$};
+        \node[left] at (0,10) {$0.5wT$};
         \node[left] at (0,8.66) {$C_B$};
-        \node[left] at (0,7.5) {$750w$};
-        \node[left] at (0,20) {$2000w$};
-        \node[left] at (0,15) {$1500w$};
+        \node[left] at (0,7.5) {$0.325wT$};
+        \node[left] at (0,20) {$wT$};
+        \node[left] at (0,15) {$0.75wT$};
         \end{tikzpicture}
     \end{center}
     \noindent\textbf{Legend:}
