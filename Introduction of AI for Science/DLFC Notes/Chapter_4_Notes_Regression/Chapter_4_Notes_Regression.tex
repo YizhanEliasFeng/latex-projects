@@ -1,0 +1,209 @@
+﻿\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\input{../style/macros.tex}
+\title{Chapter 4 Notes\\\large Regression}
+\author{AI for Science}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{导读：回归问题的主线}
+回归（Regression）研究的是如何从输入 $\mathbf x$ 预测连续目标 $t$。这一章真正要掌握的不是“拟合一条曲线”，而是理解线性基函数模型、最大似然、正规方程和正则化之间是一条完整的概率建模链。主线是
+\[
+\text{线性基函数模型} \rightarrow \text{高斯似然与最小二乘} \rightarrow \text{正规方程} \rightarrow \text{Ridge / MAP} \rightarrow \text{预测与偏差-方差}.
+\]
+
+\begin{insightbox}{学习目标}
+\begin{itemize}[leftmargin=1.6em]
+  \item 理解“对参数线性”和“对输入非线性”如何同时成立。
+  \item 掌握最小二乘、最大似然和正规方程之间的对应关系。
+  \item 理解 ridge 正则化、MAP 解释以及偏差-方差权衡。
+\end{itemize}
+\end{insightbox}
+
+\section{4.1 线性基函数模型}
+\begin{formulabox}{模型定义}
+\begin{equation}
+y(\mathbf x,\mathbf w)=\sum_{j=0}^{M-1} w_j\phi_j(\mathbf x)=\mathbf w^\top \boldsymbol\phi(\mathbf x).
+\end{equation}
+\textbf{变量释义：} $\phi_j(\mathbf x)$ 是第 $j$ 个基函数，$\boldsymbol\phi(\mathbf x)$ 是特征向量，$\mathbf w$ 是参数。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 先把原始输入映射到一组人工设计或学习得到的特征上。
+  \item 再对这些特征做线性加权，得到预测值。
+  \item 因此模型对参数仍是线性的，但对输入可以是高度非线性的。
+\end{enumerate}
+\textbf{何时使用：} 需要可解释性、可解析推导或希望把非线性关系写入特征映射时。
+\end{formulabox}
+
+\begin{formulabox}{常见基函数}
+\begin{align}
+\phi_j(x)&=x^j,\\
+\phi_j(x)&=\exp\left(-\frac{(x-\mu_j)^2}{2s^2}\right),\\
+\phi_j(x)&=\sigma\left(\frac{x-\mu_j}{s}\right).
+\end{align}
+\textbf{变量释义：} $\mu_j$ 是中心，$s$ 控制尺度。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 多项式基函数适合表达全局平滑趋势。
+  \item Gaussian 基函数更像局部模板，适合表达局部变化。
+  \item Sigmoid 基函数则常用于分段过渡或类神经元激活近似。
+\end{enumerate}
+\textbf{何时使用：} 根据任务的全局/局部结构选择合适特征展开方式。
+\end{formulabox}
+
+\section{4.2 高斯似然与最小二乘}
+\begin{formulabox}{平方损失}
+\begin{equation}
+E_D(\mathbf w)=\frac12\sum_{n=1}^{N}\left(y(\mathbf x_n,\mathbf w)-t_n\right)^2.
+\end{equation}
+\textbf{变量释义：} $(\mathbf x_n,t_n)$ 是第 $n$ 个训练样本。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 每个样本的误差是预测值减真实值。
+  \item 平方后可避免正负抵消，并更重地惩罚大误差。
+  \item 把所有样本误差求和，就得到经验风险。
+\end{enumerate}
+\textbf{何时使用：} 连续目标且误差近似对称、单峰时。
+\end{formulabox}
+
+\begin{formulabox}{高斯噪声似然}
+\begin{align}
+p(t_n\mid \mathbf x_n,\mathbf w,\beta)&=\mathcal N\left(t_n\mid y(\mathbf x_n,\mathbf w),\beta^{-1}\right),\\
+-\log p(\mathbf t\mid X,\mathbf w,\beta)&=\frac{\beta}{2}\sum_{n=1}^{N}\left(y(\mathbf x_n,\mathbf w)-t_n\right)^2+C.
+\end{align}
+\textbf{变量释义：} $\beta$ 是噪声精度，方差为 $\beta^{-1}$。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 假设目标值围绕模型输出做高斯波动。
+  \item 独立样本下，总似然是所有条件高斯的乘积。
+  \item 取负对数后，除了常数项外只剩平方误差和。
+\end{enumerate}
+\textbf{何时使用：} 希望给最小二乘加上概率解释时。
+\end{formulabox}
+
+\begin{derivationbox}{为什么最小二乘不是拍脑袋设的}
+如果观测模型写成
+\[
+t_n = y(\mathbf x_n,\mathbf w)+\epsilon_n,
+\qquad \epsilon_n\sim\mathcal N(0,\beta^{-1}),
+\]
+那么最大化似然就等价于最小化平方误差。\\
+这说明“最小二乘”并不是一个脱离统计假设的纯数值目标，而是高斯观测噪声模型的直接结果。
+\end{derivationbox}
+
+\begin{formulabox}{预测分布}
+\begin{equation}
+p(t\mid \mathbf x,\mathbf w,\beta)=\mathcal N\bigl(t\mid \mathbf w^\top\boldsymbol\phi(\mathbf x),\beta^{-1}\bigr).
+\end{equation}
+\textbf{变量释义：} 在给定参数 $\mathbf w$ 时，模型输出给出条件均值，$\beta^{-1}$ 给出观测噪声方差。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+\item 回归模型不只输出一个点预测，还隐含了条件分布假设。
+\item 若噪声是高斯，则预测目标围绕均值做对称波动。
+\item 这使回归模型能同时表达“预测值”和“不确定性尺度”。
+\end{enumerate}
+\textbf{何时使用：} 从点估计走向概率回归、理解似然和预测误差的关系。
+\end{formulabox}
+\section{4.3 设计矩阵与正规方程}
+\begin{formulabox}{设计矩阵}
+\begin{equation}
+\Phi=
+\begin{pmatrix}
+\boldsymbol\phi(\mathbf x_1)^\top \\
+\vdots \\
+\boldsymbol\phi(\mathbf x_N)^\top
+\end{pmatrix},
+\qquad
+\mathbf y = \Phi \mathbf w.
+\end{equation}
+\textbf{变量释义：} $\Phi$ 的每一行是一个样本的特征向量。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 把逐样本写法统一改写成矩阵形式。
+  \item 这样损失、梯度和解析解都能更紧凑地表示。
+  \item 这也是后续推广到正则化、贝叶斯回归的标准入口。
+\end{enumerate}
+\textbf{何时使用：} 进行解析推导、理解线性代数结构时。
+\end{formulabox}
+
+\begin{formulabox}{正规方程}
+\begin{align}
+E_D(\mathbf w)&=\frac12\|\Phi\mathbf w-\mathbf t\|_2^2,\\
+\nabla_{\mathbf w}E_D&=\Phi^\top(\Phi\mathbf w-\mathbf t)=0,\\
+\mathbf w_{ML}&=(\Phi^\top\Phi)^{-1}\Phi^\top\mathbf t.
+\end{align}
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 先把平方损失写成二次型。
+  \item 对 $\mathbf w$ 求导并令梯度为零。
+  \item 若 $\Phi^\top\Phi$ 可逆，就得到最大似然解析解。
+\end{enumerate}
+\textbf{何时使用：} 中小规模线性回归、解析理解最优解结构时。
+\end{formulabox}
+
+\section{4.4 Ridge 回归与 MAP 解释}
+\begin{formulabox}{Ridge 目标}
+\begin{align}
+E(\mathbf w)&=\frac12\|\Phi\mathbf w-\mathbf t\|_2^2+\frac{\lambda}{2}\|\mathbf w\|_2^2,\\
+\mathbf w_{ridge}&=(\lambda I+\Phi^\top\Phi)^{-1}\Phi^\top\mathbf t.
+\end{align}
+\textbf{变量释义：} $\lambda$ 控制参数惩罚强度。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 在数据项之外加上参数范数惩罚。
+  \item 对应梯度中多出 $\lambda\mathbf w$ 一项。
+  \item 因而正规方程从 $\Phi^\top\Phi$ 变成 $\lambda I+\Phi^\top\Phi$，数值稳定性更好。
+\end{enumerate}
+\textbf{何时使用：} 特征共线性强、参数多、训练数据有限时。
+\end{formulabox}
+
+\begin{derivationbox}{Ridge 的 MAP 视角}
+若先验取
+\[
+p(\mathbf w)=\mathcal N(\mathbf w\mid \mathbf 0,\lambda^{-1}I),
+\]
+则最大后验估计满足
+\[
+\arg\max_{\mathbf w}p(\mathbf t\mid X,\mathbf w)p(\mathbf w).
+\]
+对后验取负对数后，恰好得到“平方误差 + $L_2$ 惩罚”。\\
+因此 ridge 不是凭经验硬加的项，而是“参数应接近零”的高斯先验的体现。
+\end{derivationbox}
+
+\section{4.5 预测与偏差-方差权衡}
+\begin{formulabox}{偏差-方差分解}
+\begin{equation}
+\E\big[(\hat y(\mathbf x)-t)^2\big]
+=
+\underbrace{\big(\E[\hat y(\mathbf x)]-f^\ast(\mathbf x)\big)^2}_{\text{bias}^2}
++
+\underbrace{\E\big[(\hat y(\mathbf x)-\E[\hat y(\mathbf x)])^2\big]}_{\text{variance}}
++\sigma^2.
+\end{equation}
+\textbf{变量释义：} $f^\ast(\mathbf x)$ 是真实回归函数，$\sigma^2$ 是不可约噪声。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 在预测误差中加减平均预测值 $\E[\hat y(\mathbf x)]$。
+  \item 展开平方后，交叉项因零均值而消失。
+  \item 从而把总误差拆成偏差平方、方差和噪声三部分。
+\end{enumerate}
+\textbf{何时使用：} 解释欠拟合、过拟合和模型复杂度选择。
+\end{formulabox}
+
+\section{总结与常见误区}
+\begin{itemize}[leftmargin=1.6em]
+  \item 线性回归的“线性”是对参数而言，并不代表只能拟合直线。
+  \item 最小二乘、最大似然和高斯噪声模型是同一条逻辑链。
+  \item Ridge 的本质是通过先验或惩罚限制模型有效复杂度。
+  \item 误区1：只看训练误差，不看验证误差和泛化表现。
+  \item 误区2：把解析解当作一定优于迭代法；高维问题往往并非如此。
+  \item 误区3：把正则化理解成“让参数变小”而忽略其统计含义。
+\end{itemize}
+
+\end{document}
+
+

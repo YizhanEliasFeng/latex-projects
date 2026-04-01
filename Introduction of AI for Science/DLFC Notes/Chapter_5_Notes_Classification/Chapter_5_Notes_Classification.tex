@@ -1,0 +1,224 @@
+﻿\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\input{../style/macros.tex}
+\title{Chapter 5 Notes\\\large Classification}
+\author{AI for Science}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{导读：分类不只是画一条边界}
+分类（Classification）研究的是如何把输入 $\mathbf x$ 映射到离散类别集合。要真正讲清这一章，必须把“判别函数”“后验概率”“决策规则”“损失函数”这些概念接成一条完整链条。主线是
+\[
+\text{判别函数} \rightarrow \text{Bayes classifier} \rightarrow \text{风险最小化} \rightarrow \text{生成式与判别式} \rightarrow \text{Logistic / Softmax}.
+\]
+
+\begin{insightbox}{学习目标}
+\begin{itemize}[leftmargin=1.6em]
+  \item 掌握线性判别边界的几何含义。
+  \item 理解最小错误率决策和代价敏感决策的区别。
+  \item 掌握 logistic / softmax 模型的概率解释与交叉熵推导。
+\end{itemize}
+\end{insightbox}
+
+\section{5.1 判别函数与线性决策边界}
+\begin{formulabox}{二分类线性判别函数}
+\begin{equation}
+y(\mathbf x)=\mathbf w^\top \mathbf x+w_0,
+\qquad
+\hat c=\begin{cases}C_1,&y(\mathbf x)\ge 0,\\ C_2,&y(\mathbf x)<0.
+\end{cases}
+\end{equation}
+\textbf{变量释义：} $\mathbf w$ 是法向量，$w_0$ 决定超平面偏移。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 判别函数输出一个实数打分。
+  \item 打分为零的点组成决策边界。
+  \item 边界两侧对应不同类别。
+\end{enumerate}
+\textbf{何时使用：} 类别大致线性可分时的基础分类器。
+\end{formulabox}
+
+\begin{formulabox}{多分类线性判别}
+\begin{equation}
+\hat c=\arg\max_k y_k(\mathbf x),
+\qquad y_k(\mathbf x)=\mathbf w_k^\top\mathbf x+w_{k0}.
+\end{equation}
+\textbf{变量释义：} 每个类别都有一个打分函数，取最大得分对应的类别。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 多分类时不再只比较正负，而是比较各类得分大小。
+  \item 两个类别边界由 $y_i(\mathbf x)=y_j(\mathbf x)$ 给出。
+  \item 因而多分类线性模型仍对应若干超平面拼接出来的区域划分。
+\end{enumerate}
+\textbf{何时使用：} softmax 之前的 logits 层、线性多分类基线。
+\end{formulabox}
+
+\section{5.2 Bayes classifier 与风险最小化}
+\begin{formulabox}{最小错误率分类}
+\begin{equation}
+\hat c(\mathbf x)=\arg\max_k p(C_k\mid \mathbf x).
+\end{equation}
+\textbf{变量释义：} $p(C_k\mid \mathbf x)$ 是给定输入后的类别后验概率。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 在 0-1 损失下，预测错记 1，预测对记 0。
+  \item 每个动作的条件风险就是预测错误的概率。
+  \item 因而选择后验概率最大的类别即可使错误率最小。
+\end{enumerate}
+\textbf{何时使用：} 默认分类决策规则与理论最优分类器分析。
+\end{formulabox}
+
+\begin{formulabox}{代价敏感决策}
+\begin{equation}
+R(\alpha_i\mid \mathbf x)=\sum_{k=1}^{K} \lambda_{ik}p(C_k\mid \mathbf x),
+\qquad
+\hat\alpha=\arg\min_i R(\alpha_i\mid \mathbf x).
+\end{equation}
+\textbf{变量释义：} $\lambda_{ik}$ 表示真实类别为 $C_k$ 时采取动作 $\alpha_i$ 的代价。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 实际任务中不同错误的后果通常不一样。
+  \item 因此不能只看谁的后验概率大，还要看错误代价大小。
+  \item 最优动作是最小化条件期望风险，而非单纯最大后验类别。
+\end{enumerate}
+\textbf{何时使用：} 医学诊断、欺诈检测、工业告警等高代价不对称场景。
+\end{formulabox}
+
+\section{5.3 生成式与判别式}
+\begin{formulabox}{两种建模路线}
+\begin{align}
+\text{生成式：}
+&&p(C_k\mid \mathbf x) &\propto p(\mathbf x\mid C_k)p(C_k),\\
+\text{判别式：}
+&&\text{直接建模 } p(C_k\mid \mathbf x) \text{ 或判别函数 } y_k(\mathbf x).
+\end{align}
+\textbf{变量释义：} 生成式先描述“各类数据长什么样”，判别式则直接描述“给定输入属于哪一类”。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 生成式模型先建联合分布或类条件分布。
+  \item 判别式模型直接针对分类边界或后验概率建模。
+  \item 前者更完整，后者通常更贴近预测目标。
+\end{enumerate}
+\textbf{何时使用：} 小样本、缺失值处理偏向生成式；纯预测精度常偏向判别式。
+\end{formulabox}
+
+\section{5.4 Logistic 回归}
+\begin{formulabox}{Sigmoid 概率输出}
+\begin{align}
+p(C_1\mid \mathbf x)&=\sigma(a),
+\qquad a=\mathbf w^\top\mathbf x+w_0,\\
+\sigma(a)&=\frac{1}{1+e^{-a}}.
+\end{align}
+\textbf{变量释义：} $a$ 是 logit，$\sigma(a)$ 把任意实数压缩到 $(0,1)$。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 先用线性函数得到实数打分。
+  \item 再用 sigmoid 把打分映射为概率。
+  \item 于是模型输出可解释为二分类后验概率。
+\end{enumerate}
+\textbf{何时使用：} 二分类任务、概率预测与可解释线性分类。
+\end{formulabox}
+
+\begin{formulabox}{后验 odds 与 logit 的线性关系}
+\begin{equation}
+\log\frac{p(C_1\mid \mathbf x)}{p(C_2\mid \mathbf x)} = \mathbf w^\top\mathbf x + w_0.
+\end{equation}
+\textbf{变量释义：} 左边是 posterior odds 的对数，也叫 logit。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+\item Logistic 回归直接建模正类后验概率。
+\item 把 sigmoid 公式两边取 odds 再取对数，就得到线性形式。
+\item 这说明 Logistic 回归实际上是在建模“后验 odds 的对数是输入的线性函数”。
+\end{enumerate}
+\textbf{何时使用：} 解释 Logistic 回归为何既是概率模型又是线性分类器。
+\end{formulabox}
+\begin{formulabox}{Bernoulli 似然与交叉熵}
+\begin{align}
+p(\mathbf t\mid X,\mathbf w)&=\prod_{n=1}^{N} y_n^{t_n}(1-y_n)^{1-t_n},\\
+E(\mathbf w)&=-\sum_{n=1}^{N}\left[t_n\log y_n+(1-t_n)\log(1-y_n)\right].
+\end{align}
+\textbf{变量释义：} $t_n\in\{0,1\}$，$y_n=p(C_1\mid\mathbf x_n)$。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 把每个标签看成 Bernoulli 观测。
+  \item 独立样本下，总似然是所有 Bernoulli 概率的乘积。
+  \item 取负对数后得到二分类交叉熵。
+\end{enumerate}
+\textbf{何时使用：} 二分类神经网络输出层和广义线性模型。
+\end{formulabox}
+
+\begin{derivationbox}{Logistic 梯度为什么会化简成 $y-t$}
+对单个样本，损失为
+\[
+E_n=-t_n\log y_n-(1-t_n)\log(1-y_n),
+\qquad y_n=\sigma(a_n).
+\]
+先对 $y_n$ 求导，再乘上 $dy_n/da_n=y_n(1-y_n)$，可得
+\[
+\frac{\partial E_n}{\partial a_n}=y_n-t_n.
+\]
+这个结果非常重要，因为输出层误差正好就是“预测概率减真实标签”。
+\end{derivationbox}
+
+\section{5.5 Softmax 回归}
+\begin{formulabox}{Softmax 概率}
+\begin{equation}
+p(C_k\mid \mathbf x)=\frac{\exp(a_k)}{\sum_{j=1}^{K}\exp(a_j)},
+\qquad a_k=\mathbf w_k^\top\mathbf x+w_{k0}.
+\end{equation}
+\textbf{变量释义：} $a_k$ 是第 $k$ 类的 logit。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 每个类别先产生一个实数打分。
+  \item 指数化后变成正权重。
+  \item 再除以总和，得到和为 1 的概率分布。
+\end{enumerate}
+\textbf{何时使用：} 单标签多分类任务的标准输出层。
+\end{formulabox}
+
+\begin{formulabox}{Categorical 似然与多分类交叉熵}
+\begin{align}
+p(T\mid X,\mathbf W)&=\prod_{n=1}^{N}\prod_{k=1}^{K} y_{nk}^{t_{nk}},\\
+E(\mathbf W)&=-\sum_{n=1}^{N}\sum_{k=1}^{K} t_{nk}\log y_{nk}.
+\end{align}
+\textbf{变量释义：} $t_{nk}$ 是 one-hot 标签。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 单个多分类标签服从 categorical 分布。
+  \item one-hot 标签让真实类别对应的概率项被保留。
+  \item 取负对数后得到多分类交叉熵目标。
+\end{enumerate}
+\textbf{何时使用：} 多分类网络训练与概率输出解释。
+\end{formulabox}
+
+\begin{formulabox}{Softmax 输出层梯度}
+\begin{equation}
+\frac{\partial E_n}{\partial a_{nk}} = y_{nk}-t_{nk}.
+\end{equation}
+\textbf{变量释义：} $a_{nk}$ 是第 $n$ 个样本对第 $k$ 类的 logit，$y_{nk}$ 是 softmax 概率。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+\item 先对多分类交叉熵对 $y_{nk}$ 求导。
+\item 再结合 softmax 的 Jacobian 做链式法则展开。
+\item 最终同样化简成“预测概率减 one-hot 标签”。
+\end{enumerate}
+\textbf{何时使用：} 多分类网络输出层反向传播。
+\end{formulabox}
+\section{总结与常见误区}
+\begin{itemize}[leftmargin=1.6em]
+  \item 分类应理解为“概率估计 + 决策规则”，而不是只画一条边界。
+  \item Bayes classifier 给出最小错误率决策，代价敏感任务则要最小化期望风险。
+  \item Logistic 和 Softmax 的交叉熵都来自明确的概率似然。
+  \item 误区1：把最大后验和最小风险混为一谈。
+  \item 误区2：认为生成式和判别式只能二选一；它们服务的目标不同。
+  \item 误区3：把 softmax 概率直接当作绝对可信置信度，而不做校准检查。
+\end{itemize}
+
+\end{document}
+
+
+

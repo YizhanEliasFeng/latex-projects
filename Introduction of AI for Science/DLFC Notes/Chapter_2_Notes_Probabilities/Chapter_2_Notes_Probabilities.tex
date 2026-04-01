@@ -1,0 +1,247 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\input{../style/macros.tex}
+\title{Chapter 2 Notes\\\large Probabilities}
+\author{AI for Science}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{导读：概率论在机器学习中的角色}
+本章建立后续全书都会反复使用的概率语言。主线是
+\[
+\text{规则概率} \rightarrow \text{密度与矩} \rightarrow \text{高斯与似然} \rightarrow \text{变量变换} \rightarrow \text{信息论} \rightarrow \text{贝叶斯更新}.
+\]
+
+\begin{insightbox}{学习目标}
+\begin{itemize}[leftmargin=1.6em]
+  \item 理解联合分布、边缘分布、条件分布之间的关系。
+  \item 掌握期望、方差、协方差以及高斯分布的基本计算。
+  \item 会从定义推到 Bayes 公式、密度变换公式和 KL 散度。
+\end{itemize}
+\end{insightbox}
+
+\section{概率规则：联合、边缘、条件}
+\subsection{加法规则与乘法规则}
+\begin{formulabox}{联合分布的两种基本操作}
+\begin{align}
+  p(x) &= \sum_y p(x,y), \\
+  p(x,y) &= p(x\mid y)p(y)=p(y\mid x)p(x).
+\end{align}
+\textbf{变量释义：} $p(x,y)$ 是联合分布，$p(x)$ 是边缘分布，$p(x\mid y)$ 是条件分布。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 联合分布描述两个变量同时取值的概率。
+  \item 如果只关心 $x$，就把所有可能的 $y$ 加总掉，这就是边缘化。
+  \item 如果先知道 $y$，再看 $x$ 的概率，就得到条件分布，从而写出乘法规则。
+\end{enumerate}
+\textbf{何时使用：} 推导概率模型结构、消去不关心的变量、分解复杂联合概率。
+\end{formulabox}
+
+\subsection{Bayes 公式}
+\begin{formulabox}{Bayes 更新}
+\begin{align}
+  p(y\mid x) &= \frac{p(x,y)}{p(x)} \\
+             &= \frac{p(x\mid y)p(y)}{\sum_{y'} p(x\mid y')p(y')}.
+\end{align}
+\textbf{变量释义：} $p(y)$ 是先验（prior），$p(x\mid y)$ 是似然（likelihood），$p(y\mid x)$ 是后验（posterior）。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 条件概率定义给出 $p(y\mid x)=p(x,y)/p(x)$。
+  \item 再用乘法规则把联合分布写成 $p(x\mid y)p(y)$。
+  \item 分母 $p(x)$ 是归一化常数，等于对所有可能 $y$ 的总概率。
+\end{enumerate}
+\textbf{何时使用：} 分类、诊断、参数推断、本书后续的生成模型和变分推断。
+\end{formulabox}
+
+\begin{derivationbox}{为什么分母不能省略}
+分子 $p(x\mid y)p(y)$ 只告诉我们“类别 $y$ 对观测 $x$ 的解释力度”。但它还没有保证所有后验概率和为 $1$。\\
+因此必须除以
+\[
+p(x)=\sum_{y'} p(x\mid y')p(y'),
+\]
+这一步就是把非归一化权重转成真正的概率分布。
+\end{derivationbox}
+
+\section{连续变量：密度、分布函数与矩}
+\subsection{概率密度函数}
+\begin{formulabox}{连续变量的概率由积分给出}
+\begin{align}
+P(a\le X\le b)&=\int_a^b p(x)\,dx,\\
+F(x)&=P(X\le x)=\int_{-\infty}^{x} p(t)\,dt.
+\end{align}
+\textbf{变量释义：} $p(x)$ 是概率密度函数（PDF），$F(x)$ 是累积分布函数（CDF）。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 连续情形下单点概率为 $0$，只能讨论区间概率。
+  \item 区间概率等于密度曲线在该区间下的面积。
+  \item 把下限固定到 $-\infty$，就得到累积分布函数。
+\end{enumerate}
+\textbf{何时使用：} 计算阈值概率、尾部风险、分位点和置信区间。
+\end{formulabox}
+
+\subsection{期望、方差与协方差}
+\begin{formulabox}{矩描述平均水平与波动}
+\begin{align}
+\E[f(X)] &= \int f(x)p(x)\,dx, \\
+\Var[X] &= \E[(X-\E[X])^2] = \E[X^2]-\E[X]^2,\\
+\Cov[X,Y] &= \E[(X-\E[X])(Y-\E[Y])].
+\end{align}
+\textbf{变量释义：} 期望衡量平均水平，方差衡量波动程度，协方差衡量联动方向。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 对随机变量的函数做加权平均，就得到期望。
+  \item 方差来自“偏离均值的平方”的期望。
+  \item 把平方展开，可得常用公式 $\Var[X]=\E[X^2]-\E[X]^2$。
+\end{enumerate}
+\textbf{何时使用：} 分析噪声规模、构造协方差矩阵、理解不确定性传播。
+\end{formulabox}
+
+\section{高斯分布与最大似然}
+\subsection{一维高斯分布}
+\begin{formulabox}{高斯分布}
+\begin{equation}
+\mathcal{N}(x\mid\mu,\sigma^2)=\frac{1}{\sqrt{2\pi\sigma^2}}
+\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right).
+\end{equation}
+\textbf{变量释义：} $\mu$ 是均值，$\sigma^2$ 是方差。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 指数项惩罚与均值的偏离，偏离越大概率越低。
+  \item 分母中的归一化常数保证积分为 $1$。
+  \item 方差越大，分布越平；方差越小，分布越尖。
+\end{enumerate}
+\textbf{何时使用：} 观测噪声建模、回归误差建模、中心极限定理近似。
+\end{formulabox}
+
+\subsection{样本均值与样本方差的最大似然}
+\begin{formulabox}{高斯参数的 MLE}
+\begin{align}
+\log p(\mathbf{x}\mid \mu,\sigma^2)
+&= -\frac{N}{2}\log(2\pi\sigma^2)-\frac{1}{2\sigma^2}\sum_{n=1}^{N}(x_n-\mu)^2, \\
+\hat{\mu} &= \frac{1}{N}\sum_{n=1}^{N}x_n, \qquad
+\hat{\sigma}^2 = \frac{1}{N}\sum_{n=1}^{N}(x_n-\hat{\mu})^2.
+\end{align}
+\textbf{变量释义：} $\mathbf{x}=(x_1,\dots,x_N)$ 是独立样本。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 先把独立样本的联合似然写成各项乘积，再取对数。
+  \item 对 $\mu$ 求导并令其为零，得到样本均值。
+  \item 对 $\sigma^2$ 求导并令其为零，得到样本方差的 MLE。
+\end{enumerate}
+\textbf{何时使用：} 参数估计、最小二乘解释、后续高斯生成模型。
+\end{formulabox}
+
+\begin{derivationbox}{为什么最小二乘对应高斯噪声}
+设回归模型为
+\[
+t_n = y(x_n,\mathbf{w}) + \epsilon_n,\qquad \epsilon_n\sim\mathcal{N}(0,\beta^{-1}).
+\]
+则
+\begin{align}
+p(\mathbf{t}\mid X,\mathbf{w},\beta)
+&= \prod_{n=1}^{N}\mathcal{N}\!\left(t_n\mid y(x_n,\mathbf{w}),\beta^{-1}\right),\\
+-\log p(\mathbf{t}\mid X,\mathbf{w},\beta)
+&= \frac{\beta}{2}\sum_{n=1}^{N}(t_n-y(x_n,\mathbf{w}))^2 + C.
+\end{align}
+因此固定 $\beta$ 时，最大化似然与最小化平方误差完全等价。
+\end{derivationbox}
+
+\section{随机变量变换与 Jacobian}
+\begin{formulabox}{一维与多维变换公式}
+\begin{align}
+p_Z(z) &= p_X(x)\left|\frac{dx}{dz}\right|,\qquad z=g(x),\\
+p_{\mathbf z}(\mathbf z)
+&= p_{\mathbf x}(\mathbf x)\left|\det\frac{\partial \mathbf x}{\partial \mathbf z}\right|.
+\end{align}
+\textbf{变量释义：} Jacobian 行列式衡量局部体积伸缩。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 变换前后对应的小区间必须有相同概率质量。
+  \item 一维情形下，区间长度变化率就是 $\left|dx/dz\right|$。
+  \item 多维情形中，局部体积缩放由 Jacobian 行列式给出。
+\end{enumerate}
+\textbf{何时使用：} 可逆生成模型、重参数化、流模型和采样变换。
+\end{formulabox}
+
+\begin{derivationbox}{一维变量变换的核心想法}
+若 $z=g(x)$ 单调可逆，则小区间满足
+\[
+P(z\le Z\le z+\Delta z)=P(x\le X\le x+\Delta x).
+\]
+两边分别近似为密度乘区间长度：
+\[
+p_Z(z)\Delta z \approx p_X(x)\Delta x.
+\]
+两边同除以 $\Delta z$ 并令区间趋于 $0$，就得到
+\[
+p_Z(z)=p_X(x)\left|\frac{dx}{dz}\right|.
+\]
+\end{derivationbox}
+
+\section{信息论量：熵、交叉熵、KL 与互信息}
+\begin{formulabox}{三类核心量}
+\begin{align}
+H[p] &= -\sum_x p(x)\log p(x),\\
+H(p,q) &= -\sum_x p(x)\log q(x),\\
+\KL(p\|q) &= \sum_x p(x)\log\frac{p(x)}{q(x)},\\
+\MI(X;Y) &= \sum_{x,y}p(x,y)\log\frac{p(x,y)}{p(x)p(y)}.
+\end{align}
+\textbf{变量释义：} 熵衡量平均不确定性，交叉熵衡量“用 $q$ 编码来自 $p$ 的样本”的代价，KL 衡量分布不匹配，互信息衡量相关性。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item KL 可写成交叉熵减熵：$\KL(p\|q)=H(p,q)-H(p)$。
+  \item 互信息本质上是联合分布与独立分布的 KL。
+  \item 因此互信息为零，当且仅当 $X,Y$ 独立。
+\end{enumerate}
+\textbf{何时使用：} 分类训练目标、分布对齐、信息瓶颈、表示学习。
+\end{formulabox}
+
+\begin{derivationbox}{KL 非负性的两步证明思路}
+利用不等式 $\log a \le a-1$，令 $a=q(x)/p(x)$，可得
+\[
+\log\frac{q(x)}{p(x)} \le \frac{q(x)}{p(x)}-1.
+\]
+两边乘以 $-p(x)$ 并求和，得到
+\[
+\sum_x p(x)\log\frac{p(x)}{q(x)} \ge \sum_x \bigl(p(x)-q(x)\bigr)=0.
+\]
+因此 $\KL(p\|q)\ge 0$，且等号仅在 $p=q$ 时成立。
+\end{derivationbox}
+
+\section{贝叶斯参数推断}
+\begin{formulabox}{参数后验与预测分布}
+\begin{align}
+p(\mathbf{w}\mid\mathcal{D})
+&=\frac{p(\mathcal{D}\mid\mathbf{w})p(\mathbf{w})}{p(\mathcal{D})},\\
+p(t_\ast\mid x_\ast,\mathcal{D})
+&=\int p(t_\ast\mid x_\ast,\mathbf{w})\,p(\mathbf{w}\mid\mathcal{D})\,d\mathbf{w}.
+\end{align}
+\textbf{变量释义：} $p(\mathbf{w})$ 是参数先验，$p(\mathbf{w}\mid\mathcal{D})$ 是参数后验，预测分布要对参数不确定性积分。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 先用数据把先验更新为后验。
+  \item 真正预测时，不是只用一个最佳参数，而是对所有可能参数加权平均。
+  \item 样本少时，这种做法通常比点估计更稳健。
+\end{enumerate}
+\textbf{何时使用：} 小样本学习、需要不确定性估计、模型比较与贝叶斯决策。
+\end{formulabox}
+
+\section{总结与常见误区}
+\begin{itemize}[leftmargin=1.6em]
+  \item 概率建模的基本操作只有三类：边缘化、条件化、变量变换。
+  \item 高斯似然与最小二乘的联系，是很多监督学习方法的出发点。
+  \item 交叉熵、KL 和互信息本质上都是“比较分布”的量，只是角度不同。
+  \item 误区1：把密度值当成概率值。
+  \item 误区2：只看似然，不看先验与归一化常数。
+  \item 误区3：把 KL 当作对称距离使用。
+\end{itemize}
+
+\end{document}
+
+
+
+

@@ -1,0 +1,243 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\input{../style/macros.tex}
+\title{Chapter 3 Notes\\\large Standard Distributions}
+\author{AI for Science}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{导读：标准分布为什么重要}
+上一章给出了概率语言，这一章把它落到常用的具体分布。主线是
+\[
+\text{离散计数模型} \rightarrow \text{多元高斯} \rightarrow \text{周期变量} \rightarrow \text{指数族} \rightarrow \text{非参数估计}.
+\]
+
+\begin{insightbox}{学习目标}
+\begin{itemize}[leftmargin=1.6em]
+  \item 掌握 Bernoulli、Binomial、Multinomial 的含义和 MLE。
+  \item 理解多元高斯的几何、边缘分布和条件分布。
+  \item 会用指数族统一地看待常见概率模型。
+\end{itemize}
+\end{insightbox}
+
+\section{离散分布族}
+\subsection{Bernoulli 与 Binomial}
+\begin{formulabox}{0-1 事件与重复试验}
+\begin{align}
+p(x\mid\mu)&=\mu^x(1-\mu)^{1-x},\qquad x\in\{0,1\},\\
+p(m\mid N,\mu)&=\binom{N}{m}\mu^m(1-\mu)^{N-m}.
+\end{align}
+\textbf{变量释义：} $\mu$ 是成功概率，$x$ 是单次结果，$m$ 是 $N$ 次试验中的成功次数。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item Bernoulli 描述一次 0-1 试验。
+  \item Binomial 描述 $N$ 次独立 Bernoulli 中恰好成功 $m$ 次。
+  \item 组合数 $\binom{N}{m}$ 负责统计不同成功排列的个数。
+\end{enumerate}
+\textbf{何时使用：} 二分类标签、点击/不点击、阳性/阴性等事件建模。
+\end{formulabox}
+
+\subsection{Multinomial}
+\begin{formulabox}{多类别计数分布}
+\begin{equation}
+p(\mathbf{m}\mid \boldsymbol{\mu})
+=\frac{N!}{\prod_{k=1}^{K}m_k!}\prod_{k=1}^{K}\mu_k^{m_k},
+\qquad \sum_{k=1}^{K}m_k=N,\ \sum_{k=1}^{K}\mu_k=1.
+\end{equation}
+\textbf{变量释义：} $m_k$ 是第 $k$ 类计数，$\mu_k$ 是第 $k$ 类概率。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 每次试验有 $K$ 种可能结果。
+  \item 固定某一组计数后，单个排列的概率是 $\prod_k \mu_k^{m_k}$。
+  \item 再乘上所有不同排列的数量，就得到多项分布。
+\end{enumerate}
+\textbf{何时使用：} 词袋模型、类别频数、离散生成模型。
+\end{formulabox}
+
+\begin{formulabox}{Multinomial 的最大似然估计}
+\begin{align}
+\log L(\boldsymbol\mu)
+&= \sum_{k=1}^{K} m_k \log \mu_k + C,\\
+\hat\mu_k &= \frac{m_k}{N}.
+\end{align}
+\textbf{变量释义：} $m_k$ 是第 $k$ 类计数，总数 $N=\sum_k m_k$。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+\item 在约束 $\sum_k \mu_k=1$ 下最大化对数似然。
+\item 用拉格朗日乘子处理概率和为 1 的约束。
+\item 解得每一类的 MLE 就是该类出现的相对频率。
+\end{enumerate}
+\textbf{何时使用：} 词频建模、类别先验估计、朴素贝叶斯中的离散分布参数学习。
+\end{formulabox}
+\subsection{Bernoulli 的最大似然}
+\begin{formulabox}{样本均值就是 MLE}
+\begin{align}
+\log L(\mu)
+&=\sum_{n=1}^{N}\left[x_n\log \mu +(1-x_n)\log(1-\mu)\right],\\
+\frac{\partial \log L}{\partial \mu}=0
+&\Rightarrow \hat{\mu}=\frac{1}{N}\sum_{n=1}^{N}x_n.
+\end{align}
+\textbf{变量释义：} $x_n\in\{0,1\}$ 是第 $n$ 个观测。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 先写独立样本对数似然。
+  \item 对 $\mu$ 求导并令其为零。
+  \item 解得样本均值，这与直觉完全一致。
+\end{enumerate}
+\textbf{何时使用：} 理解频率估计和后续离散潜变量模型的基础。
+\end{formulabox}
+
+\section{多元高斯分布}
+\subsection{定义与 Mahalanobis 距离}
+\begin{formulabox}{多元高斯}
+\begin{equation}
+\mathcal N(\mathbf{x}\mid \boldsymbol{\mu},\mathbf{\Sigma})
+=\frac{1}{(2\pi)^{D/2}|\mathbf{\Sigma}|^{1/2}}
+\exp\left[-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\top
+\mathbf{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\right].
+\end{equation}
+\textbf{变量释义：} $\boldsymbol{\mu}$ 是均值向量，$\mathbf{\Sigma}$ 是协方差矩阵。指数中的二次型是 Mahalanobis 距离平方。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 一维高斯的平方偏差自然推广为矩阵二次型。
+  \item 协方差矩阵控制不同方向的拉伸与旋转。
+  \item 行列式项负责整体归一化。
+\end{enumerate}
+\textbf{何时使用：} 连续向量建模、GMM、判别分析、卡尔曼滤波等。
+\end{formulabox}
+
+\subsection{边缘分布与条件分布}
+\begin{formulabox}{多元高斯的封闭性}
+将随机向量拆成
+\[
+\mathbf{x}=
+\begin{pmatrix}
+\mathbf{x}_a\\
+\mathbf{x}_b
+\end{pmatrix},\qquad
+\boldsymbol{\mu}=
+\begin{pmatrix}
+\boldsymbol{\mu}_a\\
+\boldsymbol{\mu}_b
+\end{pmatrix},\qquad
+\mathbf{\Sigma}=
+\begin{pmatrix}
+\Sigma_{aa} & \Sigma_{ab}\\
+\Sigma_{ba} & \Sigma_{bb}
+\end{pmatrix}.
+\]
+则
+\begin{align}
+p(\mathbf{x}_a)&=\mathcal N(\mathbf{x}_a\mid \boldsymbol{\mu}_a,\Sigma_{aa}),\\
+\boldsymbol{\mu}_{a\mid b}
+&= \boldsymbol{\mu}_a + \Sigma_{ab}\Sigma_{bb}^{-1}(\mathbf{x}_b-\boldsymbol{\mu}_b),\\
+\Sigma_{a\mid b}
+&= \Sigma_{aa}-\Sigma_{ab}\Sigma_{bb}^{-1}\Sigma_{ba}.
+\end{align}
+\textbf{何时使用：} 缺失值补全、高斯图模型、卡尔曼更新、线性高斯推断。
+\end{formulabox}
+
+\begin{derivationbox}{条件均值为什么是线性的}
+对联合高斯做平方完成（complete the square）后，关于 $\mathbf{x}_a$ 的二次项仍保持高斯形式。\\
+线性项中只会出现 $(\mathbf{x}_b-\boldsymbol{\mu}_b)$，因此条件均值只能是 $\mathbf{x}_b$ 的仿射函数：
+\[
+\boldsymbol{\mu}_{a\mid b}
+= \boldsymbol{\mu}_a + \Sigma_{ab}\Sigma_{bb}^{-1}(\mathbf{x}_b-\boldsymbol{\mu}_b).
+\]
+这个系数矩阵衡量了“看到 $\mathbf{x}_b$ 后，应该如何修正对 $\mathbf{x}_a$ 的平均预测”。
+\end{derivationbox}
+
+\subsection{多元高斯参数估计}
+\begin{formulabox}{均值和协方差的 MLE}
+\begin{align}
+\hat{\boldsymbol{\mu}} &= \frac{1}{N}\sum_{n=1}^{N}\mathbf{x}_n,\\
+\hat{\mathbf{\Sigma}}
+&=\frac{1}{N}\sum_{n=1}^{N}
+(\mathbf{x}_n-\hat{\boldsymbol{\mu}})
+(\mathbf{x}_n-\hat{\boldsymbol{\mu}})^\top.
+\end{align}
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 对数似然中关于均值的项是二次型，求导后给出样本平均。
+  \item 对协方差矩阵求导时会同时用到 $\log|\Sigma|$ 和二次型的矩阵导数。
+  \item 最终得到“平均外积”这一自然形式。
+\end{enumerate}
+\textbf{何时使用：} 高斯生成模型、协方差建模、PCA 的概率视角。
+\end{formulabox}
+
+\section{周期变量分布}
+\begin{formulabox}{Von Mises 分布}
+\begin{equation}
+p(\theta\mid \theta_0,m)=\frac{1}{2\pi I_0(m)}
+\exp\left(m\cos(\theta-\theta_0)\right).
+\end{equation}
+\textbf{变量释义：} $\theta_0$ 是中心方向，$m$ 是集中度，$I_0$ 是修正 Bessel 函数。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 角度变量是周期的，不能直接用普通高斯。
+  \item $\cos(\theta-\theta_0)$ 在角度相近时取大值，角度偏离时变小。
+  \item 因而该分布自然描述圆周上的集中现象。
+\end{enumerate}
+\textbf{何时使用：} 方向数据、相位数据、时间周期与姿态角建模。
+\end{formulabox}
+
+\section{指数族与充分统计量}
+\begin{formulabox}{指数族统一形式}
+\begin{equation}
+p(x\mid \boldsymbol{\eta})
+= h(x)\,g(\boldsymbol{\eta})\,
+\exp\left(\boldsymbol{\eta}^\top \mathbf{u}(x)\right).
+\end{equation}
+\textbf{变量释义：} $\boldsymbol{\eta}$ 是自然参数，$\mathbf{u}(x)$ 是充分统计量。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 把与参数相关的部分写成指数中的线性形式。
+  \item 与样本有关且足以支持参数估计的信息被压缩到 $\mathbf{u}(x)$ 中。
+  \item 这样很多模型的对数似然、梯度和共轭先验都能统一处理。
+\end{enumerate}
+\textbf{何时使用：} 广义线性模型、共轭先验推导、EM 与变分推断分析。
+\end{formulabox}
+
+\begin{insightbox}{充分统计量的直觉}
+如果一组统计量在参数推断任务中已经保留了样本对参数的全部信息，那么再看原始样本并不会提供额外帮助。\\
+例如 Bernoulli 的充分统计量就是成功次数 $\sum_n x_n$。
+\end{insightbox}
+
+\section{非参数密度估计}
+\subsection{Histogram, KDE, kNN}
+\begin{formulabox}{核密度估计（KDE）}
+\begin{equation}
+\hat{p}(x)=\frac{1}{N}\sum_{n=1}^{N}\frac{1}{h}
+K\left(\frac{x-x_n}{h}\right).
+\end{equation}
+\textbf{变量释义：} $K$ 是核函数，$h$ 是带宽。\\
+\textbf{推导思路（2-4步）：}
+\begin{enumerate}[leftmargin=1.6em]
+  \item 把每个样本点都看成一个局部小“鼓包”。
+  \item 把这些鼓包相加并平均，就得到平滑的密度估计。
+  \item 带宽 $h$ 越大越平滑，但偏差更大；越小越灵活，但方差更大。
+\end{enumerate}
+\textbf{何时使用：} 分布形状未知、不希望强加单高斯等强假设时。
+\end{formulabox}
+
+\section{总结与常见误区}
+\begin{itemize}[leftmargin=1.6em]
+  \item Bernoulli、Binomial、Multinomial 是离散计数模型的基本家族。
+  \item 多元高斯最重要的性质是：边缘与条件仍然是高斯。
+  \item 指数族的价值不在于“多一个定义”，而在于统一了大量模型的推导方式。
+  \item 误区1：把单高斯用于明显多峰的数据。
+  \item 误区2：认为 KDE 的带宽只是调视觉效果，而非偏差-方差控制。
+  \item 误区3：只记条件分布公式，不理解其线性修正的来源。
+\end{itemize}
+
+\end{document}
+
+
+
+
+
+

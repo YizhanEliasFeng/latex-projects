@@ -1,0 +1,41 @@
+﻿\usepackage{fontspec}
+\usepackage[UTF8]{ctex}
+\setmainfont{TeX Gyre Termes}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tcolorbox}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\newtcolorbox{formulabox}[1]{
+  colback=blue!3!white,
+  colframe=blue!55!black,
+  title=#1,
+  fonttitle=\bfseries,
+  boxsep=1mm,
+  left=1mm,right=1mm,top=1mm,bottom=1mm
+}
+\newtcolorbox{insightbox}[1]{
+  colback=orange!4!white,
+  colframe=orange!55!black,
+  title=#1,
+  fonttitle=\bfseries,
+  boxsep=1mm,
+  left=1mm,right=1mm,top=1mm,bottom=1mm
+}
+\newtcolorbox{derivationbox}[1]{
+  colback=green!3!white,
+  colframe=green!45!black,
+  title=#1,
+  fonttitle=\bfseries,
+  boxsep=1mm,
+  left=1mm,right=1mm,top=1mm,bottom=1mm
+}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\KL}{\mathrm{KL}}
+\newcommand{\MI}{\mathrm{I}}

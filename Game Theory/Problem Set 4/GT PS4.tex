@@ -1,0 +1,297 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-en.tex}
+
+% \usepackage[
+%   backend=biber,
+%   style=numeric,
+%   sorting=none
+% ]{biblatex}
+% \addbibresource{bib/references.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead[L]{Yizhan Feng 2400017802}
+\fancyhead[C]{}
+\fancyhead[R]{GAME THEORY, Spring 2026, PS4}
+
+\usetikzlibrary{arrows.meta,positioning,calc}
+
+\begin{document}
+
+\maketitle
+
+\section{Strategies and Equilibrium}
+Consider a two-player game in which player~1 can choose $A$ or $B$.
+The game ends if he chooses $A$ while it continues to player~2 if he chooses $B$.
+Player~2 can then choose $C$ or $D$, with the game ending after $C$ and continuing again with player~1 after $D$.
+Player~1 can then choose $E$ or $F$, and the game ends after each of these choices.
+
+\begin{enumerate}[label=\alph*.]
+    \item Model this as an extensive-form game tree. Is it a game of perfect or imperfect information?
+    \item How many terminal nodes does the game have? How many information sets?
+    \item How many pure strategies does each player have?
+    \item Imagine that the payoffs following choice $A$ by player~1 are $(2,0)$, those following $C$ by player~2 are $(3,1)$, those following $E$ by player~1 are $(0,0)$, and those following $F$ by player~1 are $(1,2)$. What are the Nash equilibria of this game? Does one strike you as more ``appealing'' than the other? If so, explain why.
+\end{enumerate}
+
+\paragraph{Answer}
+
+\begin{enumerate}[label=\alph*.]
+
+\item The extensive-form game tree is:
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\normalsize}]
+    \node (root) at (0,0) {$1$};
+    \node (nA) at (-3,-2) {};
+    \node (n2) at (3,-2) {$2$};
+    \node (nC) at (1,-4) {};
+    \node (n1b) at (5,-4) {$1$};
+    \node (nE) at (4,-6) {};
+    \node (nF) at (6,-6) {};
+
+    \draw (root) -- node[above left] {$A$} (nA);
+    \draw (root) -- node[above right] {$B$} (n2);
+    \draw (n2) -- node[above left] {$C$} (nC);
+    \draw (n2) -- node[above right] {$D$} (n1b);
+    \draw (n1b) -- node[above left] {$E$} (nE);
+    \draw (n1b) -- node[above right] {$F$} (nF);
+\end{tikzpicture}
+\end{center}
+
+This is a game of perfect information, because at every decision node the player moving knows the full history of previous actions.
+
+\item There are 4 terminal nodes:
+\[
+A,\quad BC,\quad BDE,\quad BDF.
+\]
+
+There are three decision nodes in total, and since this is a perfect-information game, each decision node is a singleton information set. Therefore the number of information sets is 3.
+
+\item Player~1 has two information sets: at the initial node he chooses between $A$ and $B$, and at the later node he chooses between $E$ and $F$. Thus player~1 has \(2\times 2 = 4\) pure strategies:
+\[
+AE,\ AF,\ BE,\ BF.
+\]
+
+Player~2 has one information set and chooses between $C$ and $D$, so player~2 has
+\[
+\boxed{2}
+\]
+pure strategies:
+\[
+C,\ D.
+\]
+
+\item The normal form is
+
+\[
+\begin{array}{c|cc}
+ & C & D\\
+\hline
+AE & (2,0) & (2,0)\\
+AF & (2,0) & (2,0)\\
+BE & (3,1) & (0,0)\\
+BF & (3,1) & (1,2)
+\end{array}
+\]
+
+For player~1:
+\begin{itemize}
+    \item if player~2 chooses $C$, the best responses are $BE$ and $BF$;
+    \item if player~2 chooses $D$, the best responses are $AE$ and $AF$.
+\end{itemize}
+
+For player~2:
+\begin{itemize}
+    \item against $AE$, both $C$ and $D$ are best responses;
+    \item against $AF$, both $C$ and $D$ are best responses;
+    \item against $BE$, $C$ is a best response;
+    \item against $BF$, $D$ is a best response.
+\end{itemize}
+
+Therefore the pure-strategy Nash equilibria are
+\[
+\boxed{(BE,C),\ (AE,D),\ (AF,D)}.
+\]
+
+Among these, the most appealing one is
+\[
+\boxed{(AF,D)},
+\]
+because it is the unique subgame-perfect equilibrium.
+
+To see this, use backward induction. At the last node player~1 chooses between $E$ and $F$, and since
+\[
+1>0,
+\]
+he will choose $F$. Anticipating this, player~2 compares $C$ and $D$:
+\[
+1 \text{ from } C \quad \text{vs.} \quad 2 \text{ from } D,
+\]
+so player~2 chooses $D$. Anticipating that, player~1 compares
+\[
+2 \text{ from } A \quad \text{vs.} \quad 1 \text{ from } B,
+\]
+so player~1 chooses $A$. Hence the backward-induction outcome is $(AF,D)$.
+
+\end{enumerate}
+
+\section{Tic-Tac-Toe}
+The extensive-form representation of a game can be cumbersome even for very simple games.
+Consider the game of tic-tac-toe, in which two players mark ``X'' or ``O'' in a $3\times 3$ matrix.
+Player~1 moves first, then player~2, and so on.
+If a player gets three of his kind in a row, column, or one of the diagonals then he wins, and otherwise it is a tie.
+For this question assume that even after a winner is declared, the players \emph{must completely fill} the matrix before the game ends.
+
+\begin{enumerate}[label=\alph*.]
+    \item Is this a game of perfect or imperfect information? Why?
+    \item How many information sets does player~2 have after player~1's first move?
+    \item How many information sets does player~1 have after each of player~2's moves for the first time?
+    \item How many information sets does each player have in total? (Hint: For this and part (e) you may want to use a spreadsheet program like Excel.)
+    \item How many terminal nodes does the game have?
+\end{enumerate}
+
+\section{Veto Power}
+Two players must choose among three alternatives, $a$, $b$, and $c$.
+Player~1's preferences are given by
+\[
+a \succ_1 b \succ_1 c
+\]
+while player~2's preferences are given by
+\[
+c \succ_2 b \succ_2 a.
+\]
+The rules are that player~1 moves first and can veto one of the three alternatives.
+Then player~2 chooses one of the remaining two alternatives.
+
+\begin{enumerate}[label=\alph*.]
+    \item Model this as an extensive-form game tree (choose payoffs that represent the preferences).
+    \item How many pure strategies does each player have?
+    \item Find all the Nash equilibria of this game.
+\end{enumerate}
+
+\section{Brothers}
+Consider the following game that proceeds in two stages:
+In the first stage one brother (player~2) has two \$10 bills and can choose one of two options:
+he can give his younger brother (player~1) \$20 or give him one of the \$10 bills
+(giving nothing is inconceivable given the way they were raised).
+This money will then be used to buy snacks at the show they will see, and each \$1 of snacks purchased yields one unit of payoff for a player who uses it.
+In the second stage the show they will see is determined by the following Battle of the Sexes game:
+
+\[
+\setlength{\arraycolsep}{6pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{array}{c c c c}
+    & & \multicolumn{2}{c}{\text{Player 2}} \\
+    & & O & F \\
+    \cline{3-4}
+    \multirow{2}{*}{\text{Player 1}} & O
+    & \multicolumn{1}{|c|}{16,12} & \multicolumn{1}{c|}{0,0} \\
+    \cline{3-4}
+    & F
+    & \multicolumn{1}{|c|}{0,0} & \multicolumn{1}{c|}{12,16} \\
+    \cline{3-4}
+\end{array}
+\]
+
+\begin{enumerate}[label=\alph*.]
+    \item Present the \emph{entire game} in extensive form (a game tree).
+    \item Write the (pure-) strategy sets for both players.
+    \item Present the \emph{entire game} in one matrix.
+    \item Find the Nash equilibria of the \emph{entire game} (pure and mixed strategies).
+\end{enumerate}
+
+
+
+\section{The Dean's Dilemma}
+A student stole the DVD player from the student lounge.
+The dean of students (player~1) suspects the student (player~2) and begins collecting evidence.
+However, evidence collection is a random process, and concrete evidence will be available to the dean only with probability $\tfrac{1}{2}$.
+The student knows that the evidence-gathering process is under way but does not know whether the dean has collected evidence or not.
+The game proceeds as follows:
+The dean realizes whether or not he has evidence and can then choose his action, whether to accuse the student ($A$) or bounce the case ($B$) and forget it.
+Once accused, the student has two options: he can either confess ($C$) or deny ($D$).
+Payoffs are realized as follows:
+If the dean bounces the case then both players get $0$.
+If the dean accuses the student and the student confesses, the dean gains $2$ and the student loses $2$.
+If the dean accuses the student and the student denies, then payoffs depend on the evidence:
+If the dean has no evidence then he loses face, which gives him a loss of $4$, while the student gains glory, which gives him a payoff of $4$.
+If, however, the dean has evidence then he is triumphant and gains $4$, while the student is put on probation and loses $4$.
+
+\begin{enumerate}[label=\alph*.]
+    \item Draw the game tree that represents the extensive form of this game.
+    \item Write down the matrix that represents the normal form of the extensive form you drew in (a).
+    \item Solve for the Nash equilibria of the game.
+\end{enumerate}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.05, every node/.style={font=\normalsize}]
+    \node (root) at (0,3.6) {$1$};
+
+    \node (left1) at (-3,2.2) {$1$};
+    \node (right1) at (3,2.2) {$1$};
+
+    \draw (root) -- node[above left] {no evidence} (left1);
+    \draw (root) -- node[above right] {evidence} (right1);
+
+    \node (B1) at (-4.4,0.9) {};
+    \node (A1) at (-1.6,0.9) {};
+    \node (B2) at (1.6,0.9) {};
+    \node (A2) at (4.4,0.9) {};
+
+    \draw (left1) -- node[left] {$B$} (B1);
+    \draw (left1) -- node[right] {$A$} (A1);
+    \draw (right1) -- node[left] {$B$} (B2);
+    \draw (right1) -- node[right] {$A$} (A2);
+
+    \node (sL) at (-1.6,0.9) {$2$};
+    \node (sR) at (4.4,0.9) {$2$};
+
+    \draw[dashed] ($(sL)+(-0.8,0)$) arc[start angle=180,end angle=0,x radius=3.0cm,y radius=0.45cm];
+    \draw[dashed] ($(sL)+(-0.8,0)$) arc[start angle=180,end angle=360,x radius=3.0cm,y radius=0.45cm];
+
+    \node (t1) at (-5.2,-0.5) {$(0,0)$};
+    \node (c1) at (-2.5,-0.5) {$(2,-2)$};
+    \node (d1) at (-0.7,-0.5) {$(-4,4)$};
+
+    \node (t2) at (0.8,-0.5) {$(0,0)$};
+    \node (c2) at (3.5,-0.5) {$(2,-2)$};
+    \node (d2) at (5.3,-0.5) {$(4,-4)$};
+
+    \draw (B1) -- (t1);
+    \draw (A1) -- node[left] {$C$} (c1);
+    \draw (A1) -- node[right] {$D$} (d1);
+
+    \draw (B2) -- (t2);
+    \draw (A2) -- node[left] {$C$} (c2);
+    \draw (A2) -- node[right] {$D$} (d2);
+\end{tikzpicture}
+\end{center}
+
+\section{Centipede Game}
+
+Consider the following normal form representation of the centipede game we covered in class.
+Find all Nash equilibria.
+
+\[
+\begin{array}{c|c|c|c|c|}
+ & nn & nc & cn & cc \\
+\hline
+NN & 1,1 & 1,1 & 1,1 & 1,1 \\
+\hline
+NC & 1,1 & 1,1 & 1,1 & 1,1 \\
+\hline
+CN & 0,3 & 0,3 & 2,2 & 2,2 \\
+\hline
+CC & 0,3 & 0,3 & 1,4 & 3,3 \\
+\hline
+\end{array}
+\]
+
+\end{document}
