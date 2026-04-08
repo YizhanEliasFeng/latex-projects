@@ -1,0 +1,417 @@
+\newpage
+\chapter{回归与分类}
+
+\section{监督学习的基本框架}
+
+监督学习（Supervised Learning）通常分为两类：
+
+\begin{itemize}
+    \item 回归（regression）：输出为连续值；
+    \item 分类（classification）：输出为离散类别。
+\end{itemize}
+
+很多机器学习问题都可以表述为：先建立一个参数化模型，再通过优化某个目标函数来学习参数。
+
+\section{回归问题与最小二乘}
+
+设第 $n$ 个样本输入为 $x_n$，目标输出为 $t_n$，建立模型
+\[
+t_n = y(x_n,w) + \varepsilon_n,
+\]
+其中 $w$ 是模型参数，$\varepsilon_n$ 是噪声项。
+
+若假设噪声独立同分布且服从高斯分布
+\[
+\varepsilon_n \overset{\mathrm{i.i.d.}}{\sim} \mathcal{N}(0,\sigma^2),
+\]
+则
+\[
+p(t_n\mid x_n,w)
+=
+\frac{1}{\sqrt{2\pi}\sigma}
+\exp\!\left(
+-\frac{(t_n-y(x_n,w))^2}{2\sigma^2}
+\right).
+\] 
+于是最大化对数似然
+\[
+\max_w \sum_{n=1}^N \ln p(t_n\mid x_n,w)
+\]
+等价于最小化
+\[
+\min_w \sum_{n=1}^N (t_n-y(x_n,w))^2.
+\]
+如果再除以 $N$，就得到均方误差（MSE）：
+\[
+\mathrm{MSE}
+=
+\frac{1}{N}\sum_{n=1}^N (t_n-y(x_n,w))^2.
+\]
+
+所以，在高斯噪声假设下，\textbf{最大似然估计等价于最小二乘}。
+
+\section{线性基函数回归模型}
+
+\subsection{模型形式}
+
+线性基函数模型（linear basis function model）的形式是
+\[
+y(x,w)=w^{\top}\phi(x),
+\]
+其中
+\[
+w\in\mathbb{R}^M,\qquad x\in\mathbb{R}^d,\qquad y\in\mathbb{R}.
+\]
+这里的 $\phi(x)$ 是基函数向量：
+\[
+\phi(x)=
+\begin{pmatrix}
+\phi_1(x)\\
+\phi_2(x)\\
+\vdots\\
+\phi_M(x)
+\end{pmatrix}.
+\]
+因此
+\[
+y(x,w)=w_1\phi_1(x)+w_2\phi_2(x)+\cdots+w_M\phi_M(x).
+\]
+
+注意：这类模型对参数 $w$ 是线性的，但对输入 $x$ 不一定线性，因为 $\phi(x)$ 可以是任意非线性变换。
+
+\subsection{几种常见基函数举例}
+
+\paragraph{例1：直接使用输入分量}
+若 $x\in\mathbb{R}^M$，取
+\[
+\phi_k(x)=x_k,
+\]
+则
+\[
+w^{\top}\phi(x)=w^{\top}x=w_1x_1+w_2x_2+\cdots+w_Mx_M.
+\]
+
+\paragraph{例2：多项式基函数}
+若 $x\in\mathbb{R}$，可取
+\[
+\phi(x)=
+\begin{pmatrix}
+1\\
+x\\
+x^2\\
+\vdots\\
+x^{M-1}
+\end{pmatrix},
+\]
+则
+\[
+w^{\top}\phi(x)=w_0+w_1x+\cdots+w_{M-1}x^{M-1}.
+\]
+
+\paragraph{例3：三角基函数}
+例如可取
+\[
+\phi_k(x)=\sin(kx),\qquad \phi_k(x)=\cos(kx),
+\]
+用于表示周期性结构。
+
+\section{正规方程与几何解释}
+
+\subsection{最小二乘的矩阵形式}
+
+对所有样本，记目标向量为
+\[
+T=
+\begin{pmatrix}
+t_1\\
+t_2\\
+\vdots\\
+t_N
+\end{pmatrix}
+\in\mathbb{R}^{N},
+\]
+设计矩阵（design matrix）为
+\[
+\Phi=
+\begin{pmatrix}
+\phi(x_1)^{\top}\\
+\phi(x_2)^{\top}\\
+\vdots\\
+\phi(x_N)^{\top}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\phi_1(x_1) & \phi_2(x_1) & \cdots & \phi_M(x_1)\\
+\phi_1(x_2) & \phi_2(x_2) & \cdots & \phi_M(x_2)\\
+\vdots & \vdots & \ddots & \vdots\\
+\phi_1(x_N) & \phi_2(x_N) & \cdots & \phi_M(x_N)
+\end{pmatrix}
+\in\mathbb{R}^{N\times M}.
+\]
+参数向量为
+\[
+w=
+\begin{pmatrix}
+w_1\\
+w_2\\
+\vdots\\
+w_M
+\end{pmatrix}.
+\]
+
+于是回归模型可写成
+\[
+T=\Phi w+\varepsilon,
+\]
+其中
+\[
+\varepsilon=
+\begin{pmatrix}
+\varepsilon_1\\
+\varepsilon_2\\
+\vdots\\
+\varepsilon_N
+\end{pmatrix}.
+\]
+
+最小二乘目标函数写成
+\[
+E(w)
+=
+\frac{1}{2}\sum_{n=1}^N \bigl(t_n-w^{\top}\phi(x_n)\bigr)^2
+=
+\frac{1}{2}\|T-\Phi w\|^2.
+\] 
+
+\subsection{正规方程}
+
+为了求最优参数，对 $E(w)$ 求导：
+\[
+E(w)=\frac{1}{2}(T-\Phi w)^{\top}(T-\Phi w).
+\]
+展开可得
+\[
+E(w)
+=
+\frac{1}{2}\Bigl(
+T^{\top}T
+-2T^{\top}\Phi w
++w^{\top}\Phi^{\top}\Phi w
+\Bigr).
+\]
+对 $w$ 求梯度并令其为零：
+\[
+\frac{\partial E(w)}{\partial w}
+=
+-\Phi^{\top}T+\Phi^{\top}\Phi w
+=0.
+\]
+因此得到正规方程（normal equation）：
+\[
+\Phi^{\top}\Phi\,w=\Phi^{\top}T.
+\]
+若 $\Phi^{\top}\Phi$ 可逆，则
+\[
+w^{*}
+=
+(\Phi^{\top}\Phi)^{-1}\Phi^{\top}T.
+\]
+
+\subsection{几何解释}
+
+最小二乘的几何意义是：由于噪声的存在，\(T\)并不在由 $\Phi$ 的列向量张成的子空间中，因此我们需要寻找最接近目标向量 $T$ 的点 $\Phi w^*$，也就是说，误差向量
+\[
+\varepsilon = T-\Phi w^*
+\]
+与该子空间正交，因此
+\[
+\Phi^{\top}(T-\Phi w^*)=0.
+\]
+这正是正规方程的几何形式。
+
+\section{MAP 与正则化}
+
+现在我们回过头来思考，参数 \(w\) 是如何选取的。在线性回归或分类模型中，经典统计通常将 \(w\) 视为一个固定但未知的参数，随机性来自观测数据中的噪声。因此，我们通过观测样本 \((x_n,t_n)\)，并最大化似然函数 \(p(D\mid w)\) 或最小化相应损失函数，来求得一个最优估计 \(\hat w\)。
+
+然而，贝叶斯概率论提供了另一种理解方式：由于我们在观测数据之前并不知道参数 \(w\) 的真实取值，因此也可以将 \(w\) 本身看作随机变量，并用先验分布 \(p(w)\) 描述我们对其取值的先验信念。结合观测数据后，便可通过贝叶斯公式得到参数的后验分布
+\[
+p(w\mid D)=\frac{p(D\mid w)p(w)}{p(D)}.
+\]
+贝叶斯方法并不是简单地寻找单个最优参数，而是通过数据不断更新我们对参数 \(w\) 的概率认识。
+
+因此除了 MLE 之外，我们还可以引入参数先验，使用最大后验估计（MAP, Maximum A Posteriori）。根据上述公式，因为 $p(D)$ 与 $w$ 无关，所以
+\[
+\max_w \ln p(w\mid D)
+=
+\max_w \bigl[\ln p(D\mid w)+\ln p(w)\bigr].
+\]
+
+\subsection{高斯先验与 $L_2$ 正则}
+
+若对参数取高斯先验
+\[
+p(w)
+=
+\frac{1}{(2\pi)^{M/2}\sigma_w^M}
+\exp\!\left(
+-\frac{\|w\|^2}{2\sigma_w^2}
+\right),
+\]
+则
+\[
+\ln p(w)
+=
+-\frac{1}{2\sigma_w^2}\|w\|^2 + \text{const}.
+\]
+因此最大化后验概率等价于最小化
+\[
+\sum_{n=1}^N (t_n-w^{\top}\phi(x_n))^2
++
+\lambda \|w\|^2,
+\]
+其中 $\lambda>0$ 为正则化系数。
+
+这就是 $L_2$ 正则化，也称 Ridge 回归。其解析解为
+\[
+w^{*}
+=
+(\Phi^{\top}\Phi+\lambda I)^{-1}\Phi^{\top}T.
+\]
+
+\subsection{$L_1$ 正则}
+
+若改用
+\[
+\lambda\sum_{i=1}^M |w_i|,
+\]
+则得到 $L_1$ 正则化，也即 Lasso。它倾向于产生稀疏解，即使部分参数精确变成零。
+
+因此，正则化最小化问题可以统一写成
+\[
+\min_w
+\sum_{n=1}^N (t_n-w^{\top}\phi(x_n))^2
++
+\lambda \Omega(w),
+\]
+其中
+\[
+\Omega(w)=\|w\|^2
+\quad \text{或} \quad
+\Omega(w)=\sum_{i=1}^M |w_i|.
+\]
+
+\section{分类问题与 Logistic 回归}
+
+\subsection{二分类的概率建模}
+
+对于二分类问题，令
+\[
+t_n\in\{0,1\},
+\]
+并定义打分函数
+\[
+a_n=w^{\top}\phi(x_n).
+\]
+使用 sigmoid 函数
+\[
+\sigma(a)=\frac{1}{1+\exp(-a)}
+\]
+压缩到\((0,1)\)。于是可建模为
+\[
+p(t_n=1\mid x_n)=\sigma(a_n),\qquad
+p(t_n=0\mid x_n)=1-\sigma(a_n).
+\]
+
+因此单个样本的条件概率可以统一写为
+\[
+p(t_n\mid x_n)
+=
+\sigma(a_n)^{t_n}\bigl(1-\sigma(a_n)\bigr)^{1-t_n}.
+\]
+
+\subsection{对数似然与交叉熵}
+
+对于整个数据集，最大化对数似然等价于最大化
+\[
+\sum_{n=1}^N
+\Bigl[
+t_n\ln \sigma(a_n)
++
+(1-t_n)\ln\bigl(1-\sigma(a_n)\bigr)
+\Bigr].
+\]
+等价地，也可最小化负对数似然
+\[
+E(w)
+=
+-\sum_{n=1}^N
+\Bigl[
+t_n\ln \sigma(a_n)
++
+(1-t_n)\ln\bigl(1-\sigma(a_n)\bigr)
+\Bigr].
+\]
+这就是二分类中的交叉熵损失（cross-entropy loss）。
+
+与线性回归不同，这里通常没有简单的闭式解，因此需要迭代优化。
+
+\subsection{梯度下降法}
+
+为求解
+\[
+\min_w E(w),
+\]
+其中
+\[
+E(w)=\sum_{n=1}^N E_n(w),
+\]
+ 常见的数值优化方法是梯度下降（Gradient Descent, GD）：
+\[
+w_{k+1}=w_k-\eta \nabla_w E(w_k),
+\]
+其中 $\eta$ 为学习率（learning rate）。
+
+其思想是：在当前位置计算目标函数的梯度，沿负梯度方向更新参数，从而逐步减小误差函数。
+
+\subsection{从生成式观点理解 Logistic 形式}
+
+最后我们给出了一个从生成模型推导二分类后验概率为 sigmoid 形式的思路。
+
+设两类分别为 $C_1,C_2$，由贝叶斯公式有
+\[
+p(C_1\mid x)
+=
+\frac{p(x\mid C_1)p(C_1)}
+{p(x\mid C_1)p(C_1)+p(x\mid C_2)p(C_2)}.
+\]
+令
+\[
+a
+=
+\ln \frac{p(x\mid C_1)p(C_1)}{p(x\mid C_2)p(C_2)},
+\]
+则可写成
+\[
+p(C_1\mid x)=\frac{1}{1+\exp(-a)}=\sigma(a).
+\]
+
+若进一步假设类条件分布为高斯分布
+\[
+p(x\mid C_k)
+=
+\frac{1}{(2\pi)^{d/2}|\Sigma|^{1/2}}
+\exp\!\left(
+-\frac{1}{2}(x-\mu_k)^{\top}\Sigma^{-1}(x-\mu_k)
+\right),
+\qquad x\in\mathbb{R}^d,
+\]
+并且两类共享同一个协方差矩阵 $\Sigma_{d\times d}$，则可以推出
+\[
+a(x)=w^{\top}x+w_0,
+\]
+从而
+\[
+p(C_1\mid x)=\sigma(w^{\top}x+w_0).
+\]
+
+这说明：\textbf{在线性高斯生成模型的假设下，后验概率会自然具有 Logistic 回归的形式。}

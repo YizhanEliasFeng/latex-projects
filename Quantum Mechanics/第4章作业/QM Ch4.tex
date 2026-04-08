@@ -1,0 +1,528 @@
+\documentclass[12pt,a4paper]{article}
+
+\input{paths.tex}
+\input{meta.tex}
+
+\input{\reporoot/shared/preamble-base.tex}
+\input{\reporoot/shared/macros.tex}
+\input{\reporoot/shared/preamble-zh.tex}
+
+% \usepackage[
+%   backend=biber,
+%   style=numeric,
+%   sorting=none
+% ]{biblatex}
+% \addbibresource{bib/references.bib}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{14.5pt}
+\fancyhead[L]{冯翊展 2400017802}
+\fancyhead[C]{}
+\fancyhead[R]{量子力学（A）（2026年春）第4章作业}
+
+\allowdisplaybreaks[3]
+
+\usepackage{physics}
+\AtBeginDocument{\RenewCommandCopy\qty\SI}
+
+\begin{document}
+
+\maketitle
+
+\section{}
+
+判断下列提法的正误。
+\begin{enumerate}[label=(\alph*)]
+    \item 在非定态下，力学量的平均值随时间变化。
+    \item 设体系处于定态，则不含时力学量的期望值的概率分布不随时间变化。
+    \item 设 Hamilton 量为守恒量，则体系处于定态。
+    \item 中心力场中的粒子，处于定态，则角动量取确定值。
+    \item 自由粒子处于定态，则动量取确定值。
+    \item 一维粒子的能量本征态无简并。
+    \item 中心力场中粒子能级的简并度至少为 $\left( 2l+1 \right)$，$l=0,1,2,\cdots$。
+\end{enumerate}
+
+\vspace{0.5cm}
+\noindent\textbf{解：}
+\begin{enumerate}[label=(\alph*)]
+    \item 不正确。一般来说，非定态并不必然意味着任意力学量的平均值都随时间变化。只有当该力学量对应的算符与 Hamilton 量不对易时，其平均值才可能随时间变化；若 $\comm{A}{H}=0$，则即使体系处于非定态，$\expval{A}$ 也可以与时间无关。
+    \item 正确。若体系处于定态，波函数仅随时间获得整体相位因子，因此对于不显含 $t$ 的力学量，其测量概率分布与时间无关，期望值也与时间无关。
+    \item 不正确。$H$ 作为守恒量只说明它与自身对易，或者在不显含时的情形下其期望值守恒；任意态都可在这一 Hamilton 量下演化，但只有 Hamilton 量的本征态才是定态。
+    \item 不正确。中心力场中的定态通常由 $\ket{n l m}$ 表示，能量、$L^2$ 和 $L_z$ 取确定值，但角动量矢量本身的三个分量不能同时取确定值，因此不能笼统地说``角动量取确定值''。
+    \item 不正确。自由粒子的定态满足
+    \[
+    H\psi=E\psi,\qquad H=\frac{\hat{p}^2}{2m}.
+    \]
+    定态是能量本征态，也就是 \(\hat p^2\) 的本征态。但 \(\hat p\) 的本征值可以是 \(\pm p\)，所以同一能量对应两个相反动量，能量本征态不一定是动量本征态。
+    \item 不正确。一维束缚态的能量本征值无简并；但非束缚态及周期性边界条件的一维体系存在简并。
+    \item 正确。中心力场中能量只依赖于径向量子数与轨道角动量量子数，而与磁量子数 $m$ 无关；对固定的 $l$，$m=-l,-l+1,\dots,l$ 共给出 $2l+1$ 个简并态，因此简并度至少为 $\left( 2l+1 \right)$。
+\end{enumerate}
+
+\section{}
+
+设体系有两个粒子，每个粒子可处于三个单粒子态 $\varphi_1,\varphi_2,\varphi_3$ 中的任何一个态。试求体系可能态的数目，分三种情况讨论：
+\begin{enumerate}[label=(\alph*)]
+    \item 两个全同 Bose 子；
+    \item 两个全同 Fermi 子；
+    \item 两个不同粒子。
+\end{enumerate}
+
+\vspace{0.5cm}
+\noindent\textbf{解：}
+设单粒子态数为 $g=3$。
+\begin{enumerate}[label=(\alph*)]
+    \item 对于两个全同 Bose 子，占据数表示满足
+    \[
+    n_1+n_2+n_3=2,\qquad n_i\ge 0.
+    \]
+    因而可能态数为
+    \[
+    \binom{g+N-1}{N}=\binom{4}{2}=6.
+    \]
+
+    \item 对于两个全同 Fermi 子，由 Pauli 不相容原理，每个单粒子态至多占据一个粒子，因此只需从 $3$ 个单粒子态中任选 $2$ 个：
+    \[
+    \binom{3}{2}=3.
+    \]
+
+    \item 对于两个不同粒子，每个粒子都有 $3$ 种独立选择，因此可能态数为
+    \[
+    3\times 3=9.
+    \]
+\end{enumerate}
+
+\section{}
+
+设体系由 $3$ 个粒子组成，每个粒子可能处于 $3$ 个单粒子态 $\varphi_1,\varphi_2$ 和 $\varphi_3$ 中的任何一个态。分析体系的可能态的数目，分三种情况：
+\begin{enumerate}[label=(\alph*)]
+    \item 不计及波函数的交换对称性；
+    \item 要求波函数对于交换是反对称；
+    \item 要求波函数对于交换是对称。
+\end{enumerate}
+试问：对称态和反对称态的总数 $\gamma$，与(a)的结果是否相同？对此做出说明。
+
+\vspace{0.5cm}
+\noindent\textbf{解：}
+设单粒子态数为 $g=3$，粒子数为 $N=3$。
+\begin{enumerate}[label=(\alph*)]
+    \item 不计交换对称性时，可把三个粒子视为彼此可区分。每个粒子均有 $3$ 种选择，因此可能态数为
+    \[
+    g^N=3^3=27.
+    \]
+
+    \item 若要求波函数对交换反对称，即三个全同 Fermi 子，则每个单粒子态至多占据一个粒子。由于恰有 $3$ 个粒子和 $3$ 个单粒子态，所以只能各占一个态，故可能态数为
+    \[
+    \binom{3}{3}=1.
+    \]
+
+    \item 若要求波函数对交换对称，即三个全同 Bose 子，则占据数满足
+    \[
+    n_1+n_2+n_3=3,\qquad n_i\ge 0.
+    \]
+    故可能态数为
+    \[
+    \binom{g+N-1}{N}=\binom{5}{3}=10.
+    \]
+\end{enumerate}
+因此，对称态和反对称态总数为
+\[
+\gamma=10+1=11.
+\]
+这与(a)问所得的 $27$ 不相同。原因在于(a)问把交换后得到的态都作为不同态分别计数，而在全同粒子情形中，必须满足确定的交换对称性，许多可区分粒子态在物理上对应同一个允许态，因此态数显著减少。
+
+\section{}
+
+设力学量 $A$ 不显含 $t$，$H$ 为体系的 Hamilton 量，证明
+\[
+-\hbar^2 \dv[2]{\overline{A}}{t}=\overline{\comm{\comm{A}{H}}{H}}.
+\]
+
+\vspace{0.5cm}
+\noindent\textbf{解：}
+在 Schrödinger 绘景中，若 $A$ 不显含 $t$，则其平均值随时间的变化满足
+\[
+\dv{\overline{A}}{t}=\frac{i}{\hbar}\overline{\comm{H}{A}} = -\frac{i}{\hbar}\overline{\comm{A}{H}}.
+\]
+再对时间求导，并利用 $H$ 不显含 $t$，得
+\[
+\dv[2]{\overline{A}}{t}= -\frac{i}{\hbar}\dv{}{t}\overline{\comm{A}{H}}
+= -\frac{i}{\hbar}\overline{\comm{\dv{A}{t}}{H}}.
+\]
+代入
+\[
+\dv{\overline{A}}{t}= -\frac{i}{\hbar}\overline{\comm{A}{H}}
+\]
+可得
+\[
+\dv[2]{\overline{A}}{t}= -\frac{i}{\hbar}\overline{\comm{-\frac{i}{\hbar}\comm{A}{H}}{H}}
+= -\frac{1}{\hbar^2}\overline{\comm{\comm{A}{H}}{H}}.
+\]
+因此
+\[
+-\hbar^2 \dv[2]{\overline{A}}{t}=\overline{\comm{\comm{A}{H}}{H}}.
+\]
+
+\section{}
+
+设力学量 $A$ 不显含 $t$，证明在束缚定态下
+\[
+\dv{\overline{A}}{t}=0.
+\]
+
+\vspace{0.5cm}
+\noindent\textbf{解：}
+在定态下，体系波函数可写为
+\[
+\Psi(\vb{r},t)=\psi_n(\vb{r})e^{-iE_n t/\hbar}.
+\]
+于是对任意不显含 $t$ 的力学量 $A$，其平均值为
+\[
+\overline{A}=\expval{A}
+=\int \Psi^* A\Psi\,\dd \tau
+=\int \psi_n^* e^{iE_n t/\hbar} A \psi_n e^{-iE_n t/\hbar}\,\dd \tau.
+\]
+相位因子相消，故
+\[
+\overline{A}=\int \psi_n^* A\psi_n\,\dd \tau,
+\]
+它与时间无关，因此
+\[
+\dv{\overline{A}}{t}=0.
+\]
+
+\section{}
+
+$D_x(a)=\exp\left[-a\pdv{}{x}\right]=\exp\left[-ia\hat{p}_x/\hbar\right]$
+表示沿 $x$ 方向平移距离 $a$ 的算符。证明下列形式的波函数（Bloch 波函数）
+\[
+\psi_k(x)=e^{ikx}\phi_k(x),\qquad \phi_k(x+a)=\phi_k(x)
+\]
+是 $D_x(a)$ 的本征态，相应本征值为 $e^{-ika}$。
+
+\vspace{0.5cm}
+\noindent\textbf{解：}
+由平移算符的定义，$D_x(a)$ 作用于任意函数 $f(x)$ 时满足
+\[
+D_x(a)f(x)=f(x-a).
+\]
+因此对
+\[
+\psi_k(x)=e^{ikx}\phi_k(x),\qquad \phi_k(x-a)=\phi_k(x),
+\]
+有
+\[
+D_x(a)\psi_k(x)=\psi_k(x-a)=e^{ik(x-a)}\phi_k(x-a).
+\]
+利用周期条件 $\phi_k(x-a)=\phi_k(x)$，得
+\[
+D_x(a)\psi_k(x)=e^{-ika}e^{ikx}\phi_k(x)=e^{-ika}\psi_k(x).
+\]
+故 $\psi_k(x)$ 是 $D_x(a)$ 的本征态，其本征值为\(e^{-ika}\)。
+
+\section{}
+
+设体系的束缚能级和归一化能量本征态分别为 $E_n$ 和 $\psi_n$，$n$ 为标记包含 Hamilton 量 $H$ 在内的力学量完全集的本征态的一组好量子数。设 $H$ 含有一个参数 $\lambda$，证明
+\[
+\pdv{E_n}{\lambda}=\bra{\psi_n}\pdv{H}{\lambda}\ket{\psi_n}.
+\]
+此即 Feynman-Hellmann 定理。
+
+\vspace{0.5cm}
+\noindent\textbf{解：}
+由定态方程
+\[
+H(\lambda)\ket{\psi_n(\lambda)}=E_n(\lambda)\ket{\psi_n(\lambda)}
+\]
+出发，对参数 $\lambda$ 求导，得
+\[
+\pdv{H}{\lambda}\ket{\psi_n}+H\pdv{\ket{\psi_n}}{\lambda}
+=\pdv{E_n}{\lambda}\ket{\psi_n}+E_n\pdv{\ket{\psi_n}}{\lambda}.
+\]
+左乘 $\bra{\psi_n}$，得到
+\[
+\matrixel{\psi_n}{\pdv{H}{\lambda}}{\psi_n}
++\matrixel{\psi_n}{H}{\pdv{\psi_n}{\lambda}}
+=\pdv{E_n}{\lambda}\braket{\psi_n}{\psi_n}
++E_n\braket{\psi_n}{\pdv{\psi_n}{\lambda}}.
+\]
+由归一化条件 $\braket{\psi_n}{\psi_n}=1$ 以及
+\[
+\bra{\psi_n}H=E_n\bra{\psi_n},
+\]
+知
+\[
+\matrixel{\psi_n}{H}{\pdv{\psi_n}{\lambda}}
+=E_n\braket{\psi_n}{\pdv{\psi_n}{\lambda}}.
+\]
+上式两边相消后即得
+\[
+\pdv{E_n}{\lambda}=\matrixel{\psi_n}{\pdv{H}{\lambda}}{\psi_n}.
+\]
+这就是 Feynman-Hellmann 定理。
+
+\section{}
+
+设包含 Hamilton 量 $H$ 在内的一组对易守恒量完全集的共同本征态和本征值分别为 $\ket{n}$ 和 $E_n$。证明力学量 $\vb{F}$ 随时间的变化在能量表象中表示为
+\[
+\left(\dv{\vb{F}}{t}\right)_{nn'}=i\omega_{nn'}F_{nn'},\qquad
+\omega_{nn'}=\left(E_n-E_{n'}\right)/\hbar.
+\]
+
+\vspace{0.5cm}
+\noindent\textbf{解：}
+在 Heisenberg 绘景中，若 $\vb{F}$ 不显含时，则
+\[
+\dv{\vb{F}}{t}=\frac{i}{\hbar}\comm{H}{\vb{F}}.
+\]
+取其在能量本征态表象中的矩阵元：
+\[
+\matrixel{n}{\dv{\vb{F}}{t}}{n'}
+=\frac{i}{\hbar}\matrixel{n}{\comm{H}{\vb{F}}}{n'}.
+\]
+由于
+\[
+H\ket{n'}=E_{n'}\ket{n'},\qquad \bra{n}H=E_n\bra{n},
+\]
+故
+\[
+\matrixel{n}{\comm{H}{\vb{F}}}{n'}
+=\matrixel{n}{H\vb{F}-\vb{F}H}{n'}
+=\left( E_n-E_{n'} \right)\matrixel{n}{\vb{F}}{n'}.
+\]
+记
+\[
+F_{nn'}=\matrixel{n}{\vb{F}}{n'},\qquad \omega_{nn'}=\frac{E_n-E_{n'}}{\hbar},
+\]
+便得到
+\[
+\left( \dv{\vb{F}}{t} \right)_{nn'}
+=\frac{i}{\hbar}\left( E_n-E_{n'} \right)F_{nn'}
+=i\omega_{nn'}F_{nn'}.
+\]
+
+\section{}
+
+设 Hamilton 量 $H=\hat{p}^2/2\mu+V(r)$，证明下列求和规则
+\[
+\sum_m \left(E_m-E_n\right)\abs{x_{mn}}^2=\hbar^2/2\mu.
+\]
+$x$ 是 $\vb{r}$ 的一个分量，$\sum_m$ 是对一切能量本征态求和，$E_n$ 是相应于 $n$ 态的能量本征值，且
+\[
+H\ket{n}=E_n\ket{n}.
+\]
+提示：计算 $\comm{\comm{H}{x}}{x}$，并求 $\matrixel{m}{\comm{\comm{H}{x}}{x}}{m}$。
+
+\vspace{0.5cm}
+\noindent\textbf{解：}
+由
+\[
+H=\frac{\hat p^2}{2\mu}+V(r)
+\]
+出发。由于 \(V(r)\) 与坐标分量 \(x\) 对易，故
+\[
+\comm{V(r)}{x}=0,
+\]
+从而
+\[
+\comm{H}{x}=\frac{1}{2\mu}\comm{\hat p^2}{x}.
+\]
+
+又因为
+\[
+\hat p^2=\hat p_x^2+\hat p_y^2+\hat p_z^2,
+\]
+其中只有 \(\hat p_x\) 与 \(x\) 不对易，所以
+\[
+\comm{\hat p^2}{x}=\comm{\hat p_x^2}{x}.
+\]
+利用基本对易关系
+\[
+\comm{x}{\hat p_x}=i\hbar
+\implies
+\comm{\hat p_x}{x}=-i\hbar,
+\]
+可得
+\[
+\comm{\hat p_x^2}{x}
+=\hat p_x\comm{\hat p_x}{x}+\comm{\hat p_x}{x}\hat p_x
+=-2i\hbar \hat p_x.
+\]
+因此
+\[
+\comm{H}{x}
+=\frac{1}{2\mu}\left(-2i\hbar \hat p_x\right)
+=-\frac{i\hbar}{\mu}\hat p_x.
+\]
+
+再计算双对易子：
+\[
+\comm{\comm{H}{x}}{x}
+=
+-\frac{i\hbar}{\mu}\comm{\hat p_x}{x}
+=
+-\frac{i\hbar}{\mu}(-i\hbar)
+=
+-\frac{\hbar^2}{\mu}.
+\]
+
+于是，在态 \(\ket{n}\) 上取矩阵元，有
+\[
+\matrixel{n}{\comm{\comm{H}{x}}{x}}{n}
+=
+-\frac{\hbar^2}{\mu}.
+\]
+
+另一方面，将双对易子展开：
+\[
+\comm{\comm{H}{x}}{x}
+=
+(Hx-xH)x-x(Hx-xH)
+=
+Hx^2-2xHx+x^2H.
+\]
+因此
+\[
+\matrixel{n}{\comm{\comm{H}{x}}{x}}{n}
+=
+\matrixel{n}{Hx^2}{n}
+-2\matrixel{n}{xHx}{n}
++\matrixel{n}{x^2H}{n}.
+\]
+
+由
+\[
+H\ket{n}=E_n\ket{n},\qquad \bra{n}H=E_n\bra{n},
+\]
+得
+\[
+\matrixel{n}{Hx^2}{n}=E_n\matrixel{n}{x^2}{n},
+\qquad
+\matrixel{n}{x^2H}{n}=E_n\matrixel{n}{x^2}{n}.
+\]
+故
+\[
+\matrixel{n}{\comm{\comm{H}{x}}{x}}{n}
+=
+2E_n\matrixel{n}{x^2}{n}
+-2\matrixel{n}{xHx}{n}.
+\]
+
+对中间项插入完备关系
+\[
+\sum_m \ket{m}\bra{m}=1,
+\]
+则
+\[
+\matrixel{n}{xHx}{n}
+=
+\sum_m \matrixel{n}{x}{m}\matrixel{m}{H}{m}\matrixel{m}{x}{n}
+=
+\sum_m E_m x_{nm}x_{mn}.
+\]
+同时
+\[
+\matrixel{n}{x^2}{n}
+=
+\sum_m \matrixel{n}{x}{m}\matrixel{m}{x}{n}
+=
+\sum_m x_{nm}x_{mn}.
+\]
+因此
+\[
+\matrixel{n}{\comm{\comm{H}{x}}{x}}{n}
+=
+2\sum_m (E_n-E_m)x_{nm}x_{mn}.
+\]
+
+又由于
+\[
+x_{mn}=x_{nm}^*,
+\]
+故
+\[
+x_{nm}x_{mn}=\abs{x_{mn}}^2.
+\]
+于是
+\[
+\matrixel{n}{\comm{\comm{H}{x}}{x}}{n}
+=
+2\sum_m (E_n-E_m)\abs{x_{mn}}^2.
+\]
+
+与前面的结果比较，可得
+\[
+2\sum_m (E_n-E_m)\abs{x_{mn}}^2
+=
+-\frac{\hbar^2}{\mu}.
+\]
+两边同乘 \(-1\)，即
+\[
+2\sum_m (E_m-E_n)\abs{x_{mn}}^2
+=
+\frac{\hbar^2}{\mu}.
+\]
+故
+\[
+\sum_m (E_m-E_n)\abs{x_{mn}}^2
+=
+\frac{\hbar^2}{2\mu}.
+\]
+
+\section{}
+
+设 $F(r,p)$ 为厄米算符，证明在能量表象中的求和规则
+\[
+\sum_k \left(E_k-E_f\right)\abs{F_{fk}}^2
+=\frac{1}{2}\matrixel{f}{\comm{F}{\comm{H}{F}}}{f}.
+\]
+
+\vspace{0.5cm}
+\noindent\textbf{解：}
+在能量本征态表象中记
+\[
+F_{fk}=\matrixel{f}{F}{k},\qquad H\ket{k}=E_k\ket{k},\qquad H\ket{f}=E_f\ket{f}.
+\]
+考虑矩阵元
+\[
+\matrixel{f}{F\comm{H}{F}}{f}
+=\sum_k \matrixel{f}{F}{k}\matrixel{k}{\comm{H}{F}}{f}.
+\]
+而
+\[
+\matrixel{k}{\comm{H}{F}}{f}
+=\matrixel{k}{HF-FH}{f}
+=\left( E_k-E_f \right)F_{kf}.
+\]
+因此
+\[
+\matrixel{f}{F\comm{H}{F}}{f}
+=\sum_k \left( E_k-E_f \right)F_{fk}F_{kf}.
+\]
+同理，
+\[
+\matrixel{f}{\comm{H}{F}F}{f}
+=\sum_k \left( E_f-E_k \right)F_{fk}F_{kf}.
+\]
+二式相减得
+\[
+\matrixel{f}{\comm{F}{\comm{H}{F}}}{f}
+=2\sum_k \left( E_k-E_f \right)F_{fk}F_{kf}.
+\]
+若 $F$ 为厄米算符，则
+\[
+F_{kf}=F_{fk}^*,
+\]
+故
+\[
+F_{fk}F_{kf}=\abs{F_{fk}}^2.
+\]
+于是
+\[
+\sum_k \left(E_k-E_f\right)\abs{F_{fk}}^2
+=\frac{1}{2}\matrixel{f}{\comm{F}{\comm{H}{F}}}{f}.
+\]
+
+% \printbibliography
+
+\end{document}

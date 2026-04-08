@@ -1,0 +1,209 @@
+\newpage
+\chapter{绪论}
+\section{机器学习：我们在学什么}
+
+设有一组样本
+\[
+x_1,x_2,\dots,x_N,\qquad x_i\in\mathbb{R}^d.
+\]
+也就是说，每个样本 \(x_i\) 都是一个 \(d\) 维向量。这些样本可以看作是从某个真实但未知的数据分布中抽取出来的，这个分布记作\(P_{\mathrm{data}}(x)\)。
+
+在机器学习中，我们通常希望构造一个带参数的模型分布\(P_\theta(x)\)，其中 \(\theta\) 表示模型参数。学习的目标就是调节参数 \(\theta\)，使得模型分布尽可能接近真实数据分布，即
+\[
+P_\theta(x)\approx P_{\mathrm{data}}(x).
+\]
+
+一个典型例子是高斯分布。若模型假设数据服从某个高斯分布，则其密度可写成
+\[
+p_\theta(x)\propto \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right),
+\]
+参数为\(\theta=(\mu,\sigma)\)，而学习就是通过数据去确定合适的 \(\mu,\sigma\)，使这个高斯分布尽量接近真实数据的分布。
+
+\section{如何衡量``接近''：K-L散度}
+
+要让
+\[
+P_\theta(x)\approx P_{\mathrm{data}}(x),
+\]
+首先需要一个``距离''或``差异''的度量。这里引入一个非常重要的量：\textbf{K-L 散度}。
+
+对于两个概率分布 \(P\) 和 \(Q\)，其 K-L 散度定义为
+\[
+D_{\mathrm{KL}}(P\|Q)\equiv\int p(x)\log\frac{p(x)}{q(x)}\,\mathrm{d}x.
+\]
+这里\(p(x),q(x)\)分别是分布 \(P,Q\) 的密度。它衡量的是：如果真实分布是 \(P\)，但我们用 \(Q\) 来近似，会有多大的信息损失。
+
+把 K-L 散度展开：
+\[
+D_{\mathrm{KL}}(P\|Q)
+=
+\int p(x)\log p(x)\,\mathrm{d}x
+-
+\int p(x)\log q(x)\,\mathrm{d}x.
+\]
+注意到
+\[
+-\int p(x)\log p(x)\,\mathrm{d}x,
+\]
+这正是分布 \(P\) 的\textbf{熵}：
+\[
+H(P)=-\int p(x)\log p(x)\,\mathrm{d}x.
+\]
+通常定义\textbf{交叉熵}为
+\[
+H(P,Q)\equiv-\int p(x)\log q(x)\,\mathrm{d}x,
+\]
+于是有
+\[
+D_{\mathrm{KL}}(P\|Q)=H(P,Q)-H(P).
+\]
+这说明：
+\begin{itemize}
+    \item \(H(P)\) 是真实分布本身的不确定性；
+    \item \(H(P,Q)\) 是用 \(Q\) 来描述 \(P\) 时的平均代价；
+    \item 二者之差就是额外损失，也就是 K-L 散度。
+\end{itemize}
+
+\section{K-L散度的非负性}
+
+K-L 散度最重要的性质之一是
+\[
+D_{\mathrm{KL}}(P\|Q)\ge 0.
+\]
+并且只有当\(P=Q\)才有\(D_{\mathrm{KL}}(P\|Q)=0\)。这说明 K-L 散度虽然不一定是严格意义上的``距离''，但至少满足非负且相同则为零这一重要性质，因此非常适合作为分布拟合的目标函数。
+
+下面来推导这一性质。从定义出发，
+\[
+D_{\mathrm{KL}}(P\|Q)=\int p(x)\log\frac{p(x)}{q(x)}\,\mathrm{d}x.
+\]
+把它改写成
+\[
+D_{\mathrm{KL}}(P\|Q)=-\int p(x)\log\frac{q(x)}{p(x)}\,\mathrm{d}x.
+\]
+
+现在考虑函数
+\[
+f(t)=-\log t.
+\]
+这个函数是一个凸函数，因此可以使用 Jensen 不等式：
+\[
+\int p(x)f\left(\frac{q(x)}{p(x)}\right)\,\mathrm{d}x
+\ge
+f\left(\int p(x)\frac{q(x)}{p(x)}\,\mathrm{x}\right).
+\]
+代入 \(f(t)=-\log t\)，得到
+\[
+-\int p(x)\log\frac{q(x)}{p(x)}\,\mathrm{d}x
+\ge
+-\log\left(\int p(x)\frac{q(x)}{p(x)}\,\mathrm{d}x\right).
+\]
+而右边括号内可化简为
+\[
+\int p(x)\frac{q(x)}{p(x)}\,\mathrm{d}x
+=
+\int q(x)\,\mathrm{d}x
+=1.
+\]
+所以
+\[
+D_{\mathrm{KL}}(P\|Q)\ge -\log 1=0.
+\]
+因此得到
+\[
+D_{\mathrm{KL}}(P\|Q)\ge 0.
+\]
+
+\section{学习目标：MLE}
+
+在概率建模中，我们希望用参数化模型分布\(P_\theta(x)\)去逼近真实的数据分布\(P_{\mathrm{data}}(x)\)，即选择参数 \(\theta\)，使得模型分布与真实分布之间的 K-L 散度最小：
+\[
+\min_\theta D_{\mathrm{KL}}(P_{\mathrm{data}}\|P_\theta).
+\]
+这里
+\[
+D_{\mathrm{KL}}(P_{\mathrm{data}}\|P_\theta)
+=
+\int p_{\mathrm{data}}(x)\log\frac{p_{\mathrm{data}}(x)}{p_\theta(x)}\,\mathrm{d}x.
+\]
+
+展开K-L散度
+\[
+D_{\mathrm{KL}}(P_{\mathrm{data}}\|P_\theta)
+=
+\int p_{\mathrm{data}}(x)\log p_{\mathrm{data}}(x)\,\mathrm{d}x
+-
+\int p_{\mathrm{data}}(x)\log p_\theta(x)\,\mathrm{d}x.
+\]
+注意到第一项
+\[
+\int p_{\mathrm{data}}(x)\log p_{\mathrm{data}}(x)\,\mathrm{d}x
+\]
+只和真实分布 \(P_{\mathrm{data}}\) 有关，与参数 \(\theta\) 无关。因此，在对 \(\theta\) 做优化时，这一项可以视为常数。于是最小化 K-L 散度就等价于最小化
+\[
+-\int p_{\mathrm{data}}(x)\log p_\theta(x)\,\mathrm{d}x,
+\]
+也等价于最大化
+\[
+\int p_{\mathrm{data}}(x)\log p_\theta(x)\,\mathrm{d}x.
+\]
+所以有
+\[
+\min_\theta D_{\mathrm{KL}}(P_{\mathrm{data}}\|P_\theta)
+\quad\Longleftrightarrow\quad
+\max_\theta \int p_{\mathrm{data}}(x)\log p_\theta(x)\,\mathrm{d}x.
+\]
+
+进一步，上式中的
+\[
+\int p_{\mathrm{data}}(x)\log p_\theta(x)\,\mathrm{d}x
+\]
+其实就是在真实数据分布下，\(\log p_\theta(x)\) 的期望：
+\[
+\mathbb{E}_{x\sim P_{\mathrm{data}}}\left[\log p_\theta(x)\right].
+\]
+但在实际问题中，我们并不知道真实分布 \(P_{\mathrm{data}}\) 的具体表达式，只知道一组样本
+\[
+x_1,x_2,\dots,x_N.
+\]
+于是就用样本平均来近似这个期望：
+\[
+\mathbb{E}_{x\sim P_{\mathrm{data}}}[\log p_\theta(x)]
+\approx
+\frac{1}{N}\sum_{i=1}^N \log p_\theta(x_i).
+\]
+因此，优化目标就变成
+\[
+\max_\theta \frac{1}{N}\sum_{i=1}^N \log p_\theta(x_i).
+\]
+
+
+因为对数函数是单调递增的，最大化
+\[
+\frac{1}{N}\sum_{i=1}^N \log p_\theta(x_i)
+\]
+等价于最大化
+\[
+\prod_{i=1}^N p_\theta(x_i).
+\]
+后者正是样本的似然函数：
+\[
+L(\theta)=\prod_{i=1}^N p_\theta(x_i).
+\]
+因此，最优参数可以写成
+\[
+\hat{\theta}_{\mathrm{MLE}}
+=
+\arg\max_\theta \prod_{i=1}^N p_\theta(x_i),
+\]
+或者等价地写成
+\[
+\hat{\theta}_{\mathrm{MLE}}
+=
+\arg\max_\theta \sum_{i=1}^N \log p_\theta(x_i).
+\]
+
+这说明最小化
+\[
+D_{\mathrm{KL}}(P_{\mathrm{data}}\|P_\theta)
+\]
+的结果，就是最大似然估计（MLE）。

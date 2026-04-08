@@ -1,0 +1,342 @@
+\newpage
+\chapter{概率统计基础}
+
+\section{基本框架}
+概率论的基本框架由三元组
+\[
+(\Omega,\mathcal{F},P)
+\]
+给出，其中：
+\begin{itemize}
+    \item \(\Omega\) 为\textbf{样本空间}，表示所有可能结果的集合；
+    \item \(\mathcal{F}\) 为\textbf{事件集合}，其中每个事件 \(A\in\mathcal{F}\) 满足 \(A\subseteq \Omega\)；
+    \item \(P\) 为\textbf{概率测度}，对任意事件 \(A\in\mathcal{F}\)，有
+    \[
+    0\le P(A)\le 1,\qquad P(\Omega)=1,\qquad P(\varnothing)=0.
+    \]
+\end{itemize}
+
+\section{随机变量与分布}
+
+随机变量 \(X\) 是定义在样本空间上的函数：
+\[
+X(\omega)\in \mathbb{R}.
+\]
+也就是说，随机变量把随机试验的结果 \(\omega\) 映射为一个实数。
+
+若 \(B\subseteq \mathbb{R}\) 是实数上的一个集合，则事件``\(X\in B\)''定义为
+\[
+\{\omega\mid X(\omega)\in B\}.
+\]
+因此随机变量 \(X\) 在实数轴上诱导出一个概率分布：
+\[
+P(X\in B)\equiv P\left(\{\omega\mid X(\omega)\in B\}\right).
+\]
+这说明：\textbf{随机变量本身是一个函数，而分布描述的是这个函数取不同值时的概率规律。}
+
+随机变量通常分为两类：
+
+\begin{itemize}
+    \item \textbf{离散型随机变量}：取值是有限个或可数个；
+    \item \textbf{连续型随机变量}：取值落在某个连续区间上。
+\end{itemize}
+
+\subsection{Bernoulli 分布}
+
+最简单的离散分布之一是 Bernoulli 分布。若
+\[
+P(X=1)=p,\qquad P(X=0)=1-p,
+\]
+则称 \(X\sim \mathrm{Bernoulli}(p)\)。
+
+这类随机变量常用来描述``是否发生某件事''。
+
+\subsection{正态分布}
+
+典型的连续型分布是正态分布（Gauss分布）。若
+\[
+X\sim \mathcal{N}(\mu,\sigma^2),
+\]
+则其概率密度函数为
+\[
+p(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right).
+\]
+其中：
+\begin{itemize}
+    \item \(\mu\) 是均值；
+    \item \(\sigma^2\) 是方差；
+    \item \(\sigma\) 是标准差。
+\end{itemize}
+
+并且满足归一化条件
+\[
+\int_{-\infty}^{+\infty} p(x)\,\mathrm{d}x=1.
+\]
+
+\section{分布函数与密度函数}
+
+对任意随机变量 \(X\)，其累积分布函数(CDF)定义为
+\[
+F(x)=P(X\le x).
+\]
+
+若 \(X\) 是连续型随机变量，存在函数 \(p(x)\) 使得
+\[
+F(x)=\int_{-\infty}^{x} p(z)\,\mathrm{d}z,
+\]
+则称 \(p(x)\) 为 \(X\) 的概率密度函数(PDF)。此时任意区间概率可写成
+\[
+P(a<X\le b)=\int_a^b p(z)\,\mathrm{d}z = F(b)-F(a).
+\]
+
+若 \(F\) 可导，则
+\[
+p(x)=F'(x).
+\]
+
+\section{随机变量的数字特征：期望与方差}
+
+\subsection{离散型情形}
+
+设离散型随机变量 \(X\) 取值为 \(k\)，概率为 \(P_k=P(X=k)\)。则其期望为
+\[
+E(X)=\sum_k kP_k.
+\]
+对任意函数 \(f(X)\)，有
+\[
+E(f(X))=\sum_k f(k)P_k.
+\]
+
+\subsection{连续型情形}
+
+若 \(X\) 的密度函数为 \(p(x)\)，则
+\[
+E(X)=\int_{-\infty}^{+\infty} xp(x)\,\mathrm{d}x,
+\]
+更一般地，
+\[
+E(f(X))=\int_{-\infty}^{+\infty} f(x)p(x)\,\mathrm{d}x.
+\]
+
+\subsection{方差}
+
+方差刻画随机变量围绕均值的波动程度，定义为
+\[
+\mathrm{Var}(X)=E\left((X-E(X))^2\right).
+\]
+也可写为
+\[
+\mathrm{Var}(X)=E(X^2)-[E(X)]^2.
+\]
+对于连续型随机变量，
+\[
+\mathrm{Var}(X)=\int_{-\infty}^{+\infty} x^2p(x)\,\mathrm{d}x-\left(\int_{-\infty}^{+\infty} xp(x)\,\mathrm{d}x\right)^2.
+\]
+
+\subsection{线性变换下的均值与方差}
+
+若
+\[
+Y=kX+b,
+\]
+则
+\[
+E(Y)=kE(X)+b,
+\qquad
+\mathrm{Var}(Y)=k^2\mathrm{Var}(X).
+\]
+
+\section{两个随机变量的关系}
+
+设有两个随机变量 \(X,Y\)。
+
+\subsection{联合分布}
+
+若 \(X,Y\) 都是离散型，则联合分布可记为
+\[
+P(x,y)=P(X=x,Y=y).
+\]
+
+若是连续型，则写作联合密度 \(p(x,y)\)。
+
+\subsection{边缘分布}
+
+由联合分布可得到边缘分布。连续情形下：
+\[
+p(x)=\int_{-\infty}^{+\infty} p(x,y)\,\mathrm{d}y,
+\qquad
+p(y)=\int_{-\infty}^{+\infty} p(x,y)\,\mathrm{d}x.
+\]
+
+\subsection{条件分布}
+
+条件分布定义为
+\[
+p(x\mid y)=\frac{p(x,y)}{p(y)},
+\qquad
+p(y\mid x)=\frac{p(x,y)}{p(x)}.
+\]
+
+等价地，
+\[
+p(x,y)=p(x\mid y)p(y)=p(y\mid x)p(x).
+\]
+
+由此可以推出Bayes公式，
+\[
+p(x\mid y) = \frac{p(y \mid x)p(x)}{p(y)}.
+\]
+
+\subsection{独立性}
+
+若 \(X\) 与 \(Y\) 独立，则
+\[
+p(x,y)=p(x)p(y).
+\]
+这等价于
+\[
+p(x\mid y)=p(x),\qquad p(y\mid x)=p(y).
+\]
+
+\section{大数定律与中心极限定理}
+
+\subsection{大数定律}
+
+设
+\[
+X_1,X_2,\dots,X_n
+\]
+是独立同分布（i.i.d.）随机变量（每个变量的概率分布都相同，且这些随机变量互相独立），且
+\[
+E(X)=\mu.
+\]
+记样本均值为
+\[
+\overline{X}_n=\frac{1}{n}\sum_{k=1}^n X_k.
+\]
+
+大数定律说明：当 \(n\to\infty\) 时，样本均值会趋近于总体均值 \(\mu\)：
+\[
+\lim_{n\to\infty}P\left(\left|\frac{1}{n}\sum_{k=1}^n X_k-\mu\right|>\varepsilon\right)=0.
+\]
+
+更一般的，对于函数 \(f(X)\)，
+\[
+\frac{1}{n}\sum_{k=1}^n f(X_k)\to E(f(X)),
+\]
+其中
+\[
+E(f(X))=\int f(x)p(x)\,\mathrm{d}x.
+\]
+这给出了 Monte Carlo 方法的理论基础：\textbf{用样本平均逼近期望。}
+
+\subsection{中心极限定理}
+
+在同样的 i.i.d. 条件下，若 \(X\) 方差有限，则样本均值在大样本下近似服从正态分布：
+\[
+\frac{1}{n}\sum_{k=1}^n X_k \approx \mathcal{N}\left(\mu,\frac{\mathrm{Var}(X)}{n}\right).
+\]
+这说明：
+
+\begin{itemize}
+    \item 样本均值的波动会随着 \(n\) 增大而减小；
+    \item 其方差缩小为 \(\mathrm{Var}(X)/n\)；
+    \item 大样本下可以用Gauss分布近似描述样本均值的不确定性。
+\end{itemize}
+
+\section{最大似然估计（MLE）}
+
+绪论中我们推导了学习的目标——最小化K-L散度——本质上是一个最大似然估计（MLE）。现在我们来推导两种分布参数的MLE。
+
+\subsection{Gauss分布参数的MLE}
+设
+\[
+x_1,x_2,\dots,x_n \overset{\mathrm{i.i.d.}}{\sim} \mathcal{N}(\mu,\sigma^2).
+\]
+则
+\[
+p_\theta(x)=\frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right),
+\qquad
+\theta=(\mu,\sigma).
+\]
+
+其对数似然函数为
+\[
+\sum_{i=1}^n \log p_\theta(x_i)
+=
+\sum_{i=1}^n
+\left[
+-\frac{(x_i-\mu)^2}{2\sigma^2}
+-\log(\sqrt{2\pi}\sigma)
+\right].
+\]
+因此最大化对数似然等价于最小化损失函数
+\[
+L(\mu,\sigma)=
+\frac{1}{2\sigma^2}\sum_{i=1}^n (x_i-\mu)^2
++n\log(\sqrt{2\pi}\sigma).
+\]
+
+对 \(\mu\) 求偏导并令其为 \(0\)，得
+\[
+\hat{\mu}
+=
+\frac{1}{n}\sum_{i=1}^n x_i.
+\]
+
+对 \(\sigma\) 求偏导并令其为 \(0\)，得
+\[
+\hat{\sigma}^2
+=
+\frac{1}{n}\sum_{i=1}^n (x_i-\hat{\mu})^2.
+\]
+
+因此，Gauss分布的 MLE 给出：
+\begin{itemize}
+    \item 均值的估计是样本均值；
+    \item 方差的估计是以 \(n\) 为分母的样本平方偏差平均。
+\end{itemize}
+
+\subsection{Bernoulli 分布参数的MLE}
+
+我们可以把 Bernoulli 分布写作
+\[
+x_n\in\{0,1\}, \qquad
+p(x\mid \mu)=\mu^x(1-\mu)^{1-x},
+\]
+其中 $\mu$ 表示取值为 $1$ 的概率。于是对数似然为
+\[
+L(\mu)
+=
+\sum_{n=1}^N \ln p(x_n\mid \mu)
+=
+\sum_{n=1}^N \left[x_n\ln\mu+(1-x_n)\ln(1-\mu)\right].
+\]
+
+对 $\mu$ 求导并令其为零：
+\[
+\frac{\mathrm{d}L}{\mathrm{d}\mu}
+=
+\sum_{n=1}^N \frac{x_n}{\mu}
+-
+\sum_{n=1}^N \frac{1-x_n}{1-\mu}
+=0.
+\]
+记
+\[
+S_N=\sum_{n=1}^N x_n,
+\]
+则上式化为
+\[
+\frac{S_N}{\mu}
+=
+\frac{N-S_N}{1-\mu}.
+\]
+解得
+\[
+\hat{\mu}=\frac{S_N}{N}
+=
+\frac{1}{N}\sum_{n=1}^N x_n.
+\]
+
+因此，Bernoulli 分布参数的最大似然估计就是样本均值。
